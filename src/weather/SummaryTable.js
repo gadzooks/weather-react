@@ -3,29 +3,30 @@ import './SummaryTable.css';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import TableCell from '@mui/material/TableCell';
+import {formatDate} from '../utils/date'
 
 function SummaryTable(props) {
-  const dates = props.date || ["SAT JUN 04", "SUN JUN 05", "MON JUN 06"];
-  const regions = props.regions || [
-    {
-      name: "central_cascades",
-      description: "Central Cascades",
-      locations: [
-        {
-          name: "renton",
-          description: "Renton",
-          region: "central_cascades",
-          daily: {
-            type: "daily",
-            summary:
-              "Cooling down with a chance of rain Thursday, Friday \u0026 Saturday.",
-            icon: null,
-            data: [
-              {
-                "2021-04-17 07:00:00 +0000": {
+  const inputs = props.inputs || {
+    regionalForecast: [
+      {
+        name: "central_cascades",
+        description: "Central Cascades",
+
+        locations: [
+          {
+            name: "renton",
+            description: "Renton",
+            region: "central_cascades",
+            daily: {
+              type: "daily",
+              summary:
+                "Cooling down with a chance of rain Thursday, Friday \u0026 Saturday.",
+              icon: null,
+              data: [
+                {
                   time: "2021-04-17T07:00:00.000+00:00",
                   summary: "Clear conditions throughout the day.",
-                  icon: "clear-day",
+                  icon: "day-hail",
                   precipProbability: 0.0,
                   temperature: 60.9,
                   apparentTemperature: 60.9,
@@ -38,12 +39,10 @@ function SummaryTable(props) {
                   sunriseTime: 1618665359,
                   precipAmount: 0.0,
                 },
-              },
-              {
-                "2021-04-18 07:00:00 +0000": {
+                {
                   time: "2021-04-18T07:00:00.000+00:00",
                   summary: "Clear conditions throughout the day.",
-                  icon: "clear-day",
+                  icon: "day-haze",
                   precipProbability: 0.0,
                   temperature: 62.1,
                   apparentTemperature: 62.1,
@@ -56,12 +55,10 @@ function SummaryTable(props) {
                   sunriseTime: 1618751647,
                   precipAmount: 0.0,
                 },
-              },
-              {
-                "2021-04-19 07:00:00 +0000": {
+                {
                   time: "2021-04-19T07:00:00.000+00:00",
                   summary: "Clear conditions throughout the day.",
-                  icon: "clear-day",
+                  icon: "day-storm-showers",
                   precipProbability: 0.0,
                   temperature: 60.4,
                   apparentTemperature: 60.4,
@@ -74,12 +71,10 @@ function SummaryTable(props) {
                   sunriseTime: 1618837937,
                   precipAmount: 0.0,
                 },
-              },
-              {
-                "2021-04-20 07:00:00 +0000": {
+                {
                   time: "2021-04-20T07:00:00.000+00:00",
                   summary: "Partly cloudy throughout the day.",
-                  icon: "partly-cloudy-day",
+                  icon: "hot",
                   precipProbability: 19.0,
                   temperature: 58.1,
                   apparentTemperature: 58.1,
@@ -92,35 +87,44 @@ function SummaryTable(props) {
                   sunriseTime: 1618924228,
                   precipAmount: 0.0,
                 },
-              },
-            ],
+              ],
+            },
           },
-        },
-        {
-          name: "yakima",
-          description: "Yakima",
-          region: "central_cascades",
-        },
-      ],
-    },
-    {
-      name: "central_wa",
-      description: "Central Washington",
-      locations: [
-        {
-          name: "seattle",
-          description: "Seattle City",
-          region: "central_wa",
-        },
-        {
-          name: "bellevue",
-          description: "Bellevue City",
-          region: "central_wa",
-        },
-      ],
-    },
-  ];
+          {
+            name: "yakima",
+            description: "Yakima",
+            region: "central_cascades",
+          },
+        ],
+      },
+      {
+        name: "central_wa",
+        description: "Central Washington",
+        locations: [
+          {
+            name: "seattle",
+            description: "Seattle City",
+            region: "central_wa",
+          },
+          {
+            name: "bellevue",
+            description: "Bellevue City",
+            region: "central_wa",
+          },
+        ],
+      },
+    ],
 
+    dates: [
+      "2021-04-17T07:00:00.000+00:00",
+      "2021-04-18T07:00:00.000+00:00",
+      "2021-04-19T07:00:00.000+00:00",
+      "2021-04-20T07:00:00.000+00:00",
+    ],
+  };
+
+  const dates = inputs.dates || ["SAT JUN 04", "SUN JUN 05", "MON JUN 06"];
+  const regions = inputs.regionalForecast;
   return (
     <>
       <TableHead>
@@ -128,7 +132,7 @@ function SummaryTable(props) {
           <TableCell>Weather Alerts</TableCell>
           <TableCell>Location</TableCell>
           {dates.map((date) => {
-            return <TableCell>{date}</TableCell>;
+            return <TableCell>{formatDate(date)}</TableCell>;
           })}
         </TableRow>
       </TableHead>
