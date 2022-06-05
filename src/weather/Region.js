@@ -1,3 +1,4 @@
+import { TableBody } from '@mui/material';
 import TableCell from '@mui/material/TableCell';
 import TableRow from '@mui/material/TableRow';
 
@@ -8,14 +9,16 @@ function Region(props) {
     const locations = region.locations;
     return (
       <>
-        <TableRow bgcolor="#eedf6a3d" >
-          <TableCell colSpan={colSpan} align="center">
-            {region.description}
-          </TableCell>
-        </TableRow>
-        {locations.map((l) => {
-            return <Location location={l} key={l.name} />
-        })}
+        <TableBody>
+          <TableRow bgcolor="#eedf6a3d">
+            <TableCell colSpan={colSpan} align="center">
+              {region.description}
+            </TableCell>
+          </TableRow>
+          {locations.map((l) => {
+            return <Location location={l} key={l.name} />;
+          })}
+        </TableBody>
       </>
     );
 
