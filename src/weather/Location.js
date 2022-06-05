@@ -8,10 +8,10 @@ function Location(props) {
   return (
     <TableRow>
       <TableCell>N/A</TableCell>
-      <TableCell>{props.location.name}</TableCell>
-      {data.map((d) => {
+      <TableCell>{location.description}</TableCell>
+      {data.map((d, index) => {
           const icon = d.icon ? `wi wi-${d.icon}` : `wi`
-          return <TableCell><i class={icon}></i></TableCell>
+          return <TableCell key={index}><i className={icon}></i></TableCell>
       })}
     </TableRow>
   );
