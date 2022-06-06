@@ -3,13 +3,15 @@ import TableRow from '@mui/material/TableRow';
 import '../css/weather-icons.css'
 
 function Location(props) {
-  const location = props.location;
-  const data = location?.daily?.data || []
+  // debugger;
+  const locationId = props.id;
+  const location = props.inputs['locations']['byId'][locationId];
+  const forecasts = props.inputs["forecasts"]["byId"][locationId] || [];
   return (
     <TableRow>
       <TableCell>N/A</TableCell>
       <TableCell>{location.description}</TableCell>
-      {data.map((d, index) => {
+      {forecasts.map((d, index) => {
           const icon = d.icon ? `wi wi-${d.icon}` : `wi`
           return <TableCell key={index}><i className={icon}></i></TableCell>
       })}

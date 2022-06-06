@@ -4,9 +4,12 @@ import TableRow from '@mui/material/TableRow';
 
 import Location from './Location.js'
 function Region(props) {
-    const region = props.region;
-    const colSpan = region.colSpan || "9";
-    const locations = region.locations;
+    const regionId = props.id;
+    const inputs = props.inputs;
+    const region = inputs['regions']['byId'][regionId];
+    console.log(region);
+    const colSpan = "9";
+    const locationIds = region.locations;
     return (
       <>
         <TableBody>
@@ -15,8 +18,8 @@ function Region(props) {
               {region.description}
             </TableCell>
           </TableRow>
-          {locations.map((l) => {
-            return <Location location={l} key={l.name} />;
+          {locationIds.map((id) => {
+            return <Location id={id} key={id} inputs={inputs} />;
           })}
         </TableBody>
       </>

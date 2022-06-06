@@ -1,11 +1,9 @@
-import { mockWeatherForecast } from './api/mockData';
+import { mockWeatherForecast, mockWeatherForecastNormalized } from './api/mockData';
 import './App.css';
-import SummaryTable from './weather/SummaryTable';
+import SearchableTable from './weather/SearchableTable';
 
 function App() {
-  return (
-    <SummaryTable name="SummaryTable" inputs={mockWeatherForecast()} />
-  );
+  return <SearchableTable inputs={mockWeatherForecastNormalized()} />;
 }
 
 export default App;

@@ -9,7 +9,7 @@ import { Table } from '@mui/material';
 function SummaryTable(props) {
   const inputs = props.inputs;
   const dates = inputs.dates;
-  const regions = inputs.regionalForecast;
+  const regionIds = inputs.regions.allIds;
   return (
     <>
       <Table>
@@ -22,8 +22,8 @@ function SummaryTable(props) {
             })}
           </TableRow>
         </TableHead>
-        {regions.map((r) => {
-          return <Region region={r} key={r.name} />;
+        {regionIds.map((id) => {
+          return <Region id={id} inputs={inputs} key={id} />;
         })}
       </Table>
     </>
