@@ -7,7 +7,6 @@ function Region(props) {
     const regionId = props.id;
     const inputs = props.inputs;
     const region = inputs['regions']['byId'][regionId];
-    console.log(region);
     const colSpan = "9";
     const locationIds = region.locations;
     return (
@@ -19,7 +18,11 @@ function Region(props) {
             </TableCell>
           </TableRow>
           {locationIds.map((id) => {
-            return <Location id={id} key={id} inputs={inputs} />;
+            if (id.match(props.searchText)) {
+              return <Location id={id} key={id} inputs={inputs} />;
+            } else {
+              return null;
+            }
           })}
         </TableBody>
       </>

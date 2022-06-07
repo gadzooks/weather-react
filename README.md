@@ -1,3 +1,8 @@
+# Learnings : 
+- Normalize state to make it easier to update it : 
+- https://alexsidorenko.com/blog/react-update-nested-state/
+- https://redux.js.org/usage/structuring-reducers/normalizing-state-shape
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).

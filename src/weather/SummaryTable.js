@@ -6,6 +6,10 @@ import TableCell from '@mui/material/TableCell';
 import {formatDate} from '../utils/date';
 import { Table } from '@mui/material';
 
+function matchedOne(needle, haystack) {
+  return haystack.find((element) => element.match(needle));
+}
+
 function SummaryTable(props) {
   const inputs = props.inputs;
   const dates = inputs.dates;
@@ -23,7 +27,19 @@ function SummaryTable(props) {
           </TableRow>
         </TableHead>
         {regionIds.map((id) => {
-          return <Region id={id} inputs={inputs} key={id} />;
+          const region = inputs["regions"]["byId"][id];
+          if (matchedOne(props.searchText, region.locations)) {
+            return (
+              <Region
+                id={id}
+                inputs={inputs}
+                key={id}
+                searchText={props.searchText}
+              />
+            );
+          } else {
+            return null;
+          }
         })}
       </Table>
     </>
