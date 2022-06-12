@@ -7,8 +7,8 @@ function Region(props) {
     const regionId = props.id;
     const inputs = props.inputs;
     const region = inputs['regions']['byId'][regionId];
-    const colSpan = "9";
-    const locationIds = region.locations;
+    const colSpan = "17";
+    const locationIds = region.locations.map((l) => {return l.name; });
     return (
       <>
         <TableBody>

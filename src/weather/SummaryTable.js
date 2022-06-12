@@ -7,7 +7,8 @@ import {formatDate} from '../utils/date';
 import { Table } from '@mui/material';
 
 function matchedOne(needle, haystack) {
-  return haystack.find((element) => element.match(needle));
+  const names = haystack.map((l) => {return l.name});
+  return names.find((element) => element.match(needle));
 }
 
 function SummaryTable(props) {
