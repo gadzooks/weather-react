@@ -16,7 +16,6 @@ function Location(props) {
           if(d.icon) {
             icon = icon_class(d.icon, d.precipAmount, d.cloudCover, d.maxtemp)
           }
-          icon = d.icon ? `wi wi-${d.icon}` : `wi`
           return <TableCell key={index} className='weather-cell center'><i className={icon}></i></TableCell>
       })}
     </TableRow>
