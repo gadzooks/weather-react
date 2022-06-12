@@ -1,6 +1,7 @@
 import { TableBody } from '@mui/material';
 import TableCell from '@mui/material/TableCell';
 import TableRow from '@mui/material/TableRow';
+import './Region.scss';
 
 import Location from './Location.js'
 function Region(props) {
@@ -12,7 +13,7 @@ function Region(props) {
     return (
       <>
         <TableBody>
-          <TableRow bgcolor="#fcfdcc">
+          <TableRow className='region-details'>
             <TableCell colSpan={colSpan} align="center">
               {region.description}
             </TableCell>

@@ -1,5 +1,5 @@
 import Region from './Region.js';
-import './SummaryTable.css';
+import './SummaryTable.scss';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import TableCell from '@mui/material/TableCell';
@@ -17,8 +17,8 @@ function SummaryTable(props) {
   const regionIds = inputs.regions.allIds;
   return (
     <>
-      <Table>
-        <TableHead>
+      <Table className='table table-sm weather-forecast-summary'>
+        <TableHead className='table-heading'>
           <TableRow>
             <TableCell>Weather Alerts</TableCell>
             <TableCell>Location</TableCell>

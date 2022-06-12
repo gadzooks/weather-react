@@ -1,19 +1,23 @@
 import TableCell from '@mui/material/TableCell';
 import TableRow from '@mui/material/TableRow';
 import '../css/weather-icons.css'
+import {icon_class} from '../utils/icon';
 
 function Location(props) {
-  // debugger;
   const locationId = props.id;
   const location = props.inputs['locations']['byId'][locationId];
   const forecasts = props.inputs["forecasts"]["byId"][locationId] || [];
   return (
-    <TableRow>
-      <TableCell>N/A</TableCell>
-      <TableCell>{location.description}</TableCell>
+    <TableRow className='weather-cell'>
+      <TableCell className='weather-cell'>N/A</TableCell>
+      <TableCell className='weather-cell'>{location.description}</TableCell>
       {forecasts.map((d, index) => {
-          const icon = d.icon ? `wi wi-${d.icon}` : `wi`
-          return <TableCell key={index}><i className={icon}></i></TableCell>
+          let icon = 'wi';
+          if(d.icon) {
+            icon = icon_class(d.icon, d.precipAmount, d.cloudCover, d.maxtemp)
+          }
+          icon = d.icon ? `wi wi-${d.icon}` : `wi`
+          return <TableCell key={index} className='weather-cell center'><i className={icon}></i></TableCell>
       })}
     </TableRow>
   );

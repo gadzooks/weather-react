@@ -1,0 +1,266 @@
+// Place all the styles related to the Weather controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+.weather-forecast-table {
+  font-family: 'Courier'
+  // font-family: 'Apercu Mono'
+}
+
+$color-alert-bg: black;
+
+.alert-cell-triangle {
+    position: relative;
+}
+.alert-cell-triangle:after {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 0;
+  height: 0; 
+  display: block;
+  border-left: 15px solid transparent;
+  border-bottom: 15px solid transparent;
+  border-top: 15px solid $color-alert-bg;
+}
+
+.alert-details {
+  padding: 0.5rem;
+  margin-bottom: 1.25rem;
+  border: 2px solid #eee;
+  border-left-width: .25rem;
+  border-radius: .5rem;
+  span.title {
+    margin-top: 0;
+    margin-bottom: .25rem;
+    font-weight: bolder;
+    padding: 5px;
+    border-radius: .25rem;
+  }
+  .regions {
+    padding: 3px;
+    span.region {
+      font-weight: 700;
+    }
+  }
+  .description {
+    padding: 3px;
+    span.description {
+      font-weight: 700;
+    }
+  }
+}
+
+
+// level 1 warning
+$color-alert-advisory: rgba(23, 188, 255, 1);
+.alert-advisory {
+  border-left-color: $color-alert-advisory;
+  span {
+  }
+}
+
+// level 2 warning
+$color-alert-watch: rgba(255, 213, 46, 1);
+.alert-watch {
+  border-left-color: $color-alert-watch;
+  span {
+  }
+}
+
+$color-alert-warning: rgba(255, 66, 39, 0.88);
+// level 3 warning
+.alert-warning {
+  border-left-color: $color-alert-warning;
+  span {
+  }
+}
+
+span.alerts-summary {
+  background-color: blue;
+  color: white;
+  padding: 1px 5px;
+  margin-right: 10px;
+  border-radius: .2rem;
+}
+
+span.alert_id {
+  background-color: $color-alert-bg;
+  padding: 1px 5px;
+  margin: 3px;
+  a {
+    color: white;
+  }
+  border-radius: .2rem;
+}
+
+table.weather-forecast-alerts {
+  tr.table-heading {
+    td {
+      border: 0;
+      font-size: 1.2em;
+    }
+  }
+}
+
+table.weather-forecast-summary {
+  td.weather-cell {
+    border: 2px solid rgba(1,2,4,0.07);
+  }
+  td.center {
+    text-align: center;
+  }
+  thead.table-heading {
+    th {
+      border: 0;
+      font-size: 1.2em;
+      background-color: #f9d6a7;
+    }
+  }
+
+  tr.planetory-info {
+    span.sunrise {
+      i {
+        color: #ffc107;
+        padding-right: 0.4em;
+      }
+      padding-right: 2em;
+    }
+    span.sunset {
+      i {
+        color: #0e151d;
+        padding-right: 0.4em;
+      }
+      padding-left: 2em;
+    }
+  }
+}
+
+table.weather-forecast {
+  border-collapse:collapse;
+  tr.weather-cell td {
+    border: 2px solid rgba(1, 2, 4, 0.07);
+  }
+
+  thead {
+    tr.header-secondary-main {
+      background-color:#f2d8a4;
+    }
+  }
+
+  tbody {
+    white-space: nowrap;
+
+    tr.daily-summary {
+      background-color: #feffd4;
+    }
+
+    .weekend {
+      background-image:linear-gradient(142deg, #b2f7c6 11.11%, #faf5f5 11.11%, #faf5f5 50%, #b2f7c6 50%, #b2f7c6 61.11%, #faf5f5 61.11%, #faf5f5 100%);
+      background-size: 14.62px 11.42px;
+    }
+
+    tr.region-details {
+      td {
+        column-span: all;
+        text-align: center;
+      }
+      background: #fef7e9;
+    }
+
+    tr.weather-details {
+      span.forecast-id {
+        color: white;
+        background-color: rgba(156, 191, 240, 0.8);
+        padding: 3px 3px 3px 5px;
+        border-radius: 0.25em;
+        margin-right: 5px;
+      }
+
+      td.summary {
+        text-align: left;
+      }
+
+      td.location-row {
+        text-align: left;
+      }
+
+      td.left-col-of-merged-cells {
+        border-right: solid 1px #FFF;
+      }
+
+      td.right-col-of-merged-cells {
+        border-left: solid 1px #FFF;
+      }
+
+      td.forecast-date span.day-of-month {
+        border:none;
+        color: #df788e;
+        font-size: 0.85em;
+        font-weight: 900;
+        white-space: nowrap;
+      }
+
+      td.precipitation {
+        text-align: center;
+      }
+
+      td.precipitation-prob {
+        border-right: none;
+        text-align: right;
+      }
+      td.precipitation-amount {
+        border-left: none;
+        text-align: right;
+      }
+      td.cloud-cover {
+        text-align: right;
+        padding-right: 4em;
+      }
+    }
+  }
+
+  .header-main {
+    background-color:#def0ff;
+  }
+
+  tr.header-secondary {
+    background-color:#fef7e9;
+    text-align: center;
+    td {
+      padding: 8px 8px;
+    }
+  }
+
+  .fog { color: rgb(152, 150, 152); }
+  .snow { color: rgb(25, 151, 245); }
+  .cloudy { color: blue; }
+  .rain { color: blue; }
+  .sunshine-10 { color: rgb(255, 187, 33); }
+  .sunshine-50 { color: rgb(123, 96, 96); }
+  .sunshine-100 { color: rgb(38, 163, 231); }
+  .day-sunny { color: #ffb412; }
+
+  .high-temp-wi-hotter {
+    color: #ff5f21;
+  }
+
+  .high-temp-wi-hot {
+    color: #ffbb21;
+  }
+
+}
+
+.align-right {
+  text-align: right;
+}
+
+.weather-icon {
+  font-size: 1.4em;
+  font-weight: 1.2em;
+}
+
+a.freepik {
+  text-decoration: underline;
+  font-size: 0.8em;
+}
