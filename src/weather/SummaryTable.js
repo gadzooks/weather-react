@@ -5,6 +5,7 @@ import TableRow from '@mui/material/TableRow';
 import TableCell from '@mui/material/TableCell';
 import {formatDate} from '../utils/date';
 import { Table } from '@mui/material';
+import { parse, format } from 'fecha';
 
 function matchedOne(needle, haystack) {
   const names = haystack.map((l) => {return l.name});
@@ -13,7 +14,10 @@ function matchedOne(needle, haystack) {
 
 function SummaryTable(props) {
   const inputs = props.inputs;
-  const dates = inputs.dates;
+  const dates = inputs.dates.map((d) => {
+    const parsedDate = parse(d, 'YYYY-MM-DD');
+    return parsedDate;
+  })
   const regionIds = inputs.regions.allIds;
   return (
     <>
@@ -23,7 +27,7 @@ function SummaryTable(props) {
             <TableCell>Weather Alerts</TableCell>
             <TableCell>Location</TableCell>
             {dates.map((date) => {
-              return <TableCell key={date}>{formatDate(date)}</TableCell>;
+              return <TableCell key={date}>{format(date, 'ddd MMM dd').toUpperCase()}</TableCell>;
             })}
           </TableRow>
         </TableHead>

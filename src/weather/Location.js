@@ -15,9 +15,10 @@ function Location(props) {
       {forecasts.map((d, index) => {
           let icon = 'wi';
           if(d.icon) {
+            // console.log(d);
             icon = icon_class(d.icon, d.precip, d.cloudcover, d.tempmax)
           }
-          return <TableCell key={index} className='weather-cell center'><i className={icon}></i></TableCell>
+          return <TableCell key={index} className='weather-cell center'><i className={icon} title={d.description}></i></TableCell>
       })}
     </TableRow>
   );

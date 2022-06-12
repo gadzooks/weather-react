@@ -23,9 +23,6 @@ class App extends React.Component {
       .then(res => res.json())
       .then(
         (result) => {
-          console.log("================");
-          console.log(result);
-          console.log("================");
           this.setState({
             isLoaded: true,
             forecast: result.data,
