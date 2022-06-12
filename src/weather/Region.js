@@ -12,7 +12,7 @@ function Region(props) {
     return (
       <>
         <TableBody>
-          <TableRow bgcolor="#eedf6a3d">
+          <TableRow bgcolor="#fcfdcc">
             <TableCell colSpan={colSpan} align="center">
               {region.description}
             </TableCell>
