@@ -20,7 +20,7 @@ function Region(props) {
           </TableRow>
           {locationIds.map((id) => {
             if (id.match(props.searchText)) {
-              return <Location id={id} key={id} inputs={inputs} />;
+              return <Location id={id} key={id} inputs={inputs} isWeekend={props.isWeekend} />;
             } else {
               return null;
             }

@@ -14,8 +14,11 @@ function matchedOne(needle, haystack) {
 
 function SummaryTable(props) {
   const inputs = props.inputs;
+  const isWeekend = [];
   const dates = inputs.dates.map((d) => {
     const parsedDate = parse(d, 'YYYY-MM-DD');
+    const dayOfWeek = format(parsedDate, 'ddd').toUpperCase();
+    isWeekend.push(dayOfWeek === 'SUN' || dayOfWeek === 'SAT')
     return parsedDate;
   })
   const regionIds = inputs.regions.allIds;
@@ -27,7 +30,7 @@ function SummaryTable(props) {
             <TableCell>Weather Alerts</TableCell>
             <TableCell>Location</TableCell>
             {dates.map((date) => {
-              return <TableCell key={date}>{format(date, 'ddd MMM dd').toUpperCase()}</TableCell>;
+              return <TableCell key={date}>{format(date, 'ddd MMM DD').toUpperCase()}</TableCell>;
             })}
           </TableRow>
         </TableHead>
@@ -40,6 +43,7 @@ function SummaryTable(props) {
                 inputs={inputs}
                 key={id}
                 searchText={props.searchText}
+                isWeekend={isWeekend}
               />
             );
           } else {
