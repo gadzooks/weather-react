@@ -1,0 +1,30 @@
+table.location-details {
+    tbody {
+        white-space: nowrap;
+    }
+
+    width: 50%;
+
+    tr.heading th {
+        font-weight: bold;
+        text-align: center;
+        background-color: #f2f7fb;
+    }
+
+    tr.secondary-heading th {
+        background-color: #ffeaaa;
+    }
+
+    td.align-right {
+        text-align: right;
+    }
+}
+
+.center {
+    text-align: center;
+}
+
+.border-right {
+    border-right: 1px solid #afafaf;
+}
+
