@@ -1,8 +1,7 @@
 import React from 'react';
 import { mockWeatherForecast, mockWeatherForecastNormalized } from './api/mockData';
 import './App.css';
-// import SearchableTable from './weather/SearchableTable';
-import SearchableTableHook from './weather/SearchableTableHook';
+import SearchableTableHook from './weather/forecast_sumary/SearchableTableHook';
 
 class App extends React.Component {
   constructor(props) {
