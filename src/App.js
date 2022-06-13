@@ -1,7 +1,9 @@
 import React from 'react';
 import { mockWeatherForecast, mockWeatherForecastNormalized } from './api/mockData';
 import './App.css';
-import SearchableTableHook from './weather/forecast_sumary/SearchableTableHook';
+import SearchableTableHook from './weather/forecast_summary/SearchableTableHook';
+import LocationDetails from './weather/location_details/LocationDetails';
+import { format, parse } from 'fecha';
 
 class App extends React.Component {
   constructor(props) {
@@ -47,7 +49,23 @@ class App extends React.Component {
     } else if (!isLoaded) {
       return <div>Loading...</div>;
     } else {
-      return <SearchableTableHook inputs={forecast} />;
+      const isWeekend = [];
+      const dates = forecast.dates.map((d) => {
+        const parsedDate = parse(d, 'YYYY-MM-DD');
+        const dayOfWeek = format(parsedDate, 'ddd').toUpperCase();
+        isWeekend.push(dayOfWeek === 'SUN' || dayOfWeek === 'SAT')
+        return parsedDate;
+      })
+
+      // console.log(forecast.forecasts.byId);
+      // console.log(isWeekend);
+      // console.log(dates);
+      return (
+        <>
+          <LocationDetails locationsByName={forecast.forecasts.byId} isWeekend={isWeekend} dates={dates} />
+          {/* <SearchableTableHook inputs={forecast} isWeekend={isWeekend} dates={dates} /> */}
+        </>
+      )
     }
   }
 }
