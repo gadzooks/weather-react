@@ -49,6 +49,7 @@ class App extends React.Component {
     } else if (!isLoaded) {
       return <div>Loading...</div>;
     } else {
+      //TODO move this to a function
       const isWeekend = [];
       const dates = forecast.dates.map((d) => {
         const parsedDate = parse(d, 'YYYY-MM-DD');
@@ -57,13 +58,11 @@ class App extends React.Component {
         return parsedDate;
       })
 
-      // console.log(forecast.forecasts.byId);
-      // console.log(isWeekend);
-      // console.log(dates);
+      //TODO return components only if all data is available
       return (
         <>
-          <LocationDetails locationsByName={forecast.forecasts.byId} isWeekend={isWeekend} dates={dates} />
-          {/* <SearchableTableHook inputs={forecast} isWeekend={isWeekend} dates={dates} /> */}
+          <SearchableTableHook inputs={forecast} isWeekend={isWeekend} dates={dates} />
+          <LocationDetails locationsByName={forecast.forecasts.byId} isWeekend={isWeekend} dates={dates} locations={forecast.locations.allIds} />
         </>
       )
     }

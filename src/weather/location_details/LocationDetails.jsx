@@ -2,19 +2,16 @@ import LocationDetail from "./LocationDetail";
 
 function LocationDetails(props) {
     const locationsByName = props.locationsByName;
+    const locations = props.locations;
 
     return (
         <>
-        <ul>
             {
-                Object.keys(locationsByName).forEach(key => {
+                locations.map(key => {
                     const value = locationsByName[key];
-                    console.log(key);
-                    return <li>{key}</li>
-                    // return <LocationDetail id={key} forecast={value} name={key} isWeekend={props.isWeekend} dates={props.dates} />
+                    return <LocationDetail key={key} forecast={value} name={key} isWeekend={props.isWeekend} dates={props.dates} />
                 })
             }
-        </ul>
         </>
     )
 }
