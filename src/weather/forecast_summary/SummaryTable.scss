@@ -56,24 +56,18 @@ $color-alert-bg: black;
 $color-alert-advisory: rgba(23, 188, 255, 1);
 .alert-advisory {
   border-left-color: $color-alert-advisory;
-  span {
-  }
 }
 
 // level 2 warning
 $color-alert-watch: rgba(255, 213, 46, 1);
 .alert-watch {
   border-left-color: $color-alert-watch;
-  span {
-  }
 }
 
 $color-alert-warning: rgba(255, 66, 39, 0.88);
 // level 3 warning
 .alert-warning {
   border-left-color: $color-alert-warning;
-  span {
-  }
 }
 
 span.alerts-summary {

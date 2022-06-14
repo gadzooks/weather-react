@@ -1,9 +1,12 @@
 table.location-details {
+  border-collapse:collapse;
     tbody {
         white-space: nowrap;
+        padding:4px;
     }
 
     width: 50%;
+    margin-top: 25px;
 
     tr.heading th {
         font-weight: bold;
@@ -18,10 +21,10 @@ table.location-details {
     td.align-right {
         text-align: right;
     }
-}
 
-.center {
-    text-align: center;
+    .center {
+        text-align: center;
+    }
 }
 
 .border-right {
