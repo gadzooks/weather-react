@@ -3,6 +3,6 @@ export function convertToSentence(input: string) :string {
         return input;
     }
 
-    const str = input.replace('-', ' ');
+    const str = input.replaceAll('-', ' ');
     return str.charAt(0).toUpperCase() + str.slice(1);
 }
