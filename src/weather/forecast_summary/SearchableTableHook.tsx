@@ -1,27 +1,28 @@
 import SummaryTable from './SummaryTable';
 import { TextField } from '@mui/material';
 import React, { useState, useEffect } from 'react';
+import { ForecastResponse, ForecastsById } from '../../interfaces/ForecastResponseInterface';
 
-function SearchableTableHook(props) {
+export interface SearchableTableHookProps extends ForecastResponse{
+  parsedDates: (Date|null)[],
+  isWeekend: Boolean[],
+  forecasts: ForecastsById,
+}
+
+function SearchableTableHook(props: SearchableTableHookProps) {
   const [searchText, setSearchText] = useState("");
-  const [inputs, setInputs] = useState(props.inputs);
+  const [inputs, setInputs] = useState(props.forecasts);
   return (
     <>
       <TextField
         id="outlined-basic"
         label="Search Locations With Hook"
         variant="outlined"
-        padding="5px"
         autoFocus={true}
         onChange={e => setSearchText(e.target.value)}
       />
       <SummaryTable
-        name="SummaryTable"
-        inputs={inputs}
-        searchText={searchText}
-        isWeekend={props.isWeekend}
-        dates={props.dates}
-      />
+      searchText={searchText} {...props} />
     </>
   );
 }

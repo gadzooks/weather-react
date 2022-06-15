@@ -1,21 +1,28 @@
-import Region from './Region.js';
 import './SummaryTable.scss';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import TableCell from '@mui/material/TableCell';
 import { Table } from '@mui/material';
 import { parse, format } from 'fecha';
+import { LocationInterface } from '../../interfaces/LocationInterface.js';
+import {SearchableTableHookProps} from './SearchableTableHook';
+import React from 'react';
+import Region from './Region';
 
-function matchedOne(needle, haystack) {
+function matchedOne(needle: string, haystack: LocationInterface[]) {
   const names = haystack.map((l) => {return l.name});
   return names.find((element) => element.match(needle));
 }
 
-function SummaryTable(props) {
-  const inputs = props.inputs;
+interface SummaryTableProps extends SearchableTableHookProps {
+  searchText: string,
+}
+
+function SummaryTable(props: SummaryTableProps) {
   const isWeekend = props.isWeekend;
-  const dates = props.dates;
-  const regionIds = inputs.regions.allIds;
+  const parsedDates = props.parsedDates;
+  const regionIds = props.regions.allIds;
+  const regions = props.regions;
   return (
     <>
       <Table className='table table-sm weather-forecast-summary'>
@@ -23,21 +30,22 @@ function SummaryTable(props) {
           <TableRow>
             <TableCell>Weather Alerts</TableCell>
             <TableCell>Location</TableCell>
-            {dates.map((date) => {
-              return <TableCell key={date}>{format(date, 'ddd MMM DD').toUpperCase()}</TableCell>;
+            {parsedDates.map((date, idx) => {
+              const txt = date === null ? '' : format(date, 'ddd MMM DD').toUpperCase();
+              return <TableCell key={idx}>{txt}</TableCell>;
             })}
           </TableRow>
         </TableHead>
         {regionIds.map((id) => {
-          const region = inputs["regions"]["byId"][id];
+          const region = regions.byId[id];
           if (matchedOne(props.searchText, region.locations)) {
             return (
               <Region
-                id={id}
-                inputs={inputs}
                 key={id}
                 searchText={props.searchText}
                 isWeekend={isWeekend}
+                region={region}
+                forecastsById={props.forecasts}
               />
             );
           } else {
