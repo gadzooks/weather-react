@@ -15,13 +15,13 @@ const iconMapping: {[key: string] : string} = {
 };
 
 export function icon_class(icon: string, precipitation: number, cloud_cover: number, max_temp: number): string {
-    var mapping = iconMapping[icon] || "na";
-    var additional_class = "";
+    let mapping = iconMapping[icon] || "na";
+    let additional_class = "";
 
     if (mapping === "cloudy") {
         if (precipitation) {
             additional_class = precipitation < 30 ? "sunshine-10" : precipitation < 60 ? "sunshine-50" : "sunshine-100"
-        };
+        }
 
         // OVERRIDE sunshine color to greyish if cloud cover is high
         if (cloud_cover > 60) additional_class = "sunshine-50";
@@ -30,13 +30,13 @@ export function icon_class(icon: string, precipitation: number, cloud_cover: num
         if (cloud_cover <= 50) mapping = "day-cloudy"
     } else if (mapping === "day-sunny" && max_temp >= 80) {
         mapping = "hot"
-    };
+    }
 
     if (max_temp >= 90) {
         additional_class += " high-temp-wi-hotter"
     } else if (max_temp >= 80) {
         additional_class += " high-temp-wi-hot"
-    };
+    }
 
     return "wi weather-icon wi-" + mapping + " " + mapping + " " + additional_class
 }
@@ -46,7 +46,7 @@ export function precipitation(precipitation: number): string {
     precipitation *= 100;
     if (precipitation > 100) precipitation /= 100;
     return `${Math.round(precipitation)}%`
-};
+}
   
 export function precipitationAmount(p: number): string {
     if (p) {

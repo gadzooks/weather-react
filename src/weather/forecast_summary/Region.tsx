@@ -9,7 +9,7 @@ import Location from './Location';
 
 export interface RegionProps {
   searchText: string,
-  isWeekend: Boolean[],
+  isWeekend: boolean[],
   region: RegionInterface,
   forecastsById: ForecastsById,
 }

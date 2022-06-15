@@ -5,7 +5,7 @@ import { ForecastResponse, ForecastsById } from '../../interfaces/ForecastRespon
 
 export interface SearchableTableHookProps extends ForecastResponse{
   parsedDates: (Date|null)[],
-  isWeekend: Boolean[],
+  isWeekend: boolean[],
   forecasts: ForecastsById,
 }
 

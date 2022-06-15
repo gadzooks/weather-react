@@ -9,8 +9,8 @@ interface AppState {
   forecast: ForecastResponse|null,
 }
 
-class App extends React.Component<{}, AppState> {
-  constructor(props: any) {
+class App extends React.Component<AppState, AppState> {
+  constructor(props: AppState) {
     super(props);
     this.state = {
       isLoaded: false,

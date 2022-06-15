@@ -7,7 +7,7 @@ import { ForecastsById } from '../../interfaces/ForecastResponseInterface';
 import React from 'react';
 
 interface LocationProps {
-  isWeekend: Boolean[],
+  isWeekend: boolean[],
   location: LocationInterface,
   forecastsById: ForecastsById,
 }
@@ -22,7 +22,7 @@ function Location(props: LocationProps) {
       {forecasts.map((d, index) => {
         const weekendClassName = props.isWeekend[index] ? ' weekend ' : ' ';
         return <TableCell key={index} className={`weather-cell center ${weekendClassName}`}>
-          <WeatherIcon d={d} index={index} />
+          <WeatherIcon {...d} key={index} />
         </TableCell>
       })}
     </TableRow>

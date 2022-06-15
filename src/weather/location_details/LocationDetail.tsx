@@ -13,7 +13,7 @@ interface LocationDetailProps {
     name: string;
     forecast: DailyForecastInterface[];
     dates: (Date|null)[];
-    isWeekend: Boolean[];
+    isWeekend: boolean[];
 }
 
 function LocationDetail(props: LocationDetailProps) {
@@ -48,7 +48,7 @@ function LocationDetail(props: LocationDetailProps) {
                                 <TableCell >{format(d, 'ddd').toUpperCase()}</TableCell>
                                 <TableCell className="border-right">{format(d, 'MMM Do').toUpperCase()}</TableCell>
                                 <TableCell>
-                                    <WeatherIcon d={row} index={id} />
+                                    <WeatherIcon {...row} key={id} />
                                 </TableCell>
                                 <TableCell className="border-right">{convertToSentence(row.icon)}</TableCell>
                                 <TableCell className="border-right">{Math.round(row.tempmax) + '° / ' + Math.round(row.tempmin) + '°'}</TableCell>

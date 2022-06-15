@@ -4,8 +4,8 @@ import { ForecastResponse } from "../interfaces/ForecastResponseInterface";
 import SearchableTableHook from "./forecast_summary/SearchableTableHook";
 import LocationDetails from "./location_details/LocationDetails";
 
-function isWeekend(dates: (Date|null)[]) :Boolean[] {
-    const weekends: Boolean[] = [];
+function isWeekend(dates: (Date|null)[]) :boolean[] {
+    const weekends: boolean[] = [];
     if(!dates) {
         return weekends;
     }

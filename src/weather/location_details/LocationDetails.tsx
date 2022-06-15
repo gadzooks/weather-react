@@ -4,7 +4,7 @@ import LocationDetail from "./LocationDetail";
 
 interface LocationDetailsProps {
     locations: string[];
-    isWeekend: Boolean[];
+    isWeekend: boolean[];
     forecastsByName: {[indexer :string]: DailyForecastInterface[]};
     dates: (Date|null)[];
 }
