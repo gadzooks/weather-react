@@ -1,7 +1,16 @@
+import React from "react";
+import DailyForecastInterface from "../../interfaces/DailyForecastInterface";
 import LocationDetail from "./LocationDetail";
 
-function LocationDetails(props) {
-    const locationsByName = props.locationsByName;
+interface LocationDetailsProps {
+    locations: string[];
+    isWeekend: Boolean[];
+    forecastsByName: {[indexer :string]: DailyForecastInterface[]};
+    dates: (Date|null)[];
+}
+
+function LocationDetails(props: LocationDetailsProps) {
+    const locationsByName = props.forecastsByName;
     const locations = props.locations;
 
     return (

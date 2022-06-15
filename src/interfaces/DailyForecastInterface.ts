@@ -12,6 +12,7 @@ interface DailyForecastInterface {
     conditions: string;
     description: string;
     icon: string;
+    cloudcover: number;
 }
 
 export default DailyForecastInterface;

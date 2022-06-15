@@ -47,7 +47,6 @@ class App extends React.Component<{}, AppState> {
 
   render() {
     const { error, isLoaded, forecast } = this.state;
-    console.log(forecast);
     if (error) {
       return <div>Error: {error.message}</div>;
     } else if (!isLoaded) {

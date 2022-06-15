@@ -4,8 +4,19 @@ import WeatherIcon from "../WeatherIcon";
 import '../../css/weather-icons.css'
 import './LocationDetail.scss'
 import { convertToSentence } from "../../utils/string";
+import React from "react";
+import { ForecastById } from "../../interfaces/ForecastResponseInterface";
+import ForecastInterface from "../../interfaces/ForecastInterface";
+import DailyForecastInterface from "../../interfaces/DailyForecastInterface";
 
-function LocationDetail(props) {
+interface LocationDetailProps {
+    name: string;
+    forecast: DailyForecastInterface[];
+    dates: (Date|null)[];
+    isWeekend: Boolean[];
+}
+
+function LocationDetail(props: LocationDetailProps) {
     const name = props.name;
     const forecast = props.forecast;
     const dates = props.dates;
@@ -32,18 +43,20 @@ function LocationDetail(props) {
                         const d = dates[id];
                         const weekendClassName = isWeekend[id] ? ' weekend ' : ' ';
                         // console.log([row, id]);
-                        return <TableRow className={weekendClassName} key={id}>
-                            <TableCell >{format(d, 'ddd').toUpperCase()}</TableCell>
-                            <TableCell className="border-right">{format(d, 'MMM Do').toUpperCase()}</TableCell>
-                            <TableCell>
-                                <WeatherIcon d={row} index={id} />
-                            </TableCell>
-                            <TableCell className="border-right">{convertToSentence(row.icon)}</TableCell>
-                            <TableCell className="border-right">{Math.round(row.tempmax) + '° / ' + Math.round(row.tempmin) + '°'}</TableCell>
-                            <TableCell className="align-right">{Math.round(row.precipprob) + '%'}</TableCell>
-                            <TableCell className="align-right border-right">{Math.round(row.precip) + '"'}</TableCell>
-                            <TableCell className="align-right">{row.cloudcover + '%       '}</TableCell>
-                        </TableRow>
+                        if(d) {
+                            return <TableRow className={weekendClassName} key={id}>
+                                <TableCell >{format(d, 'ddd').toUpperCase()}</TableCell>
+                                <TableCell className="border-right">{format(d, 'MMM Do').toUpperCase()}</TableCell>
+                                <TableCell>
+                                    <WeatherIcon d={row} index={id} />
+                                </TableCell>
+                                <TableCell className="border-right">{convertToSentence(row.icon)}</TableCell>
+                                <TableCell className="border-right">{Math.round(row.tempmax) + '° / ' + Math.round(row.tempmin) + '°'}</TableCell>
+                                <TableCell className="align-right">{Math.round(row.precipprob) + '%'}</TableCell>
+                                <TableCell className="align-right border-right">{Math.round(row.precip) + '"'}</TableCell>
+                                <TableCell className="align-right">{row.cloudcover + '%       '}</TableCell>
+                            </TableRow>
+                        }
                     })}
                 </TableBody>
             </Table>
