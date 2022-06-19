@@ -23,7 +23,8 @@ class App extends React.Component<AppState, AppState> {
     // const result = mockWeatherForecastNormalized();
     // this.setState({
     // })
-    fetch("http://localhost:4000/forecasts/mock", {mode:'cors'})
+    const WEATHER_API = process.env.REACT_APP_WEATHER_API;
+    fetch(`${WEATHER_API}/forecasts/mock`, {mode:'cors'})
       .then(res => res.json())
       .then(
         (result) => {
