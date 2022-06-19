@@ -18,7 +18,7 @@ export function icon_class(icon: string, precipitation: number, cloud_cover: num
     let mapping = iconMapping[icon] || "na";
     let additional_class = "";
 
-    if (mapping === "cloudy" || mapping === 'day-cloudy') {
+    if (mapping === "cloudy") {
         if (precipitation) {
             if(precipitation < 30) {
                 additional_class = 'sunshine-10';
