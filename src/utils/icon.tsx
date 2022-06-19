@@ -18,9 +18,15 @@ export function icon_class(icon: string, precipitation: number, cloud_cover: num
     let mapping = iconMapping[icon] || "na";
     let additional_class = "";
 
-    if (mapping === "cloudy") {
+    if (mapping === "cloudy" || mapping === 'day-cloudy') {
         if (precipitation) {
-            additional_class = precipitation < 30 ? "sunshine-10" : precipitation < 60 ? "sunshine-50" : "sunshine-100"
+            if(precipitation < 30) {
+                additional_class = 'sunshine-10';
+            } else if(precipitation < 60) {
+                additional_class = 'sunshine-50';
+            } else {
+                additional_class = 'sunshine-100';
+            }
         }
 
         // OVERRIDE sunshine color to greyish if cloud cover is high

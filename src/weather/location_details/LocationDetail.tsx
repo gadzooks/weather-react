@@ -5,8 +5,6 @@ import '../../css/weather-icons.css'
 import './LocationDetail.scss'
 import { convertToSentence } from "../../utils/string";
 import React from "react";
-import { ForecastById } from "../../interfaces/ForecastResponseInterface";
-import ForecastInterface from "../../interfaces/ForecastInterface";
 import DailyForecastInterface from "../../interfaces/DailyForecastInterface";
 
 interface LocationDetailProps {

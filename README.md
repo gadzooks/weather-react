@@ -3,6 +3,18 @@
 - https://alexsidorenko.com/blog/react-update-nested-state/
 - https://redux.js.org/usage/structuring-reducers/normalizing-state-shape
 
+## Useful tools : 
+- https://jshint.com/install/
+- https://axios-http.com/docs/example
+- https://lodash.com/docs/4.17.15
+
+## docs : 
+- https://www.typescriptlang.org/docs/
+- https://www.typescripttutorial.net/typescript-tutorial/typescript-extend-interface/
+- https://www.becomebetterprogrammer.com/typescript-organizing-and-storing-types-and-interfaces/
+
+
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
