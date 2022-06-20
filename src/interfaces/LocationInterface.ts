@@ -4,4 +4,5 @@ export interface LocationInterface {
   description: string;
   latitude: number;
   longitude: number;
+  sub_region?: string;
 }

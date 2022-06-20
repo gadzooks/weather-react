@@ -88,7 +88,7 @@ function Page(props: ForecastResponse) {
     <>
       <div id='top' />
       <SearchableTableHook isWeekend={weekends} {...args} />
-      <LocationDetails locationsById={props.locations} forecastsByName={props.forecasts.byId} isWeekend={weekends} dates={parsedDates} />
+      <LocationDetails regionById={props.regions.byId} locationsById={props.locations} forecastsByName={props.forecasts.byId} isWeekend={weekends} dates={parsedDates} />
     </>
   )
 

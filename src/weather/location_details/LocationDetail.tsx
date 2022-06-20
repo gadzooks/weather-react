@@ -7,8 +7,11 @@ import { convertToSentence } from "../../utils/string";
 import React from "react";
 import DailyForecastInterface from "../../interfaces/DailyForecastInterface";
 import { LocationInterface } from "../../interfaces/LocationInterface";
+import { RegionInterface } from "../../interfaces/RegionInterface";
+import WtaLink from "./WtaLink";
 
 interface LocationDetailProps {
+    region: RegionInterface;
     location: LocationInterface;
     forecast: DailyForecastInterface[];
     dates: (Date|null)[];
@@ -16,6 +19,7 @@ interface LocationDetailProps {
 }
 
 function LocationDetail(props: LocationDetailProps) {
+    const region = props.region;
     const location = props.location;
     const description = location.description;
     const forecast = props.forecast;
@@ -29,6 +33,7 @@ function LocationDetail(props: LocationDetailProps) {
                     <TableRow className="heading">
                         <TableCell colSpan={8} className="heading">
                             {description.toUpperCase() + '  '}
+                            <WtaLink wtaRegion={region.search_key} wtaSubRegion={location.sub_region} />
                             <Link href="#top">(top)</Link>
                         </TableCell>
                     </TableRow>

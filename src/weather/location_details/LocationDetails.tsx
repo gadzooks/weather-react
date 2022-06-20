@@ -1,10 +1,11 @@
 import React from "react";
 import DailyForecastInterface from "../../interfaces/DailyForecastInterface";
-import { LocationsById } from "../../interfaces/ForecastResponseInterface";
+import { LocationsById, RegionById, RegionsById } from "../../interfaces/ForecastResponseInterface";
 import LocationDetail from "./LocationDetail";
 
 interface LocationDetailsProps {
 
+    regionById: RegionById;
     locationsById: LocationsById;
     isWeekend: boolean[];
     forecastsByName: {[indexer :string]: DailyForecastInterface[]};
@@ -14,6 +15,7 @@ interface LocationDetailsProps {
 function LocationDetails(props: LocationDetailsProps) {
     const locationsByName = props.forecastsByName;
     const locationsById = props.locationsById;
+    const regionById = props.regionById;
 
     return (
         <>
@@ -21,7 +23,8 @@ function LocationDetails(props: LocationDetailsProps) {
                 locationsById.allIds.map(key => {
                     const value = locationsByName[key];
                     const location = locationsById.byId[key];
-                    return <LocationDetail key={location.name} forecast={value} location={location} isWeekend={props.isWeekend} dates={props.dates} />
+                    const region = regionById[location.region];
+                    return <LocationDetail key={location.name} region={region} forecast={value} location={location} isWeekend={props.isWeekend} dates={props.dates} />
                 })
             }
         </>
