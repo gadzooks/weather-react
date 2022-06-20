@@ -16,7 +16,7 @@ function SearchableTableHook(props: SearchableTableHookProps) {
     <>
       <TextField
         id="outlined-basic"
-        label="Search Locations With Hook"
+        label="Search Locations"
         variant="outlined"
         autoFocus={true}
         onChange={e => setSearchText(e.target.value)}
