@@ -6,6 +6,7 @@ import { RegionInterface } from '../../interfaces/RegionInterface';
 import React from 'react';
 import { ForecastById, ForecastsById } from '../../interfaces/ForecastResponseInterface';
 import Location from './Location';
+import WtaLink from '../location_details/WtaLink';
 
 export interface RegionProps {
   searchText: string,
@@ -23,6 +24,7 @@ function Region(props: RegionProps) {
           <TableRow className='region-details'>
             <TableCell colSpan={colSpan} align="center">
               {props.region.description}
+              <WtaLink wtaRegion={props.region.search_key} />
             </TableCell>
           </TableRow>
           {props.region.locations.map((loc, idx) => {
