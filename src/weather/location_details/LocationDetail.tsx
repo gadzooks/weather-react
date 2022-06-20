@@ -1,4 +1,4 @@
-import { Table, TableBody, TableCell, TableHead, TableRow } from "@mui/material";
+import { Link, Table, TableBody, TableCell, TableHead, TableRow } from "@mui/material";
 import { format } from 'fecha';
 import WeatherIcon from "../WeatherIcon";
 import '../../css/weather-icons.css'
@@ -6,26 +6,30 @@ import './LocationDetail.scss'
 import { convertToSentence } from "../../utils/string";
 import React from "react";
 import DailyForecastInterface from "../../interfaces/DailyForecastInterface";
+import { LocationInterface } from "../../interfaces/LocationInterface";
 
 interface LocationDetailProps {
-    name: string;
+    location: LocationInterface;
     forecast: DailyForecastInterface[];
     dates: (Date|null)[];
     isWeekend: boolean[];
 }
 
 function LocationDetail(props: LocationDetailProps) {
-    const name = props.name;
+    const location = props.location;
+    const description = location.description;
     const forecast = props.forecast;
     const dates = props.dates;
     const isWeekend = props.isWeekend;
     return (
         <>
+            <div id={location.name}>
             <Table className='location-details'>
                 <TableHead>
                     <TableRow className="heading">
                         <TableCell colSpan={8} className="heading">
-                            {name.toUpperCase()}
+                            {description.toUpperCase() + '  '}
+                            <Link href="#top">(top)</Link>
                         </TableCell>
                     </TableRow>
                     <TableRow className="secondary-heading">
@@ -58,6 +62,7 @@ function LocationDetail(props: LocationDetailProps) {
                     })}
                 </TableBody>
             </Table>
+            </div>
         </>
     );
 }

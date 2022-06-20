@@ -39,12 +39,8 @@ class WeatherPage extends React.Component<AppState, AppState> {
   }
 
   componentDidMount() {
-    // const result = mockWeatherForecastNormalized();
-    // this.setState({
-    // })
     const WEATHER_API = process.env.REACT_APP_WEATHER_API;
 
-    //TODO: get params from url and decide url vs mock
     fetch(`${WEATHER_API}/forecasts/mock`, {mode:'cors'})
       .then(res => res.json())
       .then(
@@ -80,20 +76,21 @@ class WeatherPage extends React.Component<AppState, AppState> {
 }
 
 function Page(props: ForecastResponse) {
-      const parsedDates = props.dates.map((d) => parse(d, 'YYYY-MM-DD'));
-      const weekends = isWeekend(parsedDates);
-      const args = {
-        ...props,
-        weekends,
-        parsedDates,
-      };
+  const parsedDates = props.dates.map((d) => parse(d, 'YYYY-MM-DD'));
+  const weekends = isWeekend(parsedDates);
+  const args = {
+    ...props,
+    weekends,
+    parsedDates,
+  };
 
-      return (
-        <>
-          <SearchableTableHook isWeekend={weekends} {...args}/>
-          <LocationDetails forecastsByName={props.forecasts.byId} isWeekend={weekends} locations={props.locations.allIds} dates={parsedDates} />
-        </>
-      )
+  return (
+    <>
+      <div id='top' />
+      <SearchableTableHook isWeekend={weekends} {...args} />
+      <LocationDetails locationsById={props.locations} forecastsByName={props.forecasts.byId} isWeekend={weekends} dates={parsedDates} />
+    </>
+  )
 
 }
 

@@ -5,6 +5,7 @@ import WeatherIcon from '../WeatherIcon';
 import { LocationInterface } from '../../interfaces/LocationInterface';
 import { ForecastsById } from '../../interfaces/ForecastResponseInterface';
 import React from 'react';
+import { Link } from '@mui/material';
 
 interface LocationProps {
   isWeekend: boolean[],
@@ -18,7 +19,9 @@ function Location(props: LocationProps) {
   return (
     <TableRow className='weather-cell'>
       <TableCell className='weather-cell'>N/A</TableCell>
-      <TableCell className='weather-cell'>{location.description}</TableCell>
+      <TableCell className='weather-cell'>
+        <Link href={`#${location.name}`} >{location.description.toLocaleUpperCase()}</Link>
+        </TableCell>
       {forecasts.map((d, index) => {
         const weekendClassName = props.isWeekend[index] ? ' weekend ' : ' ';
         return <TableCell key={index} className={`weather-cell center ${weekendClassName}`}>

@@ -1,9 +1,11 @@
 import React from "react";
 import DailyForecastInterface from "../../interfaces/DailyForecastInterface";
+import { LocationsById } from "../../interfaces/ForecastResponseInterface";
 import LocationDetail from "./LocationDetail";
 
 interface LocationDetailsProps {
-    locations: string[];
+
+    locationsById: LocationsById;
     isWeekend: boolean[];
     forecastsByName: {[indexer :string]: DailyForecastInterface[]};
     dates: (Date|null)[];
@@ -11,14 +13,15 @@ interface LocationDetailsProps {
 
 function LocationDetails(props: LocationDetailsProps) {
     const locationsByName = props.forecastsByName;
-    const locations = props.locations;
+    const locationsById = props.locationsById;
 
     return (
         <>
             {
-                locations.map(key => {
+                locationsById.allIds.map(key => {
                     const value = locationsByName[key];
-                    return <LocationDetail key={key} forecast={value} name={key} isWeekend={props.isWeekend} dates={props.dates} />
+                    const location = locationsById.byId[key];
+                    return <LocationDetail key={location.name} forecast={value} location={location} isWeekend={props.isWeekend} dates={props.dates} />
                 })
             }
         </>
