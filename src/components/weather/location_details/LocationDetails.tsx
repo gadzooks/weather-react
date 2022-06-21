@@ -5,6 +5,7 @@ import LocationDetail from "./LocationDetail";
 
 interface LocationDetailsProps {
 
+    searchText: string;
     regionById: RegionById;
     locationsById: LocationsById;
     isWeekend: boolean[];
@@ -13,9 +14,12 @@ interface LocationDetailsProps {
 }
 
 function LocationDetails(props: LocationDetailsProps) {
+
     const locationsByName = props.forecastsByName;
     const locationsById = props.locationsById;
     const regionById = props.regionById;
+    const re = props.searchText === "" ? null : new RegExp(props.searchText, "i");
+
 
     return (
         <>
@@ -24,7 +28,10 @@ function LocationDetails(props: LocationDetailsProps) {
                     const value = locationsByName[key];
                     const location = locationsById.byId[key];
                     const region = regionById[location.region];
-                    return <LocationDetail key={location.name} region={region} forecast={value} location={location} isWeekend={props.isWeekend} dates={props.dates} />
+                    if(re === null || location.description.match(re))
+                        return <LocationDetail key={location.name} region={region} forecast={value} location={location} isWeekend={props.isWeekend} dates={props.dates} />
+                    else
+                        return null;
                 })
             }
         </>

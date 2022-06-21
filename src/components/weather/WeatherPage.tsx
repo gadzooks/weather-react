@@ -76,19 +76,10 @@ class WeatherPage extends React.Component<AppState, AppState> {
 }
 
 export function Page(props: ForecastResponse) {
-  const parsedDates = props.dates.map((d) => parse(d, 'YYYY-MM-DD'));
-  const weekends = isWeekend(parsedDates);
-  const args = {
-    ...props,
-    weekends,
-    parsedDates,
-  };
-
   return (
     <>
       <div id='top' />
-      <SearchableTableHook isWeekend={weekends} {...args} />
-      <LocationDetails regionById={props.regions.byId} locationsById={props.locations} forecastsByName={props.forecasts.byId} isWeekend={weekends} dates={parsedDates} />
+      <SearchableTableHook {...props} />
     </>
   )
 

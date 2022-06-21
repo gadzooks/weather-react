@@ -5,17 +5,19 @@ import TableCell from '@mui/material/TableCell';
 import { Table } from '@mui/material';
 import { format } from 'fecha';
 import { LocationInterface } from '../../../interfaces/LocationInterface.js';
-import {SearchableTableHookProps} from './SearchableTableHook';
 import React from 'react';
 import Region from './Region';
+import { ForecastResponse } from '../../../interfaces/ForecastResponseInterface';
 
-function matchedOne(needle: RegExp | null, haystack: LocationInterface[]) :boolean {
+export function matchedOne(needle: RegExp | null, haystack: LocationInterface[]) :boolean {
   if(!needle) return true;
   const names = haystack.map((l) => {return l.description});
   return !!names.find((element) => element.match(needle));
 }
 
-interface SummaryTableProps extends SearchableTableHookProps {
+interface SummaryTableProps extends ForecastResponse {
+  isWeekend: boolean[];
+  parsedDates: (Date|null)[];
   searchText: string,
 }
 
