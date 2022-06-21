@@ -9,7 +9,7 @@ import Location from './Location';
 import WtaLink from '../location_details/WtaLink';
 
 export interface RegionProps {
-  searchText: string,
+  searchRegExp: RegExp|null,
   isWeekend: boolean[],
   region: RegionInterface,
   forecastsById: ForecastsById,
@@ -28,7 +28,7 @@ function Region(props: RegionProps) {
             </TableCell>
           </TableRow>
           {props.region.locations.map((loc, idx) => {
-            if (loc.name.match(props.searchText)) {
+            if (props.searchRegExp == null || loc.description.match(props.searchRegExp)) {
               return <Location location={loc} key={idx} {...props} />;
             } else {
               return null;

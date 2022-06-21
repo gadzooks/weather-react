@@ -9,9 +9,10 @@ import {SearchableTableHookProps} from './SearchableTableHook';
 import React from 'react';
 import Region from './Region';
 
-function matchedOne(needle: string, haystack: LocationInterface[]) {
-  const names = haystack.map((l) => {return l.name});
-  return names.find((element) => element.match(needle));
+function matchedOne(needle: RegExp | null, haystack: LocationInterface[]) :boolean {
+  if(!needle) return true;
+  const names = haystack.map((l) => {return l.description});
+  return !!names.find((element) => element.match(needle));
 }
 
 interface SummaryTableProps extends SearchableTableHookProps {
@@ -23,6 +24,8 @@ function SummaryTable(props: SummaryTableProps) {
   const parsedDates = props.parsedDates;
   const regionIds = props.regions.allIds;
   const regions = props.regions;
+  const re = props.searchText === "" ? null: new RegExp(props.searchText, "i");
+
   return (
     <>
       <Table className='table table-sm weather-forecast-summary'>
@@ -38,11 +41,11 @@ function SummaryTable(props: SummaryTableProps) {
         </TableHead>
         {regionIds.map((id) => {
           const region = regions.byId[id];
-          if (matchedOne(props.searchText, region.locations)) {
+          if (matchedOne(re, region.locations)) {
             return (
               <Region
                 key={id}
-                searchText={props.searchText}
+                searchRegExp={re}
                 isWeekend={isWeekend}
                 region={region}
                 forecastsById={props.forecasts}
