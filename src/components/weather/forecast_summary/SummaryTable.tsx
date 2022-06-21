@@ -4,7 +4,7 @@ import TableRow from '@mui/material/TableRow';
 import TableCell from '@mui/material/TableCell';
 import { Table } from '@mui/material';
 import { parse, format } from 'fecha';
-import { LocationInterface } from '../../interfaces/LocationInterface.js';
+import { LocationInterface } from '../../../interfaces/LocationInterface.js';
 import {SearchableTableHookProps} from './SearchableTableHook';
 import React from 'react';
 import Region from './Region';

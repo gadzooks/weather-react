@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from "@mui/material";
-import wtaLogo from '../../images/wta-logo.png';
+import wtaLogo from '../../../images/wta-logo.png';
 import './WtaLink.scss';
 
 interface WtaLinkProps {

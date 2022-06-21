@@ -1,13 +1,13 @@
 import { Link, Table, TableBody, TableCell, TableHead, TableRow } from "@mui/material";
 import { format } from 'fecha';
 import WeatherIcon from "../WeatherIcon";
-import '../../css/weather-icons.css'
+import '../../../css/weather-icons.css'
 import './LocationDetail.scss'
-import { convertToSentence } from "../../utils/string";
+import { convertToSentence } from "../../../utils/string";
 import React from "react";
-import DailyForecastInterface from "../../interfaces/DailyForecastInterface";
-import { LocationInterface } from "../../interfaces/LocationInterface";
-import { RegionInterface } from "../../interfaces/RegionInterface";
+import DailyForecastInterface from "../../../interfaces/DailyForecastInterface";
+import { LocationInterface } from "../../../interfaces/LocationInterface";
+import { RegionInterface } from "../../../interfaces/RegionInterface";
 import WtaLink from "./WtaLink";
 
 interface LocationDetailProps {

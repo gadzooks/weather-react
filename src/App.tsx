@@ -1,6 +1,6 @@
 import React from 'react';
 import './App.css';
-import WeatherPage from './weather/WeatherPage';
+import WeatherPage from './components/weather/WeatherPage';
 import {
   BrowserRouter as Router,
   Routes,

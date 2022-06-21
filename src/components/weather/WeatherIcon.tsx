@@ -1,7 +1,7 @@
 import React from 'react';
-import '../css/weather-icons.css'
-import DailyForecastInterface from '../interfaces/DailyForecastInterface';
-import {icon_class} from '../utils/icon';
+import '../../css/weather-icons.css'
+import DailyForecastInterface from '../../interfaces/DailyForecastInterface';
+import {icon_class} from '../../utils/icon';
 
 export function WeatherIcon(props: DailyForecastInterface) {
     let icon = 'wi';

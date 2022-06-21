@@ -4,15 +4,14 @@ interface DailyForecastInterface {
     tempmin: number;
     precip: number;
     precipprob: number;
-    precipcover: number;
-    cloudCover: number;
+    precipcover?: number;
+    cloudcover: number;
     sunrise: string;
     sunset: string;
     moonphase: number;
     conditions: string;
     description: string;
     icon: string;
-    cloudcover: number;
 }
 
 export default DailyForecastInterface;

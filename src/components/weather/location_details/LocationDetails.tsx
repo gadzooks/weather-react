@@ -1,6 +1,6 @@
 import React from "react";
-import DailyForecastInterface from "../../interfaces/DailyForecastInterface";
-import { LocationsById, RegionById, RegionsById } from "../../interfaces/ForecastResponseInterface";
+import DailyForecastInterface from "../../../interfaces/DailyForecastInterface";
+import { LocationsById, RegionById, RegionsById } from "../../../interfaces/ForecastResponseInterface";
 import LocationDetail from "./LocationDetail";
 
 interface LocationDetailsProps {

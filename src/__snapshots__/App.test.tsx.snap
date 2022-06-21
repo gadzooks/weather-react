@@ -1,0 +1,29 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders a snapshot 1`] = `
+<div>
+  <nav>
+    <ul>
+      <li>
+        <a
+          href="/"
+          onClick={[Function]}
+        >
+          Home
+        </a>
+      </li>
+      <li>
+        <a
+          href="/forecasts"
+          onClick={[Function]}
+        >
+          Forecasts
+        </a>
+      </li>
+    </ul>
+  </nav>
+  <h2>
+    Home
+  </h2>
+</div>
+`;

@@ -1,7 +1,7 @@
 import SummaryTable from './SummaryTable';
 import { TextField } from '@mui/material';
 import React, { useState, useEffect } from 'react';
-import { ForecastResponse, ForecastsById } from '../../interfaces/ForecastResponseInterface';
+import { ForecastResponse, ForecastsById } from '../../../interfaces/ForecastResponseInterface';
 
 export interface SearchableTableHookProps extends ForecastResponse{
   parsedDates: (Date|null)[],

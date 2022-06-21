@@ -2,8 +2,8 @@ import TableCell from '@mui/material/TableCell';
 import TableRow from '@mui/material/TableRow';
 import './Location.scss'
 import WeatherIcon from '../WeatherIcon';
-import { LocationInterface } from '../../interfaces/LocationInterface';
-import { ForecastsById } from '../../interfaces/ForecastResponseInterface';
+import { LocationInterface } from '../../../interfaces/LocationInterface';
+import { ForecastsById } from '../../../interfaces/ForecastResponseInterface';
 import React from 'react';
 import { Link } from '@mui/material';
 

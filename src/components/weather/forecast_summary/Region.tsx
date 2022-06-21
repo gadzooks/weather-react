@@ -2,9 +2,9 @@ import { TableBody } from '@mui/material';
 import TableCell from '@mui/material/TableCell';
 import TableRow from '@mui/material/TableRow';
 import './Region.scss';
-import { RegionInterface } from '../../interfaces/RegionInterface';
+import { RegionInterface } from '../../../interfaces/RegionInterface';
 import React from 'react';
-import { ForecastById, ForecastsById } from '../../interfaces/ForecastResponseInterface';
+import { ForecastsById } from '../../../interfaces/ForecastResponseInterface';
 import Location from './Location';
 import WtaLink from '../location_details/WtaLink';
 
