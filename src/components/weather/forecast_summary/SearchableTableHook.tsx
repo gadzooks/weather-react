@@ -1,6 +1,6 @@
 import SummaryTable from './SummaryTable';
 import { TextField } from '@mui/material';
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { ForecastResponse, ForecastsById } from '../../../interfaces/ForecastResponseInterface';
 
 export interface SearchableTableHookProps extends ForecastResponse{
@@ -11,7 +11,6 @@ export interface SearchableTableHookProps extends ForecastResponse{
 
 function SearchableTableHook(props: SearchableTableHookProps) {
   const [searchText, setSearchText] = useState("");
-  const [inputs, setInputs] = useState(props.forecasts);
   return (
     <>
       <TextField

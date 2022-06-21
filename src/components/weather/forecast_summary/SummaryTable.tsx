@@ -3,7 +3,7 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import TableCell from '@mui/material/TableCell';
 import { Table } from '@mui/material';
-import { parse, format } from 'fecha';
+import { format } from 'fecha';
 import { LocationInterface } from '../../../interfaces/LocationInterface.js';
 import {SearchableTableHookProps} from './SearchableTableHook';
 import React from 'react';
