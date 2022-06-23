@@ -1,39 +1,38 @@
 import React from "react";
 import DailyForecastInterface from "../../../interfaces/DailyForecastInterface";
-import { LocationsById, RegionById } from "../../../interfaces/ForecastResponseInterface";
+import { MatchedAreas } from "../forecast_summary/SearchableTableHook";
 import LocationDetail from "./LocationDetail";
 
 interface LocationDetailsProps {
-
-    searchText: string;
-    regionById: RegionById;
-    locationsById: LocationsById;
     isWeekend: boolean[];
     forecastsByName: {[indexer :string]: DailyForecastInterface[]};
     dates: (Date|null)[];
+    matchedAreas: MatchedAreas;
 }
 
 function LocationDetails(props: LocationDetailsProps) {
-
-    const locationsByName = props.forecastsByName;
-    const locationsById = props.locationsById;
-    const regionById = props.regionById;
-    const re = props.searchText === "" ? null : new RegExp(props.searchText, "i");
-
-
+    const regions = props.matchedAreas.regions;
+    const locationsByRegion = props.matchedAreas.locationsByRegion;
+    const forecastsByLocation = props.forecastsByName;
     return (
         <>
-            {
-                locationsById.allIds.map(key => {
-                    const value = locationsByName[key];
-                    const location = locationsById.byId[key];
-                    const region = regionById[location.region];
-                    if(re === null || location.description.match(re))
-                        return <LocationDetail key={location.name} region={region} forecast={value} location={location} isWeekend={props.isWeekend} dates={props.dates} />
-                    else
-                        return null;
-                })
-            }
+        {
+            regions.map((region) => {
+                return (
+                    locationsByRegion[region.name].map((location) => {
+                    const forecast = forecastsByLocation[location.name];
+                    return <LocationDetail 
+                        key={location.name}
+                        region={region}
+                        forecast={forecast}
+                        location={location}
+                        isWeekend={props.isWeekend}
+                        dates={props.dates}
+                    />;
+                    })
+                )
+            })
+        }
         </>
     )
 }

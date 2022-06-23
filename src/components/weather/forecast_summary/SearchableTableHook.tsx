@@ -63,7 +63,12 @@ function SearchableTableHook(props: ForecastResponse) {
       />
       <SummaryTable {...args} />
 
-      {/* <LocationDetails searchText={searchText} regionById={props.regions.byId} locationsById={props.locations} forecastsByName={props.forecasts.byId} isWeekend={weekends} dates={parsedDates} /> */}
+      <LocationDetails
+        matchedAreas={matchedAreas}
+        forecastsByName={props.forecasts.byId}
+        isWeekend={weekends}
+        dates={parsedDates}
+        />
     </>
   );
 }
