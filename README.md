@@ -24,7 +24,11 @@
 - https://v5.reactrouter.com/web/guides/quick-start
 - https://create-react-app.dev/docs/adding-images-fonts-and-files/
 
-
+```javascript
+export interface IHash {
+    [details: string] : string;
+} 
+```
 
 
 # Getting Started with Create React App

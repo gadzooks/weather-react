@@ -6,8 +6,10 @@ import { Table } from '@mui/material';
 import { format } from 'fecha';
 import { LocationInterface } from '../../../interfaces/LocationInterface.js';
 import React from 'react';
-import Region from './Region';
 import { ForecastResponse } from '../../../interfaces/ForecastResponseInterface';
+import Region from './Region';
+import { RegionInterface } from '../../../interfaces/RegionInterface';
+import { MatchedAreas } from './SearchableTableHook';
 
 export function matchedOne(needle: RegExp | null, haystack: LocationInterface[]) :boolean {
   if(!needle) return true;
@@ -15,18 +17,22 @@ export function matchedOne(needle: RegExp | null, haystack: LocationInterface[])
   return !!names.find((element) => element.match(needle));
 }
 
+export function matchedLocations(needle: RegExp | null, region: RegionInterface) :LocationInterface[] {
+  if(!needle) return region.locations;
+  return region.locations.filter((l) => l.description.match(needle));
+}
+
 interface SummaryTableProps extends ForecastResponse {
-  isWeekend: boolean[];
-  parsedDates: (Date|null)[];
-  searchText: string,
+  isWeekend: boolean[],
+  parsedDates: (Date|null)[],
+  matchedAreas: MatchedAreas,
 }
 
 function SummaryTable(props: SummaryTableProps) {
   const isWeekend = props.isWeekend;
   const parsedDates = props.parsedDates;
-  const regionIds = props.regions.allIds;
-  const regions = props.regions;
-  const re = props.searchText === "" ? null: new RegExp(props.searchText, "i");
+  const regions = props.matchedAreas.regions;
+  const locationsByRegion = props.matchedAreas.locationsByRegion;
 
   return (
     <>
@@ -41,22 +47,19 @@ function SummaryTable(props: SummaryTableProps) {
             })}
           </TableRow>
         </TableHead>
-        {regionIds.map((id) => {
-          const region = regions.byId[id];
-          if (matchedOne(re, region.locations)) {
+        {regions.map((region, id) => {
+          const locations = locationsByRegion[region.name];
             return (
               <Region
                 key={id}
-                searchRegExp={re}
                 isWeekend={isWeekend}
                 region={region}
                 forecastsById={props.forecasts}
+                locations={locations}
               />
             );
-          } else {
-            return null;
-          }
-        })}
+          } 
+        )}
       </Table>
     </>
   );

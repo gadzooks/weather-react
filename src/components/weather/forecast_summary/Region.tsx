@@ -7,12 +7,13 @@ import React from 'react';
 import { ForecastsById } from '../../../interfaces/ForecastResponseInterface';
 import Location from './Location';
 import WtaLink from '../location_details/WtaLink';
+import { LocationInterface } from '../../../interfaces/LocationInterface';
 
 export interface RegionProps {
-  searchRegExp: RegExp|null,
   isWeekend: boolean[],
   region: RegionInterface,
   forecastsById: ForecastsById,
+  locations: LocationInterface[],
 }
 
 function Region(props: RegionProps) {
@@ -27,12 +28,8 @@ function Region(props: RegionProps) {
               <WtaLink wtaRegion={props.region.search_key} />
             </TableCell>
           </TableRow>
-          {props.region.locations.map((loc, idx) => {
-            if (props.searchRegExp == null || loc.description.match(props.searchRegExp)) {
+          {props.locations.map((loc, idx) => {
               return <Location location={loc} key={idx} {...props} />;
-            } else {
-              return null;
-            }
           })}
         </TableBody>
       </>
