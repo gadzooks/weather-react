@@ -21,7 +21,6 @@ Array [
       onClick={[Function]}
     >
       <input
-        aria-describedby="outlined-basic-helper-text"
         aria-invalid={false}
         autoFocus={true}
         className="MuiOutlinedInput-input MuiInputBase-input css-1t8l2tu-MuiInputBase-input-MuiOutlinedInput-input"
@@ -48,12 +47,6 @@ Array [
         </legend>
       </fieldset>
     </div>
-    <p
-      className="MuiFormHelperText-root MuiFormHelperText-sizeMedium MuiFormHelperText-contained css-1wc848c-MuiFormHelperText-root"
-      id="outlined-basic-helper-text"
-    >
-      No matching locations
-    </p>
   </div>,
   <table
     className="MuiTable-root table table-sm weather-forecast-summary css-rqglhn-MuiTable-root"

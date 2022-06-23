@@ -41,7 +41,8 @@ function SearchableTableHook(props: ForecastResponse) {
   const [searchText, setSearchText] = useLocalStorage("searchKeyText", "")
   const parsedDates = props.dates.map((d) => parse(d, 'YYYY-MM-DD'));
   const weekends = isWeekend(parsedDates);
-  const re = searchText === "" ? null : new RegExp(searchText, "i");
+  const trimmedSearch = searchText.trim();
+  const re = trimmedSearch === "" ? null : new RegExp(trimmedSearch, "i");
   const matchedAreas = matchedLocations(re, props.regions)
   const args = {
     ...props,
@@ -49,6 +50,8 @@ function SearchableTableHook(props: ForecastResponse) {
     parsedDates: parsedDates,
     matchedAreas: matchedAreas,
   };
+
+  const totalMatchedRegions = matchedAreas.regions.length;
   return (
     <>
       <TextField
@@ -58,8 +61,8 @@ function SearchableTableHook(props: ForecastResponse) {
         autoFocus={true}
         onChange={e => setSearchText(e.target.value)}
         defaultValue={searchText}
-        error={false}
-        helperText="No matching locations"
+        error={totalMatchedRegions === 0}
+        helperText={totalMatchedRegions !== 0 ? '' : 'No matches found !'}
       />
       <SummaryTable {...args} />
 
