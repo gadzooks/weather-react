@@ -2,6 +2,15 @@
 - Normalize state to make it easier to update it : 
 - https://alexsidorenko.com/blog/react-update-nested-state/
 - https://redux.js.org/usage/structuring-reducers/normalizing-state-shape
+- https://javascript.info/async-await
+- https://webpack.js.org/guides/asset-modules/#resource-assets
+
+
+# TODO:
+- in production use /real instead of /mock
+- use /real vs /mock based on user param override
+- store search text value in localStorage
+- https://www.toptal.com/express-js/routes-js-promises-error-handling
 
 ## Useful tools : 
 - https://jshint.com/install/
@@ -12,6 +21,9 @@
 - https://www.typescriptlang.org/docs/
 - https://www.typescripttutorial.net/typescript-tutorial/typescript-extend-interface/
 - https://www.becomebetterprogrammer.com/typescript-organizing-and-storing-types-and-interfaces/
+- https://v5.reactrouter.com/web/guides/quick-start
+- https://create-react-app.dev/docs/adding-images-fonts-and-files/
+
 
 
 

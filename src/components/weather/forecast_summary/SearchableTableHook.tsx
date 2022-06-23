@@ -5,9 +5,10 @@ import { ForecastResponse, ForecastsById } from '../../../interfaces/ForecastRes
 import { parse } from 'fecha';
 import LocationDetails from '../location_details/LocationDetails';
 import { isWeekend } from '../WeatherPage';
+import { useLocalStorage } from '../../../utils/localstorage';
 
 function SearchableTableHook(props: ForecastResponse) {
-  const [searchText, setSearchText] = useState("");
+  const [searchText, setSearchText] = useLocalStorage("searchKeyText", "")
   const parsedDates = props.dates.map((d) => parse(d, 'YYYY-MM-DD'));
   const weekends = isWeekend(parsedDates);
   const args = {
@@ -23,6 +24,9 @@ function SearchableTableHook(props: ForecastResponse) {
         variant="outlined"
         autoFocus={true}
         onChange={e => setSearchText(e.target.value)}
+        defaultValue={searchText}
+        error={false}
+        helperText="No matching locations"
       />
       <SummaryTable searchText={searchText} {...args} />
 
