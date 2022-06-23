@@ -1,8 +1,7 @@
-import { parse, format } from "fecha";
+import { format } from "fecha";
 import React from "react";
 import { ForecastResponse } from "../../interfaces/ForecastResponseInterface";
 import SearchableTableHook from "./forecast_summary/SearchableTableHook";
-import LocationDetails from "./location_details/LocationDetails";
 
 export function isWeekend(dates: (Date|null)[]) :boolean[] {
     const weekends: boolean[] = [];

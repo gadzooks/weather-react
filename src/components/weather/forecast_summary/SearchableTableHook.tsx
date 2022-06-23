@@ -1,6 +1,6 @@
 import SummaryTable from './SummaryTable';
-import { TextField } from '@mui/material';
-import React from 'react';
+import { debounce, TextField } from '@mui/material';
+import React, {  } from 'react';
 import { ForecastResponse, RegionsById } from '../../../interfaces/ForecastResponseInterface';
 import { parse } from 'fecha';
 import LocationDetails from '../location_details/LocationDetails';
@@ -16,7 +16,9 @@ export interface MatchedAreas {
   }
 }
 
+//TODO move this to utils and add tests for it.
 function matchedLocations(needle: RegExp | null, regionsById: RegionsById) :MatchedAreas {
+  // console.log(`matchedLocations called with ${needle}`);
   const matchedAreas: MatchedAreas = {
     regions: [],
     locationsByRegion: {},
@@ -39,11 +41,12 @@ function matchedLocations(needle: RegExp | null, regionsById: RegionsById) :Matc
 
 function SearchableTableHook(props: ForecastResponse) {
   const [searchText, setSearchText] = useLocalStorage("searchKeyText", "")
+  const handleChange = debounce(setSearchText, 200);
   const parsedDates = props.dates.map((d) => parse(d, 'YYYY-MM-DD'));
   const weekends = isWeekend(parsedDates);
   const trimmedSearch = searchText.trim();
   const re = trimmedSearch === "" ? null : new RegExp(trimmedSearch, "i");
-  const matchedAreas = matchedLocations(re, props.regions)
+  const matchedAreas = matchedLocations(re, props.regions);
   const args = {
     ...props,
     isWeekend: weekends,
@@ -59,7 +62,7 @@ function SearchableTableHook(props: ForecastResponse) {
         label="Search Locations"
         variant="outlined"
         autoFocus={true}
-        onChange={e => setSearchText(e.target.value)}
+        onChange={e => handleChange(e.target.value)}
         defaultValue={searchText}
         error={totalMatchedRegions === 0}
         helperText={totalMatchedRegions !== 0 ? '' : 'No matches found !'}

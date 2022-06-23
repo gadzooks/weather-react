@@ -1,3 +1,4 @@
+import { debounce } from "@mui/material";
 import { useState, useEffect } from "react";
 
 function getStorageValue(key: string, defaultValue: any) {
@@ -16,6 +17,7 @@ export const useLocalStorage = (key: string, defaultValue: any) => {
 
   useEffect(() => {
     // storing input name
+    // console.log(`setting value localstorage : ${value}`);
     localStorage.setItem(key, JSON.stringify(value));
   }, [key, value]);
 
