@@ -22,7 +22,7 @@ export default function App() {
               <Link to="/">Home</Link>
             </li>
             <li>
-              <Link to="/forecasts">Forecasts</Link>
+              <Link to="/forecasts/:dataSource">Forecasts (Real)</Link>
             </li>
           </ul>
         </nav>
@@ -31,7 +31,7 @@ export default function App() {
             renders the first one that matches the current URL. */}
         <Routes>
           <Route path="/" element={<Home/>}/>
-          <Route path="/forecasts" element={<WeatherPage isLoaded={false} error={null} forecast={null}/>}/>
+          <Route path="/forecasts/:dataSource" element={<WeatherPage isLoaded={false} error={null} forecast={null}/>}/>
         </Routes>
       </div>
     </Router>

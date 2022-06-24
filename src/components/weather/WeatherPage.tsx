@@ -1,5 +1,6 @@
 import { format } from "fecha";
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
 import { ForecastResponse } from "../../interfaces/ForecastResponseInterface";
 import SearchableTableHook from "./forecast_summary/SearchableTableHook";
 
@@ -27,24 +28,24 @@ interface AppState {
   forecast: ForecastResponse|null,
 }
 
-class WeatherPage extends React.Component<AppState, AppState> {
-  constructor(props: AppState) {
-    super(props);
-    this.state = {
-      isLoaded: false,
-      error: null,
-      forecast: null,
-    }
-  }
+const WeatherPage = (props: AppState) => {
 
-  componentDidMount() {
+  const [appState, setAppState] = useState(props);
+  const params = useParams();
+  const dataSource = params.dataSource || 'useLocal';
+
+  useEffect(() => {
     const WEATHER_API = process.env.REACT_APP_WEATHER_API;
+    // WEATHER_API = 'https://weather-expressjs.herokuapp.com';
 
-    fetch(`${WEATHER_API}/forecasts/mock`, {mode:'cors'})
+    const url = `${WEATHER_API}/forecasts/${dataSource}`;
+    console.log(`getting weather from ${url}`);
+    fetch(`${url}`, { mode: 'cors' })
       .then(res => res.json())
       .then(
         (result) => {
-          this.setState({
+          
+          setAppState({
             isLoaded: true,
             forecast: result.data,
             error: null,
@@ -54,25 +55,25 @@ class WeatherPage extends React.Component<AppState, AppState> {
         // instead of a catch() block so that we don't swallow
         // exceptions from actual bugs in components.
         (error) => {
-          this.setState({
+          setAppState({
             isLoaded: true,
-            error
+            error: error,
+            forecast: null,
           });
         }
       )
-  }
+  }, [])
 
-  render() {
-    const { error, isLoaded, forecast } = this.state;
-    if (error) {
-      return <div>Error: {error.message}</div>;
-    } else if (!isLoaded) {
-      return <div>Loading...</div>;
-    } else if (forecast != null) {
-      return <Page {...forecast} />
-    }
-  }
+  return(
+    <>
+    { appState.error && <div>Error: {appState.error.message}</div> }
+    { !appState.isLoaded && <div>Loading...</div> }
+    { appState.forecast && <Page {...appState.forecast} /> }
+    </>
+  );
 }
+
+export default WeatherPage;
 
 export function Page(props: ForecastResponse) {
   return (
@@ -83,5 +84,3 @@ export function Page(props: ForecastResponse) {
   )
 
 }
-
-export default WeatherPage;
