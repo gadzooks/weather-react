@@ -36,7 +36,6 @@ const WeatherPage = (props: AppState) => {
 
   useEffect(() => {
     const WEATHER_API = process.env.REACT_APP_WEATHER_API;
-    // WEATHER_API = 'https://weather-expressjs.herokuapp.com';
 
     const url = `${WEATHER_API}/forecasts/${dataSource}`;
     console.log(`getting weather from ${url}`);
@@ -44,7 +43,6 @@ const WeatherPage = (props: AppState) => {
       .then(res => res.json())
       .then(
         (result) => {
-          
           setAppState({
             isLoaded: true,
             forecast: result.data,

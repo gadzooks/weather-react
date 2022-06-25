@@ -17,7 +17,7 @@ exports[`renders a snapshot 1`] = `
           href="/forecasts/:dataSource"
           onClick={[Function]}
         >
-          Forecasts (Real)
+          Forecasts
         </a>
       </li>
     </ul>

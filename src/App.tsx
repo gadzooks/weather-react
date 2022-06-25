@@ -2,11 +2,10 @@ import React from 'react';
 import './App.css';
 import WeatherPage from './components/weather/WeatherPage';
 import {
-  BrowserRouter as Router,
+  BrowserRouter,
   Routes,
   Route,
-  Link
-} from "react-router-dom";
+  Link} from "react-router-dom";
 
 function Home() {
   return <h2>Home</h2>;
@@ -14,7 +13,7 @@ function Home() {
 
 export default function App() {
   return (
-    <Router>
+    <BrowserRouter>
       <div>
         <nav>
           <ul>
@@ -22,7 +21,7 @@ export default function App() {
               <Link to="/">Home</Link>
             </li>
             <li>
-              <Link to="/forecasts/:dataSource">Forecasts (Real)</Link>
+              <Link to="/forecasts/:dataSource">Forecasts</Link>
             </li>
           </ul>
         </nav>
@@ -34,6 +33,6 @@ export default function App() {
           <Route path="/forecasts/:dataSource" element={<WeatherPage isLoaded={false} error={null} forecast={null}/>}/>
         </Routes>
       </div>
-    </Router>
+    </BrowserRouter>
   );
 }
