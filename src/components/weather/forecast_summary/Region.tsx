@@ -18,7 +18,6 @@ export interface RegionProps {
 
 function Region(props: RegionProps) {
     const colSpan = 17;
-    // const locationIds = props.region.locations.map((l) => {return l.name; });
     return (
       <>
         <TableBody>

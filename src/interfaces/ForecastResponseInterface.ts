@@ -1,7 +1,6 @@
 import { LocationInterface } from "./LocationInterface";
 import { RegionInterface } from "./RegionInterface";
 import DailyForecastInterface from "./DailyForecastInterface";
-import ForecastInterface from "./ForecastInterface";
 
 export interface ForecastResponse {
     dates: string[];

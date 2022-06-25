@@ -4,10 +4,10 @@ import React, {  } from 'react';
 import { ForecastResponse, RegionsById } from '../../../interfaces/ForecastResponseInterface';
 import { parse } from 'fecha';
 import LocationDetails from '../location_details/LocationDetails';
-import { isWeekend } from '../WeatherPage';
 import { useLocalStorage } from '../../../utils/localstorage';
 import { LocationInterface } from '../../../interfaces/LocationInterface';
 import { RegionInterface } from '../../../interfaces/RegionInterface';
+import { isWeekend } from '../../../utils/date';
 
 export interface MatchedAreas {
   regions: RegionInterface[],
