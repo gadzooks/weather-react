@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { ForecastResponse } from "../../interfaces/ForecastResponseInterface";
-import SearchableTableHook from "./forecast_summary/SearchableTableHook";
+import { ForecastResponse } from "../../../interfaces/ForecastResponseInterface";
+import SearchableTableHook from "../forecast_summary/SearchableTableHook";
 
 interface AppState {
   isLoaded: boolean,

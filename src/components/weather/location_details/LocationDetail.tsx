@@ -1,6 +1,6 @@
 import { Link, Table, TableBody, TableCell, TableHead, TableRow } from "@mui/material";
 import { format } from 'fecha';
-import WeatherIcon from "../WeatherIcon";
+import WeatherIcon from "../main_page/WeatherIcon";
 import '../../../css/weather-icons.css'
 import './LocationDetail.scss'
 import { convertToSentence } from "../../../utils/string";

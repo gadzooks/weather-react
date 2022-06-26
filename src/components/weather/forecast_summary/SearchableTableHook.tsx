@@ -8,12 +8,15 @@ import { useLocalStorage } from '../../../utils/localstorage';
 import { LocationInterface } from '../../../interfaces/LocationInterface';
 import { RegionInterface } from '../../../interfaces/RegionInterface';
 import { isWeekend } from '../../../utils/date';
+import RangeSlider from '../main_page/TemperatureSlider';
+import MultipleSelectCheckmarks from '../main_page/DateSelector';
 
 export interface MatchedAreas {
   regions: RegionInterface[],
   locationsByRegion: {
     [regionName :string]: LocationInterface[],
   }
+  dates?: string[],
 }
 
 //TODO move this to utils and add tests for it.
@@ -67,6 +70,11 @@ function SearchableTableHook(props: ForecastResponse) {
         error={totalMatchedRegions === 0}
         helperText={totalMatchedRegions !== 0 ? '' : 'No matches found !'}
       />
+
+      {/* <RangeSlider /> */}
+
+      {/* <MultipleSelectCheckmarks names={props.dates} /> */}
+
       <SummaryTable {...args} />
 
       <LocationDetails
