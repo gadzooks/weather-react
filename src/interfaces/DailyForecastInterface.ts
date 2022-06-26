@@ -1,4 +1,4 @@
-interface DailyForecastInterface {
+export interface DailyForecastInterface {
     datetime: string;
     tempmax: number;
     tempmin: number;
@@ -13,5 +13,3 @@ interface DailyForecastInterface {
     description: string;
     icon: string;
 }
-
-export default DailyForecastInterface;

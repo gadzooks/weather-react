@@ -1,6 +1,6 @@
 import React from 'react';
 import '../../../css/weather-icons.css';
-import DailyForecastInterface from '../../../interfaces/DailyForecastInterface.js';
+import { DailyForecastInterface } from '../../../interfaces/DailyForecastInterface';
 import iconClass from '../../../utils/icon';
 
 export function WeatherIcon(props: DailyForecastInterface) {

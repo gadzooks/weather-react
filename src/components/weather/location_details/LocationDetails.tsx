@@ -1,5 +1,5 @@
 import React from "react";
-import DailyForecastInterface from "../../../interfaces/DailyForecastInterface";
+import { DailyForecastInterface } from "../../../interfaces/DailyForecastInterface";
 import { MatchedAreas } from "../forecast_summary/SearchableTableHook";
 import LocationDetail from "./LocationDetail";
 

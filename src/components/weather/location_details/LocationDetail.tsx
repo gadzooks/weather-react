@@ -5,7 +5,7 @@ import '../../../css/weather-icons.css'
 import './LocationDetail.scss'
 import { convertToSentence } from "../../../utils/string";
 import React from "react";
-import DailyForecastInterface from "../../../interfaces/DailyForecastInterface";
+import { DailyForecastInterface } from "../../../interfaces/DailyForecastInterface";
 import { LocationInterface } from "../../../interfaces/LocationInterface";
 import { RegionInterface } from "../../../interfaces/RegionInterface";
 import WtaLink from "./WtaLink";

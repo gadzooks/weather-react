@@ -4,7 +4,10 @@
         "es2021": true
     },
     "extends": [
-        "airbnb"
+        "airbnb",
+        "plugin:import/errors",
+        "plugin:import/warnings",
+        "plugin:import/typescript",
     ],
     "parser": "@typescript-eslint/parser",
     "parserOptions": {
@@ -18,6 +21,18 @@
         "react",
         "@typescript-eslint"
     ],
+    "settings": {
+        "import/resolver": {
+            "node": {
+                "extensions": [
+                    ".js",
+                    ".jsx",
+                    ".ts",
+                    ".tsx"
+                ]
+            }
+        }
+    },
     "rules": {
         "react/jsx-filename-extension": [
             2,

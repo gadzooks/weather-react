@@ -1,12 +1,9 @@
 import { LocationInterface } from "./LocationInterface";
 import { RegionInterface } from "./RegionInterface";
-import DailyForecastInterface from "./DailyForecastInterface";
+import { DailyForecastInterface } from "./DailyForecastInterface";
 
-export interface ForecastResponse {
-    dates: string[];
-    regions: RegionsById;
-    locations: LocationsById;
-    forecasts: ForecastsById;
+export interface RegionById {
+    [key: string]: RegionInterface;
 }
 
 export interface RegionsById {
@@ -14,8 +11,16 @@ export interface RegionsById {
     allIds: string[];
 }
 
-export interface RegionById {
-    [key: string]: RegionInterface;
+export interface LocationById {
+    [key: string]: LocationInterface;
+}
+
+export interface ForecastById {
+    [key: string]: DailyForecastInterface[];
+}
+
+export interface ForecastsById {
+    byId: ForecastById;
 }
 
 export interface LocationsById {
@@ -23,16 +28,11 @@ export interface LocationsById {
     allIds: string[];
 }
 
-export interface LocationById {
-    [key: string]: LocationInterface;
-}
-
-export interface ForecastsById {
-    byId: ForecastById;
-}
-
-export interface ForecastById {
-    [key: string]: DailyForecastInterface[];
+export interface ForecastResponse {
+    dates: string[];
+    regions: RegionsById;
+    locations: LocationsById;
+    forecasts: ForecastsById;
 }
 
 // dates: [

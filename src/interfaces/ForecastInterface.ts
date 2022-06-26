@@ -1,5 +1,5 @@
 import AlertInterface from './AlertInterface';
-import DailyForecastInterface from './DailyForecastInterface';
+import { DailyForecastInterface } from './DailyForecastInterface';
 
 interface ForecastInterface {
     latitude: number;
