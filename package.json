@@ -34,7 +34,6 @@
     "heroku-prebuild": "npm config set ignore-scripts true",
     "lint": "eslint ./src",
     "lint:fix": "eslint ./src --fix",
-    "prepare": "husky install",
     "prettier": "npx prettier src test --check",
     "prettier:fix": "npm run prettier -- --write",
     "start": "serve -s build",
@@ -59,11 +58,6 @@
       "prettier --write"
     ]
   },
-  "husky": {
-    "hooks": {
-      "pre-commit": "lint-staged"
-    }
-  },
   "devDependencies": {
     "@types/react-test-renderer": "^18.0.0",
     "@typescript-eslint/eslint-plugin": "^5.29.0",
@@ -74,7 +68,6 @@
     "eslint-plugin-jsx-a11y": "^6.6.0",
     "eslint-plugin-react": "^7.30.1",
     "eslint-plugin-react-hooks": "^4.6.0",
-    "husky": "^4.3.8",
     "jest-watch-typeahead": "^0.6.5",
     "lint-staged": "^13.0.1",
     "prettier": "2.7.0",
