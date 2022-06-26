@@ -25,17 +25,18 @@
     "web-vitals": "^2.1.4"
   },
   "scripts": {
-    "start": "serve -s build",
-    "dev": "react-scripts start",
     "build": "react-scripts build",
-    "test": "CI=true react-scripts test",
-    "watch": "react-scripts test",
+    "dev": "react-scripts start",
     "eject": "react-scripts eject",
+    "heroku-prebuild": "npm config set ignore-scripts true",
     "lint": "eslint ./src",
     "lint:fix": "eslint ./src --fix",
+    "prepare": "husky install",
     "prettier": "npx prettier src test --check",
     "prettier:fix": "npm run prettier -- --write",
-    "prepare": "husky install"
+    "start": "serve -s build",
+    "test": "CI=true react-scripts test",
+    "watch": "react-scripts test"
   },
   "browserslist": {
     "production": [
