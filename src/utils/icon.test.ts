@@ -1,4 +1,4 @@
-import { icon_class } from "./icon"
+import icon_class from "./icon"
 
 describe('icon_class', () => {
     it('should show mapping for clear-day', () => {

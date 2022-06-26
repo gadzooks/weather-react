@@ -1,6 +1,6 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
-import { mockWeatherForecastNormalized } from '../../../api/mockData';
+import mockWeatherForecastNormalized from '../../../api/mockData';
 import { ForecastResponse } from '../../../interfaces/ForecastResponseInterface';
 import { Page } from './WeatherPage';
 

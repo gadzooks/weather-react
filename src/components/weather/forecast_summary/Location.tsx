@@ -1,6 +1,6 @@
 import TableCell from '@mui/material/TableCell';
 import TableRow from '@mui/material/TableRow';
-import './Location.scss'
+import './Location.scss';
 import WeatherIcon from '../main_page/WeatherIcon';
 import { LocationInterface } from '../../../interfaces/LocationInterface';
 import { ForecastsById } from '../../../interfaces/ForecastResponseInterface';
