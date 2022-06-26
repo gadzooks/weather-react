@@ -7,9 +7,7 @@
 
 
 # TODO:
-- in production use /real instead of /mock
-- use /real vs /mock based on user param override
-- store search text value in localStorage
+- Look into performance aspects like rerender : https://levelup.gitconnected.com/14-tips-for-effortlessly-improving-your-weak-ass-react-code-4aea5500559c
 - https://www.toptal.com/express-js/routes-js-promises-error-handling
 
 ## Useful tools : 
