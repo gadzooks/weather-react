@@ -1,11 +1,12 @@
 import React from 'react';
 import './App.css';
-import WeatherPage from './components/weather/main_page/WeatherPage';
 import {
   BrowserRouter,
   Routes,
   Route,
-  Link} from "react-router-dom";
+  Link,
+} from 'react-router-dom';
+import WeatherPage from './components/weather/main_page/WeatherPage';
 
 function Home() {
   return <h2>Home</h2>;
@@ -29,8 +30,8 @@ export default function App() {
         {/* A <Switch> looks through its children <Route>s and
             renders the first one that matches the current URL. */}
         <Routes>
-          <Route path="/" element={<Home/>}/>
-          <Route path="/forecasts/:dataSource" element={<WeatherPage isLoaded={false} error={null} forecast={null}/>}/>
+          <Route path="/" element={<Home />} />
+          <Route path="/forecasts/:dataSource" element={<WeatherPage isLoaded={false} error={null} forecast={null} />} />
         </Routes>
       </div>
     </BrowserRouter>

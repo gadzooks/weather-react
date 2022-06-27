@@ -13,7 +13,6 @@
     "@testing-library/react": "^13.3.0",
     "@testing-library/user-event": "^13.5.0",
     "@types/jest": "^28.1.1",
-    "@types/node": "^17.0.42",
     "@types/react": "^18.0.12",
     "@types/react-dom": "^18.0.5",
     "axios": "^0.27.2",
@@ -32,13 +31,15 @@
     "dev": "react-scripts start",
     "eject": "react-scripts eject",
     "heroku-prebuild": "npm config set ignore-scripts true",
-    "lint": "eslint ./src",
-    "lint:fix": "eslint ./src --fix",
+    "lint": "eslint ./src --fix",
     "prettier": "npx prettier src test --check",
     "prettier:fix": "npm run prettier -- --write",
     "start": "serve -s build",
     "test": "CI=true react-scripts test",
     "watch": "react-scripts test"
+  },
+  "resolutions": {
+    "@types/react": "^18.0.12"
   },
   "browserslist": {
     "production": [
@@ -59,6 +60,7 @@
     ]
   },
   "devDependencies": {
+    "@types/node": "^18.0.0",
     "@types/react-test-renderer": "^18.0.0",
     "@typescript-eslint/eslint-plugin": "^5.29.0",
     "@typescript-eslint/parser": "^5.29.0",

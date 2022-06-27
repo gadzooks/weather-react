@@ -3,12 +3,11 @@ import '../../../css/weather-icons.css';
 import { DailyForecastInterface } from '../../../interfaces/DailyForecastInterface';
 import iconClass from '../../../utils/icon';
 
-export function WeatherIcon(props: DailyForecastInterface) {
+function WeatherIcon(props: DailyForecastInterface) {
   let icon = 'wi';
   const forecast = props;
 
   if (forecast.icon) {
-    // console.log(d);
     icon = iconClass(forecast.icon, forecast.precip, forecast.cloudcover, forecast.tempmax);
   }
 

@@ -1,7 +1,10 @@
-import React from "react";
-import { DailyForecastInterface } from "../../../interfaces/DailyForecastInterface";
-import { MatchedAreas } from "../forecast_summary/SearchableTableHook";
-import LocationDetail from "./LocationDetail";
+/* eslint-disable react/destructuring-assignment */
+import React from 'react';
+import { DailyForecastInterface } from '../../../interfaces/DailyForecastInterface';
+import { LocationInterface } from '../../../interfaces/LocationInterface';
+import { MatchedAreas } from '../../../interfaces/MatchedAreas';
+import { RegionInterface } from '../../../interfaces/RegionInterface';
+import LocationDetail from './LocationDetail';
 
 interface LocationDetailsProps {
     isWeekend: boolean[];
@@ -11,30 +14,30 @@ interface LocationDetailsProps {
 }
 
 function LocationDetails(props: LocationDetailsProps) {
-    const regions = props.matchedAreas.regions;
-    const locationsByRegion = props.matchedAreas.locationsByRegion;
-    const forecastsByLocation = props.forecastsByName;
-    return (
-        <>
-        {
-            regions.map((region) => {
+  const { regions } = props.matchedAreas;
+  const { locationsByRegion } = props.matchedAreas;
+  const forecastsByLocation = props.forecastsByName;
+  return (
+    <>
+      {
+            regions.map((region: RegionInterface) => (
+              locationsByRegion[region.name].map((location: LocationInterface) => {
+                const forecast = forecastsByLocation[location.name];
                 return (
-                    locationsByRegion[region.name].map((location) => {
-                    const forecast = forecastsByLocation[location.name];
-                    return <LocationDetail 
-                        key={location.name}
-                        region={region}
-                        forecast={forecast}
-                        location={location}
-                        isWeekend={props.isWeekend}
-                        dates={props.dates}
-                    />;
-                    })
-                )
-            })
+                  <LocationDetail
+                    key={location.name}
+                    region={region}
+                    forecast={forecast}
+                    location={location}
+                    isWeekend={props.isWeekend}
+                    dates={props.dates}
+                  />
+                );
+              })
+            ))
         }
-        </>
-    )
+    </>
+  );
 }
 
 export default LocationDetails;

@@ -1,75 +1,111 @@
-import { Link, Table, TableBody, TableCell, TableHead, TableRow } from "@mui/material";
+import React from 'react';
+import {
+  Link,
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableRow,
+} from '@mui/material';
 import { format } from 'fecha';
-import WeatherIcon from "../main_page/WeatherIcon";
-import '../../../css/weather-icons.css'
-import './LocationDetail.scss'
-import { convertToSentence } from "../../../utils/string";
-import React from "react";
-import { DailyForecastInterface } from "../../../interfaces/DailyForecastInterface";
-import { LocationInterface } from "../../../interfaces/LocationInterface";
-import { RegionInterface } from "../../../interfaces/RegionInterface";
-import WtaLink from "./WtaLink";
+import '../../../css/weather-icons.css';
+import './LocationDetail.scss';
+import convertToSentence from '../../../utils/string';
+import { DailyForecastInterface } from '../../../interfaces/DailyForecastInterface';
+import { LocationInterface } from '../../../interfaces/LocationInterface';
+import { RegionInterface } from '../../../interfaces/RegionInterface';
+import WtaLink from './WtaLink';
+import WeatherIcon from '../main_page/WeatherIcon';
 
 interface LocationDetailProps {
-    region: RegionInterface;
-    location: LocationInterface;
-    forecast: DailyForecastInterface[];
-    dates: (Date|null)[];
-    isWeekend: boolean[];
+  region: RegionInterface;
+  location: LocationInterface;
+  forecast: DailyForecastInterface[];
+  dates: (Date | null)[];
+  isWeekend: boolean[];
 }
 
 function LocationDetail(props: LocationDetailProps) {
-    const region = props.region;
-    const location = props.location;
-    const description = location.description;
-    const forecast = props.forecast;
-    const dates = props.dates;
-    const isWeekend = props.isWeekend;
-    return (
-        <>
-            <div id={location.name}>
-            <Table className='location-details'>
-                <TableHead>
-                    <TableRow className="heading">
-                        <TableCell colSpan={8} className="heading">
-                            {description.toUpperCase() + '  '}
-                            <WtaLink wtaRegion={region.search_key} wtaSubRegion={location.sub_region} />
-                            <Link href="#top">(top)</Link>
-                        </TableCell>
-                    </TableRow>
-                    <TableRow className="secondary-heading">
-                        <TableCell colSpan={2} className="center border-right">DATE</TableCell>
-                        <TableCell colSpan={2} className="center border-right">DETAILS</TableCell>
-                        <TableCell className="border-right">HI / LOW</TableCell>
-                        <TableCell colSpan={2} className="center border-right">PRECIP</TableCell>
-                        <TableCell>CLOUD COV</TableCell>
-                    </TableRow>
-                </TableHead>
-                <TableBody>
-                    {forecast.map((row, id) => {
-                        const d = dates[id];
-                        const weekendClassName = isWeekend[id] ? ' weekend ' : ' ';
-                        // console.log([row, id]);
-                        if(d) {
-                            return <TableRow className={weekendClassName} key={id}>
-                                <TableCell >{format(d, 'ddd').toUpperCase()}</TableCell>
-                                <TableCell className="border-right">{format(d, 'MMM Do').toUpperCase()}</TableCell>
-                                <TableCell>
-                                    <WeatherIcon {...row} key={id} />
-                                </TableCell>
-                                <TableCell className="border-right">{convertToSentence(row.icon)}</TableCell>
-                                <TableCell className="border-right">{Math.round(row.tempmax) + '° / ' + Math.round(row.tempmin) + '°'}</TableCell>
-                                <TableCell className="align-right">{Math.round(row.precipprob) + '%'}</TableCell>
-                                <TableCell className="align-right border-right">{Math.round(row.precip) + '"'}</TableCell>
-                                <TableCell className="align-right">{row.cloudcover + '%       '}</TableCell>
-                            </TableRow>
-                        }
-                    })}
-                </TableBody>
-            </Table>
-            </div>
-        </>
-    );
+  const { region } = props;
+  const { location } = props;
+  const { description } = location;
+  const { forecast } = props;
+  const { dates } = props;
+  const { isWeekend } = props;
+  return (
+    <div id={location.name}>
+      <Table className="location-details">
+        <TableHead>
+          <TableRow className="heading">
+            <TableCell colSpan={8} className="heading">
+              {`${description.toUpperCase()}  `}
+              <WtaLink
+                wtaRegion={region.searchKey}
+                wtaSubRegion={location.sub_region}
+              />
+              <Link href="#top">(top)</Link>
+            </TableCell>
+          </TableRow>
+          <TableRow className="secondary-heading">
+            <TableCell colSpan={2} className="center border-right">
+              DATE
+            </TableCell>
+            <TableCell colSpan={2} className="center border-right">
+              DETAILS
+            </TableCell>
+            <TableCell className="border-right">HI / LOW</TableCell>
+            <TableCell colSpan={2} className="center border-right">
+              PRECIP
+            </TableCell>
+            <TableCell>CLOUD COV</TableCell>
+          </TableRow>
+        </TableHead>
+        <TableBody>
+          {forecast.map((row, id) => {
+            const d = dates[id];
+            const weekendClassName = isWeekend[id] ? ' weekend ' : ' ';
+            // console.log([row, id]);
+            if (d) {
+              return (
+                <TableRow className={weekendClassName} key={row.datetime}>
+                  <TableCell>{format(d, 'ddd').toUpperCase()}</TableCell>
+                  <TableCell className="border-right">
+                    {format(d, 'MMM Do').toUpperCase()}
+                  </TableCell>
+                  <TableCell>
+                    <WeatherIcon {...row} key={row.datetime} />
+                  </TableCell>
+                  <TableCell className="border-right">
+                    {convertToSentence(row.icon)}
+                  </TableCell>
+                  <TableCell className="border-right">
+                    {`${Math.round(
+                      row.tempmax,
+                    )}° / ${Math.round(row.tempmin)}°`}
+
+                  </TableCell>
+                  <TableCell className="align-right">
+                    {`${Math.round(
+                      row.precipprob,
+                    )}%`}
+
+                  </TableCell>
+                  <TableCell className="align-right border-right">
+                    {`${Math.round(
+                      row.precip,
+                    )}"`}
+
+                  </TableCell>
+                  <TableCell className="align-right">{`${row.cloudcover}%       `}</TableCell>
+                </TableRow>
+              );
+            }
+            return null;
+          })}
+        </TableBody>
+      </Table>
+    </div>
+  );
 }
 
 export default LocationDetail;

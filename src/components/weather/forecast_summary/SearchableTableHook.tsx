@@ -1,60 +1,51 @@
-import SummaryTable from './SummaryTable';
+/* eslint-disable react/destructuring-assignment */
 import { debounce, TextField } from '@mui/material';
-import React, {  } from 'react';
-import { ForecastResponse, RegionsById } from '../../../interfaces/ForecastResponseInterface';
+import React from 'react';
 import { parse } from 'fecha';
+import { ForecastResponse, RegionsById } from '../../../interfaces/ForecastResponseInterface';
+import SummaryTable from './SummaryTable';
 import LocationDetails from '../location_details/LocationDetails';
-import { useLocalStorage } from '../../../utils/localstorage';
-import { LocationInterface } from '../../../interfaces/LocationInterface';
-import { RegionInterface } from '../../../interfaces/RegionInterface';
 import { isWeekend } from '../../../utils/date';
-import RangeSlider from '../main_page/TemperatureSlider';
-import MultipleSelectCheckmarks from '../main_page/DateSelector';
+import { MatchedAreas } from '../../../interfaces/MatchedAreas';
+import useLocalStorage from '../../../utils/localstorage';
 
-export interface MatchedAreas {
-  regions: RegionInterface[],
-  locationsByRegion: {
-    [regionName :string]: LocationInterface[],
-  }
-  dates?: string[],
-}
-
-//TODO move this to utils and add tests for it.
+// TODO move this to utils and add tests for it.
 function matchedLocations(needle: RegExp | null, regionsById: RegionsById) :MatchedAreas {
   // console.log(`matchedLocations called with ${needle}`);
   const matchedAreas: MatchedAreas = {
     regions: [],
     locationsByRegion: {},
-  }
-  for(const regionName in regionsById.byId) {
+  };
+
+  regionsById.allIds.forEach((regionName) => {
     const region = regionsById.byId[regionName];
-    if(needle) {
+    if (needle) {
       const locations = region.locations.filter((l) => l.description.match(needle));
-      if(locations.length > 0) {
+      if (locations.length > 0) {
         matchedAreas.regions.push(region);
         matchedAreas.locationsByRegion[region.name] = locations;
       }
     } else {
-        matchedAreas.regions.push(region);
-        matchedAreas.locationsByRegion[region.name] = region.locations;
+      matchedAreas.regions.push(region);
+      matchedAreas.locationsByRegion[region.name] = region.locations;
     }
-  }
+  });
   return matchedAreas;
 }
 
 function SearchableTableHook(props: ForecastResponse) {
-  const [searchText, setSearchText] = useLocalStorage("searchKeyText", "")
+  const [searchText, setSearchText] = useLocalStorage('searchKeyText', '');
   const handleChange = debounce(setSearchText, 200);
   const parsedDates = props.dates.map((d) => parse(d, 'YYYY-MM-DD'));
   const weekends = isWeekend(parsedDates);
   const trimmedSearch = searchText.trim();
-  const re = trimmedSearch === "" ? null : new RegExp(trimmedSearch, "i");
+  const re = trimmedSearch === '' ? null : new RegExp(trimmedSearch, 'i');
   const matchedAreas = matchedLocations(re, props.regions);
   const args = {
     ...props,
     isWeekend: weekends,
-    parsedDates: parsedDates,
-    matchedAreas: matchedAreas,
+    parsedDates,
+    matchedAreas,
   };
 
   const totalMatchedRegions = matchedAreas.regions.length;
@@ -64,8 +55,8 @@ function SearchableTableHook(props: ForecastResponse) {
         id="outlined-basic"
         label="Search Locations"
         variant="outlined"
-        autoFocus={true}
-        onChange={e => handleChange(e.target.value)}
+        autoFocus
+        onChange={(e) => handleChange(e.target.value)}
         defaultValue={searchText}
         error={totalMatchedRegions === 0}
         helperText={totalMatchedRegions !== 0 ? '' : 'No matches found !'}
@@ -82,7 +73,7 @@ function SearchableTableHook(props: ForecastResponse) {
         forecastsByName={props.forecasts.byId}
         isWeekend={weekends}
         dates={parsedDates}
-        />
+      />
     </>
   );
 }

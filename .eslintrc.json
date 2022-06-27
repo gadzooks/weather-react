@@ -1,13 +1,14 @@
 {
     "env": {
         "browser": true,
-        "es2021": true
+        "es2021": true,
+        "jest": true
     },
     "extends": [
         "airbnb",
         "plugin:import/errors",
         "plugin:import/warnings",
-        "plugin:import/typescript",
+        "plugin:import/typescript"
     ],
     "parser": "@typescript-eslint/parser",
     "parserOptions": {
@@ -34,6 +35,17 @@
         }
     },
     "rules": {
+        "react/jsx-props-no-spreading": "off",
+        "import/extensions": [
+            "error",
+            "ignorePackages",
+            {
+                "js": "never",
+                "jsx": "never",
+                "ts": "never",
+                "tsx": "never"
+            }
+        ],
         "react/jsx-filename-extension": [
             2,
             {

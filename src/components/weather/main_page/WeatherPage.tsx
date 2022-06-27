@@ -9,6 +9,15 @@ interface AppState {
   forecast: ForecastResponse|null,
 }
 
+export function Page(props: ForecastResponse) {
+  return (
+    <>
+      <div id="top" />
+      <SearchableTableHook {...props} />
+    </>
+  );
+}
+
 function WeatherPage(props: AppState) {
   const [appState, setAppState] = useState(props);
   const params = useParams();
@@ -57,12 +66,3 @@ function WeatherPage(props: AppState) {
 }
 
 export default WeatherPage;
-
-export function Page(props: ForecastResponse) {
-  return (
-    <>
-      <div id="top" />
-      <SearchableTableHook {...props} />
-    </>
-  );
-}

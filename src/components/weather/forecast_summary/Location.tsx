@@ -1,11 +1,11 @@
 import TableCell from '@mui/material/TableCell';
 import TableRow from '@mui/material/TableRow';
 import './Location.scss';
-import WeatherIcon from '../main_page/WeatherIcon';
-import { LocationInterface } from '../../../interfaces/LocationInterface';
-import { ForecastsById } from '../../../interfaces/ForecastResponseInterface';
 import React from 'react';
 import { Link } from '@mui/material';
+import { LocationInterface } from '../../../interfaces/LocationInterface';
+import { ForecastsById } from '../../../interfaces/ForecastResponseInterface';
+import WeatherIcon from '../main_page/WeatherIcon';
 
 interface LocationProps {
   isWeekend: boolean[],
@@ -14,19 +14,23 @@ interface LocationProps {
 }
 
 function Location(props: LocationProps) {
-  const location = props.location;
-  const forecasts = props.forecastsById.byId[location.name] || [];
+  const { location } = props;
+  const { isWeekend } = props;
+  const { forecastsById } = props;
+  const forecasts = forecastsById.byId[location.name] || [];
   return (
-    <TableRow className='weather-cell'>
-      <TableCell className='weather-cell'>N/A</TableCell>
-      <TableCell className='weather-cell'>
-        <Link href={`#${location.name}`} >{location.description.toLocaleUpperCase()}</Link>
-        </TableCell>
+    <TableRow className="weather-cell">
+      <TableCell className="weather-cell">N/A</TableCell>
+      <TableCell className="weather-cell">
+        <Link href={`#${location.name}`}>{location.description.toLocaleUpperCase()}</Link>
+      </TableCell>
       {forecasts.map((d, index) => {
-        const weekendClassName = props.isWeekend[index] ? ' weekend ' : ' ';
-        return <TableCell key={index} className={`weather-cell center ${weekendClassName}`}>
-          <WeatherIcon {...d} key={index} />
-        </TableCell>
+        const weekendClassName = isWeekend[index] ? ' weekend ' : ' ';
+        return (
+          <TableCell key={d.datetime} className={`weather-cell center ${weekendClassName}`}>
+            <WeatherIcon {...d} />
+          </TableCell>
+        );
       })}
     </TableRow>
   );

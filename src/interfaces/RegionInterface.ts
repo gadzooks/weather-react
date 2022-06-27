@@ -3,6 +3,6 @@ import { LocationInterface } from './LocationInterface';
 export interface RegionInterface {
   name: string;
   description: string;
-  search_key?: string;
+  searchKey?: string;
   locations: LocationInterface[];
 }

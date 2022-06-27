@@ -2,8 +2,8 @@ import { TableBody } from '@mui/material';
 import TableCell from '@mui/material/TableCell';
 import TableRow from '@mui/material/TableRow';
 import './Region.scss';
-import { RegionInterface } from '../../../interfaces/RegionInterface';
 import React from 'react';
+import { RegionInterface } from '../../../interfaces/RegionInterface';
 import { ForecastsById } from '../../../interfaces/ForecastResponseInterface';
 import Location from './Location';
 import WtaLink from '../location_details/WtaLink';
@@ -17,23 +17,22 @@ export interface RegionProps {
 }
 
 function Region(props: RegionProps) {
-    const colSpan = 17;
-    return (
-      <>
-        <TableBody>
-          <TableRow className='region-details'>
-            <TableCell colSpan={colSpan} align="center">
-              {props.region.description}
-              <WtaLink wtaRegion={props.region.search_key} />
-            </TableCell>
-          </TableRow>
-          {props.locations.map((loc, idx) => {
-              return <Location location={loc} key={idx} {...props} />;
-          })}
-        </TableBody>
-      </>
-    );
-
+  const colSpan = 17;
+  const { region } = props;
+  const { description } = region;
+  const { searchKey } = region;
+  const { locations } = region;
+  return (
+    <TableBody>
+      <TableRow className="region-details">
+        <TableCell colSpan={colSpan} align="center">
+          {description}
+          <WtaLink wtaRegion={searchKey} />
+        </TableCell>
+      </TableRow>
+      {locations.map((loc) => <Location location={loc} {...props} key={loc.name} />)}
+    </TableBody>
+  );
 }
 
 export default Region;
