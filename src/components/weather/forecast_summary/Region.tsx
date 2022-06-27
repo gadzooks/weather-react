@@ -21,7 +21,7 @@ function Region(props: RegionProps) {
   const { region } = props;
   const { description } = region;
   const { searchKey } = region;
-  const { locations } = region;
+  const { locations } = props;
   return (
     <TableBody>
       <TableRow className="region-details">
