@@ -48,6 +48,81 @@ Array [
       </fieldset>
     </div>
   </div>,
+  <div>
+    <div
+      className="MuiFormControl-root css-1869usk-MuiFormControl-root"
+    >
+      <label
+        className="MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-outlined MuiFormLabel-root MuiFormLabel-colorPrimary css-14s5rfu-MuiFormLabel-root-MuiInputLabel-root"
+        data-shrink={false}
+        id="demo-simple-select-helper-label"
+      >
+        Day
+      </label>
+      <div
+        className="MuiOutlinedInput-root MuiInputBase-root MuiInputBase-colorPrimary MuiInputBase-formControl  css-1yk1gt9-MuiInputBase-root-MuiOutlinedInput-root-MuiSelect-root"
+        onClick={[Function]}
+      >
+        <div
+          aria-expanded="false"
+          aria-haspopup="listbox"
+          aria-labelledby="demo-simple-select-helper-label demo-simple-select-helper"
+          className="MuiSelect-select MuiSelect-outlined MuiOutlinedInput-input MuiInputBase-input css-11u53oe-MuiSelect-select-MuiInputBase-input-MuiOutlinedInput-input"
+          id="demo-simple-select-helper"
+          onBlur={[Function]}
+          onFocus={[Function]}
+          onKeyDown={[Function]}
+          onMouseDown={[Function]}
+          role="button"
+          tabIndex={0}
+        >
+          <span
+            className="notranslate"
+          >
+            ​
+          </span>
+        </div>
+        <input
+          aria-hidden={true}
+          className="MuiSelect-nativeInput css-yf8vq0-MuiSelect-nativeInput"
+          disabled={false}
+          onAnimationStart={[Function]}
+          onChange={[Function]}
+          required={false}
+          tabIndex={-1}
+          value=""
+        />
+        <svg
+          aria-hidden={true}
+          className="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium MuiSelect-icon MuiSelect-iconOutlined css-hfutr2-MuiSvgIcon-root-MuiSelect-icon"
+          data-testid="ArrowDropDownIcon"
+          focusable="false"
+          viewBox="0 0 24 24"
+        >
+          <path
+            d="M7 10l5 5 5-5z"
+          />
+        </svg>
+        <fieldset
+          aria-hidden={true}
+          className="MuiOutlinedInput-notchedOutline css-1d3z3hw-MuiOutlinedInput-notchedOutline"
+        >
+          <legend
+            className="css-1ftyaf0"
+          >
+            <span>
+              Age
+            </span>
+          </legend>
+        </fieldset>
+      </div>
+      <p
+        className="MuiFormHelperText-root MuiFormHelperText-sizeMedium MuiFormHelperText-contained css-1wc848c-MuiFormHelperText-root"
+      >
+        Select a day for further filtering
+      </p>
+    </div>
+  </div>,
   <table
     className="MuiTable-root table table-sm weather-forecast-summary css-rqglhn-MuiTable-root"
     role={null}

@@ -1,5 +1,5 @@
 /* eslint-disable react/destructuring-assignment */
-import { debounce, TextField } from '@mui/material';
+import { debounce, SelectChangeEvent, TextField } from '@mui/material';
 import React from 'react';
 import { parse } from 'fecha';
 import { ForecastResponse, RegionsById } from '../../../interfaces/ForecastResponseInterface';
@@ -8,6 +8,7 @@ import LocationDetails from '../location_details/LocationDetails';
 import { isWeekend } from '../../../utils/date';
 import { MatchedAreas } from '../../../interfaces/MatchedAreas';
 import useLocalStorage from '../../../utils/localstorage';
+import SelectDay from '../main_page/ForecastDayFilter';
 
 // TODO move this to utils and add tests for it.
 function matchedLocations(needle: RegExp | null, regionsById: RegionsById) :MatchedAreas {
@@ -35,7 +36,13 @@ function matchedLocations(needle: RegExp | null, regionsById: RegionsById) :Matc
 
 function SearchableTableHook(props: ForecastResponse) {
   const [searchText, setSearchText] = useLocalStorage('searchKeyText', '');
-  const handleChange = debounce(setSearchText, 200);
+  const [daySelectedValue, setDaySelected] = useLocalStorage('daySelected', '');
+
+  const handleChangeForDay = (event: SelectChangeEvent) => {
+    setDaySelected(event.target.value);
+  };
+
+  const handleChangeForLocationName = debounce(setSearchText, 200);
   const parsedDates = props.dates.map((d) => parse(d, 'YYYY-MM-DD'));
   const weekends = isWeekend(parsedDates);
   const trimmedSearch = searchText.trim();
@@ -56,7 +63,7 @@ function SearchableTableHook(props: ForecastResponse) {
         label="Search Locations"
         variant="outlined"
         autoFocus
-        onChange={(e) => handleChange(e.target.value)}
+        onChange={(e) => handleChangeForLocationName(e.target.value)}
         defaultValue={searchText}
         error={totalMatchedRegions === 0}
         helperText={totalMatchedRegions !== 0 ? '' : 'No matches found !'}
@@ -64,7 +71,11 @@ function SearchableTableHook(props: ForecastResponse) {
 
       {/* <RangeSlider /> */}
 
-      {/* <MultipleSelectCheckmarks names={props.dates} /> */}
+      <SelectDay
+        handleChange={handleChangeForDay}
+        dateSelected={daySelectedValue}
+        dates={props.dates}
+      />
 
       <SummaryTable {...args} />
 
