@@ -10,6 +10,7 @@ import { ForecastResponse } from '../../../interfaces/ForecastResponseInterface'
 import Region from './Region';
 import { RegionInterface } from '../../../interfaces/RegionInterface';
 import { MatchedAreas } from '../../../interfaces/MatchedAreas';
+import { DailyForecastFilter, matchesSelecteDate } from '../../../interfaces/DailyForecastFilter';
 
 export function matchedOne(needle: RegExp | null, haystack: LocationInterface[]) :boolean {
   if (!needle) return true;
@@ -27,6 +28,7 @@ interface SummaryTableProps extends ForecastResponse {
   isWeekend: boolean[],
   parsedDates: (Date|null)[],
   matchedAreas: MatchedAreas,
+  dailyForecastFilter: DailyForecastFilter,
 }
 
 function SummaryTable(props: SummaryTableProps) {
@@ -35,6 +37,7 @@ function SummaryTable(props: SummaryTableProps) {
   const { matchedAreas } = props;
   const { regions } = matchedAreas;
   const { locationsByRegion } = matchedAreas;
+  const { dailyForecastFilter } = props;
 
   return (
     <Table className="table table-sm weather-forecast-summary">
@@ -44,7 +47,11 @@ function SummaryTable(props: SummaryTableProps) {
           <TableCell>Location</TableCell>
           {parsedDates.map((date) => {
             const txt = date === null ? '' : format(date, 'ddd MMM DD').toUpperCase();
-            return <TableCell key={txt}>{txt}</TableCell>;
+            return (
+              matchesSelecteDate(date, dailyForecastFilter.date) && (
+                <TableCell key={txt}>{txt}</TableCell>
+              )
+            );
           })}
         </TableRow>
       </TableHead>
@@ -58,6 +65,7 @@ function SummaryTable(props: SummaryTableProps) {
             region={region}
             forecastsById={forecasts}
             locations={locations}
+            dailyForecastFilter={dailyForecastFilter}
           />
         );
       })}

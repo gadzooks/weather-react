@@ -8,7 +8,8 @@ import LocationDetails from '../location_details/LocationDetails';
 import { isWeekend } from '../../../utils/date';
 import { MatchedAreas } from '../../../interfaces/MatchedAreas';
 import useLocalStorage from '../../../utils/localstorage';
-import SelectDay from '../main_page/ForecastDayFilter';
+import SelectDay from '../main_page/SelectDayDropDown';
+import { DailyForecastFilter } from '../../../interfaces/DailyForecastFilter';
 
 // TODO move this to utils and add tests for it.
 function matchedLocations(needle: RegExp | null, regionsById: RegionsById) :MatchedAreas {
@@ -42,20 +43,30 @@ function SearchableTableHook(props: ForecastResponse) {
     setDaySelected(event.target.value);
   };
 
+  // if none of the dates match what was stored in daySelected then delete it from local storage
+  // // if (!props.dates.find((d) => d === daySelectedValue)) {
+  // //   setDaySelected('');
+  // }
+
   const handleChangeForLocationName = debounce(setSearchText, 200);
   const parsedDates = props.dates.map((d) => parse(d, 'YYYY-MM-DD'));
   const weekends = isWeekend(parsedDates);
   const trimmedSearch = searchText.trim();
   const re = trimmedSearch === '' ? null : new RegExp(trimmedSearch, 'i');
   const matchedAreas = matchedLocations(re, props.regions);
+  const totalMatchedRegions = matchedAreas.regions.length;
+  const dailyForecastFilter: DailyForecastFilter = {
+    date: daySelectedValue,
+  };
+
   const args = {
     ...props,
     isWeekend: weekends,
     parsedDates,
     matchedAreas,
+    dailyForecastFilter,
   };
 
-  const totalMatchedRegions = matchedAreas.regions.length;
   return (
     <>
       <TextField

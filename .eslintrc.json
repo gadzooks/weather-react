@@ -35,6 +35,14 @@
         }
     },
     "rules": {
+        "@typescript-eslint/quotes": [
+            "error",
+            "single",
+            {
+                "avoidEscape": true,
+                "allowTemplateLiterals": true
+            }
+        ],
         "react/jsx-props-no-spreading": "off",
         "import/extensions": [
             "error",

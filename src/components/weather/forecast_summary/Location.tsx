@@ -6,17 +6,20 @@ import { Link } from '@mui/material';
 import { LocationInterface } from '../../../interfaces/LocationInterface';
 import { ForecastsById } from '../../../interfaces/ForecastResponseInterface';
 import WeatherIcon from '../main_page/WeatherIcon';
+import { DailyForecastFilter, matchesSelecteDateString } from '../../../interfaces/DailyForecastFilter';
 
 interface LocationProps {
   isWeekend: boolean[],
   location: LocationInterface,
   forecastsById: ForecastsById,
+  dailyForecastFilter: DailyForecastFilter,
 }
 
 function Location(props: LocationProps) {
   const { location } = props;
   const { isWeekend } = props;
   const { forecastsById } = props;
+  const { dailyForecastFilter } = props;
   const forecasts = forecastsById.byId[location.name] || [];
   return (
     <TableRow className="weather-cell">
@@ -25,6 +28,7 @@ function Location(props: LocationProps) {
         <Link href={`#${location.name}`}>{location.description.toLocaleUpperCase()}</Link>
       </TableCell>
       {forecasts.map((d, index) => {
+        if (!matchesSelecteDateString(d.datetime, dailyForecastFilter.date)) return null;
         const weekendClassName = isWeekend[index] ? ' weekend ' : ' ';
         return (
           <TableCell key={d.datetime} className={`weather-cell center ${weekendClassName}`}>
