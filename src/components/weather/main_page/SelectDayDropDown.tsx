@@ -18,16 +18,16 @@ export default function SelectDay(props: SelectDayProps) {
   return (
     <div>
       <FormControl sx={{ m: 1, minWidth: 120 }}>
-        <InputLabel id="demo-simple-select-helper-label">Day</InputLabel>
+        <InputLabel id='demo-simple-select-helper-label'>Day</InputLabel>
         <Select
-          labelId="demo-simple-select-helper-label"
-          id="demo-simple-select-helper"
+          labelId='demo-simple-select-helper-label'
+          id='demo-simple-select-helper'
           value={txt}
-          label="Age"
+          label='Age'
           // eslint-disable-next-line react/destructuring-assignment
           onChange={props.handleChange}
         >
-          <MenuItem value="">
+          <MenuItem value=''>
             <em>Select a day</em>
           </MenuItem>
           {props.dates.map((d) => (<MenuItem key={d} value={d}>{d}</MenuItem>))}

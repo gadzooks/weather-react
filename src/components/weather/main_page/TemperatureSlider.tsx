@@ -1,7 +1,9 @@
+/* eslint-disable prefer-destructuring */
 import * as React from 'react';
 import Box from '@mui/material/Box';
 import Slider from '@mui/material/Slider';
 import { styled } from '@mui/material/styles';
+import { DailyForecastFilter } from '../../../interfaces/DailyForecastFilter';
 
 function valuetext(value: number) {
   return `${value}°C`;
@@ -46,6 +48,7 @@ const PrettoSlider = styled(Slider)({
   },
 });
 
+// TODO move all constants to 1 file
 const minTemp = 20;
 const maxTemp = 120;
 const defaultMinTemp = 40;
@@ -76,17 +79,38 @@ const marks = [
 
 const minDistance = 20;
 
-export default function MinimumDistanceSlider() {
-  const [value2, setValue2] = React.useState<number[]>([
-    defaultMinTemp,
-    defaultMaxTemp,
-  ]);
+interface TempSliderProps {
+  // onChangeCommitted: any;
+  dailyForecastFilter: DailyForecastFilter;
+  // eslint-disable-next-line react/no-unused-prop-types
+  setDailyForecastFilter: any;
+}
+
+export default function MinimumDistanceSlider(props: TempSliderProps) {
+  // const [value2, setValue2] = React.useState<number[]>([
+  //   defaultMinTemp,
+  //   defaultMaxTemp,
+  // ]);
+
+  const { dailyForecastFilter } = props;
+  const { setDailyForecastFilter } = props;
+  // console.log(dailyForecastFilter);
+
+  // const value2 = [
+  //   dailyForecastFilter.tempmin || defaultMinTemp,
+  //   dailyForecastFilter.tempmax || defaultMaxTemp,
+  // ];
+
+  // eslint-disable-next-line react/destructuring-assignment
+  // const setValue2 = props.setDailyForecastFilter;
 
   const handleChange2 = (
     event: Event,
     newValue: number | number[],
     activeThumb: number,
   ) => {
+    console.log(`handlechange : ${JSON.stringify(dailyForecastFilter)}`);
+    console.log(`new value is ${newValue}`);
     if (!Array.isArray(newValue)) {
       return;
     }
@@ -94,13 +118,29 @@ export default function MinimumDistanceSlider() {
     if (newValue[1] - newValue[0] < minDistance) {
       if (activeThumb === 0) {
         const clamped = Math.min(newValue[0], 100 - minDistance);
-        setValue2([clamped, clamped + minDistance]);
+        // setValue2([clamped, clamped + minDistance]);
+        const newDFF = { ...dailyForecastFilter };
+        newDFF.tempmin = clamped;
+        newDFF.tempmax = clamped + minDistance;
+        console.log(`aaa : setting dailyff : ${JSON.stringify(newDFF)}`);
+        setDailyForecastFilter(newDFF);
+        // setValue2([clamped, clamped + minDistance]);
       } else {
         const clamped = Math.max(newValue[1], minDistance);
-        setValue2([clamped - minDistance, clamped]);
+        // setValue2([clamped - minDistance, clamped]);
+        const newDFF = { ...dailyForecastFilter };
+        newDFF.tempmin = clamped - minDistance;
+        newDFF.tempmax = clamped;
+        console.log(`bbb : setting dailyff : ${JSON.stringify(newDFF)}`);
+        setDailyForecastFilter(newDFF);
       }
     } else {
-      setValue2(newValue as number[]);
+      // setValue2(newValue as number[]);
+      const newDFF = { ...dailyForecastFilter };
+      newDFF.tempmin = newValue[0];
+      newDFF.tempmax = newValue[1];
+      console.log(`ccc : setting dailyff : ${JSON.stringify(newDFF)}`);
+      setDailyForecastFilter(newDFF);
     }
   };
 
@@ -108,14 +148,18 @@ export default function MinimumDistanceSlider() {
     <Box sx={{ width: 300 }}>
       <PrettoSlider
         getAriaLabel={() => 'Minimum distance shift'}
-        value={value2}
+        value={[
+          dailyForecastFilter.tempmin || defaultMinTemp,
+          dailyForecastFilter.tempmax || defaultMaxTemp,
+        ]}
         onChange={handleChange2}
+        // onChangeCommitted={handleChange2}
         getAriaValueText={valuetext}
         disableSwap
         marks={marks}
         max={maxTemp}
         min={minTemp}
-        valueLabelDisplay="auto"
+        valueLabelDisplay='auto'
       />
     </Box>
   );

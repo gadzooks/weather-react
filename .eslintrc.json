@@ -42,7 +42,7 @@
             }
         ],
         "jsx-quotes": [
-            2, "prefer-double"
+            2, "prefer-single"
         ],
         "@typescript-eslint/quotes": [
             "error",

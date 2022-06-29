@@ -9,8 +9,8 @@ import { isWeekend } from '../../../utils/date';
 import { MatchedAreas } from '../../../interfaces/MatchedAreas';
 import useLocalStorage from '../../../utils/localstorage';
 import SelectDay from '../main_page/SelectDayDropDown';
-import { DailyForecastFilter } from '../../../interfaces/DailyForecastFilter';
 import MinimumDistanceSlider from '../main_page/TemperatureSlider';
+import { DailyForecastFilter } from '../../../interfaces/DailyForecastFilter';
 
 // TODO move this to utils and add tests for it.
 function matchedLocations(needle: RegExp | null, regionsById: RegionsById) :MatchedAreas {
@@ -39,6 +39,17 @@ function matchedLocations(needle: RegExp | null, regionsById: RegionsById) :Matc
 function SearchableTableHook(props: ForecastResponse) {
   const [searchText, setSearchText] = useLocalStorage('searchKeyText', '');
   const [daySelectedValue, setDaySelected] = useLocalStorage('daySelected', '');
+  const defaultDailyForecastFilter: DailyForecastFilter = {
+    date: undefined,
+    tempmax: undefined,
+    tempmin: undefined,
+    precip: undefined,
+    precipprob: undefined,
+  };
+  const [dailyForecastFilter, setDailyForecastFilter] = useLocalStorage(
+    'dailyForecastFilter',
+    defaultDailyForecastFilter,
+  );
 
   const handleChangeForDay = (event: SelectChangeEvent) => {
     setDaySelected(event.target.value);
@@ -56,9 +67,6 @@ function SearchableTableHook(props: ForecastResponse) {
   const re = trimmedSearch === '' ? null : new RegExp(trimmedSearch, 'i');
   const matchedAreas = matchedLocations(re, props.regions);
   const totalMatchedRegions = matchedAreas.regions.length;
-  const dailyForecastFilter: DailyForecastFilter = {
-    date: daySelectedValue,
-  };
 
   const args = {
     ...props,
@@ -71,9 +79,9 @@ function SearchableTableHook(props: ForecastResponse) {
   return (
     <>
       <TextField
-        id="outlined-basic"
-        label="Search Locations"
-        variant="outlined"
+        id='outlined-basic'
+        label='Search Locations'
+        variant='outlined'
         autoFocus
         onChange={(e) => handleChangeForLocationName(e.target.value)}
         defaultValue={searchText}
@@ -87,7 +95,10 @@ function SearchableTableHook(props: ForecastResponse) {
         dates={props.dates}
       />
 
-      <MinimumDistanceSlider />
+      <MinimumDistanceSlider
+        dailyForecastFilter={dailyForecastFilter}
+        setDailyForecastFilter={setDailyForecastFilter}
+      />
 
       <SummaryTable {...args} />
 
