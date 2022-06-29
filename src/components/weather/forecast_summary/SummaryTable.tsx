@@ -10,13 +10,7 @@ import { ForecastResponse } from '../../../interfaces/ForecastResponseInterface'
 import Region from './Region';
 import { RegionInterface } from '../../../interfaces/RegionInterface';
 import { MatchedAreas } from '../../../interfaces/MatchedAreas';
-import { DailyForecastFilter, matchesSelecteDate } from '../../../interfaces/DailyForecastFilter';
-
-export function matchedOne(needle: RegExp | null, haystack: LocationInterface[]) :boolean {
-  if (!needle) return true;
-  const names = haystack.map((l) => l.description);
-  return !!names.find((element) => element.match(needle));
-}
+import { DailyForecastFilter, dateSelectedMatchesForecastDates, matchesSelecteDate } from '../../../interfaces/DailyForecastFilter';
 
 // eslint-disable-next-line max-len
 export function matchedLocations(needle: RegExp | null, region: RegionInterface) :LocationInterface[] {
@@ -38,17 +32,24 @@ function SummaryTable(props: SummaryTableProps) {
   const { regions } = matchedAreas;
   const { locationsByRegion } = matchedAreas;
   const { dailyForecastFilter } = props;
+  const { forecasts } = props;
+  const dateSelectedIsWithinForecastRange = dateSelectedMatchesForecastDates(
+    regions,
+    forecasts,
+    dailyForecastFilter.date,
+  );
 
   return (
-    <Table className="table table-sm weather-forecast-summary">
-      <TableHead className="table-heading">
+    <Table className='table table-sm weather-forecast-summary'>
+      <TableHead className='table-heading'>
         <TableRow>
           <TableCell>Weather Alerts</TableCell>
           <TableCell>Location</TableCell>
           {parsedDates.map((date) => {
             const txt = date === null ? '' : format(date, 'ddd MMM DD').toUpperCase();
             return (
-              matchesSelecteDate(date, dailyForecastFilter.date) && (
+              (!dateSelectedIsWithinForecastRange
+                || matchesSelecteDate(date, dailyForecastFilter.date)) && (
                 <TableCell key={txt}>{txt}</TableCell>
               )
             );
@@ -57,7 +58,6 @@ function SummaryTable(props: SummaryTableProps) {
       </TableHead>
       {regions.map((region: RegionInterface) => {
         const locations = locationsByRegion[region.name];
-        const { forecasts } = props;
         return (
           <Region
             key={region.name}
@@ -66,6 +66,9 @@ function SummaryTable(props: SummaryTableProps) {
             forecastsById={forecasts}
             locations={locations}
             dailyForecastFilter={dailyForecastFilter}
+            dateSelectedIsWithinForecastRange={
+              dateSelectedIsWithinForecastRange
+            }
           />
         );
       })}

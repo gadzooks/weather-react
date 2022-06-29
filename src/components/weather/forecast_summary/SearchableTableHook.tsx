@@ -38,7 +38,6 @@ function matchedLocations(needle: RegExp | null, regionsById: RegionsById) :Matc
 
 function SearchableTableHook(props: ForecastResponse) {
   const [searchText, setSearchText] = useLocalStorage('searchKeyText', '');
-  const [daySelectedValue, setDaySelected] = useLocalStorage('daySelected', '');
   const defaultDailyForecastFilter: DailyForecastFilter = {
     date: undefined,
     tempmax: undefined,
@@ -52,13 +51,10 @@ function SearchableTableHook(props: ForecastResponse) {
   );
 
   const handleChangeForDay = (event: SelectChangeEvent) => {
-    setDaySelected(event.target.value);
+    const dFF = { ...dailyForecastFilter } as DailyForecastFilter;
+    dFF.date = event.target.value;
+    setDailyForecastFilter(dFF);
   };
-
-  // if none of the dates match what was stored in daySelected then delete it from local storage
-  // // if (!props.dates.find((d) => d === daySelectedValue)) {
-  // //   setDaySelected('');
-  // }
 
   const handleChangeForLocationName = debounce(setSearchText, 200);
   const parsedDates = props.dates.map((d) => parse(d, 'YYYY-MM-DD'));
@@ -91,7 +87,7 @@ function SearchableTableHook(props: ForecastResponse) {
 
       <SelectDay
         handleChange={handleChangeForDay}
-        dateSelected={daySelectedValue}
+        dateSelected={dailyForecastFilter.date}
         dates={props.dates}
       />
 

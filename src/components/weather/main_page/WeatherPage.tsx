@@ -12,7 +12,7 @@ interface AppState {
 export function Page(props: ForecastResponse) {
   return (
     <>
-      <div id="top" />
+      <div id='top' />
       <SearchableTableHook {...props} />
     </>
   );

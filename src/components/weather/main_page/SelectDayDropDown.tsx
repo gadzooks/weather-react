@@ -13,7 +13,9 @@ interface SelectDayProps {
 }
 
 export default function SelectDay(props: SelectDayProps) {
-  const txt = props.dateSelected || '';
+  let txt = props.dateSelected || '';
+  const foundOne = props.dates.find((d) => d === txt);
+  if (!foundOne) txt = '';
 
   return (
     <div>
