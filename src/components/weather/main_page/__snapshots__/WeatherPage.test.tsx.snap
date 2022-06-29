@@ -872,7 +872,7 @@ Array [
             className="MuiTableCell-root MuiTableCell-head MuiTableCell-sizeMedium border-right css-1ygcj2i-MuiTableCell-root"
             scope="col"
           >
-            HI / LOW
+            LOW / HIGH
           </th>
           <th
             aria-sort={null}
@@ -930,7 +930,7 @@ Array [
             aria-sort={null}
             className="MuiTableCell-root MuiTableCell-body MuiTableCell-sizeMedium border-right css-1ex1afd-MuiTableCell-root"
           >
-            75° / 47°
+            47° / 75°
           </td>
           <td
             aria-sort={null}
@@ -986,7 +986,7 @@ Array [
             aria-sort={null}
             className="MuiTableCell-root MuiTableCell-body MuiTableCell-sizeMedium border-right css-1ex1afd-MuiTableCell-root"
           >
-            73° / 52°
+            52° / 73°
           </td>
           <td
             aria-sort={null}
@@ -1042,7 +1042,7 @@ Array [
             aria-sort={null}
             className="MuiTableCell-root MuiTableCell-body MuiTableCell-sizeMedium border-right css-1ex1afd-MuiTableCell-root"
           >
-            70° / 52°
+            52° / 70°
           </td>
           <td
             aria-sort={null}
@@ -1098,7 +1098,7 @@ Array [
             aria-sort={null}
             className="MuiTableCell-root MuiTableCell-body MuiTableCell-sizeMedium border-right css-1ex1afd-MuiTableCell-root"
           >
-            66° / 51°
+            51° / 66°
           </td>
           <td
             aria-sort={null}
@@ -1154,7 +1154,7 @@ Array [
             aria-sort={null}
             className="MuiTableCell-root MuiTableCell-body MuiTableCell-sizeMedium border-right css-1ex1afd-MuiTableCell-root"
           >
-            65° / 49°
+            49° / 65°
           </td>
           <td
             aria-sort={null}
@@ -1210,7 +1210,7 @@ Array [
             aria-sort={null}
             className="MuiTableCell-root MuiTableCell-body MuiTableCell-sizeMedium border-right css-1ex1afd-MuiTableCell-root"
           >
-            61° / 49°
+            49° / 61°
           </td>
           <td
             aria-sort={null}
@@ -1266,7 +1266,7 @@ Array [
             aria-sort={null}
             className="MuiTableCell-root MuiTableCell-body MuiTableCell-sizeMedium border-right css-1ex1afd-MuiTableCell-root"
           >
-            59° / 49°
+            49° / 59°
           </td>
           <td
             aria-sort={null}
@@ -1322,7 +1322,7 @@ Array [
             aria-sort={null}
             className="MuiTableCell-root MuiTableCell-body MuiTableCell-sizeMedium border-right css-1ex1afd-MuiTableCell-root"
           >
-            66° / 50°
+            50° / 66°
           </td>
           <td
             aria-sort={null}
@@ -1378,7 +1378,7 @@ Array [
             aria-sort={null}
             className="MuiTableCell-root MuiTableCell-body MuiTableCell-sizeMedium border-right css-1ex1afd-MuiTableCell-root"
           >
-            56° / 49°
+            49° / 56°
           </td>
           <td
             aria-sort={null}
@@ -1434,7 +1434,7 @@ Array [
             aria-sort={null}
             className="MuiTableCell-root MuiTableCell-body MuiTableCell-sizeMedium border-right css-1ex1afd-MuiTableCell-root"
           >
-            56° / 46°
+            46° / 56°
           </td>
           <td
             aria-sort={null}
@@ -1490,7 +1490,7 @@ Array [
             aria-sort={null}
             className="MuiTableCell-root MuiTableCell-body MuiTableCell-sizeMedium border-right css-1ex1afd-MuiTableCell-root"
           >
-            58° / 43°
+            43° / 58°
           </td>
           <td
             aria-sort={null}
@@ -1546,7 +1546,7 @@ Array [
             aria-sort={null}
             className="MuiTableCell-root MuiTableCell-body MuiTableCell-sizeMedium border-right css-1ex1afd-MuiTableCell-root"
           >
-            51° / 47°
+            47° / 51°
           </td>
           <td
             aria-sort={null}
@@ -1602,7 +1602,7 @@ Array [
             aria-sort={null}
             className="MuiTableCell-root MuiTableCell-body MuiTableCell-sizeMedium border-right css-1ex1afd-MuiTableCell-root"
           >
-            62° / 50°
+            50° / 62°
           </td>
           <td
             aria-sort={null}
@@ -1658,7 +1658,7 @@ Array [
             aria-sort={null}
             className="MuiTableCell-root MuiTableCell-body MuiTableCell-sizeMedium border-right css-1ex1afd-MuiTableCell-root"
           >
-            60° / 51°
+            51° / 60°
           </td>
           <td
             aria-sort={null}
@@ -1714,7 +1714,7 @@ Array [
             aria-sort={null}
             className="MuiTableCell-root MuiTableCell-body MuiTableCell-sizeMedium border-right css-1ex1afd-MuiTableCell-root"
           >
-            56° / 46°
+            46° / 56°
           </td>
           <td
             aria-sort={null}
@@ -1795,7 +1795,7 @@ Array [
             className="MuiTableCell-root MuiTableCell-head MuiTableCell-sizeMedium border-right css-1ygcj2i-MuiTableCell-root"
             scope="col"
           >
-            HI / LOW
+            LOW / HIGH
           </th>
           <th
             aria-sort={null}
@@ -1853,7 +1853,7 @@ Array [
             aria-sort={null}
             className="MuiTableCell-root MuiTableCell-body MuiTableCell-sizeMedium border-right css-1ex1afd-MuiTableCell-root"
           >
-            77° / 46°
+            46° / 77°
           </td>
           <td
             aria-sort={null}
@@ -1909,7 +1909,7 @@ Array [
             aria-sort={null}
             className="MuiTableCell-root MuiTableCell-body MuiTableCell-sizeMedium border-right css-1ex1afd-MuiTableCell-root"
           >
-            76° / 49°
+            49° / 76°
           </td>
           <td
             aria-sort={null}
@@ -1965,7 +1965,7 @@ Array [
             aria-sort={null}
             className="MuiTableCell-root MuiTableCell-body MuiTableCell-sizeMedium border-right css-1ex1afd-MuiTableCell-root"
           >
-            70° / 48°
+            48° / 70°
           </td>
           <td
             aria-sort={null}
@@ -2021,7 +2021,7 @@ Array [
             aria-sort={null}
             className="MuiTableCell-root MuiTableCell-body MuiTableCell-sizeMedium border-right css-1ex1afd-MuiTableCell-root"
           >
-            66° / 46°
+            46° / 66°
           </td>
           <td
             aria-sort={null}
@@ -2077,7 +2077,7 @@ Array [
             aria-sort={null}
             className="MuiTableCell-root MuiTableCell-body MuiTableCell-sizeMedium border-right css-1ex1afd-MuiTableCell-root"
           >
-            65° / 45°
+            45° / 65°
           </td>
           <td
             aria-sort={null}
@@ -2133,7 +2133,7 @@ Array [
             aria-sort={null}
             className="MuiTableCell-root MuiTableCell-body MuiTableCell-sizeMedium border-right css-1ex1afd-MuiTableCell-root"
           >
-            61° / 44°
+            44° / 61°
           </td>
           <td
             aria-sort={null}
@@ -2189,7 +2189,7 @@ Array [
             aria-sort={null}
             className="MuiTableCell-root MuiTableCell-body MuiTableCell-sizeMedium border-right css-1ex1afd-MuiTableCell-root"
           >
-            60° / 46°
+            46° / 60°
           </td>
           <td
             aria-sort={null}
@@ -2245,7 +2245,7 @@ Array [
             aria-sort={null}
             className="MuiTableCell-root MuiTableCell-body MuiTableCell-sizeMedium border-right css-1ex1afd-MuiTableCell-root"
           >
-            65° / 49°
+            49° / 65°
           </td>
           <td
             aria-sort={null}
@@ -2301,7 +2301,7 @@ Array [
             aria-sort={null}
             className="MuiTableCell-root MuiTableCell-body MuiTableCell-sizeMedium border-right css-1ex1afd-MuiTableCell-root"
           >
-            58° / 48°
+            48° / 58°
           </td>
           <td
             aria-sort={null}
@@ -2357,7 +2357,7 @@ Array [
             aria-sort={null}
             className="MuiTableCell-root MuiTableCell-body MuiTableCell-sizeMedium border-right css-1ex1afd-MuiTableCell-root"
           >
-            56° / 45°
+            45° / 56°
           </td>
           <td
             aria-sort={null}
@@ -2413,7 +2413,7 @@ Array [
             aria-sort={null}
             className="MuiTableCell-root MuiTableCell-body MuiTableCell-sizeMedium border-right css-1ex1afd-MuiTableCell-root"
           >
-            60° / 41°
+            41° / 60°
           </td>
           <td
             aria-sort={null}
@@ -2469,7 +2469,7 @@ Array [
             aria-sort={null}
             className="MuiTableCell-root MuiTableCell-body MuiTableCell-sizeMedium border-right css-1ex1afd-MuiTableCell-root"
           >
-            52° / 47°
+            47° / 52°
           </td>
           <td
             aria-sort={null}
@@ -2525,7 +2525,7 @@ Array [
             aria-sort={null}
             className="MuiTableCell-root MuiTableCell-body MuiTableCell-sizeMedium border-right css-1ex1afd-MuiTableCell-root"
           >
-            64° / 49°
+            49° / 64°
           </td>
           <td
             aria-sort={null}
@@ -2581,7 +2581,7 @@ Array [
             aria-sort={null}
             className="MuiTableCell-root MuiTableCell-body MuiTableCell-sizeMedium border-right css-1ex1afd-MuiTableCell-root"
           >
-            58° / 50°
+            50° / 58°
           </td>
           <td
             aria-sort={null}
@@ -2637,7 +2637,7 @@ Array [
             aria-sort={null}
             className="MuiTableCell-root MuiTableCell-body MuiTableCell-sizeMedium border-right css-1ex1afd-MuiTableCell-root"
           >
-            55° / 44°
+            44° / 55°
           </td>
           <td
             aria-sort={null}

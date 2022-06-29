@@ -34,27 +34,27 @@ function LocationDetail(props: LocationDetailProps) {
   const { isWeekend } = props;
   return (
     <div id={location.name}>
-      <Table className="location-details">
+      <Table className='location-details'>
         <TableHead>
-          <TableRow className="heading">
-            <TableCell colSpan={8} className="heading">
+          <TableRow className='heading'>
+            <TableCell colSpan={8} className='heading'>
               {`${description.toUpperCase()}  `}
               <WtaLink
                 wtaRegion={region.searchKey}
                 wtaSubRegion={location.sub_region}
               />
-              <Link href="#top">(top)</Link>
+              <Link href='#top'>(top)</Link>
             </TableCell>
           </TableRow>
-          <TableRow className="secondary-heading">
-            <TableCell colSpan={2} className="center border-right">
+          <TableRow className='secondary-heading'>
+            <TableCell colSpan={2} className='center border-right'>
               DATE
             </TableCell>
-            <TableCell colSpan={2} className="center border-right">
+            <TableCell colSpan={2} className='center border-right'>
               DETAILS
             </TableCell>
-            <TableCell className="border-right">HI / LOW</TableCell>
-            <TableCell colSpan={2} className="center border-right">
+            <TableCell className='border-right'>LOW / HIGH</TableCell>
+            <TableCell colSpan={2} className='center border-right'>
               PRECIP
             </TableCell>
             <TableCell>CLOUD COV</TableCell>
@@ -69,34 +69,34 @@ function LocationDetail(props: LocationDetailProps) {
               return (
                 <TableRow className={weekendClassName} key={row.datetime}>
                   <TableCell>{format(d, 'ddd').toUpperCase()}</TableCell>
-                  <TableCell className="border-right">
+                  <TableCell className='border-right'>
                     {format(d, 'MMM Do').toUpperCase()}
                   </TableCell>
                   <TableCell>
                     <WeatherIcon {...row} key={row.datetime} />
                   </TableCell>
-                  <TableCell className="border-right">
+                  <TableCell className='border-right'>
                     {convertToSentence(row.icon)}
                   </TableCell>
-                  <TableCell className="border-right">
+                  <TableCell className='border-right'>
                     {`${Math.round(
-                      row.tempmax,
-                    )}° / ${Math.round(row.tempmin)}°`}
+                      row.tempmin,
+                    )}° / ${Math.round(row.tempmax)}°`}
 
                   </TableCell>
-                  <TableCell className="align-right">
+                  <TableCell className='align-right'>
                     {`${Math.round(
                       row.precipprob,
                     )}%`}
 
                   </TableCell>
-                  <TableCell className="align-right border-right">
+                  <TableCell className='align-right border-right'>
                     {`${Math.round(
                       row.precip,
                     )}"`}
 
                   </TableCell>
-                  <TableCell className="align-right">{`${row.cloudcover}%       `}</TableCell>
+                  <TableCell className='align-right'>{`${row.cloudcover}%       `}</TableCell>
                 </TableRow>
               );
             }
