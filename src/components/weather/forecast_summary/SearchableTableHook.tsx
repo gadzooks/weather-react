@@ -10,6 +10,7 @@ import { MatchedAreas } from '../../../interfaces/MatchedAreas';
 import useLocalStorage from '../../../utils/localstorage';
 import SelectDay from '../main_page/SelectDayDropDown';
 import { DailyForecastFilter } from '../../../interfaces/DailyForecastFilter';
+import MinimumDistanceSlider from '../main_page/TemperatureSlider';
 
 // TODO move this to utils and add tests for it.
 function matchedLocations(needle: RegExp | null, regionsById: RegionsById) :MatchedAreas {
@@ -80,13 +81,13 @@ function SearchableTableHook(props: ForecastResponse) {
         helperText={totalMatchedRegions !== 0 ? '' : 'No matches found !'}
       />
 
-      {/* <RangeSlider /> */}
-
       <SelectDay
         handleChange={handleChangeForDay}
         dateSelected={daySelectedValue}
         dates={props.dates}
       />
+
+      <MinimumDistanceSlider />
 
       <SummaryTable {...args} />
 

@@ -35,6 +35,15 @@
         }
     },
     "rules": {
+        "import/no-extraneous-dependencies": [
+            "error",
+            {
+                "devDependencies": true
+            }
+        ],
+        "jsx-quotes": [
+            2, "prefer-double"
+        ],
         "@typescript-eslint/quotes": [
             "error",
             "single",

@@ -14,10 +14,18 @@ exports[`renders a snapshot 1`] = `
       </li>
       <li>
         <a
-          href="/forecasts/:dataSource"
+          href="/forecasts/mock"
           onClick={[Function]}
         >
-          Forecasts
+          Forecasts (fake)
+        </a>
+      </li>
+      <li>
+        <a
+          href="/forecasts/real"
+          onClick={[Function]}
+        >
+          Forecasts (real)
         </a>
       </li>
     </ul>

@@ -22,7 +22,10 @@ export default function App() {
               <Link to="/">Home</Link>
             </li>
             <li>
-              <Link to="/forecasts/:dataSource">Forecasts</Link>
+              <Link to="/forecasts/mock">Forecasts (fake)</Link>
+            </li>
+            <li>
+              <Link to="/forecasts/real">Forecasts (real)</Link>
             </li>
           </ul>
         </nav>

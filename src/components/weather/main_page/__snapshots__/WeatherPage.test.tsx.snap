@@ -123,6 +123,229 @@ Array [
       </p>
     </div>
   </div>,
+  <div
+    className="MuiBox-root css-1v5z18m"
+  >
+    <span
+      className="MuiSlider-colorPrimary MuiSlider-sizeMedium MuiSlider-root MuiSlider-marked css-1yq5zcd-MuiSlider-root"
+      onMouseDown={[Function]}
+    >
+      <span
+        className="MuiSlider-rail css-14pt78w-MuiSlider-rail"
+      />
+      <span
+        className="MuiSlider-track css-1gv0vcd-MuiSlider-track"
+        style={
+          Object {
+            "left": "20%",
+            "width": "50%",
+          }
+        }
+      />
+      <span
+        className="MuiSlider-mark css-1tfve6q-MuiSlider-mark"
+        data-index={0}
+        style={
+          Object {
+            "left": "0%",
+          }
+        }
+      />
+      <span
+        aria-hidden={true}
+        className="MuiSlider-markLabel css-yafthl-MuiSlider-markLabel"
+        data-index={0}
+        style={
+          Object {
+            "left": "0%",
+          }
+        }
+      >
+        20°C
+      </span>
+      <span
+        className="MuiSlider-mark css-1tfve6q-MuiSlider-mark"
+        data-index={1}
+        style={
+          Object {
+            "left": "17%",
+          }
+        }
+      />
+      <span
+        aria-hidden={true}
+        className="MuiSlider-markLabel css-yafthl-MuiSlider-markLabel"
+        data-index={1}
+        style={
+          Object {
+            "left": "17%",
+          }
+        }
+      >
+        37°C
+      </span>
+      <span
+        className="MuiSlider-mark css-1tfve6q-MuiSlider-mark"
+        data-index={2}
+        style={
+          Object {
+            "left": "80%",
+          }
+        }
+      />
+      <span
+        aria-hidden={true}
+        className="MuiSlider-markLabel css-yafthl-MuiSlider-markLabel"
+        data-index={2}
+        style={
+          Object {
+            "left": "80%",
+          }
+        }
+      >
+        100°C
+      </span>
+      <span
+        className="MuiSlider-mark css-1tfve6q-MuiSlider-mark"
+        data-index={3}
+        style={
+          Object {
+            "left": "100%",
+          }
+        }
+      />
+      <span
+        aria-hidden={true}
+        className="MuiSlider-markLabel css-yafthl-MuiSlider-markLabel"
+        data-index={3}
+        style={
+          Object {
+            "left": "100%",
+          }
+        }
+      >
+        120°C
+      </span>
+      <span
+        className="MuiSlider-thumbColorPrimary MuiSlider-thumbSizeMedium MuiSlider-thumb css-eg0mwd-MuiSlider-thumb"
+        data-index={0}
+        onMouseLeave={[Function]}
+        onMouseOver={[Function]}
+        style={
+          Object {
+            "left": "20%",
+            "pointerEvents": "none",
+          }
+        }
+      >
+        <input
+          aria-label="Minimum distance shift"
+          aria-orientation="horizontal"
+          aria-valuemax={120}
+          aria-valuemin={20}
+          aria-valuenow={40}
+          aria-valuetext="40°C"
+          data-index={0}
+          disabled={false}
+          max={120}
+          min={20}
+          onBlur={[Function]}
+          onChange={[Function]}
+          onFocus={[Function]}
+          step={1}
+          style={
+            Object {
+              "border": 0,
+              "clip": "rect(0 0 0 0)",
+              "direction": "ltr",
+              "height": "100%",
+              "margin": -1,
+              "overflow": "hidden",
+              "padding": 0,
+              "position": "absolute",
+              "whiteSpace": "nowrap",
+              "width": "100%",
+            }
+          }
+          type="range"
+          value={40}
+        />
+        <span
+          aria-hidden={true}
+          className="MuiSlider-valueLabel css-17djbj3-MuiSlider-valueLabel"
+        >
+          <span
+            className="MuiSlider-valueLabelCircle"
+          >
+            <span
+              className="MuiSlider-valueLabelLabel"
+            >
+              40
+            </span>
+          </span>
+        </span>
+      </span>
+      <span
+        className="MuiSlider-thumbColorPrimary MuiSlider-thumbSizeMedium MuiSlider-thumb css-eg0mwd-MuiSlider-thumb"
+        data-index={1}
+        onMouseLeave={[Function]}
+        onMouseOver={[Function]}
+        style={
+          Object {
+            "left": "70%",
+            "pointerEvents": "none",
+          }
+        }
+      >
+        <input
+          aria-label="Minimum distance shift"
+          aria-orientation="horizontal"
+          aria-valuemax={120}
+          aria-valuemin={20}
+          aria-valuenow={90}
+          aria-valuetext="90°C"
+          data-index={1}
+          disabled={false}
+          max={120}
+          min={20}
+          onBlur={[Function]}
+          onChange={[Function]}
+          onFocus={[Function]}
+          step={1}
+          style={
+            Object {
+              "border": 0,
+              "clip": "rect(0 0 0 0)",
+              "direction": "ltr",
+              "height": "100%",
+              "margin": -1,
+              "overflow": "hidden",
+              "padding": 0,
+              "position": "absolute",
+              "whiteSpace": "nowrap",
+              "width": "100%",
+            }
+          }
+          type="range"
+          value={90}
+        />
+        <span
+          aria-hidden={true}
+          className="MuiSlider-valueLabel css-17djbj3-MuiSlider-valueLabel"
+        >
+          <span
+            className="MuiSlider-valueLabelCircle"
+          >
+            <span
+              className="MuiSlider-valueLabelLabel"
+            >
+              90
+            </span>
+          </span>
+        </span>
+      </span>
+    </span>
+  </div>,
   <table
     className="MuiTable-root table table-sm weather-forecast-summary css-rqglhn-MuiTable-root"
     role={null}
