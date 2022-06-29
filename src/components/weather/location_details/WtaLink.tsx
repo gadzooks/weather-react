@@ -21,7 +21,7 @@ function WtaLink(props: WtaLinkProps) {
   const link = `${wtaLink}&region=${regionValue}&subregion=${subRegionValue}`;
   return (
     <Link href={link}>
-      <img src={wtaLogo} className="wta-logo" alt="wta-logo" />
+      <img src={wtaLogo} className='wta-logo' alt='wta-logo' />
     </Link>
   );
 }
