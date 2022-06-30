@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import React from 'react';
 import './App.css';
 import {
@@ -6,6 +7,7 @@ import {
   Route,
   Link,
 } from 'react-router-dom';
+import { Navigator } from 'react-onsenui';
 import WeatherPage from './components/weather/main_page/WeatherPage';
 
 function Home() {
@@ -14,29 +16,42 @@ function Home() {
 
 export default function App() {
   return (
-    <BrowserRouter>
-      <div>
-        <nav>
-          <ul>
-            <li>
-              <Link to='/'>Home</Link>
-            </li>
-            <li>
-              <Link to='/forecasts/mock'>Forecasts (fake)</Link>
-            </li>
-            <li>
-              <Link to='/forecasts/real'>Forecasts (real)</Link>
-            </li>
-          </ul>
-        </nav>
+    <>
+      {/* <BrowserRouter>
+        <div>
+          <nav>
+            <ul>
+              <li>
+                <Link to='/'>Home</Link>
+              </li>
+              <li>
+                <Link to='/forecasts/mock'>Forecasts (fake)</Link>
+              </li>
+              <li>
+                <Link to='/forecasts/real'>Forecasts (real)</Link>
+              </li>
+            </ul>
+          </nav>
 
-        {/* A <Switch> looks through its children <Route>s and
-            renders the first one that matches the current URL. */}
-        <Routes>
-          <Route path='/' element={<Home />} />
-          <Route path='/forecasts/:dataSource' element={<WeatherPage isLoaded={false} error={null} forecast={null} />} />
-        </Routes>
-      </div>
-    </BrowserRouter>
+          <Routes>
+            <Route path='/' element={<Home />} />
+            <Route
+              path='/forecasts/:dataSource'
+              element={
+                <WeatherPage isLoaded={false} error={null} forecast={null} />
+              }
+            />
+          </Routes>
+        </div>
+      </BrowserRouter> */}
+      <Navigator
+        renderPage={(route, navigator) => (
+          <WeatherPage isLoaded={false} error={null} forecast={null} />
+        )}
+        initialRoute={{
+          title: 'First Page',
+        }}
+      />
+    </>
   );
 }

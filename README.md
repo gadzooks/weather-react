@@ -5,10 +5,13 @@
 - https://javascript.info/async-await
 - https://webpack.js.org/guides/asset-modules/#resource-assets
 
-
 # TODO:
+- analyze the bundel generated : https://create-react-app.dev/docs/analyzing-the-bundle-size/
+- code splitting : https://create-react-app.dev/docs/code-splitting/
+
 - Look into performance aspects like rerender : https://levelup.gitconnected.com/14-tips-for-effortlessly-improving-your-weak-ass-react-code-4aea5500559c
 - https://www.toptal.com/express-js/routes-js-promises-error-handling
+- https://bholmes.dev/blog/mocking-browser-apis-fetch-localstorage-dates-the-easy-way-with-jest/
 
 ## Useful tools : 
 - https://jshint.com/install/

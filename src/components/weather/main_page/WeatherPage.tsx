@@ -21,7 +21,7 @@ export function Page(props: ForecastResponse) {
 function WeatherPage(props: AppState) {
   const [appState, setAppState] = useState(props);
   const params = useParams();
-  const dataSource = params.dataSource || 'useLocal';
+  const dataSource = params.dataSource || 'mock';
 
   useEffect(() => {
     const WEATHER_API = process.env.REACT_APP_WEATHER_API;
