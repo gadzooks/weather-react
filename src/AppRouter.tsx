@@ -10,9 +10,7 @@ function AppRouter() {
         <Route path='/' element={<App />}>
           <Route
             path='/forecasts/:dataSource'
-            element={
-              <WeatherPage isLoaded={false} error={null} forecast={null} />
-            }
+            element={<WeatherPage />}
           />
           <Route
             path='*'

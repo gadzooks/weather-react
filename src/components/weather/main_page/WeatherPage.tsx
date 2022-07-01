@@ -3,8 +3,13 @@ import { useParams } from 'react-router-dom';
 import { ForecastResponse } from '../../../interfaces/ForecastResponseInterface';
 import SearchableTableHook from '../forecast_summary/SearchableTableHook';
 
+const defaultProps = {
+  isLoaded: false,
+  error: null,
+  forecast: null,
+};
 interface AppState {
-  isLoaded: boolean,
+  isLoaded?: boolean,
   error: Error|null,
   forecast: ForecastResponse|null,
 }
@@ -18,8 +23,8 @@ export function Page(props: ForecastResponse) {
   );
 }
 
-function WeatherPage(props: AppState) {
-  const [appState, setAppState] = useState(props);
+function WeatherPage() {
+  const [appState, setAppState] = useState(defaultProps as AppState);
   const params = useParams();
   const dataSource = params.dataSource || 'useLocal';
 
@@ -53,10 +58,10 @@ function WeatherPage(props: AppState) {
 
   return (
     <>
-      { appState.error && (
+      { appState?.error && (
       <div>
         Error:
-        {appState.error.message}
+        {appState.error?.message}
       </div>
       ) }
       { !appState.isLoaded && <div>Loading...</div> }
