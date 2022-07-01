@@ -2,60 +2,80 @@
 
 exports[`renders a snapshot 1`] = `
 <div
-  className="StyledGrommet-sc-19lkkz7-0 hqmGbP"
+  className="StyledGrid-sc-1wofa1l-0 krzHvB"
 >
-  <header
-    className="StyledBox-sc-13pk1d4-0 gwvWFI"
+  <div
+    className="StyledBox-sc-13pk1d4-0 fipyvy"
   >
-    <div
-      className="StyledBox-sc-13pk1d4-0 cwefyf"
+    <button
+      className="StyledButton-sc-323bzc-0 iqZbKa"
+      onBlur={[Function]}
+      onClick={[Function]}
+      onFocus={[Function]}
+      onMouseOut={[Function]}
+      onMouseOver={[Function]}
+      type="button"
     >
-      <a
-        className="StyledAnchor-sc-1rp7lwl-0 lbeEIw"
-        href="https://github.com/gadzooks"
-        onBlur={[Function]}
-        onFocus={[Function]}
+      <span
+        className="StyledText-sc-1sadyjn-0 oDQrS"
       >
-        gadzooks
-      </a>
-    </div>
-    <div
-      className="StyledBox__StyledBoxGap-sc-13pk1d4-1 gJrKvj"
-    />
-    <nav
-      className="StyledBox-sc-13pk1d4-0 kaykyG"
+        Menu
+      </span>
+    </button>
+    <span
+      className="StyledText-sc-1sadyjn-0 hpCRgD"
     >
-      <a
-        className="StyledAnchor-sc-1rp7lwl-0 iUqWmS"
-        href="/"
-        onBlur={[Function]}
-        onFocus={[Function]}
-      >
-        Home
-      </a>
+      my@email
+    </span>
+  </div>
+  <div
+    className="StyledBox-sc-13pk1d4-0 ypwz"
+  >
+    <a
+      className="StyledButton-sc-323bzc-0 jAykKq"
+      href="/forecasts/mock"
+      onBlur={[Function]}
+      onFocus={[Function]}
+      onMouseOut={[Function]}
+      onMouseOver={[Function]}
+    >
       <div
-        className="StyledBox__StyledBoxGap-sc-13pk1d4-1 gJrKvj"
-      />
-      <a
-        className="StyledAnchor-sc-1rp7lwl-0 iUqWmS"
-        href="/forecasts/mock"
-        onBlur={[Function]}
-        onFocus={[Function]}
+        className="StyledBox-sc-13pk1d4-0 Bdedn"
       >
-        Forecast (mock)
-      </a>
+        <span
+          className="StyledText-sc-1sadyjn-0 hpCRgD"
+        >
+          M
+        </span>
+      </div>
+    </a>
+    <a
+      className="StyledButton-sc-323bzc-0 jAykKq"
+      href="/forecasts/real"
+      onBlur={[Function]}
+      onFocus={[Function]}
+      onMouseOut={[Function]}
+      onMouseOver={[Function]}
+    >
       <div
-        className="StyledBox__StyledBoxGap-sc-13pk1d4-1 gJrKvj"
-      />
-      <a
-        className="StyledAnchor-sc-1rp7lwl-0 iUqWmS"
-        href="/forecasts/real"
-        onBlur={[Function]}
-        onFocus={[Function]}
+        className="StyledBox-sc-13pk1d4-0 Bdedn"
       >
-        Forecast (real)
-      </a>
-    </nav>
-  </header>
+        <span
+          className="StyledText-sc-1sadyjn-0 hpCRgD"
+        >
+          R
+        </span>
+      </div>
+    </a>
+  </div>
+  <div
+    className="StyledBox-sc-13pk1d4-0 GqCLD"
+  >
+    <span
+      className="StyledText-sc-1sadyjn-0 hpCRgD"
+    >
+      main
+    </span>
+  </div>
 </div>
 `;

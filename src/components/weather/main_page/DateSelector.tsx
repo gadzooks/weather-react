@@ -38,14 +38,14 @@ export default function MultipleSelectCheckmarks(props: MultipleSelectCheckmarks
   return (
     <div>
       <FormControl sx={{ m: 2, width: 300 }}>
-        <InputLabel id="demo-multiple-checkbox-label">Days</InputLabel>
+        <InputLabel id='demo-multiple-checkbox-label'>Days</InputLabel>
         <Select
-          labelId="demo-multiple-checkbox-label"
-          id="demo-multiple-checkbox"
+          labelId='demo-multiple-checkbox-label'
+          id='demo-multiple-checkbox'
           multiple
           value={personName}
           onChange={handleChange}
-          input={<OutlinedInput label="Days" />}
+          input={<OutlinedInput label='Days' />}
           renderValue={(selected) => selected.join(', ')}
           MenuProps={MenuProps}
         >

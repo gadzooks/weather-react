@@ -1,13 +1,12 @@
 import React from 'react';
 
 import {
-  Anchor, Box, Header, Nav,
+  Anchor, Box, Button, Header, Nav, Text,
 } from 'grommet';
 
-export const navItems = [
-  { label: 'Home', href: '/' },
-  { label: 'Forecast (mock)', href: '/forecasts/mock' },
-  { label: 'Forecast (real)', href: '/forecasts/real' },
+const navItems = [
+  { label: 'M', href: '/forecasts/mock' },
+  { label: 'R', href: '/forecasts/real' },
 ];
 
 function OnHeaderNav() {
@@ -32,6 +31,16 @@ export function OnHeader() {
 }
 OnHeader.storyName = 'On Header';
 
-export default {
-  title: 'Controls/Nav/On Header',
-};
+export function SideBar() {
+  return (
+    <>
+      {navItems.map((item) => (
+        <Button key={item.label} href={item.href} hoverIndicator>
+          <Box align='center' pad={{ horizontal: 'medium', vertical: 'small' }}>
+            <Text>{item.label}</Text>
+          </Box>
+        </Button>
+      ))}
+    </>
+  );
+}

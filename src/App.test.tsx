@@ -5,7 +5,7 @@ import App from './App';
 
 test('show loading when waiting for data', () => {
   render(<App />);
-  const linkElement = screen.getByText('Forecast (mock)');
+  const linkElement = screen.getByText('Menu');
   expect(linkElement).toBeInTheDocument();
 });
 
