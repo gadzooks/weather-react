@@ -1,13 +1,36 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
+import {
+  BrowserRouter, Routes, Route,
+} from 'react-router-dom';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import WeatherPage from './components/weather/main_page/WeatherPage';
 
 const root = ReactDOM.createRoot(document.getElementById('root') as Element);
 root.render(
   <React.StrictMode>
-    <App />
+    <BrowserRouter>
+      <Routes>
+        <Route path='/' element={<App />}>
+          <Route
+            path='/forecasts/:dataSource'
+            element={
+              <WeatherPage isLoaded={false} error={null} forecast={null} />
+          }
+          />
+          <Route
+            path='*'
+            element={(
+              <main style={{ padding: '1rem' }}>
+                <p>There&apos;s nothing here</p>
+              </main>
+          )}
+          />
+        </Route>
+      </Routes>
+    </BrowserRouter>
   </React.StrictMode>,
 );
 
