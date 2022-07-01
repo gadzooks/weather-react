@@ -3,9 +3,10 @@ import React, { useState } from 'react';
 import {
   Box, Button, Grid, Text,
 } from 'grommet';
+import { Outlet } from 'react-router-dom';
 import { SideBar as MySideBar } from './layout/Navigation';
 
-export function AppGrid() {
+export function Layout() {
   const [sidebar, setSidebar] = useState(true);
 
   return (
@@ -42,29 +43,21 @@ export function AppGrid() {
             { type: 'slideRight', size: 'xlarge', duration: 150 },
           ]}
         >
-          {/* {['Mock', 'Real'].map((name) => (
-            <Button key={name} href='#' hoverIndicator>
-              <Box pad={{ horizontal: 'medium', vertical: 'small' }}>
-                <Text>{name}</Text>
-              </Box>
-            </Button>
-          ))} */}
           <MySideBar />
         </Box>
       )}
       <Box gridArea='main' justify='center' align='center'>
-        <Text>main</Text>
+        <Outlet />
       </Box>
     </Grid>
-    // </Grommet>
   );
 }
 
-AppGrid.args = {
+Layout.args = {
   full: true,
 };
 
-AppGrid.storyName = 'App';
+Layout.storyName = 'App';
 
 export default {
   title: 'Layout/Grid/App',
