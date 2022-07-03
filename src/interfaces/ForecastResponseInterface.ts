@@ -1,6 +1,6 @@
-import { LocationInterface } from "./LocationInterface";
-import { RegionInterface } from "./RegionInterface";
-import { DailyForecastInterface } from "./DailyForecastInterface";
+import { LocationInterface } from './LocationInterface';
+import { RegionInterface } from './RegionInterface';
+import { DailyForecastInterface } from './DailyForecastInterface';
 
 export interface RegionById {
     [key: string]: RegionInterface;
@@ -34,6 +34,17 @@ export interface ForecastResponse {
     locations: LocationsById;
     forecasts: ForecastsById;
 }
+export interface ForecastResponseStatus {
+    isLoaded?: boolean;
+    error: Error | null;
+    forecast: ForecastResponse | null;
+}
+
+export const DefaultForecastResponseStatus = {
+  isLoaded: false,
+  error: null,
+  forecast: null,
+};
 
 // dates: [
 //     "2021-04-17T07:00:00.000+00:00",
