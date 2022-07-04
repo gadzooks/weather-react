@@ -50,6 +50,7 @@ export function findMatchedAreas(
       matchedAreas.locationsByRegion[region.name] = region.locations;
     }
   });
+  matchedAreas.totalMatchedRegions = matchedAreas.regions?.length || 0;
   return matchedAreas;
 }
 
@@ -90,7 +91,7 @@ export default function App() {
     DefaultForecastResponseStatus as ForecastResponseStatus,
   );
   const params = useParams();
-  const dataSource = params.dataSource || 'real';
+  const dataSource = params.dataSource || 'mock';
 
   // TODO move this to a separate file
   useEffect(() => {

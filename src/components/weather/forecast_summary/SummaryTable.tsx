@@ -44,7 +44,7 @@ function SummaryTable(props: SummaryTableProps) {
     <Table className='table table-sm weather-forecast-summary'>
       <TableHead className='table-heading'>
         <TableRow>
-          <TableCell>Weather Alerts</TableCell>
+          {/* <TableCell>Weather Alerts</TableCell> */}
           <TableCell>Location</TableCell>
           {parsedDates.map((date) => {
             const txt = date === null ? '' : format(date, 'ddd MMM DD').toUpperCase();

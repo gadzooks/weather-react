@@ -22,13 +22,6 @@ Array [
           className="MuiTableCell-root MuiTableCell-head MuiTableCell-sizeMedium css-1ygcj2i-MuiTableCell-root"
           scope="col"
         >
-          Weather Alerts
-        </th>
-        <th
-          aria-sort={null}
-          className="MuiTableCell-root MuiTableCell-head MuiTableCell-sizeMedium css-1ygcj2i-MuiTableCell-root"
-          scope="col"
-        >
           Location
         </th>
         <th
@@ -149,7 +142,7 @@ Array [
         <td
           aria-sort={null}
           className="MuiTableCell-root MuiTableCell-body MuiTableCell-alignCenter MuiTableCell-sizeMedium css-1yhpg23-MuiTableCell-root"
-          colSpan={17}
+          colSpan={16}
         >
           Cities
         </td>
@@ -158,12 +151,6 @@ Array [
         className="MuiTableRow-root weather-cell css-1q1u3t4-MuiTableRow-root"
         role={null}
       >
-        <td
-          aria-sort={null}
-          className="MuiTableCell-root MuiTableCell-body MuiTableCell-sizeMedium weather-cell css-1ex1afd-MuiTableCell-root"
-        >
-          N/A
-        </td>
         <td
           aria-sort={null}
           className="MuiTableCell-root MuiTableCell-body MuiTableCell-sizeMedium weather-cell css-1ex1afd-MuiTableCell-root"
@@ -317,12 +304,6 @@ Array [
         className="MuiTableRow-root weather-cell css-1q1u3t4-MuiTableRow-root"
         role={null}
       >
-        <td
-          aria-sort={null}
-          className="MuiTableCell-root MuiTableCell-body MuiTableCell-sizeMedium weather-cell css-1ex1afd-MuiTableCell-root"
-        >
-          N/A
-        </td>
         <td
           aria-sort={null}
           className="MuiTableCell-root MuiTableCell-body MuiTableCell-sizeMedium weather-cell css-1ex1afd-MuiTableCell-root"

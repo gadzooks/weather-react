@@ -30,7 +30,7 @@ export default function SelectDay(props: SelectDayProps) {
           onChange={props.handleChange}
         >
           <MenuItem value=''>
-            <em>Select a day</em>
+            <em>Show all days</em>
           </MenuItem>
           {props.dates.map((d) => (<MenuItem key={d} value={d}>{d}</MenuItem>))}
         </Select>

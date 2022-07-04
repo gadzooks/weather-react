@@ -25,7 +25,7 @@ function Location(props: LocationProps) {
   const forecasts = forecastsById.byId[location.name] || [];
   return (
     <TableRow className='weather-cell'>
-      <TableCell className='weather-cell'>N/A</TableCell>
+      {/* <TableCell className='weather-cell'>N/A</TableCell> */}
       <TableCell className='weather-cell'>
         <Link href={`#${location.name}`}>{location.description.toLocaleUpperCase()}</Link>
       </TableCell>

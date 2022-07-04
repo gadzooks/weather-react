@@ -43,5 +43,5 @@ export function dateSelectedMatchesForecastDates(
 }
 
 export function forecastColSpan(validForecastDateSelected: boolean) :number {
-  return validForecastDateSelected ? 3 : 17;
+  return validForecastDateSelected ? 3 : 16;
 }
