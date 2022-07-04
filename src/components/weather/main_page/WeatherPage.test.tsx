@@ -2,10 +2,10 @@ import { parse } from 'fecha';
 import React from 'react';
 import renderer from 'react-test-renderer';
 import mockWeatherForecastNormalized from '../../../api/mockData';
-import { findMatchedAreas } from '../../../App';
 import { ForeacastDates, ForecastResponse } from '../../../interfaces/ForecastResponseInterface';
 import { MatchedAreas } from '../../../interfaces/MatchedAreas';
 import { calculateWeekends } from '../../../utils/date';
+import findMatchedAreas from '../../../utils/filterMatchedAreas';
 import WeatherPage, { WeatherPageArgs } from './WeatherPage';
 
 it('renders a snapshot', () => {

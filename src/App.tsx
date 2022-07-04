@@ -1,10 +1,10 @@
 import { SelectChangeEvent, debounce } from '@mui/material';
-import { parse } from 'fecha';
 import { Grommet } from 'grommet';
 import React, { useEffect, useState } from 'react';
 import {
   BrowserRouter, Routes, Route, useParams,
 } from 'react-router-dom';
+import getForecast from './api/weatherForecast';
 // import App from './App';
 import { Layout, LayoutProps } from './components/Layout';
 import {
@@ -15,44 +15,11 @@ import WeatherPage, { WeatherPageArgs } from './components/weather/main_page/Wea
 import { DailyForecastFilter } from './interfaces/DailyForecastFilter';
 import {
   DefaultForecastResponseStatus,
-  ForeacastDates,
   ForecastResponseStatus,
-  RegionsById,
 } from './interfaces/ForecastResponseInterface';
 import { MatchedAreas } from './interfaces/MatchedAreas';
-import { calculateWeekends } from './utils/date';
+import findMatchedAreas from './utils/filterMatchedAreas';
 import useLocalStorage from './utils/localstorage';
-
-// TODO move this to utils and add tests for it.
-export function findMatchedAreas(
-  needle: RegExp | null,
-  regionsById: RegionsById,
-): MatchedAreas {
-  // console.log(`matchedLocations called with ${needle}`);
-  const matchedAreas: MatchedAreas = {
-    totalMatchedRegions: 0,
-  };
-
-  regionsById.allIds.forEach((regionName) => {
-    const region = regionsById.byId[regionName];
-    if (needle) {
-      const locations = region.locations.filter((l) => l.description.match(needle));
-      if (locations.length > 0) {
-        matchedAreas.regions ||= [];
-        matchedAreas.locationsByRegion ||= {};
-        matchedAreas.regions.push(region);
-        matchedAreas.locationsByRegion[region.name] = locations;
-      }
-    } else {
-      matchedAreas.regions ||= [];
-      matchedAreas.regions.push(region);
-      matchedAreas.locationsByRegion ||= {};
-      matchedAreas.locationsByRegion[region.name] = region.locations;
-    }
-  });
-  matchedAreas.totalMatchedRegions = matchedAreas.regions?.length || 0;
-  return matchedAreas;
-}
 
 export default function App() {
   const theme = {
@@ -95,47 +62,7 @@ export default function App() {
 
   // TODO move this to a separate file
   useEffect(() => {
-    const WEATHER_API = process.env.REACT_APP_WEATHER_API;
-
-    const url = `${WEATHER_API}/forecasts/${dataSource}`;
-    console.log(`getting weather from ${url}`);
-    fetch(`${url}`, { mode: 'cors' })
-      .then((res) => res.json())
-      .then(
-        (result) => {
-          const forecast = result.data;
-          const parsedDates = forecast.dates.map((d: string) => parse(d, 'YYYY-MM-DD'));
-          const weekends = calculateWeekends(parsedDates);
-
-          const forecastDates: ForeacastDates = {
-            dates: forecast.dates,
-            parsedDates,
-            weekends,
-          };
-          setAppState({
-            isLoaded: true,
-            forecast: result.data,
-            error: null,
-            forecastDates,
-          });
-        },
-        // Note: it's important to handle errors here
-        // instead of a catch() block so that we don't swallow
-        // exceptions from actual bugs in components.
-        (error) => {
-          const forecastDates: ForeacastDates = {
-            dates: [],
-            parsedDates: [],
-            weekends: [],
-          };
-          setAppState({
-            isLoaded: true,
-            error,
-            forecast: null,
-            forecastDates,
-          });
-        },
-      );
+    getForecast({ dataSource, setAppState });
   }, []);
 
   const [searchText, setSearchText] = useLocalStorage(LS_SEARCH_KEY, '');
