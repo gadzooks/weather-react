@@ -1,5 +1,6 @@
 /* eslint-disable react/require-default-props */
 import React, { useState } from 'react';
+import MenuIcon from '@mui/icons-material/Menu';
 
 import {
   Box, Button, Grid, Text,
@@ -32,11 +33,11 @@ export function Layout(props: LayoutProps) {
         align='center'
         justify='between'
         pad={{ horizontal: 'medium', vertical: 'small' }}
-        background='dark-1'
       >
         <Button onClick={() => setSidebar(!sidebar)}>
-          <ForecastHeader {...props} />
+          <MenuIcon />
         </Button>
+        <ForecastHeader {...props} />
         <Text>my@email</Text>
       </Box>
       {sidebar && (

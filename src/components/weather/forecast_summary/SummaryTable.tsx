@@ -6,7 +6,7 @@ import { Table } from '@mui/material';
 import { format } from 'fecha';
 import React from 'react';
 import { LocationInterface } from '../../../interfaces/LocationInterface';
-import { ForecastResponse } from '../../../interfaces/ForecastResponseInterface';
+import { ForeacastDates, ForecastResponse } from '../../../interfaces/ForecastResponseInterface';
 import Region from './Region';
 import { RegionInterface } from '../../../interfaces/RegionInterface';
 import { MatchedAreas } from '../../../interfaces/MatchedAreas';
@@ -18,24 +18,25 @@ export function matchedLocations(needle: RegExp | null, region: RegionInterface)
   return region.locations.filter((l) => l.description.match(needle));
 }
 
-interface SummaryTableProps extends ForecastResponse {
-  isWeekend: boolean[],
-  parsedDates: (Date|null)[],
+export interface SummaryTableProps {
+  forecastResponse: ForecastResponse|null,
+  forecastDates: ForeacastDates,
   matchedAreas: MatchedAreas,
   dailyForecastFilter: DailyForecastFilter,
 }
 
 function SummaryTable(props: SummaryTableProps) {
-  const { isWeekend } = props;
-  const { parsedDates } = props;
+  const { forecastDates } = props;
+  const { weekends } = forecastDates;
+  const { parsedDates } = forecastDates;
   const { matchedAreas } = props;
-  const { regions } = matchedAreas;
-  const { locationsByRegion } = matchedAreas;
+  const regions = matchedAreas.regions || [];
+  const locationsByRegion = matchedAreas.locationsByRegion || {};
   const { dailyForecastFilter } = props;
-  const { forecasts } = props;
+  const { forecastResponse } = props;
+
   const dateSelectedIsWithinForecastRange = dateSelectedMatchesForecastDates(
-    regions,
-    forecasts,
+    forecastDates.dates,
     dailyForecastFilter.date,
   );
 
@@ -58,19 +59,22 @@ function SummaryTable(props: SummaryTableProps) {
       </TableHead>
       {regions.map((region: RegionInterface) => {
         const locations = locationsByRegion[region.name];
-        return (
-          <Region
-            key={region.name}
-            isWeekend={isWeekend}
-            region={region}
-            forecastsById={forecasts}
-            locations={locations}
-            dailyForecastFilter={dailyForecastFilter}
-            dateSelectedIsWithinForecastRange={
+        if (forecastResponse?.forecasts) {
+          return (
+            <Region
+              key={region.name}
+              isWeekend={weekends}
+              region={region}
+              forecastsById={forecastResponse?.forecasts}
+              locations={locations}
+              dailyForecastFilter={dailyForecastFilter}
+              dateSelectedIsWithinForecastRange={
               dateSelectedIsWithinForecastRange
             }
-          />
-        );
+            />
+          );
+        }
+        return null;
       })}
     </Table>
   );

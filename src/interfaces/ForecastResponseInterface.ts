@@ -36,7 +36,7 @@ export interface ForecastResponse {
 }
 export interface ForeacastDates {
   dates: string[];
-  parsedDates: Date[];
+  parsedDates: (Date|null)[];
   weekends: boolean[];
 }
 

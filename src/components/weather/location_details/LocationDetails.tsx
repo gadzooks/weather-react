@@ -7,34 +7,34 @@ import { RegionInterface } from '../../../interfaces/RegionInterface';
 import LocationDetail from './LocationDetail';
 
 interface LocationDetailsProps {
-    isWeekend: boolean[];
-    forecastsByName: {[indexer :string]: DailyForecastInterface[]};
-    dates: (Date|null)[];
-    matchedAreas: MatchedAreas;
+  isWeekend: boolean[];
+  forecastsByName: {[indexer :string]: DailyForecastInterface[]};
+  dates: (Date|null)[];
+  matchedAreas: MatchedAreas;
 }
 
 function LocationDetails(props: LocationDetailsProps) {
-  const { regions } = props.matchedAreas;
-  const { locationsByRegion } = props.matchedAreas;
+  const regions = props.matchedAreas.regions || [];
+  const locationsByRegion = props.matchedAreas.locationsByRegion || {};
   const forecastsByLocation = props.forecastsByName;
   return (
     <>
       {
-            regions.map((region: RegionInterface) => (
-              locationsByRegion[region.name].map((location: LocationInterface) => {
-                const forecast = forecastsByLocation[location.name];
-                return (
-                  <LocationDetail
-                    key={location.name}
-                    region={region}
-                    forecast={forecast}
-                    location={location}
-                    isWeekend={props.isWeekend}
-                    dates={props.dates}
-                  />
-                );
-              })
-            ))
+        regions.map((region: RegionInterface) => (
+          locationsByRegion[region.name].map((location: LocationInterface) => {
+            const forecast = forecastsByLocation[location.name];
+            return (
+              <LocationDetail
+                key={location.name}
+                region={region}
+                forecast={forecast}
+                location={location}
+                isWeekend={props.isWeekend}
+                dates={props.dates}
+              />
+            );
+          })
+        ))
         }
     </>
   );

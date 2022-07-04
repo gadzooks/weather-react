@@ -36,16 +36,12 @@ export function matchedOneDate(
 }
 
 export function dateSelectedMatchesForecastDates(
-  regions: RegionInterface[],
-  forecastsById: ForecastsById,
+  dates: string[],
   dateToMatch?: string,
 ): boolean {
   if (!dateToMatch) return false;
 
-  const sampleRegion = regions[0];
-  const sampleLocation = sampleRegion.locations[0];
-  const sampleForecast = forecastsById.byId[sampleLocation.name];
-  return matchedOneDate(sampleForecast, dateToMatch);
+  return !!dates.find((d) => d === dateToMatch);
 }
 
 export function forecastColSpan(validForecastDateSelected: boolean) :number {

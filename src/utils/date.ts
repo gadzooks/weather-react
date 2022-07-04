@@ -5,7 +5,7 @@ export function formatDate(str: string) {
     .toLocaleDateString([], { year: 'numeric', month: 'long', day: 'numeric' });
 }
 
-export function isWeekend(dates: (Date|null)[]) :boolean[] {
+export function calculateWeekends(dates: (Date | null)[]): boolean[] {
   const weekends: boolean[] = [];
   if (!dates) {
     return weekends;

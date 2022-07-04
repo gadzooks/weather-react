@@ -7,8 +7,12 @@ import {
 } from 'react-router-dom';
 // import App from './App';
 import { Layout, LayoutProps } from './components/Layout';
-import { DEFAULT_DATA_SOURCE, LS_DAILY_FORECAST_FILTER_KEY, LS_SEARCH_KEY } from './components/weather/Constants';
-import WeatherPage from './components/weather/main_page/WeatherPage';
+import {
+  DEFAULT_DATA_SOURCE,
+  LS_DAILY_FORECAST_FILTER_KEY,
+  LS_SEARCH_KEY,
+} from './components/weather/Constants';
+import WeatherPage, { WeatherPageArgs } from './components/weather/main_page/WeatherPage';
 import { DailyForecastFilter } from './interfaces/DailyForecastFilter';
 import {
   DefaultForecastResponseStatus,
@@ -17,7 +21,7 @@ import {
   RegionsById,
 } from './interfaces/ForecastResponseInterface';
 import { MatchedAreas } from './interfaces/MatchedAreas';
-import { isWeekend } from './utils/date';
+import { calculateWeekends } from './utils/date';
 import useLocalStorage from './utils/localstorage';
 
 // TODO move this to utils and add tests for it.
@@ -27,8 +31,7 @@ function findMatchedAreas(
 ): MatchedAreas {
   // console.log(`matchedLocations called with ${needle}`);
   const matchedAreas: MatchedAreas = {
-    regions: [],
-    locationsByRegion: {},
+    totalMatchedRegions: 0,
   };
 
   regionsById.allIds.forEach((regionName) => {
@@ -36,11 +39,15 @@ function findMatchedAreas(
     if (needle) {
       const locations = region.locations.filter((l) => l.description.match(needle));
       if (locations.length > 0) {
+        matchedAreas.regions ||= [];
+        matchedAreas.locationsByRegion ||= {};
         matchedAreas.regions.push(region);
         matchedAreas.locationsByRegion[region.name] = locations;
       }
     } else {
+      matchedAreas.regions ||= [];
       matchedAreas.regions.push(region);
+      matchedAreas.locationsByRegion ||= {};
       matchedAreas.locationsByRegion[region.name] = region.locations;
     }
   });
@@ -97,8 +104,8 @@ export default function App() {
       .then(
         (result) => {
           const forecast = result.data;
-          const parsedDates = forecast.dates.map((d:string) => parse(d, 'YYYY-MM-DD'));
-          const weekends = isWeekend(parsedDates);
+          const parsedDates = forecast.dates.map((d: string) => parse(d, 'YYYY-MM-DD'));
+          const weekends = calculateWeekends(parsedDates);
 
           const forecastDates: ForeacastDates = {
             dates: forecast.dates,
@@ -153,25 +160,27 @@ export default function App() {
   const handleChangeForLocationName = debounce(setSearchText, 200);
   const trimmedSearch = searchText.trim();
   const re = trimmedSearch === '' ? null : new RegExp(trimmedSearch, 'i');
-  let matchedAreas = null;
-  let totalMatchedRegions = 0;
-  if (appState.isLoaded) {
-    const { forecast } = appState;
-    if (forecast) {
-      matchedAreas = findMatchedAreas(re, forecast.regions);
-      totalMatchedRegions = matchedAreas.regions.length;
-    }
+  let matchedAreas:MatchedAreas = { totalMatchedRegions: 0 };
+  if (appState.isLoaded && appState.forecast) {
+    matchedAreas = findMatchedAreas(re, appState.forecast.regions);
   }
 
+  const { forecastDates } = appState;
   const layoutArgs: LayoutProps = {
     isLoaded: appState.isLoaded,
     searchText,
     handleChangeForLocationName,
-    totalMatchedRegions,
+    totalMatchedRegions: matchedAreas.totalMatchedRegions,
     handleChangeForDay,
-    dates: appState.forecastDates.dates,
+    dates: forecastDates.dates,
     dailyForecastFilter,
     setDailyForecastFilter,
+  };
+
+  const weatherPageArgs: WeatherPageArgs = {
+    matchedAreas,
+    dailyForecastFilter,
+    appState,
   };
 
   return (
@@ -179,7 +188,10 @@ export default function App() {
       <BrowserRouter>
         <Routes>
           <Route path='/' element={<Layout {...layoutArgs} />}>
-            <Route path='/forecasts/:dataSource' element={<WeatherPage {...appState} />} />
+            <Route
+              path='/forecasts/:dataSource'
+              element={<WeatherPage {...weatherPageArgs} />}
+            />
             <Route
               path='*'
               element={(
