@@ -8,7 +8,6 @@ import {
 // import App from './App';
 import { Layout, LayoutProps } from './components/Layout';
 import {
-  DEFAULT_DATA_SOURCE,
   LS_DAILY_FORECAST_FILTER_KEY,
   LS_SEARCH_KEY,
 } from './components/weather/Constants';
@@ -91,7 +90,7 @@ export default function App() {
     DefaultForecastResponseStatus as ForecastResponseStatus,
   );
   const params = useParams();
-  const dataSource = params.dataSource || DEFAULT_DATA_SOURCE;
+  const dataSource = params.dataSource || 'real';
 
   // TODO move this to a separate file
   useEffect(() => {
