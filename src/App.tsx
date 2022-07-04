@@ -91,7 +91,7 @@ export default function App() {
     DefaultForecastResponseStatus as ForecastResponseStatus,
   );
   const params = useParams();
-  const dataSource = params.dataSource || 'mock';
+  const dataSource = params.dataSource || (process.env.NODE_ENV === 'production' ? 'real' : 'mock');
 
   // TODO move this to a separate file
   useEffect(() => {
