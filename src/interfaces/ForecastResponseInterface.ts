@@ -7,43 +7,57 @@ export interface RegionById {
 }
 
 export interface RegionsById {
-    byId: RegionById;
-    allIds: string[];
+  byId: RegionById;
+  allIds: string[];
 }
 
 export interface LocationById {
-    [key: string]: LocationInterface;
+  [key: string]: LocationInterface;
 }
 
 export interface ForecastById {
-    [key: string]: DailyForecastInterface[];
+  [key: string]: DailyForecastInterface[];
 }
 
 export interface ForecastsById {
-    byId: ForecastById;
+  byId: ForecastById;
 }
 
 export interface LocationsById {
-    byId: LocationById;
-    allIds: string[];
+  byId: LocationById;
+  allIds: string[];
 }
 
 export interface ForecastResponse {
-    dates: string[];
-    regions: RegionsById;
-    locations: LocationsById;
-    forecasts: ForecastsById;
+  dates: string[];
+  regions: RegionsById;
+  locations: LocationsById;
+  forecasts: ForecastsById;
 }
-export interface ForecastResponseStatus {
-    isLoaded?: boolean;
-    error: Error | null;
-    forecast: ForecastResponse | null;
+export interface ForeacastDates {
+  dates: string[];
+  parsedDates: Date[];
+  weekends: boolean[];
 }
 
-export const DefaultForecastResponseStatus = {
+export const DefaultForecastDates: ForeacastDates = {
+  dates: [],
+  parsedDates: [],
+  weekends: [],
+};
+
+export interface ForecastResponseStatus {
+  isLoaded?: boolean;
+  error: Error | null;
+  forecast: ForecastResponse | null;
+  forecastDates: ForeacastDates;
+}
+
+export const DefaultForecastResponseStatus: ForecastResponseStatus = {
   isLoaded: false,
   error: null,
   forecast: null,
+  forecastDates: DefaultForecastDates,
 };
 
 // dates: [

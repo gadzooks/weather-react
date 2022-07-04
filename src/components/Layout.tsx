@@ -1,3 +1,4 @@
+/* eslint-disable react/require-default-props */
 import React, { useState } from 'react';
 
 import {
@@ -5,8 +6,13 @@ import {
 } from 'grommet';
 import { Outlet } from 'react-router-dom';
 import { SideBar as MySideBar } from './layout/Navigation';
+import ForecastHeader, { ForecastHeaderProps } from './HeaderTab';
 
-export function Layout() {
+export interface LayoutProps extends ForecastHeaderProps {
+  isLoaded?: boolean;
+}
+
+export function Layout(props: LayoutProps) {
   const [sidebar, setSidebar] = useState(true);
 
   return (
@@ -29,7 +35,7 @@ export function Layout() {
         background='dark-1'
       >
         <Button onClick={() => setSidebar(!sidebar)}>
-          <Text size='large'>Menu</Text>
+          <ForecastHeader {...props} />
         </Button>
         <Text>my@email</Text>
       </Box>

@@ -11,6 +11,7 @@ import useLocalStorage from '../../../utils/localstorage';
 import SelectDay from '../main_page/SelectDayDropDown';
 import MinimumDistanceSlider from '../main_page/TemperatureSlider';
 import { DailyForecastFilter } from '../../../interfaces/DailyForecastFilter';
+import { LS_SEARCH_KEY } from '../Constants';
 
 // TODO move this to utils and add tests for it.
 function matchedLocations(needle: RegExp | null, regionsById: RegionsById) :MatchedAreas {
@@ -37,7 +38,7 @@ function matchedLocations(needle: RegExp | null, regionsById: RegionsById) :Matc
 }
 
 function SearchableTableHook(props: ForecastResponse) {
-  const [searchText, setSearchText] = useLocalStorage('searchKeyText', '');
+  const [searchText, setSearchText] = useLocalStorage(LS_SEARCH_KEY, '');
   const defaultDailyForecastFilter: DailyForecastFilter = {
     date: undefined,
     tempmax: undefined,

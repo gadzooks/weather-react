@@ -1,16 +1,51 @@
+import { SelectChangeEvent, debounce } from '@mui/material';
+import { parse } from 'fecha';
 import { Grommet } from 'grommet';
 import React, { useEffect, useState } from 'react';
 import {
   BrowserRouter, Routes, Route, useParams,
 } from 'react-router-dom';
 // import App from './App';
-import { Layout } from './components/Layout';
-import { DEFAULT_DATA_SOURCE } from './components/weather/Constansts';
+import { Layout, LayoutProps } from './components/Layout';
+import { DEFAULT_DATA_SOURCE, LS_DAILY_FORECAST_FILTER_KEY, LS_SEARCH_KEY } from './components/weather/Constants';
 import WeatherPage from './components/weather/main_page/WeatherPage';
+import { DailyForecastFilter } from './interfaces/DailyForecastFilter';
 import {
   DefaultForecastResponseStatus,
+  ForeacastDates,
   ForecastResponseStatus,
+  RegionsById,
 } from './interfaces/ForecastResponseInterface';
+import { MatchedAreas } from './interfaces/MatchedAreas';
+import { isWeekend } from './utils/date';
+import useLocalStorage from './utils/localstorage';
+
+// TODO move this to utils and add tests for it.
+function findMatchedAreas(
+  needle: RegExp | null,
+  regionsById: RegionsById,
+): MatchedAreas {
+  // console.log(`matchedLocations called with ${needle}`);
+  const matchedAreas: MatchedAreas = {
+    regions: [],
+    locationsByRegion: {},
+  };
+
+  regionsById.allIds.forEach((regionName) => {
+    const region = regionsById.byId[regionName];
+    if (needle) {
+      const locations = region.locations.filter((l) => l.description.match(needle));
+      if (locations.length > 0) {
+        matchedAreas.regions.push(region);
+        matchedAreas.locationsByRegion[region.name] = locations;
+      }
+    } else {
+      matchedAreas.regions.push(region);
+      matchedAreas.locationsByRegion[region.name] = region.locations;
+    }
+  });
+  return matchedAreas;
+}
 
 export default function App() {
   const theme = {
@@ -51,6 +86,7 @@ export default function App() {
   const params = useParams();
   const dataSource = params.dataSource || DEFAULT_DATA_SOURCE;
 
+  // TODO move this to a separate file
   useEffect(() => {
     const WEATHER_API = process.env.REACT_APP_WEATHER_API;
 
@@ -60,30 +96,89 @@ export default function App() {
       .then((res) => res.json())
       .then(
         (result) => {
+          const forecast = result.data;
+          const parsedDates = forecast.dates.map((d:string) => parse(d, 'YYYY-MM-DD'));
+          const weekends = isWeekend(parsedDates);
+
+          const forecastDates: ForeacastDates = {
+            dates: forecast.dates,
+            parsedDates,
+            weekends,
+          };
           setAppState({
             isLoaded: true,
             forecast: result.data,
             error: null,
+            forecastDates,
           });
         },
         // Note: it's important to handle errors here
         // instead of a catch() block so that we don't swallow
         // exceptions from actual bugs in components.
         (error) => {
+          const forecastDates: ForeacastDates = {
+            dates: [],
+            parsedDates: [],
+            weekends: [],
+          };
           setAppState({
             isLoaded: true,
             error,
             forecast: null,
+            forecastDates,
           });
         },
       );
   }, []);
 
+  const [searchText, setSearchText] = useLocalStorage(LS_SEARCH_KEY, '');
+  const defaultDailyForecastFilter: DailyForecastFilter = {
+    date: undefined,
+    tempmax: undefined,
+    tempmin: undefined,
+    precip: undefined,
+    precipprob: undefined,
+  };
+  const [dailyForecastFilter, setDailyForecastFilter] = useLocalStorage(
+    LS_DAILY_FORECAST_FILTER_KEY,
+    defaultDailyForecastFilter,
+  );
+
+  const handleChangeForDay = (event: SelectChangeEvent) => {
+    const dFF = { ...dailyForecastFilter } as DailyForecastFilter;
+    dFF.date = event.target.value;
+    setDailyForecastFilter(dFF);
+  };
+
+  const handleChangeForLocationName = debounce(setSearchText, 200);
+  const trimmedSearch = searchText.trim();
+  const re = trimmedSearch === '' ? null : new RegExp(trimmedSearch, 'i');
+  let matchedAreas = null;
+  let totalMatchedRegions = 0;
+  if (appState.isLoaded) {
+    const { forecast } = appState;
+    if (forecast) {
+      matchedAreas = findMatchedAreas(re, forecast.regions);
+      totalMatchedRegions = matchedAreas.regions.length;
+    }
+  }
+
+  const layoutArgs: LayoutProps = {
+    isLoaded: appState.isLoaded,
+    searchText,
+    handleChangeForLocationName,
+    totalMatchedRegions,
+    handleChangeForDay,
+    dates: appState.forecastDates.dates,
+    dailyForecastFilter,
+    setDailyForecastFilter,
+  };
+
   return (
     <Grommet theme={theme}>
       <BrowserRouter>
         <Routes>
-          <Route path='/' element={<Layout />}>
+          <Route path='/' element={<Layout {...layoutArgs} />}>
             <Route path='/forecasts/:dataSource' element={<WeatherPage {...appState} />} />
             <Route
               path='*'
