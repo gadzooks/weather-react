@@ -1,7 +1,5 @@
 import { format } from 'fecha';
 import { DailyForecastInterface } from './DailyForecastInterface';
-import { ForecastsById } from './ForecastResponseInterface';
-import { RegionInterface } from './RegionInterface';
 
 export interface DailyForecastFilter {
   date?: string;
