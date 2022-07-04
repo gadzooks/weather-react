@@ -25,7 +25,7 @@ import { calculateWeekends } from './utils/date';
 import useLocalStorage from './utils/localstorage';
 
 // TODO move this to utils and add tests for it.
-function findMatchedAreas(
+export function findMatchedAreas(
   needle: RegExp | null,
   regionsById: RegionsById,
 ): MatchedAreas {

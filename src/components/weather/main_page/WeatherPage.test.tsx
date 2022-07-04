@@ -2,10 +2,11 @@ import { parse } from 'fecha';
 import React from 'react';
 import renderer from 'react-test-renderer';
 import mockWeatherForecastNormalized from '../../../api/mockData';
+import { findMatchedAreas } from '../../../App';
 import { ForeacastDates, ForecastResponse } from '../../../interfaces/ForecastResponseInterface';
 import { MatchedAreas } from '../../../interfaces/MatchedAreas';
 import { calculateWeekends } from '../../../utils/date';
-import WeatherPage, { WeatherForecastSubPage, WeatherPageArgs } from './WeatherPage';
+import WeatherPage, { WeatherPageArgs } from './WeatherPage';
 
 it('renders a snapshot', () => {
   const forecast = mockWeatherForecastNormalized()
@@ -19,12 +20,7 @@ it('renders a snapshot', () => {
     weekends,
   };
 
-  const matchedAreas:MatchedAreas = {
-    regions: [],
-    locationsByRegion: {},
-    totalMatchedRegions: 0,
-  };
-
+  const matchedAreas:MatchedAreas = findMatchedAreas(null, forecast.regions);
   const weatherPageArgs: WeatherPageArgs = {
     appState: {
       isLoaded: true,
