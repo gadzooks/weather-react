@@ -10,7 +10,7 @@ import { SideBar as MySideBar } from './layout/Navigation';
 import ForecastHeader, { ForecastHeaderProps } from './HeaderTab';
 
 export interface LayoutProps extends ForecastHeaderProps {
-  isLoaded?: boolean;
+  // isLoaded?: boolean;
 }
 
 export function Layout(props: LayoutProps) {

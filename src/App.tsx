@@ -58,9 +58,11 @@ export default function App() {
     DefaultForecastResponseStatus as ForecastResponseStatus,
   );
   const params = useParams();
+  console.log(`params is ${JSON.stringify(params)}`);
   const dataSource = params.dataSource || (process.env.NODE_ENV === 'production' ? 'real' : 'mock');
 
-  // TODO move this to a separate file
+  const [weatherKey] = useState(dataSource);
+
   useEffect(() => {
     getForecast({ dataSource, setAppState });
   }, []);
@@ -94,7 +96,7 @@ export default function App() {
 
   const { forecastDates } = appState;
   const layoutArgs: LayoutProps = {
-    isLoaded: appState.isLoaded,
+    isLoaded: appState.isLoaded || false,
     searchText,
     handleChangeForLocationName,
     totalMatchedRegions: matchedAreas.totalMatchedRegions,
@@ -117,7 +119,7 @@ export default function App() {
           <Route path='/' element={<Layout {...layoutArgs} />}>
             <Route
               path='/forecasts/:dataSource'
-              element={<WeatherPage {...weatherPageArgs} />}
+              element={<WeatherPage key={weatherKey} {...weatherPageArgs} />}
             />
             <Route
               path='*'

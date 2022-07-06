@@ -6,6 +6,7 @@ import SelectDay from './weather/main_page/SelectDayDropDown';
 import MinimumDistanceSlider from './weather/main_page/TemperatureSlider';
 
 export interface ForecastHeaderProps {
+  isLoaded: boolean;
   searchText: string;
   handleChangeForLocationName: any;
   totalMatchedRegions: number;
@@ -16,6 +17,7 @@ export interface ForecastHeaderProps {
 }
 
 function ForecastHeader(props: ForecastHeaderProps) {
+  const { isLoaded } = props;
   const { searchText } = props;
   const { handleChangeForLocationName } = props;
   const { totalMatchedRegions } = props;
@@ -24,6 +26,10 @@ function ForecastHeader(props: ForecastHeaderProps) {
   const { dailyForecastFilter } = props;
   const { setDailyForecastFilter } = props;
   const { date } = dailyForecastFilter;
+
+  if (!isLoaded) {
+    return null;
+  }
 
   return (
     <>
@@ -45,10 +51,12 @@ function ForecastHeader(props: ForecastHeaderProps) {
         dates={dates}
       />
 
-      <MinimumDistanceSlider
-        dailyForecastFilter={dailyForecastFilter}
-        setDailyForecastFilter={setDailyForecastFilter}
-      />
+      {false && (
+        <MinimumDistanceSlider
+          dailyForecastFilter={dailyForecastFilter}
+          setDailyForecastFilter={setDailyForecastFilter}
+        />
+      )}
     </>
   );
 }
