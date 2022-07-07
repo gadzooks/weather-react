@@ -10,7 +10,7 @@ import MinimumDistanceSlider from '../main_page/TemperatureSlider';
 export interface ForecastFilterContainerProps {
   isLoaded: boolean;
   searchText: string;
-  handleChangeForLocationName: any;
+  setSearchText: any;
   totalMatchedRegions: number;
   handleChangeForDay: any;
   dates: string[];
@@ -20,8 +20,12 @@ export interface ForecastFilterContainerProps {
 
 function ForecastFilterContainer(props: ForecastFilterContainerProps) {
   const { isLoaded } = props;
+  if (!isLoaded) {
+    return <div>Loading... please wait</div>;
+  }
+
   const { searchText } = props;
-  const { handleChangeForLocationName } = props;
+  const { setSearchText } = props;
   const { totalMatchedRegions } = props;
   const { handleChangeForDay } = props;
   const { dates } = props;
@@ -29,9 +33,7 @@ function ForecastFilterContainer(props: ForecastFilterContainerProps) {
   const { setDailyForecastFilter } = props;
   const { date } = dailyForecastFilter;
 
-  if (!isLoaded) {
-    return <div>Loading... please wait</div>;
-  }
+  // const [value, setValue] = useState(searchText);
 
   return (
     <>
@@ -49,7 +51,7 @@ function ForecastFilterContainer(props: ForecastFilterContainerProps) {
             label='Search Locations'
             variant='outlined'
             autoFocus
-            onChange={(e) => handleChangeForLocationName(e.target.value)}
+            onChange={(e) => setSearchText(e.target.value)}
             defaultValue={searchText}
             error={totalMatchedRegions === 0}
             helperText={totalMatchedRegions !== 0 ? '' : 'No matches found !'}

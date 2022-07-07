@@ -28,13 +28,6 @@ interface SidebarNavProps extends ForecastFilterContainerProps {
   showSidebar: boolean;
 }
 
-function SidebarNav(props: SidebarNavProps) {
-  const { showSidebar } = props;
-  return (
-    <Box gridArea='main'>{showSidebar && <ForecastFilter {...props} />}</Box>
-  );
-}
-
 export function WeatherLayout() {
   const [appState, setAppState] = useState(
     DefaultForecastResponseStatus as ForecastResponseStatus,
@@ -42,7 +35,7 @@ export function WeatherLayout() {
 
   const dataSource = process.env.NODE_ENV === 'production' ? 'real' : 'mock';
 
-  const [sidebar, setSidebar] = useState(false);
+  const [sidebar, setSidebar] = useState(true);
   useEffect(() => {
     getForecast({ dataSource, setAppState });
   }, []);
@@ -79,7 +72,7 @@ export function WeatherLayout() {
     showSidebar: sidebar,
     isLoaded: appState.isLoaded || false,
     searchText,
-    handleChangeForLocationName,
+    setSearchText: handleChangeForLocationName,
     totalMatchedRegions: matchedAreas.totalMatchedLocations,
     handleChangeForDay,
     dates: forecastDates.dates,
@@ -108,7 +101,7 @@ export function WeatherLayout() {
         </Button>
       </Box>
       <Box gridArea='main' fill direction='row'>
-        {sidebar && <SidebarNav {...headerArgs} />}
+        {sidebar && <ForecastFilter {...headerArgs} />}
         {!sidebar && <WeatherPage {...weatherPageArgs} />}
       </Box>
     </Grommet>
