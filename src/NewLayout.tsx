@@ -4,7 +4,9 @@ import {
   Box, Button, Grommet, grommet,
 } from 'grommet';
 import { SelectChangeEvent, debounce } from '@mui/material';
-import ForecastHeader, { ForecastHeaderProps } from './components/HeaderTab';
+import ForecastFilter, {
+  ForecastFilterContainerProps,
+} from './components/weather/Filters/ForecastFilter';
 import getForecast from './api/weatherForecast';
 import {
   DefaultForecastResponseStatus,
@@ -22,14 +24,14 @@ import WeatherPage, {
   WeatherPageArgs,
 } from './components/weather/main_page/WeatherPage';
 
-interface SidebarNavProps extends ForecastHeaderProps {
+interface SidebarNavProps extends ForecastFilterContainerProps {
   showSidebar: boolean;
 }
 
 function SidebarNav(props: SidebarNavProps) {
   const { showSidebar } = props;
   return (
-    <Box gridArea='main'>{showSidebar && <ForecastHeader {...props} />}</Box>
+    <Box gridArea='main'>{showSidebar && <ForecastFilter {...props} />}</Box>
   );
 }
 
@@ -101,18 +103,13 @@ export function WeatherLayout() {
         pad={{ horizontal: 'medium', vertical: 'small' }}
       >
         <Button onClick={() => setSidebar(!sidebar)}>
-          { sidebar && <Filter />}
-          { !sidebar && <Menu />}
+          {sidebar && <Filter />}
+          {!sidebar && <Menu />}
         </Button>
       </Box>
-      <Box
-        gridArea='main'
-        fill
-        direction='row'
-      >
-        { sidebar
-          && <SidebarNav {...headerArgs} />}
-        { !sidebar && <WeatherPage {...weatherPageArgs} /> }
+      <Box gridArea='main' fill direction='row'>
+        {sidebar && <SidebarNav {...headerArgs} />}
+        {!sidebar && <WeatherPage {...weatherPageArgs} />}
       </Box>
     </Grommet>
   );

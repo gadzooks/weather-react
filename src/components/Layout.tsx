@@ -6,9 +6,11 @@ import {
 } from 'grommet';
 import { Outlet } from 'react-router-dom';
 import { SideBar as MySideBar } from './layout/Navigation';
-import ForecastHeader, { ForecastHeaderProps } from './HeaderTab';
+import ForecastFilterContainer, {
+  ForecastFilterContainerProps,
+} from './weather/Filters/ForecastFilter';
 
-export interface LayoutProps extends ForecastHeaderProps {
+export interface LayoutProps extends ForecastFilterContainerProps {
   // isLoaded?: boolean;
 }
 
@@ -36,7 +38,7 @@ export function Layout(props: LayoutProps) {
         <Button onClick={() => setSidebar(!sidebar)}>
           <Menu />
         </Button>
-        <ForecastHeader {...props} />
+        <ForecastFilterContainer {...props} />
         <Text>my@email</Text>
       </Box>
       {sidebar && (
