@@ -7,5 +7,5 @@ export interface MatchedAreas {
     [regionName: string]: LocationInterface[];
   };
   // dates?: string[];
-  totalMatchedRegions: number;
+  totalMatchedLocations: number;
 }

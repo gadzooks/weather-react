@@ -69,7 +69,7 @@ export function WeatherLayout() {
   const handleChangeForLocationName = debounce(setSearchText, 200);
   const trimmedSearch = searchText.trim();
   const re = trimmedSearch === '' ? null : new RegExp(trimmedSearch, 'i');
-  let matchedAreas: MatchedAreas = { totalMatchedRegions: 0 };
+  let matchedAreas: MatchedAreas = { totalMatchedLocations: 0 };
   if (appState.isLoaded && appState.forecast) {
     matchedAreas = findMatchedAreas(re, appState.forecast.regions);
   }
@@ -80,7 +80,7 @@ export function WeatherLayout() {
     isLoaded: appState.isLoaded || false,
     searchText,
     handleChangeForLocationName,
-    totalMatchedRegions: matchedAreas.totalMatchedRegions,
+    totalMatchedRegions: matchedAreas.totalMatchedLocations,
     handleChangeForDay,
     dates: forecastDates.dates,
     dailyForecastFilter,

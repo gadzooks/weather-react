@@ -36,6 +36,13 @@ function ForecastFilterContainer(props: ForecastFilterContainerProps) {
   return (
     <>
       <Box direction='column' background='#ffedd6' margin='10px'>
+        <Box margin='8px' align='center'>
+          Matching
+          {' '}
+          {totalMatchedRegions}
+          {' '}
+          Locations
+        </Box>
         <Box width='medium' margin='8px'>
           <TextField
             id='outlined-name'

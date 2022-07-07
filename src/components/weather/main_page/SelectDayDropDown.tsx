@@ -18,13 +18,12 @@ export default function SelectDay(props: SelectDayProps) {
 
   return (
     <div>
-      <FormControl sx={{ m: 1, minWidth: 120 }}>
+      <FormControl sx={{ m: 1, minWidth: 220 }}>
         <InputLabel id='demo-simple-select-helper-label'>Select a day</InputLabel>
         <Select
           labelId='demo-simple-select-helper-label'
           id='demo-simple-select-helper'
           value={txt}
-          label='Age'
           // eslint-disable-next-line react/destructuring-assignment
           onChange={props.handleChange}
         >

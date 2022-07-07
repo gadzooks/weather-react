@@ -1,9 +1,7 @@
 import { SelectChangeEvent, debounce } from '@mui/material';
 import { Grommet } from 'grommet';
 import React, { useEffect, useState } from 'react';
-import {
-  BrowserRouter, Routes, Route, useParams,
-} from 'react-router-dom';
+import { BrowserRouter, Routes, Route, useParams } from 'react-router-dom';
 import getForecast from './api/weatherForecast';
 // import App from './App';
 import { Layout, LayoutProps } from './components/Layout';
@@ -11,7 +9,9 @@ import {
   LS_DAILY_FORECAST_FILTER_KEY,
   LS_SEARCH_KEY,
 } from './components/weather/Constants';
-import WeatherPage, { WeatherPageArgs } from './components/weather/main_page/WeatherPage';
+import WeatherPage, {
+  WeatherPageArgs,
+} from './components/weather/main_page/WeatherPage';
 import { DailyForecastFilter } from './interfaces/DailyForecastFilter';
 import {
   DefaultForecastResponseStatus,
@@ -55,11 +55,13 @@ export default function App() {
   };
 
   const [appState, setAppState] = useState(
-    DefaultForecastResponseStatus as ForecastResponseStatus,
+    DefaultForecastResponseStatus as ForecastResponseStatus
   );
   const params = useParams();
   console.log(`params is ${JSON.stringify(params)}`);
-  const dataSource = params.dataSource || (process.env.NODE_ENV === 'production' ? 'real' : 'mock');
+  const dataSource =
+    params.dataSource ||
+    (process.env.NODE_ENV === 'production' ? 'real' : 'mock');
 
   const [weatherKey] = useState(dataSource);
 
@@ -77,7 +79,7 @@ export default function App() {
   };
   const [dailyForecastFilter, setDailyForecastFilter] = useLocalStorage(
     LS_DAILY_FORECAST_FILTER_KEY,
-    defaultDailyForecastFilter,
+    defaultDailyForecastFilter
   );
 
   const handleChangeForDay = (event: SelectChangeEvent) => {
@@ -89,7 +91,7 @@ export default function App() {
   const handleChangeForLocationName = debounce(setSearchText, 200);
   const trimmedSearch = searchText.trim();
   const re = trimmedSearch === '' ? null : new RegExp(trimmedSearch, 'i');
-  let matchedAreas:MatchedAreas = { totalMatchedRegions: 0 };
+  let matchedAreas: MatchedAreas = { totalMatchedLocations: 0 };
   if (appState.isLoaded && appState.forecast) {
     matchedAreas = findMatchedAreas(re, appState.forecast.regions);
   }
@@ -99,7 +101,7 @@ export default function App() {
     isLoaded: appState.isLoaded || false,
     searchText,
     handleChangeForLocationName,
-    totalMatchedRegions: matchedAreas.totalMatchedRegions,
+    totalMatchedRegions: matchedAreas.totalMatchedLocations,
     handleChangeForDay,
     dates: forecastDates.dates,
     dailyForecastFilter,
@@ -116,18 +118,18 @@ export default function App() {
     <Grommet theme={theme}>
       <BrowserRouter>
         <Routes>
-          <Route path='/' element={<Layout {...layoutArgs} />}>
+          <Route path="/" element={<Layout {...layoutArgs} />}>
             <Route
-              path='/forecasts/:dataSource'
+              path="/forecasts/:dataSource"
               element={<WeatherPage key={weatherKey} {...weatherPageArgs} />}
             />
             <Route
-              path='*'
-              element={(
+              path="*"
+              element={
                 <main style={{ padding: '1rem' }}>
                   <p>There&apos;s nothing here</p>
                 </main>
-              )}
+              }
             />
           </Route>
         </Routes>
