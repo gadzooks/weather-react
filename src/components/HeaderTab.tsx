@@ -34,7 +34,7 @@ function ForecastHeader(props: ForecastHeaderProps) {
   const { date } = dailyForecastFilter;
 
   if (!isLoaded) {
-    return null;
+    return <div>Loading... please wait</div>;
   }
 
   return (
