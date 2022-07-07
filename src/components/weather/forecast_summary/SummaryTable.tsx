@@ -5,8 +5,8 @@ import TableCell from '@mui/material/TableCell';
 import { Button, Table } from '@mui/material';
 import { format } from 'fecha';
 import React from 'react';
-import BookmarkBorderIcon from '@mui/icons-material/BookmarkBorder';
-import BookmarkIcon from '@mui/icons-material/Bookmark';
+import ArrowLeftIcon from '@mui/icons-material/ArrowLeft';
+import ArrowRightIcon from '@mui/icons-material/ArrowRight';
 import { Box } from 'grommet/components/Box';
 import { LocationInterface } from '../../../interfaces/LocationInterface';
 import { ForeacastDates, ForecastResponse } from '../../../interfaces/ForecastResponseInterface';
@@ -27,6 +27,30 @@ export interface SummaryTableProps {
   matchedAreas: MatchedAreas;
   dailyForecastFilter: DailyForecastFilter;
   setDailyForecastFilter: any;
+}
+
+function prevDateWithinRange(
+  date: Date | null,
+  index: number,
+  dates: (Date | null)[],
+): string | null {
+  if (date === null) return null;
+  if (index === 0) return null;
+  const prevParsedDate = dates[index - 1];
+  if (!prevParsedDate) return null;
+  return format(prevParsedDate, 'YYYY-MM-DD');
+}
+
+function nextDateWithinRange(
+  date: Date | null,
+  index: number,
+  dates: (Date | null)[],
+): string | null {
+  if (date === null) return null;
+  if (index === (dates.length - 1)) return null;
+  const nextParsedDate = dates[index + 1];
+  if (!nextParsedDate) return null;
+  return format(nextParsedDate, 'YYYY-MM-DD');
 }
 
 function SummaryTable(props: SummaryTableProps) {
@@ -61,33 +85,46 @@ function SummaryTable(props: SummaryTableProps) {
         <TableRow>
           {/* <TableCell>Weather Alerts</TableCell> */}
           <TableCell>Location</TableCell>
-          {parsedDates.map((date) => {
+          {parsedDates.map((date, index) => {
             const txt = date === null ? '' : format(date, 'ddd DD').toUpperCase();
             const dateKey = date === null ? '' : format(date, 'YYYY-MM-DD').toUpperCase();
+            const prevDateKey = prevDateWithinRange(date, index, parsedDates);
+            const nextDateKey = nextDateWithinRange(date, index, parsedDates);
             const dateMatches = matchesSelecteDate(date, dailyForecastFilter.date);
             return (
               (!dateSelectedIsWithinForecastRange || dateMatches) && (
                 <TableCell key={txt}>
                   <Box direction='column'>
-                    <Box align='center'>
-                      { !dateSelectedIsWithinForecastRange
-                        && (
+                    <Box align='center' direction='row'>
+                      {dateSelectedIsWithinForecastRange && (
+                        <>
+                          <Button
+                            onClick={() => selectDate(prevDateKey || '')}
+                            disabled={prevDateKey === null}
+                          >
+                            <ArrowLeftIcon
+                              style={{ color: 'grey', fontSize: 45 }}
+                            />
+                          </Button>
+                          <Button onClick={() => selectDate(dateKey)}>
+                            {txt}
+                          </Button>
+                          <Button
+                            onClick={() => selectDate(nextDateKey || '')}
+                            disabled={nextDateKey === null}
+                          >
+                            <ArrowRightIcon
+                              style={{ color: 'grey', fontSize: 45 }}
+                            />
+                          </Button>
+                        </>
+                      )}
+                      {!dateSelectedIsWithinForecastRange && (
                         <Button onClick={() => selectDate(dateKey)}>
-                          <BookmarkBorderIcon
-                            style={{ color: 'grey', fontSize: 25 }}
-                          />
+                          {txt}
                         </Button>
-                        )}
-                      { dateSelectedIsWithinForecastRange
-                        && (
-                        <Button onClick={() => selectDate(dateKey)}>
-                          <BookmarkIcon
-                            style={{ color: 'grey', fontSize: 25 }}
-                          />
-                        </Button>
-                        )}
+                      )}
                     </Box>
-                    <Box>{txt}</Box>
                   </Box>
                 </TableCell>
               )

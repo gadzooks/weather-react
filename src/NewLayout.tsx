@@ -35,7 +35,7 @@ export function WeatherLayout() {
 
   const dataSource = process.env.NODE_ENV === 'production' ? 'real' : 'mock';
 
-  const [sidebar, setSidebar] = useState(true);
+  const [sidebar, setSidebar] = useState(false);
   useEffect(() => {
     getForecast({ dataSource, setAppState });
   }, []);
