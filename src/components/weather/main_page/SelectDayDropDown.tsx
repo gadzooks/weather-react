@@ -2,7 +2,6 @@
 import * as React from 'react';
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
-import FormHelperText from '@mui/material/FormHelperText';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 
@@ -20,7 +19,7 @@ export default function SelectDay(props: SelectDayProps) {
   return (
     <div>
       <FormControl sx={{ m: 1, minWidth: 120 }}>
-        <InputLabel id='demo-simple-select-helper-label'>Day</InputLabel>
+        <InputLabel id='demo-simple-select-helper-label'>Select a day</InputLabel>
         <Select
           labelId='demo-simple-select-helper-label'
           id='demo-simple-select-helper'
@@ -34,7 +33,6 @@ export default function SelectDay(props: SelectDayProps) {
           </MenuItem>
           {props.dates.map((d) => (<MenuItem key={d} value={d}>{d}</MenuItem>))}
         </Select>
-        <FormHelperText>Select a day for further filtering</FormHelperText>
       </FormControl>
     </div>
   );

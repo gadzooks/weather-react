@@ -6,24 +6,24 @@ import {
 } from '../../../interfaces/ForecastResponseInterface';
 import { MatchedAreas } from '../../../interfaces/MatchedAreas';
 import SummaryTable, { SummaryTableProps } from '../forecast_summary/SummaryTable';
-import LocationDetails from '../location_details/LocationDetails';
+// import LocationDetails from '../location_details/LocationDetails';
 
 export function WeatherForecastSubPage(props: SummaryTableProps) {
-  const { forecastResponse } = props;
+  // const { forecastResponse } = props;
 
   return (
     <>
       <div id='top' />
       <SummaryTable {...props} />
 
-      {forecastResponse && (
+      {/* {forecastResponse && (
         <LocationDetails
           matchedAreas={props.matchedAreas}
           forecastsByName={forecastResponse.forecasts.byId}
           isWeekend={props.forecastDates.weekends}
           dates={props.forecastDates.parsedDates}
         />
-      )}
+      )} */}
     </>
   );
 }

@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import MenuIcon from '@mui/icons-material/Menu';
-
+import { Filter, Menu } from 'grommet-icons';
 import {
-  Box, Button, Grid, Grommet, grommet,
+  Box, Button, Grommet, grommet,
 } from 'grommet';
 import { SelectChangeEvent, debounce } from '@mui/material';
 import ForecastHeader, { ForecastHeaderProps } from './components/HeaderTab';
@@ -41,7 +40,7 @@ export function WeatherLayout() {
 
   const dataSource = process.env.NODE_ENV === 'production' ? 'real' : 'mock';
 
-  const [sidebar, setSidebar] = useState(false);
+  const [sidebar, setSidebar] = useState(true);
   useEffect(() => {
     getForecast({ dataSource, setAppState });
   }, []);
@@ -94,41 +93,27 @@ export function WeatherLayout() {
 
   return (
     <Grommet theme={grommet}>
-      <Grid
-        rows={['xxsmall', 'xlarge']}
-        columns={['xsmall', 'small']}
-        gap='small'
-        areas={[
-          { name: 'nav', start: [0, 0], end: [1, 0] },
-          { name: 'sidebar', start: [1, 0], end: [1, 1] },
-          { name: 'main', start: [1, 1], end: [1, 1] },
-        ]}
+      <Box
+        gridArea='header'
+        direction='row'
+        align='center'
+        justify='between'
+        pad={{ horizontal: 'medium', vertical: 'small' }}
       >
-        <Box
-          gridArea='nav'
-          direction='row'
-          align='center'
-          justify='between'
-          pad={{ horizontal: 'medium', vertical: 'small' }}
-        >
-          <Button onClick={() => setSidebar(!sidebar)}>
-            <MenuIcon />
-          </Button>
-        </Box>
-        <Box
-          gridArea='sidebar'
-          fill
-          direction='row'
-          // animation={[
-          //   { type: 'fadeIn', duration: 300 },
-          //   { type: 'slideRight', size: 'xlarge', duration: 150 },
-          // ]}
-        />
-        <SidebarNav {...headerArgs} />
-        <Box>
-          { !sidebar && <WeatherPage {...weatherPageArgs} /> }
-        </Box>
-      </Grid>
+        <Button onClick={() => setSidebar(!sidebar)}>
+          { sidebar && <Filter />}
+          { !sidebar && <Menu />}
+        </Button>
+      </Box>
+      <Box
+        gridArea='main'
+        fill
+        direction='row'
+      >
+        { sidebar
+          && <SidebarNav {...headerArgs} />}
+        { !sidebar && <WeatherPage {...weatherPageArgs} /> }
+      </Box>
     </Grommet>
   );
 }

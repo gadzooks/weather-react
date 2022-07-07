@@ -1,7 +1,6 @@
 /* eslint-disable react/require-default-props */
 import React, { useState } from 'react';
-import MenuIcon from '@mui/icons-material/Menu';
-
+import { Menu } from 'grommet-icons';
 import {
   Box, Button, Grid, Text,
 } from 'grommet';
@@ -35,7 +34,7 @@ export function Layout(props: LayoutProps) {
         pad={{ horizontal: 'medium', vertical: 'small' }}
       >
         <Button onClick={() => setSidebar(!sidebar)}>
-          <MenuIcon />
+          <Menu />
         </Button>
         <ForecastHeader {...props} />
         <Text>my@email</Text>
