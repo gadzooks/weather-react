@@ -2,9 +2,12 @@ import './SummaryTable.scss';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import TableCell from '@mui/material/TableCell';
-import { Table } from '@mui/material';
+import { Button, Table } from '@mui/material';
 import { format } from 'fecha';
 import React from 'react';
+import BookmarkBorderIcon from '@mui/icons-material/BookmarkBorder';
+import BookmarkIcon from '@mui/icons-material/Bookmark';
+import { Box } from 'grommet/components/Box';
 import { LocationInterface } from '../../../interfaces/LocationInterface';
 import { ForeacastDates, ForecastResponse } from '../../../interfaces/ForecastResponseInterface';
 import Region from './Region';
@@ -19,10 +22,11 @@ export function matchedLocations(needle: RegExp | null, region: RegionInterface)
 }
 
 export interface SummaryTableProps {
-  forecastResponse: ForecastResponse|null,
-  forecastDates: ForeacastDates,
-  matchedAreas: MatchedAreas,
-  dailyForecastFilter: DailyForecastFilter,
+  forecastResponse: ForecastResponse | null;
+  forecastDates: ForeacastDates;
+  matchedAreas: MatchedAreas;
+  dailyForecastFilter: DailyForecastFilter;
+  setDailyForecastFilter: any;
 }
 
 function SummaryTable(props: SummaryTableProps) {
@@ -34,11 +38,22 @@ function SummaryTable(props: SummaryTableProps) {
   const locationsByRegion = matchedAreas.locationsByRegion || {};
   const { dailyForecastFilter } = props;
   const { forecastResponse } = props;
+  const { setDailyForecastFilter } = props;
 
   const dateSelectedIsWithinForecastRange = dateSelectedMatchesForecastDates(
     forecastDates.dates,
     dailyForecastFilter.date,
   );
+
+  const selectDate = (date: string) => {
+    const dFF = { ...dailyForecastFilter } as DailyForecastFilter;
+    if (date === dFF.date) {
+      dFF.date = '';
+    } else {
+      dFF.date = date;
+    }
+    setDailyForecastFilter(dFF);
+  };
 
   return (
     <Table className='table table-sm weather-forecast-summary'>
@@ -47,11 +62,34 @@ function SummaryTable(props: SummaryTableProps) {
           {/* <TableCell>Weather Alerts</TableCell> */}
           <TableCell>Location</TableCell>
           {parsedDates.map((date) => {
-            const txt = date === null ? '' : format(date, 'ddd MMM DD').toUpperCase();
+            const txt = date === null ? '' : format(date, 'ddd DD').toUpperCase();
+            const dateKey = date === null ? '' : format(date, 'YYYY-MM-DD').toUpperCase();
+            const dateMatches = matchesSelecteDate(date, dailyForecastFilter.date);
             return (
-              (!dateSelectedIsWithinForecastRange
-                || matchesSelecteDate(date, dailyForecastFilter.date)) && (
-                <TableCell key={txt}>{txt}</TableCell>
+              (!dateSelectedIsWithinForecastRange || dateMatches) && (
+                <TableCell key={txt}>
+                  <Box direction='column'>
+                    <Box align='center'>
+                      { !dateSelectedIsWithinForecastRange
+                        && (
+                        <Button onClick={() => selectDate(dateKey)}>
+                          <BookmarkBorderIcon
+                            style={{ color: 'grey', fontSize: 25 }}
+                          />
+                        </Button>
+                        )}
+                      { dateSelectedIsWithinForecastRange
+                        && (
+                        <Button onClick={() => selectDate(dateKey)}>
+                          <BookmarkIcon
+                            style={{ color: 'grey', fontSize: 25 }}
+                          />
+                        </Button>
+                        )}
+                    </Box>
+                    <Box>{txt}</Box>
+                  </Box>
+                </TableCell>
               )
             );
           })}

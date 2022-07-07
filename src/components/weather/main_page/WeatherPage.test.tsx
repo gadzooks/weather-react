@@ -30,6 +30,7 @@ it('renders a snapshot', () => {
     },
     dailyForecastFilter: {},
     matchedAreas,
+    setDailyForecastFilter: () => {},
   };
   const tree = renderer
     .create(<WeatherPage {...weatherPageArgs} />)

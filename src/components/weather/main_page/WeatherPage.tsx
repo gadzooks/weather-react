@@ -29,9 +29,10 @@ export function WeatherForecastSubPage(props: SummaryTableProps) {
 }
 
 export interface WeatherPageArgs {
-  appState: ForecastResponseStatus,
-  matchedAreas: MatchedAreas,
-  dailyForecastFilter: DailyForecastFilter,
+  appState: ForecastResponseStatus;
+  matchedAreas: MatchedAreas;
+  dailyForecastFilter: DailyForecastFilter;
+  setDailyForecastFilter: any;
 }
 
 function WeatherPage(props: WeatherPageArgs) {

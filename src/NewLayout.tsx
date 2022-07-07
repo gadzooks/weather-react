@@ -84,6 +84,7 @@ export function WeatherLayout() {
     matchedAreas,
     dailyForecastFilter,
     appState,
+    setDailyForecastFilter,
   };
 
   return (
