@@ -5,8 +5,8 @@ import TableCell from '@mui/material/TableCell';
 import { Button, Table } from '@mui/material';
 import { format } from 'fecha';
 import React from 'react';
-import ArrowLeftIcon from '@mui/icons-material/ArrowLeft';
 import ArrowRightIcon from '@mui/icons-material/ArrowRight';
+import ArrowLeftIcon from '@mui/icons-material/ArrowLeft';
 import { Box } from 'grommet/components/Box';
 import { LocationInterface } from '../../../interfaces/LocationInterface';
 import { ForeacastDates, ForecastResponse } from '../../../interfaces/ForecastResponseInterface';
@@ -88,43 +88,34 @@ function SummaryTable(props: SummaryTableProps) {
           {parsedDates.map((date, index) => {
             const txt = date === null ? '' : format(date, 'ddd DD').toUpperCase();
             const dateKey = date === null ? '' : format(date, 'YYYY-MM-DD').toUpperCase();
+            const dateMatches = matchesSelecteDate(date, dailyForecastFilter.date);
             const prevDateKey = prevDateWithinRange(date, index, parsedDates);
             const nextDateKey = nextDateWithinRange(date, index, parsedDates);
-            const dateMatches = matchesSelecteDate(date, dailyForecastFilter.date);
             return (
               (!dateSelectedIsWithinForecastRange || dateMatches) && (
-                <TableCell key={txt}>
-                  <Box direction='column'>
-                    <Box align='center' direction='row'>
-                      {dateSelectedIsWithinForecastRange && (
-                        <>
-                          <Button
-                            onClick={() => selectDate(prevDateKey || '')}
-                            disabled={prevDateKey === null}
-                          >
-                            <ArrowLeftIcon
-                              style={{ color: 'grey', fontSize: 45 }}
-                            />
-                          </Button>
-                          <Button onClick={() => selectDate(dateKey)}>
-                            {txt}
-                          </Button>
-                          <Button
-                            onClick={() => selectDate(nextDateKey || '')}
-                            disabled={nextDateKey === null}
-                          >
-                            <ArrowRightIcon
-                              style={{ color: 'grey', fontSize: 45 }}
-                            />
-                          </Button>
-                        </>
-                      )}
-                      {!dateSelectedIsWithinForecastRange && (
-                        <Button onClick={() => selectDate(dateKey)}>
-                          {txt}
-                        </Button>
-                      )}
-                    </Box>
+                <TableCell key={txt} align='center'>
+                  <Box align='center' direction='row'>
+                    {dateSelectedIsWithinForecastRange && (
+                    <>
+                      <ArrowLeftIcon
+                        style={{ color: 'grey', fontSize: 65 }}
+                        onClick={() => selectDate(prevDateKey || '')}
+                        sx={{ padding: '0px', margin: '0px' }}
+                      />
+                      <Button onClick={() => selectDate(dateKey)}>
+                        {txt}
+                      </Button>
+                      <ArrowRightIcon
+                        style={{ color: 'grey', fontSize: 65 }}
+                        sx={{ padding: '0px', margin: '0px' }}
+                        onClick={() => selectDate(nextDateKey || '')}
+                      />
+                    </>
+
+                    )}
+                    {!dateSelectedIsWithinForecastRange && (
+                      <Button onClick={() => selectDate(dateKey)}>{txt}</Button>
+                    )}
                   </Box>
                 </TableCell>
               )
