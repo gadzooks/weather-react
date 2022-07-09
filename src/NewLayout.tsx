@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import { Filter, Menu } from 'grommet-icons';
-import {
-  Box, Button, Grommet, grommet,
-} from 'grommet';
-import { SelectChangeEvent, debounce } from '@mui/material';
+import { SelectChangeEvent, debounce, Button } from '@mui/material';
+import Menu from '@mui/icons-material/Menu';
+import Grid from '@mui/material/Grid';
+import FilterAltIcon from '@mui/icons-material/FilterAlt';
 import ForecastFilter, {
   ForecastFilterContainerProps,
 } from './components/weather/Filters/ForecastFilter';
@@ -87,25 +86,33 @@ export function WeatherLayout() {
     setDailyForecastFilter,
   };
 
+  const style = {
+    root: {
+      flexGrow: 1,
+    },
+    paper: {
+      padding: 20,
+      textAlign: 'center',
+      color: 'blue',
+      fontFamily: 'Roboto',
+    },
+  };
+
   return (
-    <Grommet theme={grommet}>
-      <Box
-        gridArea='header'
-        direction='row'
-        align='center'
-        justify='between'
-        pad={{ horizontal: 'medium', vertical: 'small' }}
-      >
-        <Button onClick={() => setSidebar(!sidebar)}>
-          {sidebar && <Filter />}
-          {!sidebar && <Menu />}
-        </Button>
-      </Box>
-      <Box gridArea='main' fill direction='row'>
-        {sidebar && <ForecastFilter {...headerArgs} />}
-        {!sidebar && <WeatherPage {...weatherPageArgs} />}
-      </Box>
-    </Grommet>
+    <div style={style.root}>
+      <Grid container>
+        <Grid item xs={2}>
+          <Button onClick={() => setSidebar(!sidebar)}>
+            {sidebar && <FilterAltIcon />}
+            {!sidebar && <Menu />}
+          </Button>
+        </Grid>
+        <Grid item xs={10}>
+          {sidebar && <ForecastFilter {...headerArgs} />}
+          {!sidebar && <WeatherPage {...weatherPageArgs} />}
+        </Grid>
+      </Grid>
+    </div>
   );
 }
 

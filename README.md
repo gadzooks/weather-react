@@ -1,14 +1,13 @@
-# Learnings : 
-- Normalize state to make it easier to update it : 
-- https://alexsidorenko.com/blog/react-update-nested-state/
-- https://redux.js.org/usage/structuring-reducers/normalizing-state-shape
-- https://javascript.info/async-await
-- https://webpack.js.org/guides/asset-modules/#resource-assets
-
-
-# TODO:
+# Study these more :
+## Performance
 - Look into performance aspects like rerender : https://levelup.gitconnected.com/14-tips-for-effortlessly-improving-your-weak-ass-react-code-4aea5500559c
+- https://webpack.js.org/guides/asset-modules/#resource-assets
+## ExpressJs
 - https://www.toptal.com/express-js/routes-js-promises-error-handling
+- https://javascript.info/async-await
+## CSS
+- https://css-tricks.com/snippets/css/a-guide-to-flexbox/
+- https://styled-components.com/docs/basics
 
 ## Useful tools : 
 - https://jshint.com/install/
@@ -22,11 +21,19 @@
 - https://v5.reactrouter.com/web/guides/quick-start
 - https://create-react-app.dev/docs/adding-images-fonts-and-files/
 
-```javascript
+# things I need to google regularly
+
+```typescript
+// define a dictionary with key/value as strings
 export interface IHash {
     [details: string] : string;
 } 
 ```
+
+# Learnings : 
+- Normalize state to make it easier to update it : 
+- https://alexsidorenko.com/blog/react-update-nested-state/
+- https://redux.js.org/usage/structuring-reducers/normalizing-state-shape
 
 
 # Getting Started with Create React App

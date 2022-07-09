@@ -1,6 +1,5 @@
 /* eslint-disable react/destructuring-assignment */
-import { TextField } from '@mui/material';
-import { Box } from 'grommet';
+import { Grid, TextField } from '@mui/material';
 
 import React from 'react';
 import { DailyForecastFilter } from '../../../interfaces/DailyForecastFilter';
@@ -37,15 +36,15 @@ function ForecastFilterContainer(props: ForecastFilterContainerProps) {
 
   return (
     <>
-      <Box direction='column' background='#ffedd6' margin='10px'>
-        <Box margin='8px' align='center'>
+      <Grid container>
+        <Grid item sx={{ margin: '8px', align: 'center' }}>
           Matching
           {' '}
           {totalMatchedRegions}
           {' '}
           Locations
-        </Box>
-        <Box width='medium' margin='8px'>
+        </Grid>
+        <Grid item sx={{ width: 'medium', margin: '8px' }}>
           <TextField
             id='outlined-name'
             label='Search Locations'
@@ -56,21 +55,21 @@ function ForecastFilterContainer(props: ForecastFilterContainerProps) {
             error={totalMatchedRegions === 0}
             helperText={totalMatchedRegions !== 0 ? '' : 'No matches found !'}
           />
-        </Box>
-        <Box width='medium' margin='8px'>
+        </Grid>
+        <Grid>
           <SelectDay
             handleChange={handleChangeForDay}
             dateSelected={date}
             dates={dates}
           />
-        </Box>
+        </Grid>
         {false && (
           <MinimumDistanceSlider
             dailyForecastFilter={dailyForecastFilter}
             setDailyForecastFilter={setDailyForecastFilter}
           />
         )}
-      </Box>
+      </Grid>
       {/* <Themed /> */}
     </>
   );
