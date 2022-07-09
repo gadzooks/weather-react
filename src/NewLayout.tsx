@@ -101,13 +101,13 @@ export function WeatherLayout() {
   return (
     <div style={style.root}>
       <Grid container>
-        <Grid item xs={2}>
+        <Grid item xs={1}>
           <Button onClick={() => setSidebar(!sidebar)}>
             {sidebar && <FilterAltIcon />}
             {!sidebar && <Menu />}
           </Button>
         </Grid>
-        <Grid item xs={10}>
+        <Grid item xs={15}>
           {sidebar && <ForecastFilter {...headerArgs} />}
           {!sidebar && <WeatherPage {...weatherPageArgs} />}
         </Grid>
