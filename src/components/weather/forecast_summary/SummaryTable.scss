@@ -101,7 +101,7 @@ table.weather-forecast-summary {
   tbody {
     white-space: nowrap;
     td {
-      padding: 0.45em;
+      // padding: 0.45em;
     }
   }
   td.weather-cell {
@@ -112,9 +112,12 @@ table.weather-forecast-summary {
   }
   thead.table-heading {
     th {
+      text-align: center;
       border: 0;
       font-size: 1.2em;
+      font-weight: 500;
       background-color: #f9d6a7;
+      padding: 0;
     }
   }
 

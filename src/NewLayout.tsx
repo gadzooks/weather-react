@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { SelectChangeEvent, debounce, Button } from '@mui/material';
+import { ThemeProvider, createTheme } from '@mui/material/styles';
 import Menu from '@mui/icons-material/Menu';
 import Grid from '@mui/material/Grid';
 import FilterAltIcon from '@mui/icons-material/FilterAlt';
@@ -86,20 +87,10 @@ export function WeatherLayout() {
     setDailyForecastFilter,
   };
 
-  const style = {
-    root: {
-      flexGrow: 1,
-    },
-    paper: {
-      padding: 20,
-      textAlign: 'center',
-      color: 'blue',
-      fontFamily: 'Roboto',
-    },
-  };
+  const darkTheme = createTheme({});
 
   return (
-    <div style={style.root}>
+    <ThemeProvider theme={darkTheme}>
       <Grid container>
         <Grid item xs={1}>
           <Button onClick={() => setSidebar(!sidebar)}>
@@ -112,7 +103,7 @@ export function WeatherLayout() {
           {!sidebar && <WeatherPage {...weatherPageArgs} />}
         </Grid>
       </Grid>
-    </div>
+    </ThemeProvider>
   );
 }
 

@@ -1,8 +1,10 @@
 import './SummaryTable.scss';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
-import TableCell from '@mui/material/TableCell';
-import { Box, Button, Table } from '@mui/material';
+import Paper from '@mui/material/Paper';
+import {
+  Button, Table, TableCell, TableContainer,
+} from '@mui/material';
 import { format } from 'fecha';
 import React from 'react';
 import ArrowRightIcon from '@mui/icons-material/ArrowRight';
@@ -79,68 +81,87 @@ function SummaryTable(props: SummaryTableProps) {
   };
 
   return (
-    <Table className='table table-sm weather-forecast-summary'>
-      <TableHead className='table-heading'>
-        <TableRow>
-          {/* <TableCell>Weather Alerts</TableCell> */}
-          <TableCell>Location</TableCell>
-          {parsedDates.map((date, index) => {
-            const txt = date === null ? '' : format(date, 'ddd DD').toUpperCase();
-            const dateKey = date === null ? '' : format(date, 'YYYY-MM-DD').toUpperCase();
-            const dateMatches = matchesSelecteDate(date, dailyForecastFilter.date);
-            const prevDateKey = prevDateWithinRange(date, index, parsedDates);
-            const nextDateKey = nextDateWithinRange(date, index, parsedDates);
-            return (
-              (!dateSelectedIsWithinForecastRange || dateMatches) && (
-                <TableCell key={txt} align='center'>
-                  <Box sx={{ align: 'center', direction: 'row' }}>
+    <TableContainer component={Paper} sx={{ width: 'max-content' }}>
+      <Table
+        size='small'
+        className='table table-sm weather-forecast-summary'
+      >
+        <TableHead className='table-heading'>
+          <TableRow>
+            {/* <TableCell>Weather Alerts</TableCell> */}
+            <TableCell>Location</TableCell>
+            {parsedDates.map((date, index) => {
+              const txt = date === null ? '' : format(date, 'ddd DD').toUpperCase();
+              const dateKey = date === null ? '' : format(date, 'YYYY-MM-DD').toUpperCase();
+              const dateMatches = matchesSelecteDate(
+                date,
+                dailyForecastFilter.date,
+              );
+              const prevDateKey = prevDateWithinRange(date, index, parsedDates);
+              const nextDateKey = nextDateWithinRange(date, index, parsedDates);
+              return (
+                (!dateSelectedIsWithinForecastRange || dateMatches) && (
+                  <TableCell key={txt} align='center'>
                     {dateSelectedIsWithinForecastRange && (
                       <>
                         <ArrowLeftIcon
-                          style={{ color: 'grey', fontSize: 65 }}
+                          style={{ color: 'black', fontSize: 65 }}
                           onClick={() => selectDate(prevDateKey || '')}
-                          sx={{ padding: '0px', margin: '0px' }}
+                          sx={{ position: 'relative', left: '-5px' }}
                         />
-                        <Button onClick={() => selectDate(dateKey)}>
+                        <Button
+                          variant='contained'
+                          onClick={() => selectDate(dateKey)}
+                          sx={{
+                            position: 'relative',
+                            left: '-25px',
+                            top: '-25px',
+                          }}
+                        >
                           {txt}
                         </Button>
                         <ArrowRightIcon
-                          style={{ color: 'grey', fontSize: 65 }}
-                          sx={{ padding: '0px', margin: '0px' }}
+                          style={{ color: 'black', fontSize: 65 }}
+                          sx={{ position: 'relative', left: '-45px' }}
                           onClick={() => selectDate(nextDateKey || '')}
                         />
                       </>
                     )}
                     {!dateSelectedIsWithinForecastRange && (
-                      <Button onClick={() => selectDate(dateKey)}>{txt}</Button>
+                      <Button
+                        variant='text'
+                        onClick={() => selectDate(dateKey)}
+                      >
+                        {txt}
+                      </Button>
                     )}
-                  </Box>
-                </TableCell>
-              )
+                  </TableCell>
+                )
+              );
+            })}
+          </TableRow>
+        </TableHead>
+        {regions.map((region: RegionInterface) => {
+          const locations = locationsByRegion[region.name];
+          if (forecastResponse?.forecasts) {
+            return (
+              <Region
+                key={region.name}
+                isWeekend={weekends}
+                region={region}
+                forecastsById={forecastResponse?.forecasts}
+                locations={locations}
+                dailyForecastFilter={dailyForecastFilter}
+                dateSelectedIsWithinForecastRange={
+                  dateSelectedIsWithinForecastRange
+                }
+              />
             );
-          })}
-        </TableRow>
-      </TableHead>
-      {regions.map((region: RegionInterface) => {
-        const locations = locationsByRegion[region.name];
-        if (forecastResponse?.forecasts) {
-          return (
-            <Region
-              key={region.name}
-              isWeekend={weekends}
-              region={region}
-              forecastsById={forecastResponse?.forecasts}
-              locations={locations}
-              dailyForecastFilter={dailyForecastFilter}
-              dateSelectedIsWithinForecastRange={
-              dateSelectedIsWithinForecastRange
-            }
-            />
-          );
-        }
-        return null;
-      })}
-    </Table>
+          }
+          return null;
+        })}
+      </Table>
+    </TableContainer>
   );
 }
 
