@@ -2,8 +2,8 @@ import TableCell from '@mui/material/TableCell';
 import TableRow from '@mui/material/TableRow';
 import './Location.scss';
 import React from 'react';
-import { Link } from '@mui/material';
-import { LocationInterface } from '../../../interfaces/LocationInterface';
+import { Button } from '@mui/material';
+import { LocationInterface, serializeLocationData } from '../../../interfaces/LocationInterface';
 import { ForecastsById } from '../../../interfaces/ForecastResponseInterface';
 import WeatherIcon from '../main_page/WeatherIcon';
 import { DailyForecastFilter, matchesSelecteDateString } from '../../../interfaces/DailyForecastFilter';
@@ -14,6 +14,9 @@ interface LocationProps {
   forecastsById: ForecastsById;
   dailyForecastFilter: DailyForecastFilter;
   atleastOneDateMatches: boolean;
+  setForecastDetailsForLocation: any;
+  // eslint-disable-next-line react/require-default-props
+  wtaRegionKey?: string;
 }
 
 function Location(props: LocationProps) {
@@ -22,21 +25,34 @@ function Location(props: LocationProps) {
   const { forecastsById } = props;
   const { dailyForecastFilter } = props;
   const { atleastOneDateMatches } = props;
+  const { setForecastDetailsForLocation } = props;
+  const { wtaRegionKey } = props;
   const forecasts = forecastsById.byId[location.name] || [];
   return (
     <TableRow className='weather-cell'>
       {/* <TableCell className='weather-cell'>N/A</TableCell> */}
       <TableCell className='weather-cell'>
-        <Link href={`#${location.name}`}>{location.description.toLocaleUpperCase()}</Link>
+        <Button
+          onClick={() => setForecastDetailsForLocation(
+            serializeLocationData(location, wtaRegionKey),
+          )}
+        >
+          {location.description.toLocaleUpperCase()}
+        </Button>
       </TableCell>
       {forecasts.map((d, index) => {
         if (
           atleastOneDateMatches
           && !matchesSelecteDateString(d.datetime, dailyForecastFilter.date)
-        ) { return null; }
+        ) {
+          return null;
+        }
         const weekendClassName = isWeekend[index] ? ' weekend ' : ' ';
         return (
-          <TableCell key={d.datetime} className={`weather-cell center ${weekendClassName}`}>
+          <TableCell
+            key={d.datetime}
+            className={`weather-cell center ${weekendClassName}`}
+          >
             <WeatherIcon {...d} />
           </TableCell>
         );

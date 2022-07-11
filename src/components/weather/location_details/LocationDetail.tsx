@@ -1,6 +1,6 @@
 import React from 'react';
 import {
-  Link,
+  Button,
   Table,
   TableBody,
   TableCell,
@@ -11,27 +11,33 @@ import { format } from 'fecha';
 import '../../../css/weather-icons.css';
 import './LocationDetail.scss';
 import convertToSentence from '../../../utils/string';
-import { DailyForecastInterface } from '../../../interfaces/DailyForecastInterface';
-import { LocationInterface } from '../../../interfaces/LocationInterface';
-import { RegionInterface } from '../../../interfaces/RegionInterface';
+import { deserializeLocationData, LocationDetailData } from '../../../interfaces/LocationInterface';
 import WtaLink from './WtaLink';
 import WeatherIcon from '../main_page/WeatherIcon';
+import { ForecastResponseStatus } from '../../../interfaces/ForecastResponseInterface';
 
-interface LocationDetailProps {
-  region: RegionInterface;
-  location: LocationInterface;
-  forecast: DailyForecastInterface[];
-  dates: (Date | null)[];
-  isWeekend: boolean[];
+export interface LocationDetailProps {
+  appState: ForecastResponseStatus;
+  forecastDetailsForLocation: string | undefined;
+  setForecastDetailsForLocation: any;
 }
 
 function LocationDetail(props: LocationDetailProps) {
-  const { region } = props;
-  const { location } = props;
+  const { forecastDetailsForLocation } = props;
+  if (!forecastDetailsForLocation) return null;
+
+  const location:LocationDetailData = deserializeLocationData(forecastDetailsForLocation);
+  const { appState } = props;
+  const { setForecastDetailsForLocation } = props;
+
   const { description } = location;
-  const { forecast } = props;
-  const { dates } = props;
-  const { isWeekend } = props;
+  const forecastsByLocation = appState.forecast?.forecasts.byId || {};
+  const forecast = forecastsByLocation[location.name];
+  const { forecastDates } = appState;
+  const { weekends } = forecastDates;
+  const { parsedDates } = forecastDates;
+
+  if (!forecast) return null;
   return (
     <div id={location.name}>
       <Table className='location-details'>
@@ -40,10 +46,10 @@ function LocationDetail(props: LocationDetailProps) {
             <TableCell colSpan={8} className='heading'>
               {`${description.toUpperCase()}  `}
               <WtaLink
-                wtaRegion={region.searchKey}
+                wtaRegion={location.wtaRegionKey}
                 wtaSubRegion={location.sub_region}
               />
-              <Link href='#top'>(top)</Link>
+              <Button onClick={() => setForecastDetailsForLocation(null)}>BACK</Button>
             </TableCell>
           </TableRow>
           <TableRow className='secondary-heading'>
@@ -62,10 +68,9 @@ function LocationDetail(props: LocationDetailProps) {
         </TableHead>
         <TableBody>
           {forecast.map((row, id) => {
-            const d = dates[id];
-            const weekendClassName = isWeekend[id] ? ' weekend ' : ' ';
-            // console.log([row, id]);
+            const d = parsedDates[id];
             if (d) {
+              const weekendClassName = weekends[id] ? ' weekend ' : ' ';
               return (
                 <TableRow className={weekendClassName} key={row.datetime}>
                   <TableCell>{format(d, 'ddd').toUpperCase()}</TableCell>

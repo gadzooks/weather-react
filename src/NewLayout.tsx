@@ -23,19 +23,19 @@ import useLocalStorage from './utils/localstorage';
 import WeatherPage, {
   WeatherPageArgs,
 } from './components/weather/main_page/WeatherPage';
+import LocationDetail, { LocationDetailProps } from './components/weather/location_details/LocationDetail';
 
 interface SidebarNavProps extends ForecastFilterContainerProps {
   showSidebar: boolean;
 }
 
 export function WeatherLayout() {
-  const [appState, setAppState] = useState(
-    DefaultForecastResponseStatus as ForecastResponseStatus,
-  );
+  const [appState, setAppState] = useState<ForecastResponseStatus>(DefaultForecastResponseStatus);
 
   const dataSource = process.env.NODE_ENV === 'production' ? 'real' : 'mock';
 
   const [sidebar, setSidebar] = useState(false);
+  const [forecastDetailsForLocation, setForecastDetailsForLocation] = useState<string>();
   useEffect(() => {
     getForecast({ dataSource, setAppState });
   }, []);
@@ -85,6 +85,13 @@ export function WeatherLayout() {
     dailyForecastFilter,
     appState,
     setDailyForecastFilter,
+    setForecastDetailsForLocation,
+  };
+
+  const locationDetailArgs: LocationDetailProps = {
+    appState,
+    forecastDetailsForLocation,
+    setForecastDetailsForLocation,
   };
 
   const darkTheme = createTheme({});
@@ -92,15 +99,18 @@ export function WeatherLayout() {
   return (
     <ThemeProvider theme={darkTheme}>
       <Grid container>
-        <Grid item xs={1}>
+        <Grid item xs={12}>
           <Button onClick={() => setSidebar(!sidebar)}>
             {sidebar && <FilterAltIcon />}
             {!sidebar && <Menu />}
           </Button>
         </Grid>
-        <Grid item xs={15}>
+        <Grid item xs={12}>
           {sidebar && <ForecastFilter {...headerArgs} />}
-          {!sidebar && <WeatherPage {...weatherPageArgs} />}
+          {!sidebar && !forecastDetailsForLocation && <WeatherPage {...weatherPageArgs} />}
+        </Grid>
+        <Grid item xs={12}>
+          {!sidebar && forecastDetailsForLocation && <LocationDetail {...locationDetailArgs} />}
         </Grid>
       </Grid>
     </ThemeProvider>

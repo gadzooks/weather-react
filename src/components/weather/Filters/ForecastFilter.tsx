@@ -32,46 +32,41 @@ function ForecastFilterContainer(props: ForecastFilterContainerProps) {
   const { setDailyForecastFilter } = props;
   const { date } = dailyForecastFilter;
 
-  // const [value, setValue] = useState(searchText);
-
   return (
-    <>
-      <Grid container>
-        <Grid item sx={{ margin: '8px', align: 'center' }}>
-          Matching
-          {' '}
-          {totalMatchedRegions}
-          {' '}
-          Locations
-        </Grid>
-        <Grid item sx={{ width: 'medium', margin: '8px' }}>
-          <TextField
-            id='outlined-name'
-            label='Search Locations'
-            variant='outlined'
-            autoFocus
-            onChange={(e) => setSearchText(e.target.value)}
-            defaultValue={searchText}
-            error={totalMatchedRegions === 0}
-            helperText={totalMatchedRegions !== 0 ? '' : 'No matches found !'}
-          />
-        </Grid>
-        <Grid>
-          <SelectDay
-            handleChange={handleChangeForDay}
-            dateSelected={date}
-            dates={dates}
-          />
-        </Grid>
-        {false && (
-          <MinimumDistanceSlider
-            dailyForecastFilter={dailyForecastFilter}
-            setDailyForecastFilter={setDailyForecastFilter}
-          />
-        )}
+    <Grid container>
+      <Grid item sx={{ margin: '8px', align: 'center' }}>
+        Matching
+        {' '}
+        {totalMatchedRegions}
+        {' '}
+        Locations
       </Grid>
-      {/* <Themed /> */}
-    </>
+      <Grid item sx={{ width: 'medium', margin: '8px' }}>
+        <TextField
+          id='outlined-name'
+          label='Search Locations'
+          variant='outlined'
+          autoFocus
+          onChange={(e) => setSearchText(e.target.value)}
+          defaultValue={searchText}
+          error={totalMatchedRegions === 0}
+          helperText={totalMatchedRegions !== 0 ? '' : 'No matches found !'}
+        />
+      </Grid>
+      <Grid>
+        <SelectDay
+          handleChange={handleChangeForDay}
+          dateSelected={date}
+          dates={dates}
+        />
+      </Grid>
+      {false && (
+        <MinimumDistanceSlider
+          dailyForecastFilter={dailyForecastFilter}
+          setDailyForecastFilter={setDailyForecastFilter}
+        />
+      )}
+    </Grid>
   );
 }
 

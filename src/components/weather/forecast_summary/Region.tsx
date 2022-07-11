@@ -21,6 +21,7 @@ export interface RegionProps {
   locations: LocationInterface[];
   dailyForecastFilter: DailyForecastFilter;
   dateSelectedIsWithinForecastRange: boolean;
+  setForecastDetailsForLocation: any;
 }
 
 function Region(props: RegionProps) {
@@ -39,6 +40,7 @@ function Region(props: RegionProps) {
       </TableRow>
       {locations.map((loc) => (
         <Location
+          wtaRegionKey={region.searchKey}
           location={loc}
           {...props}
           key={loc.name}
