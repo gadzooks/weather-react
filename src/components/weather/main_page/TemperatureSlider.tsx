@@ -48,7 +48,7 @@ const PrettoSlider = styled(Slider)({
   },
 });
 
-// TODO move all constants to 1 file
+// TODO: move all constants to 1 file
 const minTemp = 20;
 const maxTemp = 120;
 const defaultMinTemp = 40;

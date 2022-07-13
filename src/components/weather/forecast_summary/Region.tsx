@@ -27,7 +27,7 @@ export interface RegionProps {
 function Region(props: RegionProps) {
   const { region } = props;
   const { description } = region;
-  const { searchKey } = region;
+  const { search_key: searchKey } = region;
   const { locations } = props;
   const colSpan = forecastColSpan(props.dateSelectedIsWithinForecastRange);
   return (
@@ -40,7 +40,7 @@ function Region(props: RegionProps) {
       </TableRow>
       {locations.map((loc) => (
         <Location
-          wtaRegionKey={region.searchKey}
+          wtaRegionKey={region.search_key}
           location={loc}
           {...props}
           key={loc.name}
