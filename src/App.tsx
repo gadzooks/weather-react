@@ -26,6 +26,7 @@ import WeatherPage, {
   WeatherPageArgs,
 } from './components/weather/main_page/WeatherPage';
 import LocationDetail, { LocationDetailProps } from './components/weather/location_details/LocationDetail';
+import weatherLoading from './images/weather-loading.gif';
 import '@fontsource/roboto/300.css';
 import '@fontsource/roboto/400.css';
 import '@fontsource/roboto/500.css';
@@ -126,6 +127,8 @@ export function App() {
       {!isProduction() && <Typography>{`${w} px`}</Typography>}
       {!isProduction() && <Typography>{`${smartPhone}`}</Typography>}
       <Grid container>
+        {!appState.isLoaded && <Typography variant='h5'>Weather loading...</Typography>}
+        {!appState.isLoaded && <img src={weatherLoading} alt='Loading...' />}
         {smartPhone && (
           <Grid item xs={12}>
             <Button onClick={() => setSidebar(!sidebar)}>
