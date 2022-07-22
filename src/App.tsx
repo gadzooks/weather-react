@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import { SelectChangeEvent, debounce, Button } from '@mui/material';
+import {
+  SelectChangeEvent, debounce, Button, Typography, useMediaQuery,
+} from '@mui/material';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import Menu from '@mui/icons-material/Menu';
 import Grid from '@mui/material/Grid';
@@ -24,15 +26,23 @@ import WeatherPage, {
   WeatherPageArgs,
 } from './components/weather/main_page/WeatherPage';
 import LocationDetail, { LocationDetailProps } from './components/weather/location_details/LocationDetail';
+import '@fontsource/roboto/300.css';
+import '@fontsource/roboto/400.css';
+import '@fontsource/roboto/500.css';
+import '@fontsource/roboto/700.css';
 
 interface SidebarNavProps extends ForecastFilterContainerProps {
   showSidebar: boolean;
 }
 
-export function WeatherLayout() {
+function isProduction() :boolean {
+  return process.env.NODE_ENV === 'production';
+}
+
+export function App() {
   const [appState, setAppState] = useState<ForecastResponseStatus>(DefaultForecastResponseStatus);
 
-  const dataSource = process.env.NODE_ENV === 'production' ? 'real' : 'mock';
+  const dataSource = isProduction() ? 'real' : 'mock';
 
   const [sidebar, setSidebar] = useState(false);
   const [forecastDetailsForLocation, setForecastDetailsForLocation] = useState<string>();
@@ -94,23 +104,55 @@ export function WeatherLayout() {
     setForecastDetailsForLocation,
   };
 
-  const darkTheme = createTheme({});
+  const [w, setW] = useState(window.innerWidth);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setW(window.innerWidth);
+    };
+
+    window.addEventListener('resize', handleResize);
+
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, []);
+
+  const theme = createTheme({});
+  const smartPhone = useMediaQuery(theme.breakpoints.down('sm'));
 
   return (
-    <ThemeProvider theme={darkTheme}>
+    <ThemeProvider theme={theme}>
+      {!isProduction() && <Typography>{`${w} px`}</Typography>}
+      {!isProduction() && <Typography>{`${smartPhone}`}</Typography>}
       <Grid container>
+        {smartPhone && (
+          <Grid item xs={12}>
+            <Button onClick={() => setSidebar(!sidebar)}>
+              {sidebar && <FilterAltIcon />}
+              {!sidebar && <Menu />}
+            </Button>
+          </Grid>
+        )}
+        {smartPhone && sidebar
+            && !forecastDetailsForLocation
+            && matchedAreas.totalMatchedLocations > 0 && (
+            <Grid item xs={12}>
+              <ForecastFilter {...headerArgs} />
+            </Grid>
+        )}
         <Grid item xs={12}>
-          <Button onClick={() => setSidebar(!sidebar)}>
-            {sidebar && <FilterAltIcon />}
-            {!sidebar && <Menu />}
-          </Button>
+          {!smartPhone && <ForecastFilter {...headerArgs} />}
+          {(!smartPhone || (smartPhone && !sidebar))
+            && !forecastDetailsForLocation
+            && matchedAreas.totalMatchedLocations > 0 && (
+              <WeatherPage {...weatherPageArgs} />
+          )}
         </Grid>
         <Grid item xs={12}>
-          {sidebar && <ForecastFilter {...headerArgs} />}
-          {!sidebar && !forecastDetailsForLocation && <WeatherPage {...weatherPageArgs} />}
-        </Grid>
-        <Grid item xs={12}>
-          {!sidebar && forecastDetailsForLocation && <LocationDetail {...locationDetailArgs} />}
+          {!sidebar && forecastDetailsForLocation && (
+            <LocationDetail {...locationDetailArgs} />
+          )}
         </Grid>
       </Grid>
     </ThemeProvider>

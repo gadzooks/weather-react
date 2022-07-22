@@ -34,18 +34,12 @@ function ForecastFilterContainer(props: ForecastFilterContainerProps) {
 
   return (
     <Grid container>
-      <Grid item sx={{ margin: '8px', align: 'center' }}>
-        Matching
-        {' '}
-        {totalMatchedRegions}
-        {' '}
-        Locations
-      </Grid>
-      <Grid item sx={{ width: 'medium', margin: '8px' }}>
+      <Grid>
         <TextField
           id='outlined-name'
           label='Search Locations'
           variant='outlined'
+          sx={{ m: 1, minWidth: 100 }}
           autoFocus
           onChange={(e) => setSearchText(e.target.value)}
           defaultValue={searchText}
@@ -53,7 +47,7 @@ function ForecastFilterContainer(props: ForecastFilterContainerProps) {
           helperText={totalMatchedRegions !== 0 ? '' : 'No matches found !'}
         />
       </Grid>
-      <Grid>
+      <Grid item>
         <SelectDay
           handleChange={handleChangeForDay}
           dateSelected={date}
@@ -61,10 +55,10 @@ function ForecastFilterContainer(props: ForecastFilterContainerProps) {
         />
       </Grid>
       {false && (
-        <MinimumDistanceSlider
-          dailyForecastFilter={dailyForecastFilter}
-          setDailyForecastFilter={setDailyForecastFilter}
-        />
+      <MinimumDistanceSlider
+        dailyForecastFilter={dailyForecastFilter}
+        setDailyForecastFilter={setDailyForecastFilter}
+      />
       )}
     </Grid>
   );

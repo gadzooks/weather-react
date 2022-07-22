@@ -18,7 +18,7 @@ export default function SelectDay(props: SelectDayProps) {
 
   return (
     <div>
-      <FormControl sx={{ m: 1, minWidth: 220 }}>
+      <FormControl sx={{ m: 1, minWidth: 200 }}>
         <InputLabel id='demo-simple-select-helper-label'>Select a day</InputLabel>
         <Select
           labelId='demo-simple-select-helper-label'
