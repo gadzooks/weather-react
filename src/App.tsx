@@ -22,10 +22,8 @@ import { DailyForecastFilter } from './interfaces/DailyForecastFilter';
 import { MatchedAreas } from './interfaces/MatchedAreas';
 import findMatchedAreas from './utils/filterMatchedAreas';
 import useLocalStorage from './utils/localstorage';
-import WeatherPage, {
-  WeatherPageArgs,
-} from './components/weather/main_page/WeatherPage';
 import LocationDetail, { LocationDetailProps } from './components/weather/location_details/LocationDetail';
+import SummaryTable, { SummaryTableProps } from './components/weather/forecast_summary/SummaryTable';
 import weatherLoading from './images/weather-loading.gif';
 import '@fontsource/roboto/300.css';
 import '@fontsource/roboto/400.css';
@@ -91,14 +89,6 @@ export function App() {
     setDailyForecastFilter,
   };
 
-  const weatherPageArgs: WeatherPageArgs = {
-    matchedAreas,
-    dailyForecastFilter,
-    appState,
-    setDailyForecastFilter,
-    setForecastDetailsForLocation,
-  };
-
   const locationDetailArgs: LocationDetailProps = {
     appState,
     forecastDetailsForLocation,
@@ -122,14 +112,32 @@ export function App() {
   const theme = createTheme({});
   const smartPhone = useMediaQuery(theme.breakpoints.down('sm'));
 
+  const summaryTableArgs: SummaryTableProps = {
+    matchedAreas,
+    dailyForecastFilter,
+    setDailyForecastFilter,
+    setForecastDetailsForLocation,
+    forecastDates: appState.forecastDates,
+    forecastResponse: appState.forecast,
+  };
+
   return (
     <ThemeProvider theme={theme}>
       {!isProduction() && <Typography>{`${w} px`}</Typography>}
       {!isProduction() && <Typography>{`${smartPhone}`}</Typography>}
       <Grid container>
-        {!appState.isLoaded && <Typography variant='h5'>Weather loading...</Typography>}
+        {!appState.isLoaded && (
+          <Typography variant='h5'>Weather loading...</Typography>
+        )}
         {!appState.isLoaded && <img src={weatherLoading} alt='Loading...' />}
-        {smartPhone && (
+        {appState?.error && (
+          <div>
+            Error:
+            {appState.error?.message}
+          </div>
+        )}
+
+        {smartPhone && appState.isLoaded && (
           <Grid item xs={12}>
             <Button onClick={() => setSidebar(!sidebar)}>
               {sidebar && <FilterAltIcon />}
@@ -137,9 +145,10 @@ export function App() {
             </Button>
           </Grid>
         )}
-        {smartPhone && sidebar
-            && !forecastDetailsForLocation
-            && matchedAreas.totalMatchedLocations > 0 && (
+        {smartPhone
+          && sidebar
+          && !forecastDetailsForLocation
+          && matchedAreas.totalMatchedLocations > 0 && (
             <Grid item xs={12}>
               <ForecastFilter {...headerArgs} />
             </Grid>
@@ -149,7 +158,7 @@ export function App() {
           {(!smartPhone || (smartPhone && !sidebar))
             && !forecastDetailsForLocation
             && matchedAreas.totalMatchedLocations > 0 && (
-              <WeatherPage {...weatherPageArgs} />
+              <SummaryTable {...summaryTableArgs} />
           )}
         </Grid>
         <Grid item xs={12}>

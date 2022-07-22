@@ -6,7 +6,7 @@ import { ForeacastDates, ForecastResponse } from '../../../interfaces/ForecastRe
 import { MatchedAreas } from '../../../interfaces/MatchedAreas';
 import { calculateWeekends } from '../../../utils/date';
 import findMatchedAreas from '../../../utils/filterMatchedAreas';
-import WeatherPage, { WeatherPageArgs } from './WeatherPage';
+import SummaryTable, { SummaryTableProps } from './SummaryTable';
 
 it('renders a snapshot', () => {
   const forecast = mockWeatherForecastNormalized()
@@ -21,20 +21,16 @@ it('renders a snapshot', () => {
   };
 
   const matchedAreas:MatchedAreas = findMatchedAreas(null, forecast.regions);
-  const weatherPageArgs: WeatherPageArgs = {
-    appState: {
-      isLoaded: true,
-      error: null,
-      forecast,
-      forecastDates,
-    },
+  const weatherPageArgs: SummaryTableProps = {
     dailyForecastFilter: {},
     matchedAreas,
+    forecastDates,
+    forecastResponse: forecast,
     setDailyForecastFilter: () => {},
     setForecastDetailsForLocation: () => {},
   };
   const tree = renderer
-    .create(<WeatherPage {...weatherPageArgs} />)
+    .create(<SummaryTable {...weatherPageArgs} />)
     .toJSON();
   expect(tree).toMatchSnapshot();
 });
