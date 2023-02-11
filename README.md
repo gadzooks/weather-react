@@ -39,9 +39,9 @@ export interface IHash {
 # Docker commands : 
 ```sh
 # build image
-docker build -t sample:react-app .
+docker build -t sample:react-app -f Dockerfile.dev .
 # build prod
-docker build -t mytag-production -f Dockerfile.production .
+docker build -t mytag-production -f Dockerfile .
 
 ```
 
