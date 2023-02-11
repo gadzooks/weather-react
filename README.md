@@ -40,18 +40,33 @@ export interface IHash {
 ```sh
 # build image
 docker build -t sample:react-app .
+# build prod
+docker build -t mytag-production -f Dockerfile.production .
 
 ```
 
 ```sh
-# run image
+# run image in development
 docker run
     --rm \
     -v ${PWD}:/app \
     -v /app/node_modules \
-    -p 3001:3001 \
+    -p 3000:3000 \
     -e REACT_APP_WEATHER_API=http://localhost:4000 \
     sample:react-app
+```
+
+```sh
+# run image in production
+docker run \
+    -it \
+    --rm \
+    -v ${PWD}:/app \
+    -v /app/node_modules \
+    -p 80:80 \    
+    -e REACT_APP_WEATHER_API=https://weather-expressjs-api.onrender.com \
+    react-app-production
+
 ```
 
 # Getting Started with Create React App
