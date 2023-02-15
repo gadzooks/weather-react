@@ -31,11 +31,12 @@ function Location(props: LocationProps) {
       <td className='location-name'>
         <button
           type='button'
+          className='forecast-button'
           onClick={() => setForecastDetailsForLocation(
             serializeLocationData(location, wtaRegionKey),
           )}
         >
-          {location.description.toLocaleUpperCase()}
+          {location.description}
         </button>
       </td>
       {forecasts.map((d, index) => {

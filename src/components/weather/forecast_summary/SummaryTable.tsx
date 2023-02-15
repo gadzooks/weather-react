@@ -77,11 +77,30 @@ function SummaryTable(props: SummaryTableProps) {
   return (
     <table className='table styled-table'>
       <thead className='table-heading'>
+        {/* <tr>
+          <td rowSpan={2}>Location</td>
+          {parsedDates.map((date) => {
+            const txt = date === null ? '' : format(date, 'ddd').toUpperCase();
+            const dateMatches = matchesSelecteDate(
+              date,
+              dailyForecastFilter.date,
+            );
+
+            return (
+              (!dateSelectedIsWithinForecastRange || dateMatches) && (
+              <td key={txt} align='center'>
+                {txt}
+              </td>
+              )
+            );
+          })}
+        </tr> */}
+
         <tr>
           {/* <td>Weather Alerts</td> */}
           <td>Location</td>
           {parsedDates.map((date, index) => {
-            const txt = date === null ? '' : format(date, 'ddd DD').toUpperCase();
+            const txt = date === null ? '' : format(date, 'DD').toUpperCase();
             const dateKey = date === null ? '' : format(date, 'YYYY-MM-DD').toUpperCase();
             const dateMatches = matchesSelecteDate(
               date,
@@ -120,6 +139,7 @@ function SummaryTable(props: SummaryTableProps) {
                 {!dateSelectedIsWithinForecastRange && (
                 <button
                   type='button'
+                  className='button-2'
                   onClick={() => selectDate(dateKey)}
                 >
                   {txt}

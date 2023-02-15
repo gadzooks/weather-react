@@ -15,150 +15,165 @@ exports[`renders a snapshot 1`] = `
         align="center"
       >
         <button
+          className="button-2"
           onClick={[Function]}
           type="button"
         >
-          SAT 17
+          17
         </button>
       </td>
       <td
         align="center"
       >
         <button
+          className="button-2"
           onClick={[Function]}
           type="button"
         >
-          SUN 18
+          18
         </button>
       </td>
       <td
         align="center"
       >
         <button
+          className="button-2"
           onClick={[Function]}
           type="button"
         >
-          MON 19
+          19
         </button>
       </td>
       <td
         align="center"
       >
         <button
+          className="button-2"
           onClick={[Function]}
           type="button"
         >
-          TUE 20
+          20
         </button>
       </td>
       <td
         align="center"
       >
         <button
+          className="button-2"
           onClick={[Function]}
           type="button"
         >
-          WED 21
+          21
         </button>
       </td>
       <td
         align="center"
       >
         <button
+          className="button-2"
           onClick={[Function]}
           type="button"
         >
-          THU 22
+          22
         </button>
       </td>
       <td
         align="center"
       >
         <button
+          className="button-2"
           onClick={[Function]}
           type="button"
         >
-          FRI 23
+          23
         </button>
       </td>
       <td
         align="center"
       >
         <button
+          className="button-2"
           onClick={[Function]}
           type="button"
         >
-          SAT 24
+          24
         </button>
       </td>
       <td
         align="center"
       >
         <button
+          className="button-2"
           onClick={[Function]}
           type="button"
         >
-          SUN 25
+          25
         </button>
       </td>
       <td
         align="center"
       >
         <button
+          className="button-2"
           onClick={[Function]}
           type="button"
         >
-          MON 26
+          26
         </button>
       </td>
       <td
         align="center"
       >
         <button
+          className="button-2"
           onClick={[Function]}
           type="button"
         >
-          TUE 27
+          27
         </button>
       </td>
       <td
         align="center"
       >
         <button
+          className="button-2"
           onClick={[Function]}
           type="button"
         >
-          WED 28
+          28
         </button>
       </td>
       <td
         align="center"
       >
         <button
+          className="button-2"
           onClick={[Function]}
           type="button"
         >
-          THU 29
+          29
         </button>
       </td>
       <td
         align="center"
       >
         <button
+          className="button-2"
           onClick={[Function]}
           type="button"
         >
-          FRI 30
+          30
         </button>
       </td>
       <td
         align="center"
       >
         <button
+          className="button-2"
           onClick={[Function]}
           type="button"
         >
-          SAT 01
+          01
         </button>
       </td>
     </tr>
@@ -181,10 +196,11 @@ exports[`renders a snapshot 1`] = `
         className="location-name"
       >
         <button
+          className="forecast-button"
           onClick={[Function]}
           type="button"
         >
-          SEATTLE CITY
+          Seattle city
         </button>
       </td>
       <td
@@ -315,10 +331,11 @@ exports[`renders a snapshot 1`] = `
         className="location-name"
       >
         <button
+          className="forecast-button"
           onClick={[Function]}
           type="button"
         >
-          BONNEY LAKE
+          Bonney Lake
         </button>
       </td>
       <td
