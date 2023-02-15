@@ -114,7 +114,7 @@ function SummaryTable(props: SummaryTableProps) {
                 {dateSelectedIsWithinForecastRange && (
                 <>
                   <button
-                    className='left-arrow'
+                    className='button-2 left-arrow'
                     type='button'
                     onClick={() => selectDate(prevDateKey || '')}
                   >
@@ -122,13 +122,13 @@ function SummaryTable(props: SummaryTableProps) {
                   </button>
                   <button
                     type='button'
-                    className='forecast-date'
+                    className='button-2 forecast-date'
                     onClick={() => selectDate(dateKey)}
                   >
                     {txt}
                   </button>
                   <button
-                    className='right-arrow'
+                    className='button-2 right-arrow'
                     type='button'
                     onClick={() => selectDate(nextDateKey || '')}
                   >
