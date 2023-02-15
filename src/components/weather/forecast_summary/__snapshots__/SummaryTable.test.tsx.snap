@@ -2,7 +2,7 @@
 
 exports[`renders a snapshot 1`] = `
 <table
-  className="table table-sm weather-forecast-summary"
+  className="table styled-table"
 >
   <thead
     className="table-heading"
@@ -178,7 +178,7 @@ exports[`renders a snapshot 1`] = `
       className="weather-cell"
     >
       <td
-        className="weather-cell"
+        className="location-name"
       >
         <button
           onClick={[Function]}
@@ -312,7 +312,7 @@ exports[`renders a snapshot 1`] = `
       className="weather-cell"
     >
       <td
-        className="weather-cell"
+        className="location-name"
       >
         <button
           onClick={[Function]}

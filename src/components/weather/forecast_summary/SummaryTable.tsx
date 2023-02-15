@@ -75,9 +75,7 @@ function SummaryTable(props: SummaryTableProps) {
   };
 
   return (
-    <table
-      className='table table-sm weather-forecast-summary'
-    >
+    <table className='table styled-table'>
       <thead className='table-heading'>
         <tr>
           {/* <td>Weather Alerts</td> */}

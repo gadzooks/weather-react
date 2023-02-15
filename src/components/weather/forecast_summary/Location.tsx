@@ -28,7 +28,7 @@ function Location(props: LocationProps) {
   return (
     <tr className='weather-cell'>
       {/* <td className='weather-cell'>N/A</td> */}
-      <td className='weather-cell'>
+      <td className='location-name'>
         <button
           type='button'
           onClick={() => setForecastDetailsForLocation(
