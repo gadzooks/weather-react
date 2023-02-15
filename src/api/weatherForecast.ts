@@ -6,10 +6,15 @@ const getForecast = async (props: any) => {
   const { dataSource } = props;
   const { setAppState } = props;
   const WEATHER_API = process.env.REACT_APP_WEATHER_API;
+  const WEATHER_JWT_TOKEN = process.env.REACT_APP_WEATHER_JWT_TOKEN;
 
   const url = `${WEATHER_API}/forecasts/${dataSource}`;
-  console.log(`getting weather from ${url}`);
-  await fetch(`${url}`, { mode: 'cors' })
+  await fetch(`${url}`, {
+    mode: 'cors',
+    headers: new Headers({
+      Authorization: `Bearer ${WEATHER_JWT_TOKEN}`,
+    }),
+  })
     .then((res) => res.json())
     .then(
       (result) => {
