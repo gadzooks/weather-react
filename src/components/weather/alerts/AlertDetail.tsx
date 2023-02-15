@@ -1,4 +1,3 @@
-import { Link } from "@mui/material";
 import React from "react";
 import AlertInterface from "./AlertInterface";
 
@@ -7,7 +6,7 @@ function AlertDetail(props: AlertInterface) {
         <>
         <div className="alert-details alert-warning">
             <span className="alert_id title"></span>
-            <Link href="#top">${props.event}</Link>
+            <a href="#top">${props.event}</a>
             
 
         </div>

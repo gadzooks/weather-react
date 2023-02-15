@@ -1,8 +1,5 @@
-import TableCell from '@mui/material/TableCell';
-import TableRow from '@mui/material/TableRow';
 import './Location.scss';
 import React from 'react';
-import { Button } from '@mui/material';
 import { LocationInterface, serializeLocationData } from '../../../interfaces/LocationInterface';
 import { ForecastsById } from '../../../interfaces/ForecastResponseInterface';
 import WeatherIcon from '../main_page/WeatherIcon';
@@ -29,17 +26,18 @@ function Location(props: LocationProps) {
   const { wtaRegionKey } = props;
   const forecasts = forecastsById.byId[location.name] || [];
   return (
-    <TableRow className='weather-cell'>
-      {/* <TableCell className='weather-cell'>N/A</TableCell> */}
-      <TableCell className='weather-cell'>
-        <Button
+    <tr className='weather-cell'>
+      {/* <td className='weather-cell'>N/A</td> */}
+      <td className='weather-cell'>
+        <button
+          type='button'
           onClick={() => setForecastDetailsForLocation(
             serializeLocationData(location, wtaRegionKey),
           )}
         >
           {location.description.toLocaleUpperCase()}
-        </Button>
-      </TableCell>
+        </button>
+      </td>
       {forecasts.map((d, index) => {
         if (
           atleastOneDateMatches
@@ -49,15 +47,15 @@ function Location(props: LocationProps) {
         }
         const weekendClassName = isWeekend[index] ? ' weekend ' : ' ';
         return (
-          <TableCell
+          <td
             key={d.datetime}
             className={`weather-cell center ${weekendClassName}`}
           >
             <WeatherIcon {...d} />
-          </TableCell>
+          </td>
         );
       })}
-    </TableRow>
+    </tr>
   );
 }
 

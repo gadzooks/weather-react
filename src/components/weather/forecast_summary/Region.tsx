@@ -1,7 +1,4 @@
 /* eslint-disable react/destructuring-assignment */
-import { TableBody } from '@mui/material';
-import TableCell from '@mui/material/TableCell';
-import TableRow from '@mui/material/TableRow';
 import './Region.scss';
 import React from 'react';
 import { RegionInterface } from '../../../interfaces/RegionInterface';
@@ -31,13 +28,13 @@ function Region(props: RegionProps) {
   const { locations } = props;
   const colSpan = forecastColSpan(props.dateSelectedIsWithinForecastRange);
   return (
-    <TableBody>
-      <TableRow className='region-details'>
-        <TableCell colSpan={colSpan} align='center'>
+    <tbody>
+      <tr className='region-details'>
+        <td colSpan={colSpan} align='center'>
           {description}
           <WtaLink wtaRegion={searchKey} />
-        </TableCell>
-      </TableRow>
+        </td>
+      </tr>
       {locations.map((loc) => (
         <Location
           wtaRegionKey={region.search_key}
@@ -47,7 +44,7 @@ function Region(props: RegionProps) {
           atleastOneDateMatches={props.dateSelectedIsWithinForecastRange}
         />
       ))}
-    </TableBody>
+    </tbody>
   );
 }
 

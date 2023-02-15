@@ -1,13 +1,4 @@
 import React, { useEffect, useState } from 'react';
-// import {
-//   SelectChangeEvent, debounce,
-// } from '@mui/material';
-// import { ThemeProvider, createTheme } from '@mui/material/styles';
-// import Menu from '@mui/icons-material/Menu';
-// import Grid from '@mui/material/Grid';
-// import {
-//   ForecastFilterContainerProps,
-// } from './components/weather/Filters/ForecastFilter';
 import getForecast from './api/weatherForecast';
 import {
   DefaultForecastResponseStatus,

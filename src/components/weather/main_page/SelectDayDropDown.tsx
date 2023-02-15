@@ -1,9 +1,9 @@
 /* eslint-disable react/destructuring-assignment */
 import * as React from 'react';
-import InputLabel from '@mui/material/InputLabel';
-import MenuItem from '@mui/material/MenuItem';
-import FormControl from '@mui/material/FormControl';
-import Select from '@mui/material/Select';
+// import InputLabel from '@mui/material/InputLabel';
+// import MenuItem from '@mui/material/MenuItem';
+// import FormControl from '@mui/material/FormControl';
+// import Select from '@mui/material/Select';
 
 interface SelectDayProps {
   dateSelected: string|undefined;
@@ -18,7 +18,7 @@ export default function SelectDay(props: SelectDayProps) {
 
   return (
     <div>
-      <FormControl sx={{ m: 1, minWidth: 200 }}>
+      {/* <FormControl sx={{ m: 1, minWidth: 200 }}>
         <InputLabel id='demo-simple-select-helper-label'>Select a day</InputLabel>
         <Select
           labelId='demo-simple-select-helper-label'
@@ -32,7 +32,7 @@ export default function SelectDay(props: SelectDayProps) {
           </MenuItem>
           {props.dates.map((d) => (<MenuItem key={d} value={d}>{d}</MenuItem>))}
         </Select>
-      </FormControl>
+      </FormControl> */}
     </div>
   );
 }

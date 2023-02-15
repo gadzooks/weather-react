@@ -1,12 +1,4 @@
 import React from 'react';
-import {
-  Button,
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableRow,
-} from '@mui/material';
 import { format } from 'fecha';
 import '../../../css/weather-icons.css';
 import './LocationDetail.scss';
@@ -40,75 +32,75 @@ function LocationDetail(props: LocationDetailProps) {
   if (!forecast) return null;
   return (
     <div id={location.name}>
-      <Table className='location-details'>
-        <TableHead>
-          <TableRow className='heading'>
-            <TableCell colSpan={8} className='heading'>
+      <table className='location-details'>
+        <thead>
+          <tr className='heading'>
+            <td colSpan={8} className='heading'>
               {`${description.toUpperCase()}  `}
               <WtaLink
                 wtaRegion={location.wtaRegionKey}
                 wtaSubRegion={location.sub_region}
               />
-              <Button onClick={() => setForecastDetailsForLocation(null)}>BACK</Button>
-            </TableCell>
-          </TableRow>
-          <TableRow className='secondary-heading'>
-            <TableCell colSpan={2} className='center border-right'>
+              <button type='button' onClick={() => setForecastDetailsForLocation(null)}>BACK</button>
+            </td>
+          </tr>
+          <tr className='secondary-heading'>
+            <td colSpan={2} className='center border-right'>
               DATE
-            </TableCell>
-            <TableCell colSpan={2} className='center border-right'>
+            </td>
+            <td colSpan={2} className='center border-right'>
               DETAILS
-            </TableCell>
-            <TableCell className='border-right'>LOW / HIGH</TableCell>
-            <TableCell colSpan={2} className='center border-right'>
+            </td>
+            <td className='border-right'>LOW / HIGH</td>
+            <td colSpan={2} className='center border-right'>
               PRECIP
-            </TableCell>
-            <TableCell>CLOUD COV</TableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>
+            </td>
+            <td>CLOUD COV</td>
+          </tr>
+        </thead>
+        <tbody>
           {forecast.map((row, id) => {
             const d = parsedDates[id];
             if (d) {
               const weekendClassName = weekends[id] ? ' weekend ' : ' ';
               return (
-                <TableRow className={weekendClassName} key={row.datetime}>
-                  <TableCell>{format(d, 'ddd').toUpperCase()}</TableCell>
-                  <TableCell className='border-right'>
+                <tr className={weekendClassName} key={row.datetime}>
+                  <td>{format(d, 'ddd').toUpperCase()}</td>
+                  <td className='border-right'>
                     {format(d, 'MMM Do').toUpperCase()}
-                  </TableCell>
-                  <TableCell>
+                  </td>
+                  <td>
                     <WeatherIcon {...row} key={row.datetime} />
-                  </TableCell>
-                  <TableCell className='border-right'>
+                  </td>
+                  <td className='border-right'>
                     {convertToSentence(row.icon)}
-                  </TableCell>
-                  <TableCell className='border-right'>
+                  </td>
+                  <td className='border-right'>
                     {`${Math.round(
                       row.tempmin,
                     )}° / ${Math.round(row.tempmax)}°`}
 
-                  </TableCell>
-                  <TableCell className='align-right'>
+                  </td>
+                  <td className='align-right'>
                     {`${Math.round(
                       row.precipprob,
                     )}%`}
 
-                  </TableCell>
-                  <TableCell className='align-right border-right'>
+                  </td>
+                  <td className='align-right border-right'>
                     {`${Math.round(
                       row.precip,
                     )}"`}
 
-                  </TableCell>
-                  <TableCell className='align-right'>{`${row.cloudcover}%       `}</TableCell>
-                </TableRow>
+                  </td>
+                  <td className='align-right'>{`${row.cloudcover}%       `}</td>
+                </tr>
               );
             }
             return null;
           })}
-        </TableBody>
-      </Table>
+        </tbody>
+      </table>
     </div>
   );
 }

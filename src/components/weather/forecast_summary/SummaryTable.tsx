@@ -1,14 +1,6 @@
 import './SummaryTable.scss';
-// import thead from '@mui/material/thead';
-// import tr from '@mui/material/tr';
-// import Paper from '@mui/material/Paper';
-// import {
-//   button, Table, td, TableContainer,
-// } from '@mui/material';
 import { format } from 'fecha';
 import React from 'react';
-import ArrowRightIcon from '@mui/icons-material/ArrowRight';
-import ArrowLeftIcon from '@mui/icons-material/ArrowLeft';
 import { LocationInterface } from '../../../interfaces/LocationInterface';
 import { ForeacastDates, ForecastResponse } from '../../../interfaces/ForecastResponseInterface';
 import Region from './Region';
@@ -104,22 +96,27 @@ function SummaryTable(props: SummaryTableProps) {
               <td key={txt} align='center'>
                 {dateSelectedIsWithinForecastRange && (
                 <>
-                  <ArrowLeftIcon
-                    style={{ color: 'black', fontSize: 65 }}
+                  <button
+                    className='left-arrow'
+                    type='button'
                     onClick={() => selectDate(prevDateKey || '')}
-                    sx={{ position: 'relative', left: '-5px' }}
-                  />
+                  >
+                    &larr;
+                  </button>
                   <button
                     type='button'
+                    className='forecast-date'
                     onClick={() => selectDate(dateKey)}
                   >
                     {txt}
                   </button>
-                  <ArrowRightIcon
-                    style={{ color: 'black', fontSize: 65 }}
-                    sx={{ position: 'relative', left: '-45px' }}
+                  <button
+                    className='right-arrow'
+                    type='button'
                     onClick={() => selectDate(nextDateKey || '')}
-                  />
+                  >
+                    &rarr;
+                  </button>
                 </>
                 )}
                 {!dateSelectedIsWithinForecastRange && (

@@ -1,7 +1,6 @@
 /* eslint-disable react/require-default-props */
 /* eslint-disable react/destructuring-assignment */
 import React from 'react';
-import { Link } from '@mui/material';
 import wtaLogo from '../../../images/wta-logo.png';
 import './WtaLink.scss';
 
@@ -20,9 +19,9 @@ function WtaLink(props: WtaLinkProps) {
   const subRegionValue = props.wtaSubRegion || 'all';
   const link = `${wtaLink}&region=${regionValue}&subregion=${subRegionValue}`;
   return (
-    <Link href={link} target='_blank'>
+    <a href={link} target='_blank' rel='noreferrer'>
       <img src={wtaLogo} className='wta-logo' alt='wta-logo' />
-    </Link>
+    </a>
   );
 }
 
