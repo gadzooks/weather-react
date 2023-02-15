@@ -36,6 +36,40 @@ export interface IHash {
 - https://redux.js.org/usage/structuring-reducers/normalizing-state-shape
 
 
+# Docker commands : 
+https://collabnix.com/creating-your-first-react-app-using-docker/
+```sh
+# build image
+docker build -t sample:react-app -f Dockerfile.dev .
+# build prod
+docker build -t mytag-production -f Dockerfile .
+
+```
+
+```sh
+# run image in development
+docker run
+    --rm \
+    -v ${PWD}:/app \
+    -v /app/node_modules \
+    -p 3000:3000 \
+    -e REACT_APP_WEATHER_API=http://localhost:4000 \
+    sample:react-app
+```
+
+```sh
+# run image in production
+docker run \
+    -it \
+    --rm \
+    -v ${PWD}:/app \
+    -v /app/node_modules \
+    -p 80:80 \    
+    -e REACT_APP_WEATHER_API=https://weather-expressjs-api.onrender.com \
+    react-app-production
+
+```
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
