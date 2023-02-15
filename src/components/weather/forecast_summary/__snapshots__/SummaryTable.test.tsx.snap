@@ -1,784 +1,516 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`renders a snapshot 1`] = `
-<div
-  className="MuiPaper-root MuiPaper-elevation MuiPaper-rounded MuiPaper-elevation1 MuiTableContainer-root css-119yv76-MuiPaper-root-MuiTableContainer-root"
+<table
+  className="table table-sm weather-forecast-summary"
 >
-  <table
-    className="MuiTable-root table table-sm weather-forecast-summary css-rqglhn-MuiTable-root"
+  <thead
+    className="table-heading"
+  >
+    <tr>
+      <td>
+        Location
+      </td>
+      <td
+        align="center"
+      >
+        <button
+          onClick={[Function]}
+          type="button"
+        >
+          SAT 17
+        </button>
+      </td>
+      <td
+        align="center"
+      >
+        <button
+          onClick={[Function]}
+          type="button"
+        >
+          SUN 18
+        </button>
+      </td>
+      <td
+        align="center"
+      >
+        <button
+          onClick={[Function]}
+          type="button"
+        >
+          MON 19
+        </button>
+      </td>
+      <td
+        align="center"
+      >
+        <button
+          onClick={[Function]}
+          type="button"
+        >
+          TUE 20
+        </button>
+      </td>
+      <td
+        align="center"
+      >
+        <button
+          onClick={[Function]}
+          type="button"
+        >
+          WED 21
+        </button>
+      </td>
+      <td
+        align="center"
+      >
+        <button
+          onClick={[Function]}
+          type="button"
+        >
+          THU 22
+        </button>
+      </td>
+      <td
+        align="center"
+      >
+        <button
+          onClick={[Function]}
+          type="button"
+        >
+          FRI 23
+        </button>
+      </td>
+      <td
+        align="center"
+      >
+        <button
+          onClick={[Function]}
+          type="button"
+        >
+          SAT 24
+        </button>
+      </td>
+      <td
+        align="center"
+      >
+        <button
+          onClick={[Function]}
+          type="button"
+        >
+          SUN 25
+        </button>
+      </td>
+      <td
+        align="center"
+      >
+        <button
+          onClick={[Function]}
+          type="button"
+        >
+          MON 26
+        </button>
+      </td>
+      <td
+        align="center"
+      >
+        <button
+          onClick={[Function]}
+          type="button"
+        >
+          TUE 27
+        </button>
+      </td>
+      <td
+        align="center"
+      >
+        <button
+          onClick={[Function]}
+          type="button"
+        >
+          WED 28
+        </button>
+      </td>
+      <td
+        align="center"
+      >
+        <button
+          onClick={[Function]}
+          type="button"
+        >
+          THU 29
+        </button>
+      </td>
+      <td
+        align="center"
+      >
+        <button
+          onClick={[Function]}
+          type="button"
+        >
+          FRI 30
+        </button>
+      </td>
+      <td
+        align="center"
+      >
+        <button
+          onClick={[Function]}
+          type="button"
+        >
+          SAT 01
+        </button>
+      </td>
+    </tr>
+  </thead>
+  <tbody
+    className="MuiTableBody-root css-apqrd9-MuiTableBody-root"
     role={null}
   >
-    <thead
-      className="MuiTableHead-root table-heading css-15wwp11-MuiTableHead-root"
+    <tr
+      className="MuiTableRow-root region-details css-1q1u3t4-MuiTableRow-root"
       role={null}
     >
-      <tr
-        className="MuiTableRow-root MuiTableRow-head css-1q1u3t4-MuiTableRow-root"
-        role={null}
+      <td
+        aria-sort={null}
+        className="MuiTableCell-root MuiTableCell-body MuiTableCell-alignCenter MuiTableCell-sizeMedium css-1yhpg23-MuiTableCell-root"
+        colSpan={16}
       >
-        <th
-          aria-sort={null}
-          className="MuiTableCell-root MuiTableCell-head MuiTableCell-sizeSmall css-1howxi1-MuiTableCell-root"
-          scope="col"
-        >
-          Location
-        </th>
-        <th
-          aria-sort={null}
-          className="MuiTableCell-root MuiTableCell-head MuiTableCell-alignCenter MuiTableCell-sizeSmall css-12q85cb-MuiTableCell-root"
-          scope="col"
-        >
-          <button
-            className="MuiButton-root MuiButton-text MuiButton-textPrimary MuiButton-sizeMedium MuiButton-textSizeMedium MuiButtonBase-root  css-1e6y48t-MuiButtonBase-root-MuiButton-root"
-            disabled={false}
-            onBlur={[Function]}
-            onClick={[Function]}
-            onContextMenu={[Function]}
-            onDragLeave={[Function]}
-            onFocus={[Function]}
-            onKeyDown={[Function]}
-            onKeyUp={[Function]}
-            onMouseDown={[Function]}
-            onMouseLeave={[Function]}
-            onMouseUp={[Function]}
-            onTouchEnd={[Function]}
-            onTouchMove={[Function]}
-            onTouchStart={[Function]}
-            tabIndex={0}
-            type="button"
-          >
-            SAT 17
-          </button>
-        </th>
-        <th
-          aria-sort={null}
-          className="MuiTableCell-root MuiTableCell-head MuiTableCell-alignCenter MuiTableCell-sizeSmall css-12q85cb-MuiTableCell-root"
-          scope="col"
-        >
-          <button
-            className="MuiButton-root MuiButton-text MuiButton-textPrimary MuiButton-sizeMedium MuiButton-textSizeMedium MuiButtonBase-root  css-1e6y48t-MuiButtonBase-root-MuiButton-root"
-            disabled={false}
-            onBlur={[Function]}
-            onClick={[Function]}
-            onContextMenu={[Function]}
-            onDragLeave={[Function]}
-            onFocus={[Function]}
-            onKeyDown={[Function]}
-            onKeyUp={[Function]}
-            onMouseDown={[Function]}
-            onMouseLeave={[Function]}
-            onMouseUp={[Function]}
-            onTouchEnd={[Function]}
-            onTouchMove={[Function]}
-            onTouchStart={[Function]}
-            tabIndex={0}
-            type="button"
-          >
-            SUN 18
-          </button>
-        </th>
-        <th
-          aria-sort={null}
-          className="MuiTableCell-root MuiTableCell-head MuiTableCell-alignCenter MuiTableCell-sizeSmall css-12q85cb-MuiTableCell-root"
-          scope="col"
-        >
-          <button
-            className="MuiButton-root MuiButton-text MuiButton-textPrimary MuiButton-sizeMedium MuiButton-textSizeMedium MuiButtonBase-root  css-1e6y48t-MuiButtonBase-root-MuiButton-root"
-            disabled={false}
-            onBlur={[Function]}
-            onClick={[Function]}
-            onContextMenu={[Function]}
-            onDragLeave={[Function]}
-            onFocus={[Function]}
-            onKeyDown={[Function]}
-            onKeyUp={[Function]}
-            onMouseDown={[Function]}
-            onMouseLeave={[Function]}
-            onMouseUp={[Function]}
-            onTouchEnd={[Function]}
-            onTouchMove={[Function]}
-            onTouchStart={[Function]}
-            tabIndex={0}
-            type="button"
-          >
-            MON 19
-          </button>
-        </th>
-        <th
-          aria-sort={null}
-          className="MuiTableCell-root MuiTableCell-head MuiTableCell-alignCenter MuiTableCell-sizeSmall css-12q85cb-MuiTableCell-root"
-          scope="col"
-        >
-          <button
-            className="MuiButton-root MuiButton-text MuiButton-textPrimary MuiButton-sizeMedium MuiButton-textSizeMedium MuiButtonBase-root  css-1e6y48t-MuiButtonBase-root-MuiButton-root"
-            disabled={false}
-            onBlur={[Function]}
-            onClick={[Function]}
-            onContextMenu={[Function]}
-            onDragLeave={[Function]}
-            onFocus={[Function]}
-            onKeyDown={[Function]}
-            onKeyUp={[Function]}
-            onMouseDown={[Function]}
-            onMouseLeave={[Function]}
-            onMouseUp={[Function]}
-            onTouchEnd={[Function]}
-            onTouchMove={[Function]}
-            onTouchStart={[Function]}
-            tabIndex={0}
-            type="button"
-          >
-            TUE 20
-          </button>
-        </th>
-        <th
-          aria-sort={null}
-          className="MuiTableCell-root MuiTableCell-head MuiTableCell-alignCenter MuiTableCell-sizeSmall css-12q85cb-MuiTableCell-root"
-          scope="col"
-        >
-          <button
-            className="MuiButton-root MuiButton-text MuiButton-textPrimary MuiButton-sizeMedium MuiButton-textSizeMedium MuiButtonBase-root  css-1e6y48t-MuiButtonBase-root-MuiButton-root"
-            disabled={false}
-            onBlur={[Function]}
-            onClick={[Function]}
-            onContextMenu={[Function]}
-            onDragLeave={[Function]}
-            onFocus={[Function]}
-            onKeyDown={[Function]}
-            onKeyUp={[Function]}
-            onMouseDown={[Function]}
-            onMouseLeave={[Function]}
-            onMouseUp={[Function]}
-            onTouchEnd={[Function]}
-            onTouchMove={[Function]}
-            onTouchStart={[Function]}
-            tabIndex={0}
-            type="button"
-          >
-            WED 21
-          </button>
-        </th>
-        <th
-          aria-sort={null}
-          className="MuiTableCell-root MuiTableCell-head MuiTableCell-alignCenter MuiTableCell-sizeSmall css-12q85cb-MuiTableCell-root"
-          scope="col"
-        >
-          <button
-            className="MuiButton-root MuiButton-text MuiButton-textPrimary MuiButton-sizeMedium MuiButton-textSizeMedium MuiButtonBase-root  css-1e6y48t-MuiButtonBase-root-MuiButton-root"
-            disabled={false}
-            onBlur={[Function]}
-            onClick={[Function]}
-            onContextMenu={[Function]}
-            onDragLeave={[Function]}
-            onFocus={[Function]}
-            onKeyDown={[Function]}
-            onKeyUp={[Function]}
-            onMouseDown={[Function]}
-            onMouseLeave={[Function]}
-            onMouseUp={[Function]}
-            onTouchEnd={[Function]}
-            onTouchMove={[Function]}
-            onTouchStart={[Function]}
-            tabIndex={0}
-            type="button"
-          >
-            THU 22
-          </button>
-        </th>
-        <th
-          aria-sort={null}
-          className="MuiTableCell-root MuiTableCell-head MuiTableCell-alignCenter MuiTableCell-sizeSmall css-12q85cb-MuiTableCell-root"
-          scope="col"
-        >
-          <button
-            className="MuiButton-root MuiButton-text MuiButton-textPrimary MuiButton-sizeMedium MuiButton-textSizeMedium MuiButtonBase-root  css-1e6y48t-MuiButtonBase-root-MuiButton-root"
-            disabled={false}
-            onBlur={[Function]}
-            onClick={[Function]}
-            onContextMenu={[Function]}
-            onDragLeave={[Function]}
-            onFocus={[Function]}
-            onKeyDown={[Function]}
-            onKeyUp={[Function]}
-            onMouseDown={[Function]}
-            onMouseLeave={[Function]}
-            onMouseUp={[Function]}
-            onTouchEnd={[Function]}
-            onTouchMove={[Function]}
-            onTouchStart={[Function]}
-            tabIndex={0}
-            type="button"
-          >
-            FRI 23
-          </button>
-        </th>
-        <th
-          aria-sort={null}
-          className="MuiTableCell-root MuiTableCell-head MuiTableCell-alignCenter MuiTableCell-sizeSmall css-12q85cb-MuiTableCell-root"
-          scope="col"
-        >
-          <button
-            className="MuiButton-root MuiButton-text MuiButton-textPrimary MuiButton-sizeMedium MuiButton-textSizeMedium MuiButtonBase-root  css-1e6y48t-MuiButtonBase-root-MuiButton-root"
-            disabled={false}
-            onBlur={[Function]}
-            onClick={[Function]}
-            onContextMenu={[Function]}
-            onDragLeave={[Function]}
-            onFocus={[Function]}
-            onKeyDown={[Function]}
-            onKeyUp={[Function]}
-            onMouseDown={[Function]}
-            onMouseLeave={[Function]}
-            onMouseUp={[Function]}
-            onTouchEnd={[Function]}
-            onTouchMove={[Function]}
-            onTouchStart={[Function]}
-            tabIndex={0}
-            type="button"
-          >
-            SAT 24
-          </button>
-        </th>
-        <th
-          aria-sort={null}
-          className="MuiTableCell-root MuiTableCell-head MuiTableCell-alignCenter MuiTableCell-sizeSmall css-12q85cb-MuiTableCell-root"
-          scope="col"
-        >
-          <button
-            className="MuiButton-root MuiButton-text MuiButton-textPrimary MuiButton-sizeMedium MuiButton-textSizeMedium MuiButtonBase-root  css-1e6y48t-MuiButtonBase-root-MuiButton-root"
-            disabled={false}
-            onBlur={[Function]}
-            onClick={[Function]}
-            onContextMenu={[Function]}
-            onDragLeave={[Function]}
-            onFocus={[Function]}
-            onKeyDown={[Function]}
-            onKeyUp={[Function]}
-            onMouseDown={[Function]}
-            onMouseLeave={[Function]}
-            onMouseUp={[Function]}
-            onTouchEnd={[Function]}
-            onTouchMove={[Function]}
-            onTouchStart={[Function]}
-            tabIndex={0}
-            type="button"
-          >
-            SUN 25
-          </button>
-        </th>
-        <th
-          aria-sort={null}
-          className="MuiTableCell-root MuiTableCell-head MuiTableCell-alignCenter MuiTableCell-sizeSmall css-12q85cb-MuiTableCell-root"
-          scope="col"
-        >
-          <button
-            className="MuiButton-root MuiButton-text MuiButton-textPrimary MuiButton-sizeMedium MuiButton-textSizeMedium MuiButtonBase-root  css-1e6y48t-MuiButtonBase-root-MuiButton-root"
-            disabled={false}
-            onBlur={[Function]}
-            onClick={[Function]}
-            onContextMenu={[Function]}
-            onDragLeave={[Function]}
-            onFocus={[Function]}
-            onKeyDown={[Function]}
-            onKeyUp={[Function]}
-            onMouseDown={[Function]}
-            onMouseLeave={[Function]}
-            onMouseUp={[Function]}
-            onTouchEnd={[Function]}
-            onTouchMove={[Function]}
-            onTouchStart={[Function]}
-            tabIndex={0}
-            type="button"
-          >
-            MON 26
-          </button>
-        </th>
-        <th
-          aria-sort={null}
-          className="MuiTableCell-root MuiTableCell-head MuiTableCell-alignCenter MuiTableCell-sizeSmall css-12q85cb-MuiTableCell-root"
-          scope="col"
-        >
-          <button
-            className="MuiButton-root MuiButton-text MuiButton-textPrimary MuiButton-sizeMedium MuiButton-textSizeMedium MuiButtonBase-root  css-1e6y48t-MuiButtonBase-root-MuiButton-root"
-            disabled={false}
-            onBlur={[Function]}
-            onClick={[Function]}
-            onContextMenu={[Function]}
-            onDragLeave={[Function]}
-            onFocus={[Function]}
-            onKeyDown={[Function]}
-            onKeyUp={[Function]}
-            onMouseDown={[Function]}
-            onMouseLeave={[Function]}
-            onMouseUp={[Function]}
-            onTouchEnd={[Function]}
-            onTouchMove={[Function]}
-            onTouchStart={[Function]}
-            tabIndex={0}
-            type="button"
-          >
-            TUE 27
-          </button>
-        </th>
-        <th
-          aria-sort={null}
-          className="MuiTableCell-root MuiTableCell-head MuiTableCell-alignCenter MuiTableCell-sizeSmall css-12q85cb-MuiTableCell-root"
-          scope="col"
-        >
-          <button
-            className="MuiButton-root MuiButton-text MuiButton-textPrimary MuiButton-sizeMedium MuiButton-textSizeMedium MuiButtonBase-root  css-1e6y48t-MuiButtonBase-root-MuiButton-root"
-            disabled={false}
-            onBlur={[Function]}
-            onClick={[Function]}
-            onContextMenu={[Function]}
-            onDragLeave={[Function]}
-            onFocus={[Function]}
-            onKeyDown={[Function]}
-            onKeyUp={[Function]}
-            onMouseDown={[Function]}
-            onMouseLeave={[Function]}
-            onMouseUp={[Function]}
-            onTouchEnd={[Function]}
-            onTouchMove={[Function]}
-            onTouchStart={[Function]}
-            tabIndex={0}
-            type="button"
-          >
-            WED 28
-          </button>
-        </th>
-        <th
-          aria-sort={null}
-          className="MuiTableCell-root MuiTableCell-head MuiTableCell-alignCenter MuiTableCell-sizeSmall css-12q85cb-MuiTableCell-root"
-          scope="col"
-        >
-          <button
-            className="MuiButton-root MuiButton-text MuiButton-textPrimary MuiButton-sizeMedium MuiButton-textSizeMedium MuiButtonBase-root  css-1e6y48t-MuiButtonBase-root-MuiButton-root"
-            disabled={false}
-            onBlur={[Function]}
-            onClick={[Function]}
-            onContextMenu={[Function]}
-            onDragLeave={[Function]}
-            onFocus={[Function]}
-            onKeyDown={[Function]}
-            onKeyUp={[Function]}
-            onMouseDown={[Function]}
-            onMouseLeave={[Function]}
-            onMouseUp={[Function]}
-            onTouchEnd={[Function]}
-            onTouchMove={[Function]}
-            onTouchStart={[Function]}
-            tabIndex={0}
-            type="button"
-          >
-            THU 29
-          </button>
-        </th>
-        <th
-          aria-sort={null}
-          className="MuiTableCell-root MuiTableCell-head MuiTableCell-alignCenter MuiTableCell-sizeSmall css-12q85cb-MuiTableCell-root"
-          scope="col"
-        >
-          <button
-            className="MuiButton-root MuiButton-text MuiButton-textPrimary MuiButton-sizeMedium MuiButton-textSizeMedium MuiButtonBase-root  css-1e6y48t-MuiButtonBase-root-MuiButton-root"
-            disabled={false}
-            onBlur={[Function]}
-            onClick={[Function]}
-            onContextMenu={[Function]}
-            onDragLeave={[Function]}
-            onFocus={[Function]}
-            onKeyDown={[Function]}
-            onKeyUp={[Function]}
-            onMouseDown={[Function]}
-            onMouseLeave={[Function]}
-            onMouseUp={[Function]}
-            onTouchEnd={[Function]}
-            onTouchMove={[Function]}
-            onTouchStart={[Function]}
-            tabIndex={0}
-            type="button"
-          >
-            FRI 30
-          </button>
-        </th>
-        <th
-          aria-sort={null}
-          className="MuiTableCell-root MuiTableCell-head MuiTableCell-alignCenter MuiTableCell-sizeSmall css-12q85cb-MuiTableCell-root"
-          scope="col"
-        >
-          <button
-            className="MuiButton-root MuiButton-text MuiButton-textPrimary MuiButton-sizeMedium MuiButton-textSizeMedium MuiButtonBase-root  css-1e6y48t-MuiButtonBase-root-MuiButton-root"
-            disabled={false}
-            onBlur={[Function]}
-            onClick={[Function]}
-            onContextMenu={[Function]}
-            onDragLeave={[Function]}
-            onFocus={[Function]}
-            onKeyDown={[Function]}
-            onKeyUp={[Function]}
-            onMouseDown={[Function]}
-            onMouseLeave={[Function]}
-            onMouseUp={[Function]}
-            onTouchEnd={[Function]}
-            onTouchMove={[Function]}
-            onTouchStart={[Function]}
-            tabIndex={0}
-            type="button"
-          >
-            SAT 01
-          </button>
-        </th>
-      </tr>
-    </thead>
-    <tbody
-      className="MuiTableBody-root css-apqrd9-MuiTableBody-root"
+        Cities
+      </td>
+    </tr>
+    <tr
+      className="MuiTableRow-root weather-cell css-1q1u3t4-MuiTableRow-root"
       role={null}
     >
-      <tr
-        className="MuiTableRow-root region-details css-1q1u3t4-MuiTableRow-root"
-        role={null}
+      <td
+        aria-sort={null}
+        className="MuiTableCell-root MuiTableCell-body MuiTableCell-sizeMedium weather-cell css-1ex1afd-MuiTableCell-root"
       >
-        <td
-          aria-sort={null}
-          className="MuiTableCell-root MuiTableCell-body MuiTableCell-alignCenter MuiTableCell-sizeSmall css-vtdehq-MuiTableCell-root"
-          colSpan={16}
+        <button
+          className="MuiButton-root MuiButton-text MuiButton-textPrimary MuiButton-sizeMedium MuiButton-textSizeMedium MuiButtonBase-root  css-1e6y48t-MuiButtonBase-root-MuiButton-root"
+          disabled={false}
+          onBlur={[Function]}
+          onClick={[Function]}
+          onContextMenu={[Function]}
+          onDragLeave={[Function]}
+          onFocus={[Function]}
+          onKeyDown={[Function]}
+          onKeyUp={[Function]}
+          onMouseDown={[Function]}
+          onMouseLeave={[Function]}
+          onMouseUp={[Function]}
+          onTouchEnd={[Function]}
+          onTouchMove={[Function]}
+          onTouchStart={[Function]}
+          tabIndex={0}
+          type="button"
         >
-          Cities
-        </td>
-      </tr>
-      <tr
-        className="MuiTableRow-root weather-cell css-1q1u3t4-MuiTableRow-root"
-        role={null}
+          SEATTLE CITY
+        </button>
+      </td>
+      <td
+        aria-sort={null}
+        className="MuiTableCell-root MuiTableCell-body MuiTableCell-sizeMedium weather-cell center  weekend  css-1ex1afd-MuiTableCell-root"
       >
-        <td
-          aria-sort={null}
-          className="MuiTableCell-root MuiTableCell-body MuiTableCell-sizeSmall weather-cell css-dsuxgy-MuiTableCell-root"
-        >
-          <button
-            className="MuiButton-root MuiButton-text MuiButton-textPrimary MuiButton-sizeMedium MuiButton-textSizeMedium MuiButtonBase-root  css-1e6y48t-MuiButtonBase-root-MuiButton-root"
-            disabled={false}
-            onBlur={[Function]}
-            onClick={[Function]}
-            onContextMenu={[Function]}
-            onDragLeave={[Function]}
-            onFocus={[Function]}
-            onKeyDown={[Function]}
-            onKeyUp={[Function]}
-            onMouseDown={[Function]}
-            onMouseLeave={[Function]}
-            onMouseUp={[Function]}
-            onTouchEnd={[Function]}
-            onTouchMove={[Function]}
-            onTouchStart={[Function]}
-            tabIndex={0}
-            type="button"
-          >
-            SEATTLE CITY
-          </button>
-        </td>
-        <td
-          aria-sort={null}
-          className="MuiTableCell-root MuiTableCell-body MuiTableCell-sizeSmall weather-cell center  weekend  css-dsuxgy-MuiTableCell-root"
-        >
-          <i
-            className="wi weather-icon wi-day-sunny day-sunny "
-            title="Clear conditions throughout the day."
-          />
-        </td>
-        <td
-          aria-sort={null}
-          className="MuiTableCell-root MuiTableCell-body MuiTableCell-sizeSmall weather-cell center  weekend  css-dsuxgy-MuiTableCell-root"
-        >
-          <i
-            className="wi weather-icon wi-day-sunny day-sunny "
-            title="Clear conditions throughout the day."
-          />
-        </td>
-        <td
-          aria-sort={null}
-          className="MuiTableCell-root MuiTableCell-body MuiTableCell-sizeSmall weather-cell center   css-dsuxgy-MuiTableCell-root"
-        >
-          <i
-            className="wi weather-icon wi-day-sunny day-sunny "
-            title="Clear conditions throughout the day."
-          />
-        </td>
-        <td
-          aria-sort={null}
-          className="MuiTableCell-root MuiTableCell-body MuiTableCell-sizeSmall weather-cell center   css-dsuxgy-MuiTableCell-root"
-        >
-          <i
-            className="wi weather-icon wi-day-cloudy day-cloudy "
-            title="Partly cloudy throughout the day."
-          />
-        </td>
-        <td
-          aria-sort={null}
-          className="MuiTableCell-root MuiTableCell-body MuiTableCell-sizeSmall weather-cell center   css-dsuxgy-MuiTableCell-root"
-        >
-          <i
-            className="wi weather-icon wi-day-cloudy day-cloudy "
-            title="Partly cloudy throughout the day."
-          />
-        </td>
-        <td
-          aria-sort={null}
-          className="MuiTableCell-root MuiTableCell-body MuiTableCell-sizeSmall weather-cell center   css-dsuxgy-MuiTableCell-root"
-        >
-          <i
-            className="wi weather-icon wi-rain rain "
-            title="Partly cloudy throughout the day with a chance of rain."
-          />
-        </td>
-        <td
-          aria-sort={null}
-          className="MuiTableCell-root MuiTableCell-body MuiTableCell-sizeSmall weather-cell center   css-dsuxgy-MuiTableCell-root"
-        >
-          <i
-            className="wi weather-icon wi-rain rain "
-            title="Partly cloudy throughout the day with morning rain."
-          />
-        </td>
-        <td
-          aria-sort={null}
-          className="MuiTableCell-root MuiTableCell-body MuiTableCell-sizeSmall weather-cell center  weekend  css-dsuxgy-MuiTableCell-root"
-        >
-          <i
-            className="wi weather-icon wi-rain rain "
-            title="Cloudy skies throughout the day with a chance of rain."
-          />
-        </td>
-        <td
-          aria-sort={null}
-          className="MuiTableCell-root MuiTableCell-body MuiTableCell-sizeSmall weather-cell center  weekend  css-dsuxgy-MuiTableCell-root"
-        >
-          <i
-            className="wi weather-icon wi-rain rain "
-            title="Cloudy skies throughout the day with a chance of rain throughout the day."
-          />
-        </td>
-        <td
-          aria-sort={null}
-          className="MuiTableCell-root MuiTableCell-body MuiTableCell-sizeSmall weather-cell center   css-dsuxgy-MuiTableCell-root"
-        >
-          <i
-            className="wi weather-icon wi-rain rain "
-            title="Partly cloudy throughout the day with rain in the morning and afternoon."
-          />
-        </td>
-        <td
-          aria-sort={null}
-          className="MuiTableCell-root MuiTableCell-body MuiTableCell-sizeSmall weather-cell center   css-dsuxgy-MuiTableCell-root"
-        >
-          <i
-            className="wi weather-icon wi-cloudy cloudy sunshine-50"
-            title="Partly cloudy throughout the day."
-          />
-        </td>
-        <td
-          aria-sort={null}
-          className="MuiTableCell-root MuiTableCell-body MuiTableCell-sizeSmall weather-cell center   css-dsuxgy-MuiTableCell-root"
-        >
-          <i
-            className="wi weather-icon wi-cloudy cloudy sunshine-50"
-            title="Cloudy skies throughout the day."
-          />
-        </td>
-        <td
-          aria-sort={null}
-          className="MuiTableCell-root MuiTableCell-body MuiTableCell-sizeSmall weather-cell center   css-dsuxgy-MuiTableCell-root"
-        >
-          <i
-            className="wi weather-icon wi-cloudy cloudy sunshine-50"
-            title="Partly cloudy throughout the day."
-          />
-        </td>
-        <td
-          aria-sort={null}
-          className="MuiTableCell-root MuiTableCell-body MuiTableCell-sizeSmall weather-cell center   css-dsuxgy-MuiTableCell-root"
-        >
-          <i
-            className="wi weather-icon wi-cloudy cloudy sunshine-50"
-            title="Cloudy skies throughout the day."
-          />
-        </td>
-        <td
-          aria-sort={null}
-          className="MuiTableCell-root MuiTableCell-body MuiTableCell-sizeSmall weather-cell center  weekend  css-dsuxgy-MuiTableCell-root"
-        >
-          <i
-            className="wi weather-icon wi-cloudy cloudy sunshine-10"
-            title="Partly cloudy throughout the day."
-          />
-        </td>
-      </tr>
-      <tr
-        className="MuiTableRow-root weather-cell css-1q1u3t4-MuiTableRow-root"
-        role={null}
+        <i
+          className="wi weather-icon wi-day-sunny day-sunny "
+          title="Clear conditions throughout the day."
+        />
+      </td>
+      <td
+        aria-sort={null}
+        className="MuiTableCell-root MuiTableCell-body MuiTableCell-sizeMedium weather-cell center  weekend  css-1ex1afd-MuiTableCell-root"
       >
-        <td
-          aria-sort={null}
-          className="MuiTableCell-root MuiTableCell-body MuiTableCell-sizeSmall weather-cell css-dsuxgy-MuiTableCell-root"
+        <i
+          className="wi weather-icon wi-day-sunny day-sunny "
+          title="Clear conditions throughout the day."
+        />
+      </td>
+      <td
+        aria-sort={null}
+        className="MuiTableCell-root MuiTableCell-body MuiTableCell-sizeMedium weather-cell center   css-1ex1afd-MuiTableCell-root"
+      >
+        <i
+          className="wi weather-icon wi-day-sunny day-sunny "
+          title="Clear conditions throughout the day."
+        />
+      </td>
+      <td
+        aria-sort={null}
+        className="MuiTableCell-root MuiTableCell-body MuiTableCell-sizeMedium weather-cell center   css-1ex1afd-MuiTableCell-root"
+      >
+        <i
+          className="wi weather-icon wi-day-cloudy day-cloudy "
+          title="Partly cloudy throughout the day."
+        />
+      </td>
+      <td
+        aria-sort={null}
+        className="MuiTableCell-root MuiTableCell-body MuiTableCell-sizeMedium weather-cell center   css-1ex1afd-MuiTableCell-root"
+      >
+        <i
+          className="wi weather-icon wi-day-cloudy day-cloudy "
+          title="Partly cloudy throughout the day."
+        />
+      </td>
+      <td
+        aria-sort={null}
+        className="MuiTableCell-root MuiTableCell-body MuiTableCell-sizeMedium weather-cell center   css-1ex1afd-MuiTableCell-root"
+      >
+        <i
+          className="wi weather-icon wi-rain rain "
+          title="Partly cloudy throughout the day with a chance of rain."
+        />
+      </td>
+      <td
+        aria-sort={null}
+        className="MuiTableCell-root MuiTableCell-body MuiTableCell-sizeMedium weather-cell center   css-1ex1afd-MuiTableCell-root"
+      >
+        <i
+          className="wi weather-icon wi-rain rain "
+          title="Partly cloudy throughout the day with morning rain."
+        />
+      </td>
+      <td
+        aria-sort={null}
+        className="MuiTableCell-root MuiTableCell-body MuiTableCell-sizeMedium weather-cell center  weekend  css-1ex1afd-MuiTableCell-root"
+      >
+        <i
+          className="wi weather-icon wi-rain rain "
+          title="Cloudy skies throughout the day with a chance of rain."
+        />
+      </td>
+      <td
+        aria-sort={null}
+        className="MuiTableCell-root MuiTableCell-body MuiTableCell-sizeMedium weather-cell center  weekend  css-1ex1afd-MuiTableCell-root"
+      >
+        <i
+          className="wi weather-icon wi-rain rain "
+          title="Cloudy skies throughout the day with a chance of rain throughout the day."
+        />
+      </td>
+      <td
+        aria-sort={null}
+        className="MuiTableCell-root MuiTableCell-body MuiTableCell-sizeMedium weather-cell center   css-1ex1afd-MuiTableCell-root"
+      >
+        <i
+          className="wi weather-icon wi-rain rain "
+          title="Partly cloudy throughout the day with rain in the morning and afternoon."
+        />
+      </td>
+      <td
+        aria-sort={null}
+        className="MuiTableCell-root MuiTableCell-body MuiTableCell-sizeMedium weather-cell center   css-1ex1afd-MuiTableCell-root"
+      >
+        <i
+          className="wi weather-icon wi-cloudy cloudy sunshine-50"
+          title="Partly cloudy throughout the day."
+        />
+      </td>
+      <td
+        aria-sort={null}
+        className="MuiTableCell-root MuiTableCell-body MuiTableCell-sizeMedium weather-cell center   css-1ex1afd-MuiTableCell-root"
+      >
+        <i
+          className="wi weather-icon wi-cloudy cloudy sunshine-50"
+          title="Cloudy skies throughout the day."
+        />
+      </td>
+      <td
+        aria-sort={null}
+        className="MuiTableCell-root MuiTableCell-body MuiTableCell-sizeMedium weather-cell center   css-1ex1afd-MuiTableCell-root"
+      >
+        <i
+          className="wi weather-icon wi-cloudy cloudy sunshine-50"
+          title="Partly cloudy throughout the day."
+        />
+      </td>
+      <td
+        aria-sort={null}
+        className="MuiTableCell-root MuiTableCell-body MuiTableCell-sizeMedium weather-cell center   css-1ex1afd-MuiTableCell-root"
+      >
+        <i
+          className="wi weather-icon wi-cloudy cloudy sunshine-50"
+          title="Cloudy skies throughout the day."
+        />
+      </td>
+      <td
+        aria-sort={null}
+        className="MuiTableCell-root MuiTableCell-body MuiTableCell-sizeMedium weather-cell center  weekend  css-1ex1afd-MuiTableCell-root"
+      >
+        <i
+          className="wi weather-icon wi-cloudy cloudy sunshine-10"
+          title="Partly cloudy throughout the day."
+        />
+      </td>
+    </tr>
+    <tr
+      className="MuiTableRow-root weather-cell css-1q1u3t4-MuiTableRow-root"
+      role={null}
+    >
+      <td
+        aria-sort={null}
+        className="MuiTableCell-root MuiTableCell-body MuiTableCell-sizeMedium weather-cell css-1ex1afd-MuiTableCell-root"
+      >
+        <button
+          className="MuiButton-root MuiButton-text MuiButton-textPrimary MuiButton-sizeMedium MuiButton-textSizeMedium MuiButtonBase-root  css-1e6y48t-MuiButtonBase-root-MuiButton-root"
+          disabled={false}
+          onBlur={[Function]}
+          onClick={[Function]}
+          onContextMenu={[Function]}
+          onDragLeave={[Function]}
+          onFocus={[Function]}
+          onKeyDown={[Function]}
+          onKeyUp={[Function]}
+          onMouseDown={[Function]}
+          onMouseLeave={[Function]}
+          onMouseUp={[Function]}
+          onTouchEnd={[Function]}
+          onTouchMove={[Function]}
+          onTouchStart={[Function]}
+          tabIndex={0}
+          type="button"
         >
-          <button
-            className="MuiButton-root MuiButton-text MuiButton-textPrimary MuiButton-sizeMedium MuiButton-textSizeMedium MuiButtonBase-root  css-1e6y48t-MuiButtonBase-root-MuiButton-root"
-            disabled={false}
-            onBlur={[Function]}
-            onClick={[Function]}
-            onContextMenu={[Function]}
-            onDragLeave={[Function]}
-            onFocus={[Function]}
-            onKeyDown={[Function]}
-            onKeyUp={[Function]}
-            onMouseDown={[Function]}
-            onMouseLeave={[Function]}
-            onMouseUp={[Function]}
-            onTouchEnd={[Function]}
-            onTouchMove={[Function]}
-            onTouchStart={[Function]}
-            tabIndex={0}
-            type="button"
-          >
-            BONNEY LAKE
-          </button>
-        </td>
-        <td
-          aria-sort={null}
-          className="MuiTableCell-root MuiTableCell-body MuiTableCell-sizeSmall weather-cell center  weekend  css-dsuxgy-MuiTableCell-root"
-        >
-          <i
-            className="wi weather-icon wi-day-sunny day-sunny "
-            title="Clear conditions throughout the day."
-          />
-        </td>
-        <td
-          aria-sort={null}
-          className="MuiTableCell-root MuiTableCell-body MuiTableCell-sizeSmall weather-cell center  weekend  css-dsuxgy-MuiTableCell-root"
-        >
-          <i
-            className="wi weather-icon wi-day-sunny day-sunny "
-            title="Clear conditions throughout the day."
-          />
-        </td>
-        <td
-          aria-sort={null}
-          className="MuiTableCell-root MuiTableCell-body MuiTableCell-sizeSmall weather-cell center   css-dsuxgy-MuiTableCell-root"
-        >
-          <i
-            className="wi weather-icon wi-day-sunny day-sunny "
-            title="Clear conditions throughout the day."
-          />
-        </td>
-        <td
-          aria-sort={null}
-          className="MuiTableCell-root MuiTableCell-body MuiTableCell-sizeSmall weather-cell center   css-dsuxgy-MuiTableCell-root"
-        >
-          <i
-            className="wi weather-icon wi-rain rain "
-            title="Partly cloudy throughout the day with rain in the morning and afternoon."
-          />
-        </td>
-        <td
-          aria-sort={null}
-          className="MuiTableCell-root MuiTableCell-body MuiTableCell-sizeSmall weather-cell center   css-dsuxgy-MuiTableCell-root"
-        >
-          <i
-            className="wi weather-icon wi-day-cloudy day-cloudy "
-            title="Partly cloudy throughout the day."
-          />
-        </td>
-        <td
-          aria-sort={null}
-          className="MuiTableCell-root MuiTableCell-body MuiTableCell-sizeSmall weather-cell center   css-dsuxgy-MuiTableCell-root"
-        >
-          <i
-            className="wi weather-icon wi-rain rain "
-            title="Partly cloudy throughout the day with a chance of rain."
-          />
-        </td>
-        <td
-          aria-sort={null}
-          className="MuiTableCell-root MuiTableCell-body MuiTableCell-sizeSmall weather-cell center   css-dsuxgy-MuiTableCell-root"
-        >
-          <i
-            className="wi weather-icon wi-rain rain "
-            title="Partly cloudy throughout the day with rain."
-          />
-        </td>
-        <td
-          aria-sort={null}
-          className="MuiTableCell-root MuiTableCell-body MuiTableCell-sizeSmall weather-cell center  weekend  css-dsuxgy-MuiTableCell-root"
-        >
-          <i
-            className="wi weather-icon wi-rain rain "
-            title="Cloudy skies throughout the day with rain."
-          />
-        </td>
-        <td
-          aria-sort={null}
-          className="MuiTableCell-root MuiTableCell-body MuiTableCell-sizeSmall weather-cell center  weekend  css-dsuxgy-MuiTableCell-root"
-        >
-          <i
-            className="wi weather-icon wi-rain rain "
-            title="Cloudy skies throughout the day with a chance of rain."
-          />
-        </td>
-        <td
-          aria-sort={null}
-          className="MuiTableCell-root MuiTableCell-body MuiTableCell-sizeSmall weather-cell center   css-dsuxgy-MuiTableCell-root"
-        >
-          <i
-            className="wi weather-icon wi-rain rain "
-            title="Cloudy skies throughout the day with a chance of rain."
-          />
-        </td>
-        <td
-          aria-sort={null}
-          className="MuiTableCell-root MuiTableCell-body MuiTableCell-sizeSmall weather-cell center   css-dsuxgy-MuiTableCell-root"
-        >
-          <i
-            className="wi weather-icon wi-rain rain "
-            title="Partly cloudy throughout the day with a chance of rain."
-          />
-        </td>
-        <td
-          aria-sort={null}
-          className="MuiTableCell-root MuiTableCell-body MuiTableCell-sizeSmall weather-cell center   css-dsuxgy-MuiTableCell-root"
-        >
-          <i
-            className="wi weather-icon wi-rain rain "
-            title="Cloudy skies throughout the day with rain in the morning and afternoon."
-          />
-        </td>
-        <td
-          aria-sort={null}
-          className="MuiTableCell-root MuiTableCell-body MuiTableCell-sizeSmall weather-cell center   css-dsuxgy-MuiTableCell-root"
-        >
-          <i
-            className="wi weather-icon wi-cloudy cloudy sunshine-50"
-            title="Partly cloudy throughout the day."
-          />
-        </td>
-        <td
-          aria-sort={null}
-          className="MuiTableCell-root MuiTableCell-body MuiTableCell-sizeSmall weather-cell center   css-dsuxgy-MuiTableCell-root"
-        >
-          <i
-            className="wi weather-icon wi-cloudy cloudy sunshine-50"
-            title="Cloudy skies throughout the day."
-          />
-        </td>
-        <td
-          aria-sort={null}
-          className="MuiTableCell-root MuiTableCell-body MuiTableCell-sizeSmall weather-cell center  weekend  css-dsuxgy-MuiTableCell-root"
-        >
-          <i
-            className="wi weather-icon wi-cloudy cloudy sunshine-10"
-            title="Clearing in the afternoon."
-          />
-        </td>
-      </tr>
-    </tbody>
-  </table>
-</div>
+          BONNEY LAKE
+        </button>
+      </td>
+      <td
+        aria-sort={null}
+        className="MuiTableCell-root MuiTableCell-body MuiTableCell-sizeMedium weather-cell center  weekend  css-1ex1afd-MuiTableCell-root"
+      >
+        <i
+          className="wi weather-icon wi-day-sunny day-sunny "
+          title="Clear conditions throughout the day."
+        />
+      </td>
+      <td
+        aria-sort={null}
+        className="MuiTableCell-root MuiTableCell-body MuiTableCell-sizeMedium weather-cell center  weekend  css-1ex1afd-MuiTableCell-root"
+      >
+        <i
+          className="wi weather-icon wi-day-sunny day-sunny "
+          title="Clear conditions throughout the day."
+        />
+      </td>
+      <td
+        aria-sort={null}
+        className="MuiTableCell-root MuiTableCell-body MuiTableCell-sizeMedium weather-cell center   css-1ex1afd-MuiTableCell-root"
+      >
+        <i
+          className="wi weather-icon wi-day-sunny day-sunny "
+          title="Clear conditions throughout the day."
+        />
+      </td>
+      <td
+        aria-sort={null}
+        className="MuiTableCell-root MuiTableCell-body MuiTableCell-sizeMedium weather-cell center   css-1ex1afd-MuiTableCell-root"
+      >
+        <i
+          className="wi weather-icon wi-rain rain "
+          title="Partly cloudy throughout the day with rain in the morning and afternoon."
+        />
+      </td>
+      <td
+        aria-sort={null}
+        className="MuiTableCell-root MuiTableCell-body MuiTableCell-sizeMedium weather-cell center   css-1ex1afd-MuiTableCell-root"
+      >
+        <i
+          className="wi weather-icon wi-day-cloudy day-cloudy "
+          title="Partly cloudy throughout the day."
+        />
+      </td>
+      <td
+        aria-sort={null}
+        className="MuiTableCell-root MuiTableCell-body MuiTableCell-sizeMedium weather-cell center   css-1ex1afd-MuiTableCell-root"
+      >
+        <i
+          className="wi weather-icon wi-rain rain "
+          title="Partly cloudy throughout the day with a chance of rain."
+        />
+      </td>
+      <td
+        aria-sort={null}
+        className="MuiTableCell-root MuiTableCell-body MuiTableCell-sizeMedium weather-cell center   css-1ex1afd-MuiTableCell-root"
+      >
+        <i
+          className="wi weather-icon wi-rain rain "
+          title="Partly cloudy throughout the day with rain."
+        />
+      </td>
+      <td
+        aria-sort={null}
+        className="MuiTableCell-root MuiTableCell-body MuiTableCell-sizeMedium weather-cell center  weekend  css-1ex1afd-MuiTableCell-root"
+      >
+        <i
+          className="wi weather-icon wi-rain rain "
+          title="Cloudy skies throughout the day with rain."
+        />
+      </td>
+      <td
+        aria-sort={null}
+        className="MuiTableCell-root MuiTableCell-body MuiTableCell-sizeMedium weather-cell center  weekend  css-1ex1afd-MuiTableCell-root"
+      >
+        <i
+          className="wi weather-icon wi-rain rain "
+          title="Cloudy skies throughout the day with a chance of rain."
+        />
+      </td>
+      <td
+        aria-sort={null}
+        className="MuiTableCell-root MuiTableCell-body MuiTableCell-sizeMedium weather-cell center   css-1ex1afd-MuiTableCell-root"
+      >
+        <i
+          className="wi weather-icon wi-rain rain "
+          title="Cloudy skies throughout the day with a chance of rain."
+        />
+      </td>
+      <td
+        aria-sort={null}
+        className="MuiTableCell-root MuiTableCell-body MuiTableCell-sizeMedium weather-cell center   css-1ex1afd-MuiTableCell-root"
+      >
+        <i
+          className="wi weather-icon wi-rain rain "
+          title="Partly cloudy throughout the day with a chance of rain."
+        />
+      </td>
+      <td
+        aria-sort={null}
+        className="MuiTableCell-root MuiTableCell-body MuiTableCell-sizeMedium weather-cell center   css-1ex1afd-MuiTableCell-root"
+      >
+        <i
+          className="wi weather-icon wi-rain rain "
+          title="Cloudy skies throughout the day with rain in the morning and afternoon."
+        />
+      </td>
+      <td
+        aria-sort={null}
+        className="MuiTableCell-root MuiTableCell-body MuiTableCell-sizeMedium weather-cell center   css-1ex1afd-MuiTableCell-root"
+      >
+        <i
+          className="wi weather-icon wi-cloudy cloudy sunshine-50"
+          title="Partly cloudy throughout the day."
+        />
+      </td>
+      <td
+        aria-sort={null}
+        className="MuiTableCell-root MuiTableCell-body MuiTableCell-sizeMedium weather-cell center   css-1ex1afd-MuiTableCell-root"
+      >
+        <i
+          className="wi weather-icon wi-cloudy cloudy sunshine-50"
+          title="Cloudy skies throughout the day."
+        />
+      </td>
+      <td
+        aria-sort={null}
+        className="MuiTableCell-root MuiTableCell-body MuiTableCell-sizeMedium weather-cell center  weekend  css-1ex1afd-MuiTableCell-root"
+      >
+        <i
+          className="wi weather-icon wi-cloudy cloudy sunshine-10"
+          title="Clearing in the afternoon."
+        />
+      </td>
+    </tr>
+  </tbody>
+</table>
 `;

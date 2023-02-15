@@ -1,21 +1,20 @@
 import React, { useEffect, useState } from 'react';
-import {
-  SelectChangeEvent, debounce, Button, Typography, useMediaQuery,
-} from '@mui/material';
-import { ThemeProvider, createTheme } from '@mui/material/styles';
-import Menu from '@mui/icons-material/Menu';
-import Grid from '@mui/material/Grid';
-import FilterAltIcon from '@mui/icons-material/FilterAlt';
-import ForecastFilter, {
-  ForecastFilterContainerProps,
-} from './components/weather/Filters/ForecastFilter';
+// import {
+//   SelectChangeEvent, debounce,
+// } from '@mui/material';
+// import { ThemeProvider, createTheme } from '@mui/material/styles';
+// import Menu from '@mui/icons-material/Menu';
+// import Grid from '@mui/material/Grid';
+// import {
+//   ForecastFilterContainerProps,
+// } from './components/weather/Filters/ForecastFilter';
 import getForecast from './api/weatherForecast';
 import {
   DefaultForecastResponseStatus,
   ForecastResponseStatus,
 } from './interfaces/ForecastResponseInterface';
 import {
-  LS_SEARCH_KEY,
+  // LS_SEARCH_KEY,
   LS_DAILY_FORECAST_FILTER_KEY,
 } from './components/weather/Constants';
 import { DailyForecastFilter } from './interfaces/DailyForecastFilter';
@@ -30,9 +29,9 @@ import '@fontsource/roboto/400.css';
 import '@fontsource/roboto/500.css';
 import '@fontsource/roboto/700.css';
 
-interface SidebarNavProps extends ForecastFilterContainerProps {
-  showSidebar: boolean;
-}
+// interface SidebarNavProps extends ForecastFilterContainerProps {
+//   showSidebar: boolean;
+// }
 
 function isProduction() :boolean {
   return process.env.NODE_ENV === 'production';
@@ -43,13 +42,13 @@ export function App() {
 
   const dataSource = isProduction() ? 'real' : 'mock';
 
-  const [sidebar, setSidebar] = useState(false);
+  // const [sidebar, setSidebar] = useState(false);
   const [forecastDetailsForLocation, setForecastDetailsForLocation] = useState<string>();
   useEffect(() => {
     getForecast({ dataSource, setAppState });
   }, []);
 
-  const [searchText, setSearchText] = useLocalStorage(LS_SEARCH_KEY, '');
+  // const [searchText, setSearchText] = useLocalStorage(LS_SEARCH_KEY, '');
   const defaultDailyForecastFilter: DailyForecastFilter = {
     date: undefined,
     tempmax: undefined,
@@ -62,32 +61,32 @@ export function App() {
     defaultDailyForecastFilter,
   );
 
-  const handleChangeForDay = (event: SelectChangeEvent) => {
-    const dFF = { ...dailyForecastFilter } as DailyForecastFilter;
-    dFF.date = event.target.value;
-    setDailyForecastFilter(dFF);
-  };
+  // const handleChangeForDay = (event: any) => {
+  //   const dFF = { ...dailyForecastFilter } as DailyForecastFilter;
+  //   dFF.date = event.target.value;
+  //   setDailyForecastFilter(dFF);
+  // };
 
-  const handleChangeForLocationName = debounce(setSearchText, 200);
-  const trimmedSearch = searchText.trim();
-  const re = trimmedSearch === '' ? null : new RegExp(trimmedSearch, 'i');
+  // const handleChangeForLocationName = debounce(setSearchText, 200);
+  // const trimmedSearch = searchText.trim();
+  // const re = trimmedSearch === '' ? null : new RegExp(trimmedSearch, 'i');
   let matchedAreas: MatchedAreas = { totalMatchedLocations: 0 };
   if (appState.isLoaded && appState.forecast) {
-    matchedAreas = findMatchedAreas(re, appState.forecast.regions);
+    matchedAreas = findMatchedAreas(null, appState.forecast.regions);
   }
 
-  const { forecastDates } = appState;
-  const headerArgs: SidebarNavProps = {
-    showSidebar: sidebar,
-    isLoaded: appState.isLoaded || false,
-    searchText,
-    setSearchText: handleChangeForLocationName,
-    totalMatchedRegions: matchedAreas.totalMatchedLocations,
-    handleChangeForDay,
-    dates: forecastDates.dates,
-    dailyForecastFilter,
-    setDailyForecastFilter,
-  };
+  // const { forecastDates } = appState;
+  // const headerArgs: SidebarNavProps = {
+  //   showSidebar: sidebar,
+  //   isLoaded: appState.isLoaded || false,
+  //   searchText,
+  //   setSearchText: handleChangeForLocationName,
+  //   totalMatchedRegions: matchedAreas.totalMatchedLocations,
+  //   handleChangeForDay,
+  //   dates: forecastDates.dates,
+  //   dailyForecastFilter,
+  //   setDailyForecastFilter,
+  // };
 
   const locationDetailArgs: LocationDetailProps = {
     appState,
@@ -109,9 +108,6 @@ export function App() {
     };
   }, []);
 
-  const theme = createTheme({});
-  const smartPhone = useMediaQuery(theme.breakpoints.down('sm'));
-
   const summaryTableArgs: SummaryTableProps = {
     matchedAreas,
     dailyForecastFilter,
@@ -121,13 +117,14 @@ export function App() {
     forecastResponse: appState.forecast,
   };
 
+  const [sidebar] = useState(false);
+
   return (
-    <ThemeProvider theme={theme}>
-      {!isProduction() && <Typography>{`${w} px`}</Typography>}
-      {!isProduction() && <Typography>{`${smartPhone}`}</Typography>}
-      <Grid container>
+    <div className='theme'>
+      {!isProduction() && <span>{`${w} px`}</span>}
+      <div className='container'>
         {!appState.isLoaded && (
-          <Typography variant='h5'>Weather loading...</Typography>
+          <h5>Weather loading...</h5>
         )}
         {!appState.isLoaded && <img src={weatherLoading} alt='Loading...' />}
         {appState?.error && (
@@ -137,37 +134,36 @@ export function App() {
           </div>
         )}
 
-        {smartPhone && appState.isLoaded && (
-          <Grid item xs={12}>
-            <Button onClick={() => setSidebar(!sidebar)}>
+        {/* {appState.isLoaded && (
+          <div className='filters'>
+            <button type='button' onClick={() => setSidebar(!sidebar)}>
               {sidebar && <FilterAltIcon />}
-              {!sidebar && <Menu />}
-            </Button>
-          </Grid>
+            </button>
+          </div>
         )}
-        {smartPhone
-          && sidebar
+        { sidebar
           && !forecastDetailsForLocation
           && matchedAreas.totalMatchedLocations > 0 && (
-            <Grid item xs={12}>
+            <div className='filters'>
               <ForecastFilter {...headerArgs} />
-            </Grid>
+            </div>
         )}
-        <Grid item xs={12}>
-          {!smartPhone && <ForecastFilter {...headerArgs} />}
-          {(!smartPhone || (smartPhone && !sidebar))
+         */}
+        <div>
+          {/* {!smartPhone && <ForecastFilter {...headerArgs} />} */}
+          {!sidebar
             && !forecastDetailsForLocation
             && matchedAreas.totalMatchedLocations > 0 && (
               <SummaryTable {...summaryTableArgs} />
           )}
-        </Grid>
-        <Grid item xs={12}>
+        </div>
+        <div>
           {!sidebar && forecastDetailsForLocation && (
             <LocationDetail {...locationDetailArgs} />
           )}
-        </Grid>
-      </Grid>
-    </ThemeProvider>
+        </div>
+      </div>
+    </div>
   );
 }
 
