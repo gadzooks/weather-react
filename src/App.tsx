@@ -85,19 +85,19 @@ export function App() {
     setForecastDetailsForLocation,
   };
 
-  const [w, setW] = useState(window.innerWidth);
+  // const [w, setW] = useState(window.innerWidth);
 
-  useEffect(() => {
-    const handleResize = () => {
-      setW(window.innerWidth);
-    };
+  // useEffect(() => {
+  //   const handleResize = () => {
+  //     setW(window.innerWidth);
+  //   };
 
-    window.addEventListener('resize', handleResize);
+  //   window.addEventListener('resize', handleResize);
 
-    return () => {
-      window.removeEventListener('resize', handleResize);
-    };
-  }, []);
+  //   return () => {
+  //     window.removeEventListener('resize', handleResize);
+  //   };
+  // }, []);
 
   const summaryTableArgs: SummaryTableProps = {
     matchedAreas,
@@ -112,7 +112,7 @@ export function App() {
 
   return (
     <div className='theme'>
-      {!isProduction() && <span>{`${w} px`}</span>}
+      {/* {isProduction() && <span>{`${w} px`}</span>} */}
       <div className='container'>
         {!appState.isLoaded && (
           <h5>Weather loading...</h5>

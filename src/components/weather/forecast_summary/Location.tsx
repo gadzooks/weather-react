@@ -36,7 +36,7 @@ function Location(props: LocationProps) {
             serializeLocationData(location, wtaRegionKey),
           )}
         >
-          {location.description}
+          {location.description.toLocaleUpperCase()}
         </button>
       </td>
       {forecasts.map((d, index) => {

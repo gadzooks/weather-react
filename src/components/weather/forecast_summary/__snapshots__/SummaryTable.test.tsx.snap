@@ -200,7 +200,7 @@ exports[`renders a snapshot 1`] = `
           onClick={[Function]}
           type="button"
         >
-          Seattle city
+          SEATTLE CITY
         </button>
       </td>
       <td
@@ -335,7 +335,7 @@ exports[`renders a snapshot 1`] = `
           onClick={[Function]}
           type="button"
         >
-          Bonney Lake
+          BONNEY LAKE
         </button>
       </td>
       <td

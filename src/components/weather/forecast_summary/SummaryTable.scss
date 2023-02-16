@@ -141,12 +141,8 @@ table.table {
   cursor: pointer;
 }
 
-.day-of-week-button {
-
-}
-
 // < !-- HTML !--><button class="button-2" role="button">Button 2</button>
-
+// https: //getcssscan.com/css-buttons-examples
 /* CSS */
 .button-2 {
   background-color: rgba(51, 51, 51, 0.05);
@@ -209,6 +205,10 @@ table.weather-forecast-summary-11111 {
       padding-left: 2em;
     }
   }
+}
+
+.wta-link {
+  padding-right: 5px;
 }
 
 // table.weather-forecast {
@@ -320,4 +320,29 @@ table.weather-forecast-summary-11111 {
 a.freepik {
   text-decoration: underline;
   font-size: 0.8em;
+}
+
+@media (max-width: 500px) {
+  .styled-table th,
+  .styled-table td {
+    padding: 6px 0px;
+    text-align: center;
+  }
+
+  .weather-icon {
+    font-size: 1.1em;
+  }
+
+  table.table {
+    font-size: 0.8em;
+  }
+ 
+  .forecast-button {
+    font-size: 0.8em;
+  }
+
+  .styled-table td.location-name {
+    padding-left: 12px;
+  }
+
 }

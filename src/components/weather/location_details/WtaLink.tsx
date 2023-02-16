@@ -7,6 +7,7 @@ import './WtaLink.scss';
 interface WtaLinkProps {
   wtaRegion?: string,
   wtaSubRegion?: string,
+  className?: string,
 }
 
 const wtaLink = 'https://www.wta.org/go-outside/trip-reports/tripreport_search?title=&searchabletext=&author=&startdate=&_submit=&enddate=&_submit=&month=all&format=list&filter=Search';
@@ -19,7 +20,7 @@ function WtaLink(props: WtaLinkProps) {
   const subRegionValue = props.wtaSubRegion || 'all';
   const link = `${wtaLink}&region=${regionValue}&subregion=${subRegionValue}`;
   return (
-    <a href={link} target='_blank' rel='noreferrer'>
+    <a href={link} target='_blank' rel='noreferrer' className={props.className || ''}>
       <img src={wtaLogo} className='wta-logo' alt='wta-logo' />
     </a>
   );

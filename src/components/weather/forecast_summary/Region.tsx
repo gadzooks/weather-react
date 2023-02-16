@@ -31,8 +31,8 @@ function Region(props: RegionProps) {
     <tbody>
       <tr className='region-details'>
         <td colSpan={colSpan} align='center'>
+          <WtaLink wtaRegion={searchKey} className='wta-link' />
           {description}
-          <WtaLink wtaRegion={searchKey} />
         </td>
       </tr>
       {locations.map((loc) => (
