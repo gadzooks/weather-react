@@ -32,20 +32,20 @@ function LocationDetail(props: LocationDetailProps) {
   if (!forecast) return null;
   return (
     <div id={location.name}>
-      <table className='location-details'>
-        <thead>
+      <table className='location-details table styled-table'>
+        <thead className='table-heading'>
           <tr className='heading'>
-            <td colSpan={8} className='heading'>
-              {`${description.toUpperCase()}  `}
+            <td colSpan={7} className='heading'>
               <WtaLink
                 wtaRegion={location.wtaRegionKey}
                 wtaSubRegion={location.sub_region}
               />
-              <button type='button' onClick={() => setForecastDetailsForLocation(null)}>BACK</button>
+              {`${description.toUpperCase()}  `}
+              <button className='button-2' type='button' onClick={() => setForecastDetailsForLocation(null)}>BACK</button>
             </td>
           </tr>
           <tr className='secondary-heading'>
-            <td colSpan={2} className='center border-right'>
+            <td colSpan={1} className='center border-right'>
               DATE
             </td>
             <td colSpan={2} className='center border-right'>
@@ -65,9 +65,10 @@ function LocationDetail(props: LocationDetailProps) {
               const weekendClassName = weekends[id] ? ' weekend ' : ' ';
               return (
                 <tr className={weekendClassName} key={row.datetime}>
-                  <td>{format(d, 'ddd').toUpperCase()}</td>
                   <td className='border-right'>
-                    {format(d, 'MMM Do').toUpperCase()}
+                    {format(d, 'ddd').toUpperCase()}
+                    { '  '}
+                    {format(d, 'Do').toUpperCase()}
                   </td>
                   <td>
                     <WeatherIcon {...row} key={row.datetime} />
@@ -76,22 +77,15 @@ function LocationDetail(props: LocationDetailProps) {
                     {convertToSentence(row.icon)}
                   </td>
                   <td className='border-right'>
-                    {`${Math.round(
-                      row.tempmin,
-                    )}° / ${Math.round(row.tempmax)}°`}
-
+                    {`${Math.round(row.tempmin)}° / ${Math.round(
+                      row.tempmax,
+                    )}°`}
                   </td>
                   <td className='align-right'>
-                    {`${Math.round(
-                      row.precipprob,
-                    )}%`}
-
+                    {`${Math.round(row.precipprob)}%`}
                   </td>
                   <td className='align-right border-right'>
-                    {`${Math.round(
-                      row.precip,
-                    )}"`}
-
+                    {`${Math.round(row.precip)}"`}
                   </td>
                   <td className='align-right'>{`${row.cloudcover}%       `}</td>
                 </tr>
