@@ -1,4 +1,3 @@
-import AlertInterface from './AlertInterface';
 import { DailyForecastInterface } from './DailyForecastInterface';
 
 interface ForecastInterface {
@@ -6,7 +5,6 @@ interface ForecastInterface {
     longitude: number;
     description: string;
     days: DailyForecastInterface[];
-    alerts: AlertInterface[];
 }
 
 export default ForecastInterface;

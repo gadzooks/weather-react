@@ -7,6 +7,7 @@ import Region from './Region';
 import { RegionInterface } from '../../../interfaces/RegionInterface';
 import { MatchedAreas } from '../../../interfaces/MatchedAreas';
 import { DailyForecastFilter, dateSelectedMatchesForecastDates, matchesSelecteDate } from '../../../interfaces/DailyForecastFilter';
+import alertsFound from '../../../utils/count';
 
 // eslint-disable-next-line max-len
 export function matchedLocations(needle: RegExp | null, region: RegionInterface) :LocationInterface[] {
@@ -58,6 +59,7 @@ function SummaryTable(props: SummaryTableProps) {
   const { forecastResponse } = props;
   const { setDailyForecastFilter } = props;
   const { setForecastDetailsForLocation } = props;
+  const alertsById = forecastResponse?.alertsById || null;
 
   const dateSelectedIsWithinForecastRange = dateSelectedMatchesForecastDates(
     forecastDates.dates,
@@ -73,6 +75,8 @@ function SummaryTable(props: SummaryTableProps) {
     }
     setDailyForecastFilter(dFF);
   };
+
+  // console.log(JSON.stringify(alertsById));
 
   return (
     <table className='table styled-table'>
@@ -97,7 +101,7 @@ function SummaryTable(props: SummaryTableProps) {
         </tr> */}
 
         <tr>
-          {/* <td>Weather Alerts</td> */}
+          {alertsFound(alertsById) && <td>Alerts</td> }
           <td>Location</td>
           {parsedDates.map((date, index) => {
             const txt = date === null ? '' : format(date, 'DD').toUpperCase();
@@ -166,6 +170,7 @@ function SummaryTable(props: SummaryTableProps) {
                   dateSelectedIsWithinForecastRange
                 }
               setForecastDetailsForLocation={setForecastDetailsForLocation}
+              alertsById={alertsById}
             />
           );
         }

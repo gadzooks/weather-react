@@ -1,7 +1,7 @@
 import './Location.scss';
 import React from 'react';
 import { LocationInterface, serializeLocationData } from '../../../interfaces/LocationInterface';
-import { ForecastsById } from '../../../interfaces/ForecastResponseInterface';
+import { AlertsById, ForecastsById } from '../../../interfaces/ForecastResponseInterface';
 import WeatherIcon from '../main_page/WeatherIcon';
 import { DailyForecastFilter, matchesSelecteDateString } from '../../../interfaces/DailyForecastFilter';
 
@@ -14,6 +14,7 @@ interface LocationProps {
   setForecastDetailsForLocation: any;
   // eslint-disable-next-line react/require-default-props
   wtaRegionKey?: string;
+  alertsById: AlertsById | null;
 }
 
 function Location(props: LocationProps) {

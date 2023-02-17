@@ -42,6 +42,7 @@ export function dateSelectedMatchesForecastDates(
   return !!dates.find((d) => d === dateToMatch);
 }
 
-export function forecastColSpan(validForecastDateSelected: boolean) :number {
-  return validForecastDateSelected ? 3 : 16;
+export function forecastColSpan(validForecastDateSelected: boolean, alertsFound: boolean) :number {
+  const total = validForecastDateSelected ? 3 : 16;
+  return alertsFound ? total + 1 : total;
 }

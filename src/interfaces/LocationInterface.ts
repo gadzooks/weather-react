@@ -9,6 +9,7 @@ export interface LocationInterface {
 
 export interface LocationDetailData extends LocationInterface {
   wtaRegionKey?: string;
+  alertIds?: string[];
 }
 
 // eslint-disable-next-line max-len

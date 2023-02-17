@@ -1,19 +1,17 @@
-import React from "react";
-import AlertInterface from "./AlertInterface";
+import React from 'react';
+import AlertInterface from './AlertInterface';
 
 function AlertDetail(props: AlertInterface) {
-    return (
-        <>
-        <div className="alert-details alert-warning">
-            <span className="alert_id title"></span>
-            <a href="#top">${props.event}</a>
-            
+  return (
+    <div className='alert-details alert-warning'>
+      <span className='alert_id title' />
+      <a href='#top'>
+        $
+        {props.event}
+      </a>
 
-        </div>
-        </>
-    )
-    
-
+    </div>
+  );
 }
 
 export default AlertDetail;

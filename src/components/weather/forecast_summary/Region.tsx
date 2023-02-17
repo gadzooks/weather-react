@@ -2,7 +2,7 @@
 import './Region.scss';
 import React from 'react';
 import { RegionInterface } from '../../../interfaces/RegionInterface';
-import { ForecastsById } from '../../../interfaces/ForecastResponseInterface';
+import { AlertsById, ForecastsById } from '../../../interfaces/ForecastResponseInterface';
 import Location from './Location';
 import WtaLink from '../location_details/WtaLink';
 import { LocationInterface } from '../../../interfaces/LocationInterface';
@@ -10,6 +10,7 @@ import {
   DailyForecastFilter,
   forecastColSpan,
 } from '../../../interfaces/DailyForecastFilter';
+import alertsFound from '../../../utils/count';
 
 export interface RegionProps {
   isWeekend: boolean[];
@@ -19,6 +20,7 @@ export interface RegionProps {
   dailyForecastFilter: DailyForecastFilter;
   dateSelectedIsWithinForecastRange: boolean;
   setForecastDetailsForLocation: any;
+  alertsById: AlertsById | null;
 }
 
 function Region(props: RegionProps) {
@@ -26,7 +28,8 @@ function Region(props: RegionProps) {
   const { description } = region;
   const { search_key: searchKey } = region;
   const { locations } = props;
-  const colSpan = forecastColSpan(props.dateSelectedIsWithinForecastRange);
+  const { alertsById } = props;
+  const colSpan = forecastColSpan(props.dateSelectedIsWithinForecastRange, alertsFound(alertsById));
   return (
     <tbody>
       <tr className='region-details'>
