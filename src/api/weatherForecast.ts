@@ -9,6 +9,8 @@ const getForecast = async (props: any) => {
   const WEATHER_JWT_TOKEN = process.env.REACT_APP_WEATHER_JWT_TOKEN;
 
   const url = `${WEATHER_API}/forecasts/${dataSource}`;
+  // eslint-disable-next-line no-promise-executor-return
+  // await new Promise((r) => setTimeout(r, 300000));
   await fetch(`${url}`, {
     mode: 'cors',
     headers: new Headers({

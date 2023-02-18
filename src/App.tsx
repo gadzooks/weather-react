@@ -15,6 +15,8 @@ import useLocalStorage from './utils/localstorage';
 import LocationDetail, { LocationDetailProps } from './components/weather/location_details/LocationDetail';
 import SummaryTable, { SummaryTableProps } from './components/weather/forecast_summary/SummaryTable';
 import weatherLoading from './images/weather-loading.gif';
+import './reset.css';
+import './App.scss';
 import '@fontsource/roboto/300.css';
 import '@fontsource/roboto/400.css';
 import '@fontsource/roboto/500.css';
@@ -115,9 +117,15 @@ export function App() {
       {/* {isProduction() && <span>{`${w} px`}</span>} */}
       <div className='container'>
         {!appState.isLoaded && (
-          <h5>Weather loading...</h5>
+          <div className='loading'>
+            <h2>Weather loading...</h2>
+          </div>
         )}
-        {!appState.isLoaded && <img src={weatherLoading} alt='Loading...' />}
+        {!appState.isLoaded && (
+          <div className='loading'>
+            <img src={weatherLoading} alt='Loading...' />
+          </div>
+        )}
         {appState?.error && (
           <div>
             Error:
