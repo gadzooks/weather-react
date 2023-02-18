@@ -39,7 +39,7 @@ function Location(props: LocationProps) {
     <tr className='weather-cell'>
       {alertProps.foundAlerts && (
         <td>
-          {locationHasAlerts && alertIds.map((alert) => <span className='alert-icon' key={alert}>{getAlertIconFromAlerts(alertProps, alert)}</span>)}
+          {locationHasAlerts && alertIds.map((alert) => <a href={`#${alert}`} className='alert-icon' key={alert}>{getAlertIconFromAlerts(alertProps, alert)}</a>)}
         </td>
       )}
       <td className='location-name'>

@@ -2,6 +2,7 @@
 /* eslint-disable react/destructuring-assignment */
 import React from 'react';
 import { AlertsById } from '../../../interfaces/ForecastResponseInterface';
+import { getAlertIconFromAllAlerts } from '../../../model/alert';
 import { dateDifferenceInDays } from '../../../utils/date';
 import convertToSentence from '../../../utils/string';
 import './AlertDetail.scss';
@@ -27,14 +28,14 @@ function AlertDetail(props: AlertDetailProps) {
         const lines = (alert.description || '').toLocaleLowerCase().split('\n');
         const sentences = lines.map((line) => convertToSentence(line));
         const endsAt = dateDifferenceInDays(alert.endsEpoch);
+        const alertIcon = getAlertIconFromAllAlerts(allAlertIds, alert.id);
         return (
           <div key={alert.id} className='alert' id={id}>
             <div className='title'>
+              <span className='alert-icon' key={alert.id}>{alertIcon}</span>
               <a href={alert.link} target='_blank' rel='noreferrer'>{alert.event}</a>
               <span className='till'>
-                (endsAt) &&
-                {` ends in ${endsAt} days`}
-                {` at ${alert.ends}`}
+                {endsAt && (` ends in ${endsAt} days at ${alert.ends}`)}
               </span>
             </div>
             <div className='details'>

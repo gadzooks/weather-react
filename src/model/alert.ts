@@ -17,3 +17,9 @@ export function getAlertIcon(index: number): string | null {
 export function getAlertIconFromAlerts(alertProps: AlertProps, alertId: string) :(string|null) {
   return getAlertIcon(getAlertIndex(alertProps, alertId));
 }
+
+export function getAlertIconFromAllAlerts(allAlerts: string[], alertId: string) :(string|null) {
+  const matcher = (element: string) => element === alertId;
+  const index = allAlerts.findIndex(matcher);
+  return getAlertIcon(index);
+}
