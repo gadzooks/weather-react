@@ -2,7 +2,9 @@
 /* eslint-disable react/destructuring-assignment */
 import React from 'react';
 import { AlertsById } from '../../../interfaces/ForecastResponseInterface';
+import { dateDifferenceInDays } from '../../../utils/date';
 import convertToSentence from '../../../utils/string';
+import './AlertDetail.scss';
 
 export interface AlertDetailProps {
   alertsById: AlertsById | undefined;
@@ -20,32 +22,27 @@ function AlertDetail(props: AlertDetailProps) {
   }
   return (
     <div className='alert-details alert-warning'>
-      <table className='table styled-table'>
-        <thead className='table-heading'>
-          <tr>
-            <td>{ }</td>
-            <td>Event</td>
-            <td>Link</td>
-            <td>Details</td>
-            <td>Ends at</td>
-          </tr>
-        </thead>
-        <tbody>
-          {allAlertIds.map((id, index) => {
-            const alert = alertsById[id];
-            const lines = (alert.description || '').toLocaleLowerCase().split('\n');
-            const sentences = lines.map((line) => convertToSentence(line));
-            return (
-              <tr id={alert.id} key={alert.id}>
-                <td>{index}</td>
-                <td>{alert.event}</td>
-                <td><a href={alert.link} target='_blank' rel='noreferrer'>Details</a></td>
-                <td>{sentences.join('.')}</td>
-              </tr>
-            );
-          })}
-        </tbody>
-      </table>
+      {allAlertIds.map((id) => {
+        const alert = alertsById[id];
+        const lines = (alert.description || '').toLocaleLowerCase().split('\n');
+        const sentences = lines.map((line) => convertToSentence(line));
+        const endsAt = dateDifferenceInDays(alert.endsEpoch);
+        return (
+          <div key={alert.id} className='alert'>
+            <div className='title'>
+              <a href={alert.link} target='_blank' rel='noreferrer'>{alert.event}</a>
+              <span className='till'>
+                (endsAt) &&
+                {` ends in ${endsAt}`}
+                {` at ${alert.ends}`}
+              </span>
+            </div>
+            <div className='details'>
+              {sentences.join('.')}
+            </div>
+          </div>
+        );
+      })}
     </div>
   );
 }

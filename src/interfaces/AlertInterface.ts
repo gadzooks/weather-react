@@ -6,6 +6,7 @@ interface AlertInterface {
     ends: string;
     id: string;
     link: string;
+    endsEpoch: number;
 }
 
 export default AlertInterface;

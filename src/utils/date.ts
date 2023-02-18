@@ -22,3 +22,15 @@ export function calculateWeekends(dates: (Date | null)[]): boolean[] {
 
   return weekends;
 }
+
+export function dateDifferenceInDays(epochSeconds: number) {
+  if (epochSeconds === undefined) {
+    return null;
+  }
+
+  const date = new Date(epochSeconds * 1_000);
+  const today = new Date();
+
+  const diff = (date.getTime() - today.getTime()) / (1000 * 3600 * 24);
+  return Math.floor(diff);
+}

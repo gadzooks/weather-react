@@ -1,464 +1,469 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`renders a snapshot 1`] = `
-<table
-  className="table styled-table"
->
-  <thead
-    className="table-heading"
+Array [
+  <table
+    className="table styled-table"
   >
-    <tr>
-      <td>
-        Location
-      </td>
-      <td
-        align="center"
-      >
-        <button
-          className="button-2"
-          onClick={[Function]}
-          type="button"
-        >
-          17
-        </button>
-      </td>
-      <td
-        align="center"
-      >
-        <button
-          className="button-2"
-          onClick={[Function]}
-          type="button"
-        >
-          18
-        </button>
-      </td>
-      <td
-        align="center"
-      >
-        <button
-          className="button-2"
-          onClick={[Function]}
-          type="button"
-        >
-          19
-        </button>
-      </td>
-      <td
-        align="center"
-      >
-        <button
-          className="button-2"
-          onClick={[Function]}
-          type="button"
-        >
-          20
-        </button>
-      </td>
-      <td
-        align="center"
-      >
-        <button
-          className="button-2"
-          onClick={[Function]}
-          type="button"
-        >
-          21
-        </button>
-      </td>
-      <td
-        align="center"
-      >
-        <button
-          className="button-2"
-          onClick={[Function]}
-          type="button"
-        >
-          22
-        </button>
-      </td>
-      <td
-        align="center"
-      >
-        <button
-          className="button-2"
-          onClick={[Function]}
-          type="button"
-        >
-          23
-        </button>
-      </td>
-      <td
-        align="center"
-      >
-        <button
-          className="button-2"
-          onClick={[Function]}
-          type="button"
-        >
-          24
-        </button>
-      </td>
-      <td
-        align="center"
-      >
-        <button
-          className="button-2"
-          onClick={[Function]}
-          type="button"
-        >
-          25
-        </button>
-      </td>
-      <td
-        align="center"
-      >
-        <button
-          className="button-2"
-          onClick={[Function]}
-          type="button"
-        >
-          26
-        </button>
-      </td>
-      <td
-        align="center"
-      >
-        <button
-          className="button-2"
-          onClick={[Function]}
-          type="button"
-        >
-          27
-        </button>
-      </td>
-      <td
-        align="center"
-      >
-        <button
-          className="button-2"
-          onClick={[Function]}
-          type="button"
-        >
-          28
-        </button>
-      </td>
-      <td
-        align="center"
-      >
-        <button
-          className="button-2"
-          onClick={[Function]}
-          type="button"
-        >
-          29
-        </button>
-      </td>
-      <td
-        align="center"
-      >
-        <button
-          className="button-2"
-          onClick={[Function]}
-          type="button"
-        >
-          30
-        </button>
-      </td>
-      <td
-        align="center"
-      >
-        <button
-          className="button-2"
-          onClick={[Function]}
-          type="button"
-        >
-          01
-        </button>
-      </td>
-    </tr>
-  </thead>
-  <tbody>
-    <tr
-      className="region-details"
+    <thead
+      className="table-heading"
     >
-      <td
-        align="center"
-        colSpan={16}
-      >
-        Cities
-      </td>
-    </tr>
-    <tr
-      className="weather-cell"
-    >
-      <td
-        className="location-name"
-      >
-        <button
-          className="forecast-button"
-          onClick={[Function]}
-          type="button"
+      <tr>
+        <td>
+          Location
+        </td>
+        <td
+          align="center"
         >
-          SEATTLE CITY
-        </button>
-      </td>
-      <td
-        className="weather-cell center  weekend "
-      >
-        <i
-          className="wi weather-icon wi-day-sunny day-sunny "
-          title="Clear conditions throughout the day."
-        />
-      </td>
-      <td
-        className="weather-cell center  weekend "
-      >
-        <i
-          className="wi weather-icon wi-day-sunny day-sunny "
-          title="Clear conditions throughout the day."
-        />
-      </td>
-      <td
-        className="weather-cell center  "
-      >
-        <i
-          className="wi weather-icon wi-day-sunny day-sunny "
-          title="Clear conditions throughout the day."
-        />
-      </td>
-      <td
-        className="weather-cell center  "
-      >
-        <i
-          className="wi weather-icon wi-day-cloudy day-cloudy "
-          title="Partly cloudy throughout the day."
-        />
-      </td>
-      <td
-        className="weather-cell center  "
-      >
-        <i
-          className="wi weather-icon wi-day-cloudy day-cloudy "
-          title="Partly cloudy throughout the day."
-        />
-      </td>
-      <td
-        className="weather-cell center  "
-      >
-        <i
-          className="wi weather-icon wi-rain rain "
-          title="Partly cloudy throughout the day with a chance of rain."
-        />
-      </td>
-      <td
-        className="weather-cell center  "
-      >
-        <i
-          className="wi weather-icon wi-rain rain "
-          title="Partly cloudy throughout the day with morning rain."
-        />
-      </td>
-      <td
-        className="weather-cell center  weekend "
-      >
-        <i
-          className="wi weather-icon wi-rain rain "
-          title="Cloudy skies throughout the day with a chance of rain."
-        />
-      </td>
-      <td
-        className="weather-cell center  weekend "
-      >
-        <i
-          className="wi weather-icon wi-rain rain "
-          title="Cloudy skies throughout the day with a chance of rain throughout the day."
-        />
-      </td>
-      <td
-        className="weather-cell center  "
-      >
-        <i
-          className="wi weather-icon wi-rain rain "
-          title="Partly cloudy throughout the day with rain in the morning and afternoon."
-        />
-      </td>
-      <td
-        className="weather-cell center  "
-      >
-        <i
-          className="wi weather-icon wi-cloudy cloudy sunshine-50"
-          title="Partly cloudy throughout the day."
-        />
-      </td>
-      <td
-        className="weather-cell center  "
-      >
-        <i
-          className="wi weather-icon wi-cloudy cloudy sunshine-50"
-          title="Cloudy skies throughout the day."
-        />
-      </td>
-      <td
-        className="weather-cell center  "
-      >
-        <i
-          className="wi weather-icon wi-cloudy cloudy sunshine-50"
-          title="Partly cloudy throughout the day."
-        />
-      </td>
-      <td
-        className="weather-cell center  "
-      >
-        <i
-          className="wi weather-icon wi-cloudy cloudy sunshine-50"
-          title="Cloudy skies throughout the day."
-        />
-      </td>
-      <td
-        className="weather-cell center  weekend "
-      >
-        <i
-          className="wi weather-icon wi-cloudy cloudy sunshine-10"
-          title="Partly cloudy throughout the day."
-        />
-      </td>
-    </tr>
-    <tr
-      className="weather-cell"
-    >
-      <td
-        className="location-name"
-      >
-        <button
-          className="forecast-button"
-          onClick={[Function]}
-          type="button"
+          <button
+            className="button-2"
+            onClick={[Function]}
+            type="button"
+          >
+            17
+          </button>
+        </td>
+        <td
+          align="center"
         >
-          BONNEY LAKE
-        </button>
-      </td>
-      <td
-        className="weather-cell center  weekend "
+          <button
+            className="button-2"
+            onClick={[Function]}
+            type="button"
+          >
+            18
+          </button>
+        </td>
+        <td
+          align="center"
+        >
+          <button
+            className="button-2"
+            onClick={[Function]}
+            type="button"
+          >
+            19
+          </button>
+        </td>
+        <td
+          align="center"
+        >
+          <button
+            className="button-2"
+            onClick={[Function]}
+            type="button"
+          >
+            20
+          </button>
+        </td>
+        <td
+          align="center"
+        >
+          <button
+            className="button-2"
+            onClick={[Function]}
+            type="button"
+          >
+            21
+          </button>
+        </td>
+        <td
+          align="center"
+        >
+          <button
+            className="button-2"
+            onClick={[Function]}
+            type="button"
+          >
+            22
+          </button>
+        </td>
+        <td
+          align="center"
+        >
+          <button
+            className="button-2"
+            onClick={[Function]}
+            type="button"
+          >
+            23
+          </button>
+        </td>
+        <td
+          align="center"
+        >
+          <button
+            className="button-2"
+            onClick={[Function]}
+            type="button"
+          >
+            24
+          </button>
+        </td>
+        <td
+          align="center"
+        >
+          <button
+            className="button-2"
+            onClick={[Function]}
+            type="button"
+          >
+            25
+          </button>
+        </td>
+        <td
+          align="center"
+        >
+          <button
+            className="button-2"
+            onClick={[Function]}
+            type="button"
+          >
+            26
+          </button>
+        </td>
+        <td
+          align="center"
+        >
+          <button
+            className="button-2"
+            onClick={[Function]}
+            type="button"
+          >
+            27
+          </button>
+        </td>
+        <td
+          align="center"
+        >
+          <button
+            className="button-2"
+            onClick={[Function]}
+            type="button"
+          >
+            28
+          </button>
+        </td>
+        <td
+          align="center"
+        >
+          <button
+            className="button-2"
+            onClick={[Function]}
+            type="button"
+          >
+            29
+          </button>
+        </td>
+        <td
+          align="center"
+        >
+          <button
+            className="button-2"
+            onClick={[Function]}
+            type="button"
+          >
+            30
+          </button>
+        </td>
+        <td
+          align="center"
+        >
+          <button
+            className="button-2"
+            onClick={[Function]}
+            type="button"
+          >
+            01
+          </button>
+        </td>
+      </tr>
+    </thead>
+    <tbody>
+      <tr
+        className="region-details"
       >
-        <i
-          className="wi weather-icon wi-day-sunny day-sunny "
-          title="Clear conditions throughout the day."
-        />
-      </td>
-      <td
-        className="weather-cell center  weekend "
+        <td
+          align="center"
+          colSpan={16}
+        >
+          Cities
+        </td>
+      </tr>
+      <tr
+        className="weather-cell"
       >
-        <i
-          className="wi weather-icon wi-day-sunny day-sunny "
-          title="Clear conditions throughout the day."
-        />
-      </td>
-      <td
-        className="weather-cell center  "
+        <td
+          className="location-name"
+        >
+          <button
+            className="forecast-button"
+            onClick={[Function]}
+            type="button"
+          >
+            SEATTLE CITY
+          </button>
+        </td>
+        <td
+          className="weather-cell center  weekend "
+        >
+          <i
+            className="wi weather-icon wi-day-sunny day-sunny "
+            title="Clear conditions throughout the day."
+          />
+        </td>
+        <td
+          className="weather-cell center  weekend "
+        >
+          <i
+            className="wi weather-icon wi-day-sunny day-sunny "
+            title="Clear conditions throughout the day."
+          />
+        </td>
+        <td
+          className="weather-cell center  "
+        >
+          <i
+            className="wi weather-icon wi-day-sunny day-sunny "
+            title="Clear conditions throughout the day."
+          />
+        </td>
+        <td
+          className="weather-cell center  "
+        >
+          <i
+            className="wi weather-icon wi-day-cloudy day-cloudy "
+            title="Partly cloudy throughout the day."
+          />
+        </td>
+        <td
+          className="weather-cell center  "
+        >
+          <i
+            className="wi weather-icon wi-day-cloudy day-cloudy "
+            title="Partly cloudy throughout the day."
+          />
+        </td>
+        <td
+          className="weather-cell center  "
+        >
+          <i
+            className="wi weather-icon wi-rain rain "
+            title="Partly cloudy throughout the day with a chance of rain."
+          />
+        </td>
+        <td
+          className="weather-cell center  "
+        >
+          <i
+            className="wi weather-icon wi-rain rain "
+            title="Partly cloudy throughout the day with morning rain."
+          />
+        </td>
+        <td
+          className="weather-cell center  weekend "
+        >
+          <i
+            className="wi weather-icon wi-rain rain "
+            title="Cloudy skies throughout the day with a chance of rain."
+          />
+        </td>
+        <td
+          className="weather-cell center  weekend "
+        >
+          <i
+            className="wi weather-icon wi-rain rain "
+            title="Cloudy skies throughout the day with a chance of rain throughout the day."
+          />
+        </td>
+        <td
+          className="weather-cell center  "
+        >
+          <i
+            className="wi weather-icon wi-rain rain "
+            title="Partly cloudy throughout the day with rain in the morning and afternoon."
+          />
+        </td>
+        <td
+          className="weather-cell center  "
+        >
+          <i
+            className="wi weather-icon wi-cloudy cloudy sunshine-50"
+            title="Partly cloudy throughout the day."
+          />
+        </td>
+        <td
+          className="weather-cell center  "
+        >
+          <i
+            className="wi weather-icon wi-cloudy cloudy sunshine-50"
+            title="Cloudy skies throughout the day."
+          />
+        </td>
+        <td
+          className="weather-cell center  "
+        >
+          <i
+            className="wi weather-icon wi-cloudy cloudy sunshine-50"
+            title="Partly cloudy throughout the day."
+          />
+        </td>
+        <td
+          className="weather-cell center  "
+        >
+          <i
+            className="wi weather-icon wi-cloudy cloudy sunshine-50"
+            title="Cloudy skies throughout the day."
+          />
+        </td>
+        <td
+          className="weather-cell center  weekend "
+        >
+          <i
+            className="wi weather-icon wi-cloudy cloudy sunshine-10"
+            title="Partly cloudy throughout the day."
+          />
+        </td>
+      </tr>
+      <tr
+        className="weather-cell"
       >
-        <i
-          className="wi weather-icon wi-day-sunny day-sunny "
-          title="Clear conditions throughout the day."
-        />
-      </td>
-      <td
-        className="weather-cell center  "
-      >
-        <i
-          className="wi weather-icon wi-rain rain "
-          title="Partly cloudy throughout the day with rain in the morning and afternoon."
-        />
-      </td>
-      <td
-        className="weather-cell center  "
-      >
-        <i
-          className="wi weather-icon wi-day-cloudy day-cloudy "
-          title="Partly cloudy throughout the day."
-        />
-      </td>
-      <td
-        className="weather-cell center  "
-      >
-        <i
-          className="wi weather-icon wi-rain rain "
-          title="Partly cloudy throughout the day with a chance of rain."
-        />
-      </td>
-      <td
-        className="weather-cell center  "
-      >
-        <i
-          className="wi weather-icon wi-rain rain "
-          title="Partly cloudy throughout the day with rain."
-        />
-      </td>
-      <td
-        className="weather-cell center  weekend "
-      >
-        <i
-          className="wi weather-icon wi-rain rain "
-          title="Cloudy skies throughout the day with rain."
-        />
-      </td>
-      <td
-        className="weather-cell center  weekend "
-      >
-        <i
-          className="wi weather-icon wi-rain rain "
-          title="Cloudy skies throughout the day with a chance of rain."
-        />
-      </td>
-      <td
-        className="weather-cell center  "
-      >
-        <i
-          className="wi weather-icon wi-rain rain "
-          title="Cloudy skies throughout the day with a chance of rain."
-        />
-      </td>
-      <td
-        className="weather-cell center  "
-      >
-        <i
-          className="wi weather-icon wi-rain rain "
-          title="Partly cloudy throughout the day with a chance of rain."
-        />
-      </td>
-      <td
-        className="weather-cell center  "
-      >
-        <i
-          className="wi weather-icon wi-rain rain "
-          title="Cloudy skies throughout the day with rain in the morning and afternoon."
-        />
-      </td>
-      <td
-        className="weather-cell center  "
-      >
-        <i
-          className="wi weather-icon wi-cloudy cloudy sunshine-50"
-          title="Partly cloudy throughout the day."
-        />
-      </td>
-      <td
-        className="weather-cell center  "
-      >
-        <i
-          className="wi weather-icon wi-cloudy cloudy sunshine-50"
-          title="Cloudy skies throughout the day."
-        />
-      </td>
-      <td
-        className="weather-cell center  weekend "
-      >
-        <i
-          className="wi weather-icon wi-cloudy cloudy sunshine-10"
-          title="Clearing in the afternoon."
-        />
-      </td>
-    </tr>
-  </tbody>
-</table>
+        <td
+          className="location-name"
+        >
+          <button
+            className="forecast-button"
+            onClick={[Function]}
+            type="button"
+          >
+            BONNEY LAKE
+          </button>
+        </td>
+        <td
+          className="weather-cell center  weekend "
+        >
+          <i
+            className="wi weather-icon wi-day-sunny day-sunny "
+            title="Clear conditions throughout the day."
+          />
+        </td>
+        <td
+          className="weather-cell center  weekend "
+        >
+          <i
+            className="wi weather-icon wi-day-sunny day-sunny "
+            title="Clear conditions throughout the day."
+          />
+        </td>
+        <td
+          className="weather-cell center  "
+        >
+          <i
+            className="wi weather-icon wi-day-sunny day-sunny "
+            title="Clear conditions throughout the day."
+          />
+        </td>
+        <td
+          className="weather-cell center  "
+        >
+          <i
+            className="wi weather-icon wi-rain rain "
+            title="Partly cloudy throughout the day with rain in the morning and afternoon."
+          />
+        </td>
+        <td
+          className="weather-cell center  "
+        >
+          <i
+            className="wi weather-icon wi-day-cloudy day-cloudy "
+            title="Partly cloudy throughout the day."
+          />
+        </td>
+        <td
+          className="weather-cell center  "
+        >
+          <i
+            className="wi weather-icon wi-rain rain "
+            title="Partly cloudy throughout the day with a chance of rain."
+          />
+        </td>
+        <td
+          className="weather-cell center  "
+        >
+          <i
+            className="wi weather-icon wi-rain rain "
+            title="Partly cloudy throughout the day with rain."
+          />
+        </td>
+        <td
+          className="weather-cell center  weekend "
+        >
+          <i
+            className="wi weather-icon wi-rain rain "
+            title="Cloudy skies throughout the day with rain."
+          />
+        </td>
+        <td
+          className="weather-cell center  weekend "
+        >
+          <i
+            className="wi weather-icon wi-rain rain "
+            title="Cloudy skies throughout the day with a chance of rain."
+          />
+        </td>
+        <td
+          className="weather-cell center  "
+        >
+          <i
+            className="wi weather-icon wi-rain rain "
+            title="Cloudy skies throughout the day with a chance of rain."
+          />
+        </td>
+        <td
+          className="weather-cell center  "
+        >
+          <i
+            className="wi weather-icon wi-rain rain "
+            title="Partly cloudy throughout the day with a chance of rain."
+          />
+        </td>
+        <td
+          className="weather-cell center  "
+        >
+          <i
+            className="wi weather-icon wi-rain rain "
+            title="Cloudy skies throughout the day with rain in the morning and afternoon."
+          />
+        </td>
+        <td
+          className="weather-cell center  "
+        >
+          <i
+            className="wi weather-icon wi-cloudy cloudy sunshine-50"
+            title="Partly cloudy throughout the day."
+          />
+        </td>
+        <td
+          className="weather-cell center  "
+        >
+          <i
+            className="wi weather-icon wi-cloudy cloudy sunshine-50"
+            title="Cloudy skies throughout the day."
+          />
+        </td>
+        <td
+          className="weather-cell center  weekend "
+        >
+          <i
+            className="wi weather-icon wi-cloudy cloudy sunshine-10"
+            title="Clearing in the afternoon."
+          />
+        </td>
+      </tr>
+    </tbody>
+  </table>,
+  <div
+    className="all-alerts"
+  />,
+]
 `;

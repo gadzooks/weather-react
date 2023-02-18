@@ -104,7 +104,7 @@ function SummaryTable(props: SummaryTableProps) {
         </tr> */}
 
           <tr>
-            {alertsFound(alertsById) && <td>Alerts</td> }
+            {alertsFound(alertsById) && <td>Alerts</td>}
             <td>Location</td>
             {parsedDates.map((date, index) => {
               const txt = date === null ? '' : format(date, 'DD').toUpperCase();
@@ -117,42 +117,42 @@ function SummaryTable(props: SummaryTableProps) {
               const nextDateKey = nextDateWithinRange(date, index, parsedDates);
               return (
                 (!dateSelectedIsWithinForecastRange || dateMatches) && (
-                <td key={txt} align='center'>
-                  {dateSelectedIsWithinForecastRange && (
-                  <>
-                    <button
-                      className='button-2 left-arrow'
-                      type='button'
-                      onClick={() => selectDate(prevDateKey || '')}
-                    >
-                      &larr;
-                    </button>
-                    <button
-                      type='button'
-                      className='button-2 forecast-date'
-                      onClick={() => selectDate(dateKey)}
-                    >
-                      {txt}
-                    </button>
-                    <button
-                      className='button-2 right-arrow'
-                      type='button'
-                      onClick={() => selectDate(nextDateKey || '')}
-                    >
-                      &rarr;
-                    </button>
-                  </>
-                  )}
-                  {!dateSelectedIsWithinForecastRange && (
-                  <button
-                    type='button'
-                    className='button-2'
-                    onClick={() => selectDate(dateKey)}
-                  >
-                    {txt}
-                  </button>
-                  )}
-                </td>
+                  <td key={txt} align='center'>
+                    {dateSelectedIsWithinForecastRange && (
+                      <>
+                        <button
+                          className='button-2 left-arrow'
+                          type='button'
+                          onClick={() => selectDate(prevDateKey || '')}
+                        >
+                          &larr;
+                        </button>
+                        <button
+                          type='button'
+                          className='button-2 forecast-date'
+                          onClick={() => selectDate(dateKey)}
+                        >
+                          {txt}
+                        </button>
+                        <button
+                          className='button-2 right-arrow'
+                          type='button'
+                          onClick={() => selectDate(nextDateKey || '')}
+                        >
+                          &rarr;
+                        </button>
+                      </>
+                    )}
+                    {!dateSelectedIsWithinForecastRange && (
+                      <button
+                        type='button'
+                        className='button-2'
+                        onClick={() => selectDate(dateKey)}
+                      >
+                        {txt}
+                      </button>
+                    )}
+                  </td>
                 )
               );
             })}
@@ -180,10 +180,12 @@ function SummaryTable(props: SummaryTableProps) {
           return null;
         })}
       </table>
-      <AlertDetail
-        allAlertIds={props.forecastResponse?.allAlertIds}
-        alertsById={props.forecastResponse?.alertsById}
-      />
+      <div className='all-alerts'>
+        <AlertDetail
+          allAlertIds={props.forecastResponse?.allAlertIds}
+          alertsById={props.forecastResponse?.alertsById}
+        />
+      </div>
     </>
   );
 }
