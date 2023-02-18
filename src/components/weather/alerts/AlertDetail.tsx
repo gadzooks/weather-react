@@ -1,15 +1,51 @@
+/* eslint-disable max-len */
+/* eslint-disable react/destructuring-assignment */
 import React from 'react';
-import AlertInterface from './AlertInterface';
+import { AlertsById } from '../../../interfaces/ForecastResponseInterface';
+import convertToSentence from '../../../utils/string';
 
-function AlertDetail(props: AlertInterface) {
+export interface AlertDetailProps {
+  alertsById: AlertsById | undefined;
+  allAlertIds: string[] | undefined;
+}
+
+function AlertDetail(props: AlertDetailProps) {
+  if (props === undefined) {
+    return null;
+  }
+  const { alertsById } = props;
+  const { allAlertIds } = props;
+  if (alertsById === undefined || allAlertIds === undefined || allAlertIds.length === 0) {
+    return null;
+  }
   return (
     <div className='alert-details alert-warning'>
-      <span className='alert_id title' />
-      <a href='#top'>
-        $
-        {props.event}
-      </a>
-
+      <table className='table styled-table'>
+        <thead className='table-heading'>
+          <tr>
+            <td>{ }</td>
+            <td>Event</td>
+            <td>Link</td>
+            <td>Details</td>
+            <td>Ends at</td>
+          </tr>
+        </thead>
+        <tbody>
+          {allAlertIds.map((id, index) => {
+            const alert = alertsById[id];
+            const lines = (alert.description || '').toLocaleLowerCase().split('\n');
+            const sentences = lines.map((line) => convertToSentence(line));
+            return (
+              <tr id={alert.id} key={alert.id}>
+                <td>{index}</td>
+                <td>{alert.event}</td>
+                <td><a href={alert.link} target='_blank' rel='noreferrer'>Details</a></td>
+                <td>{sentences.join('.')}</td>
+              </tr>
+            );
+          })}
+        </tbody>
+      </table>
     </div>
   );
 }

@@ -31,7 +31,7 @@ export interface LocationsById {
 }
 
 export interface AlertsById {
-  [key: string]: AlertInterface
+  [key: string]: AlertInterface;
 }
 
 export interface ForecastResponse {
@@ -40,6 +40,7 @@ export interface ForecastResponse {
   locations: LocationsById;
   forecasts: ForecastsById;
   alertsById: AlertsById;
+  allAlertIds: string[];
 }
 
 export interface ForeacastDates {

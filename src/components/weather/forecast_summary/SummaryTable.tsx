@@ -1,3 +1,4 @@
+/* eslint-disable react/destructuring-assignment */
 import './SummaryTable.scss';
 import { format } from 'fecha';
 import React from 'react';
@@ -8,6 +9,7 @@ import { RegionInterface } from '../../../interfaces/RegionInterface';
 import { MatchedAreas } from '../../../interfaces/MatchedAreas';
 import { DailyForecastFilter, dateSelectedMatchesForecastDates, matchesSelecteDate } from '../../../interfaces/DailyForecastFilter';
 import alertsFound from '../../../utils/count';
+import AlertDetail from '../alerts/AlertDetail';
 
 // eslint-disable-next-line max-len
 export function matchedLocations(needle: RegExp | null, region: RegionInterface) :LocationInterface[] {
@@ -79,9 +81,10 @@ function SummaryTable(props: SummaryTableProps) {
   // console.log(JSON.stringify(alertsById));
 
   return (
-    <table className='table styled-table'>
-      <thead className='table-heading'>
-        {/* <tr>
+    <>
+      <table className='table styled-table'>
+        <thead className='table-heading'>
+          {/* <tr>
           <td rowSpan={2}>Location</td>
           {parsedDates.map((date) => {
             const txt = date === null ? '' : format(date, 'ddd').toUpperCase();
@@ -100,83 +103,88 @@ function SummaryTable(props: SummaryTableProps) {
           })}
         </tr> */}
 
-        <tr>
-          {alertsFound(alertsById) && <td>Alerts</td> }
-          <td>Location</td>
-          {parsedDates.map((date, index) => {
-            const txt = date === null ? '' : format(date, 'DD').toUpperCase();
-            const dateKey = date === null ? '' : format(date, 'YYYY-MM-DD').toUpperCase();
-            const dateMatches = matchesSelecteDate(
-              date,
-              dailyForecastFilter.date,
-            );
-            const prevDateKey = prevDateWithinRange(date, index, parsedDates);
-            const nextDateKey = nextDateWithinRange(date, index, parsedDates);
-            return (
-              (!dateSelectedIsWithinForecastRange || dateMatches) && (
-              <td key={txt} align='center'>
-                {dateSelectedIsWithinForecastRange && (
-                <>
+          <tr>
+            {alertsFound(alertsById) && <td>Alerts</td> }
+            <td>Location</td>
+            {parsedDates.map((date, index) => {
+              const txt = date === null ? '' : format(date, 'DD').toUpperCase();
+              const dateKey = date === null ? '' : format(date, 'YYYY-MM-DD').toUpperCase();
+              const dateMatches = matchesSelecteDate(
+                date,
+                dailyForecastFilter.date,
+              );
+              const prevDateKey = prevDateWithinRange(date, index, parsedDates);
+              const nextDateKey = nextDateWithinRange(date, index, parsedDates);
+              return (
+                (!dateSelectedIsWithinForecastRange || dateMatches) && (
+                <td key={txt} align='center'>
+                  {dateSelectedIsWithinForecastRange && (
+                  <>
+                    <button
+                      className='button-2 left-arrow'
+                      type='button'
+                      onClick={() => selectDate(prevDateKey || '')}
+                    >
+                      &larr;
+                    </button>
+                    <button
+                      type='button'
+                      className='button-2 forecast-date'
+                      onClick={() => selectDate(dateKey)}
+                    >
+                      {txt}
+                    </button>
+                    <button
+                      className='button-2 right-arrow'
+                      type='button'
+                      onClick={() => selectDate(nextDateKey || '')}
+                    >
+                      &rarr;
+                    </button>
+                  </>
+                  )}
+                  {!dateSelectedIsWithinForecastRange && (
                   <button
-                    className='button-2 left-arrow'
                     type='button'
-                    onClick={() => selectDate(prevDateKey || '')}
-                  >
-                    &larr;
-                  </button>
-                  <button
-                    type='button'
-                    className='button-2 forecast-date'
+                    className='button-2'
                     onClick={() => selectDate(dateKey)}
                   >
                     {txt}
                   </button>
-                  <button
-                    className='button-2 right-arrow'
-                    type='button'
-                    onClick={() => selectDate(nextDateKey || '')}
-                  >
-                    &rarr;
-                  </button>
-                </>
-                )}
-                {!dateSelectedIsWithinForecastRange && (
-                <button
-                  type='button'
-                  className='button-2'
-                  onClick={() => selectDate(dateKey)}
-                >
-                  {txt}
-                </button>
-                )}
-              </td>
-              )
-            );
-          })}
-        </tr>
-      </thead>
-      {regions.map((region: RegionInterface) => {
-        const locations = locationsByRegion[region.name];
-        if (forecastResponse?.forecasts) {
-          return (
-            <Region
-              key={region.name}
-              isWeekend={weekends}
-              region={region}
-              forecastsById={forecastResponse?.forecasts}
-              locations={locations}
-              dailyForecastFilter={dailyForecastFilter}
-              dateSelectedIsWithinForecastRange={
+                  )}
+                </td>
+                )
+              );
+            })}
+          </tr>
+        </thead>
+        {regions.map((region: RegionInterface) => {
+          const locations = locationsByRegion[region.name];
+          if (forecastResponse?.forecasts) {
+            return (
+              <Region
+                key={region.name}
+                isWeekend={weekends}
+                region={region}
+                forecastsById={forecastResponse?.forecasts}
+                locations={locations}
+                dailyForecastFilter={dailyForecastFilter}
+                dateSelectedIsWithinForecastRange={
                   dateSelectedIsWithinForecastRange
                 }
-              setForecastDetailsForLocation={setForecastDetailsForLocation}
-              alertsById={alertsById}
-            />
-          );
-        }
-        return null;
-      })}
-    </table>
+                setForecastDetailsForLocation={setForecastDetailsForLocation}
+                alertsById={alertsById}
+              />
+            );
+          }
+          return null;
+        })}
+      </table>
+      <AlertDetail
+        allAlertIds={props.forecastResponse?.allAlertIds}
+        alertsById={props.forecastResponse?.alertsById}
+      />
+    </>
   );
 }
 
