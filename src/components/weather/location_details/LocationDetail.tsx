@@ -40,8 +40,14 @@ function LocationDetail(props: LocationDetailProps) {
                 wtaRegion={location.wtaRegionKey}
                 wtaSubRegion={location.sub_region}
               />
-              {`${description.toUpperCase()}  `}
-              <button className='button-2' type='button' onClick={() => setForecastDetailsForLocation(null)}>BACK</button>
+              <button
+                className='button-2'
+                type='button'
+                onClick={() => setForecastDetailsForLocation(null)}
+              >
+                {`${description.toUpperCase()}  `}
+
+              </button>
             </td>
           </tr>
           <tr className='secondary-heading'>
@@ -67,7 +73,7 @@ function LocationDetail(props: LocationDetailProps) {
                 <tr className={weekendClassName} key={row.datetime}>
                   <td className='border-right'>
                     {format(d, 'ddd').toUpperCase()}
-                    { '  '}
+                    {'  '}
                     {format(d, 'Do').toUpperCase()}
                   </td>
                   <td>

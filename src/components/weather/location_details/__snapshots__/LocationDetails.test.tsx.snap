@@ -29,13 +29,12 @@ exports[`renders a snapshot 1`] = `
               src="wta-logo.png"
             />
           </a>
-          CLE ELUM AREA1  
           <button
             className="button-2"
             onClick={[Function]}
             type="button"
           >
-            BACK
+            CLE ELUM AREA1  
           </button>
         </td>
       </tr>
