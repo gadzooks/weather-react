@@ -1,9 +1,11 @@
 import './Location.scss';
 import React from 'react';
 import { LocationInterface, serializeLocationData } from '../../../interfaces/LocationInterface';
-import { AlertsById, ForecastsById } from '../../../interfaces/ForecastResponseInterface';
+import { ForecastsById } from '../../../interfaces/ForecastResponseInterface';
 import WeatherIcon from '../main_page/WeatherIcon';
 import { DailyForecastFilter, matchesSelecteDateString } from '../../../interfaces/DailyForecastFilter';
+import AlertProps from '../../../interfaces/AlertProps';
+import { getAlertIconFromAlerts } from '../../../model/alert';
 
 interface LocationProps {
   isWeekend: boolean[];
@@ -14,21 +16,32 @@ interface LocationProps {
   setForecastDetailsForLocation: any;
   // eslint-disable-next-line react/require-default-props
   wtaRegionKey?: string;
-  alertsById: AlertsById | null;
+  alertProps: AlertProps;
+  // eslint-disable-next-line react/require-default-props
+  alertIds?: string[];
 }
 
 function Location(props: LocationProps) {
-  const { location } = props;
-  const { isWeekend } = props;
-  const { forecastsById } = props;
-  const { dailyForecastFilter } = props;
-  const { atleastOneDateMatches } = props;
-  const { setForecastDetailsForLocation } = props;
-  const { wtaRegionKey } = props;
+  const {
+    location,
+    isWeekend,
+    forecastsById,
+    dailyForecastFilter,
+    atleastOneDateMatches,
+    setForecastDetailsForLocation,
+    wtaRegionKey,
+    alertProps,
+    alertIds,
+  } = props;
   const forecasts = forecastsById.byId[location.name] || [];
+  const locationHasAlerts = alertIds && (alertIds?.length > 0);
   return (
     <tr className='weather-cell'>
-      {/* <td className='weather-cell'>N/A</td> */}
+      {alertProps.foundAlerts && (
+        <td>
+          {locationHasAlerts && alertIds.map((alert) => <span className='alert-icon' key={alert}>{getAlertIconFromAlerts(alertProps, alert)}</span>)}
+        </td>
+      )}
       <td className='location-name'>
         <button
           type='button'

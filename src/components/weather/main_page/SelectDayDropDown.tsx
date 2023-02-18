@@ -7,7 +7,7 @@ import * as React from 'react';
 
 interface SelectDayProps {
   dateSelected: string|undefined;
-  handleChange: any;
+  // handleChange: any;
   dates: string[];
 }
 

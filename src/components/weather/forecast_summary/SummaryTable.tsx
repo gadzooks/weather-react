@@ -10,6 +10,7 @@ import { MatchedAreas } from '../../../interfaces/MatchedAreas';
 import { DailyForecastFilter, dateSelectedMatchesForecastDates, matchesSelecteDate } from '../../../interfaces/DailyForecastFilter';
 import alertsFound from '../../../utils/count';
 import AlertDetail from '../alerts/AlertDetail';
+import AlertProps from '../../../interfaces/AlertProps';
 
 // eslint-disable-next-line max-len
 export function matchedLocations(needle: RegExp | null, region: RegionInterface) :LocationInterface[] {
@@ -51,17 +52,23 @@ function nextDateWithinRange(
 }
 
 function SummaryTable(props: SummaryTableProps) {
-  const { forecastDates } = props;
-  const { weekends } = forecastDates;
-  const { parsedDates } = forecastDates;
-  const { matchedAreas } = props;
+  const {
+    forecastDates,
+    matchedAreas,
+    dailyForecastFilter,
+    forecastResponse,
+    setDailyForecastFilter,
+    setForecastDetailsForLocation,
+  } = props;
+  const { weekends, parsedDates } = forecastDates;
   const regions = matchedAreas.regions || [];
   const locationsByRegion = matchedAreas.locationsByRegion || {};
-  const { dailyForecastFilter } = props;
-  const { forecastResponse } = props;
-  const { setDailyForecastFilter } = props;
-  const { setForecastDetailsForLocation } = props;
-  const alertsById = forecastResponse?.alertsById || null;
+  const foundAlerts = alertsFound(forecastResponse?.alertsById);
+  const alertProps: AlertProps = {
+    alertsById: forecastResponse?.alertsById || null,
+    allAlerts: forecastResponse?.allAlertIds || null,
+    foundAlerts,
+  };
 
   const dateSelectedIsWithinForecastRange = dateSelectedMatchesForecastDates(
     forecastDates.dates,
@@ -104,7 +111,7 @@ function SummaryTable(props: SummaryTableProps) {
         </tr> */}
 
           <tr>
-            {alertsFound(alertsById) && <td>Alerts</td>}
+            {foundAlerts && <td>Alerts</td>}
             <td>Location</td>
             {parsedDates.map((date, index) => {
               const txt = date === null ? '' : format(date, 'DD').toUpperCase();
@@ -173,7 +180,7 @@ function SummaryTable(props: SummaryTableProps) {
                   dateSelectedIsWithinForecastRange
                 }
                 setForecastDetailsForLocation={setForecastDetailsForLocation}
-                alertsById={alertsById}
+                alertProps={alertProps}
               />
             );
           }
