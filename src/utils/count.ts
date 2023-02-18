@@ -1,7 +1,7 @@
 import { AlertsById } from '../interfaces/ForecastResponseInterface';
 
-export default function alertsFound(alertsById: AlertsById | null): boolean {
-  if (alertsById === null) {
+export default function alertsFound(alertsById: AlertsById | undefined): boolean {
+  if (alertsById === undefined || alertsById === null) {
     return false;
   }
   return JSON.stringify(alertsById) !== '{}';

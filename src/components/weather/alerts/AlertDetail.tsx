@@ -28,12 +28,12 @@ function AlertDetail(props: AlertDetailProps) {
         const sentences = lines.map((line) => convertToSentence(line));
         const endsAt = dateDifferenceInDays(alert.endsEpoch);
         return (
-          <div key={alert.id} className='alert'>
+          <div key={alert.id} className='alert' id={id}>
             <div className='title'>
               <a href={alert.link} target='_blank' rel='noreferrer'>{alert.event}</a>
               <span className='till'>
                 (endsAt) &&
-                {` ends in ${endsAt}`}
+                {` ends in ${endsAt} days`}
                 {` at ${alert.ends}`}
               </span>
             </div>

@@ -4,7 +4,7 @@ import alertsFound from './count';
 
 describe('alertsFound', () => {
   it('should return false for null', () => {
-    expect(alertsFound(null)).toBeFalsy();
+    expect(alertsFound(undefined)).toBeFalsy();
   });
 
   it('should return false for {}', () => {

@@ -5,11 +5,11 @@ export interface LocationInterface {
   latitude: number;
   longitude: number;
   sub_region?: string;
+  alertIds?: string[];
 }
 
 export interface LocationDetailData extends LocationInterface {
   wtaRegionKey?: string;
-  alertIds?: string[];
 }
 
 // eslint-disable-next-line max-len
