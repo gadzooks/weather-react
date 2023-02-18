@@ -6,6 +6,7 @@ import WeatherIcon from '../main_page/WeatherIcon';
 import { DailyForecastFilter, matchesSelecteDateString } from '../../../interfaces/DailyForecastFilter';
 import AlertProps from '../../../interfaces/AlertProps';
 import { getAlertIconFromAlerts } from '../../../model/alert';
+import { dateDifferenceInDays } from '../../../utils/date';
 
 interface LocationProps {
   isWeekend: boolean[];
@@ -21,6 +22,22 @@ interface LocationProps {
   alertIds?: string[];
 }
 
+function maxAlertDays(alertProps: AlertProps, locationAlerts: string[] | undefined):number {
+  const { alertsById } = alertProps;
+  if (!alertProps.foundAlerts || alertsById === null || locationAlerts === undefined) return -1;
+
+  return Math.max.apply(
+    null,
+    locationAlerts.map((alertId) => {
+      const alert = alertsById[alertId];
+      if (alert !== undefined) {
+        return (dateDifferenceInDays(alert.endsEpoch) || -1);
+      }
+      return -1;
+    }),
+  );
+}
+
 function Location(props: LocationProps) {
   const {
     location,
@@ -32,9 +49,11 @@ function Location(props: LocationProps) {
     wtaRegionKey,
     alertProps,
     alertIds,
+
   } = props;
   const forecasts = forecastsById.byId[location.name] || [];
   const locationHasAlerts = alertIds && (alertIds?.length > 0);
+  const maxDaysWithAlerts = maxAlertDays(alertProps, alertIds);
   return (
     <tr className='weather-cell'>
       {alertProps.foundAlerts && (
@@ -61,10 +80,11 @@ function Location(props: LocationProps) {
           return null;
         }
         const weekendClassName = isWeekend[index] ? ' weekend ' : ' ';
+        const alertClassName = index <= maxDaysWithAlerts ? ' alert-for-this-day ' : ' ';
         return (
           <td
             key={d.datetime}
-            className={`weather-cell center ${weekendClassName}`}
+            className={`weather-cell center ${weekendClassName} ${alertClassName}`}
           >
             <WeatherIcon {...d} />
           </td>
