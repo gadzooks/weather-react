@@ -1,10 +1,17 @@
 import { parse } from 'fecha';
-import { ForeacastDates } from '../interfaces/ForecastResponseInterface';
+import { ForeacastDates, ForecastResponseStatus } from '../interfaces/ForecastResponseInterface';
 import { calculateWeekends } from '../utils/date';
 
-const getForecast = async (props: any) => {
-  const { dataSource } = props;
-  const { setAppState } = props;
+export interface GetForecastProps {
+  dataSource: string,
+  setAppState: any,
+}
+
+const getForecast = async (props: GetForecastProps) => {
+  const {
+    dataSource,
+    setAppState,
+  } = props;
   const WEATHER_API = process.env.REACT_APP_WEATHER_API;
   const WEATHER_JWT_TOKEN = process.env.REACT_APP_WEATHER_JWT_TOKEN;
 
@@ -17,7 +24,12 @@ const getForecast = async (props: any) => {
       Authorization: `Bearer ${WEATHER_JWT_TOKEN}`,
     }),
   })
-    .then((res) => res.json())
+    .then((res) => {
+      if (!res.ok) {
+        throw new Error('bad response from server ');
+      }
+      return res.json();
+    })
     .then(
       (result) => {
         const forecast = result.data;
@@ -29,30 +41,35 @@ const getForecast = async (props: any) => {
           parsedDates,
           weekends,
         };
-        setAppState({
+        const newAppState: ForecastResponseStatus = {
           isLoaded: true,
           forecast: result.data,
           error: null,
           forecastDates,
-        });
+        };
+        setAppState(newAppState);
       },
       // Note: it's important to handle errors here
       // instead of a catch() block so that we don't swallow
       // exceptions from actual bugs in components.
       (error) => {
-        const forecastDates: ForeacastDates = {
-          dates: [],
-          parsedDates: [],
-          weekends: [],
-        };
-        setAppState({
-          isLoaded: true,
-          error,
-          forecast: null,
-          forecastDates,
-        });
+        throw new Error(error);
       },
-    );
+    ).catch((err) => {
+      console.log(`catching error : ${err}`);
+      const forecastDates: ForeacastDates = {
+        dates: [],
+        parsedDates: [],
+        weekends: [],
+      };
+      const errorAppState: ForecastResponseStatus = {
+        isLoaded: false,
+        error: err,
+        forecast: null,
+        forecastDates,
+      };
+      setAppState(errorAppState);
+    });
 };
 
 export default getForecast;

@@ -1,44 +1,62 @@
-import React, { useEffect, useState } from 'react';
-import getForecast from './api/weatherForecast';
-import {
-  DefaultForecastResponseStatus,
-  ForecastResponseStatus,
-} from './interfaces/ForecastResponseInterface';
-import {
-  // LS_SEARCH_KEY,
-  LS_DAILY_FORECAST_FILTER_KEY,
-} from './components/weather/Constants';
-import { DailyForecastFilter } from './interfaces/DailyForecastFilter';
-import { MatchedAreas } from './interfaces/MatchedAreas';
-import findMatchedAreas from './utils/filterMatchedAreas';
-import useLocalStorage from './utils/localstorage';
-import LocationDetail, { LocationDetailProps } from './components/weather/location_details/LocationDetail';
-import SummaryTable, { SummaryTableProps } from './components/weather/forecast_summary/SummaryTable';
-import weatherLoading from './images/weather-loading.gif';
-import './reset.css';
-import './App.scss';
 import '@fontsource/roboto/300.css';
 import '@fontsource/roboto/400.css';
 import '@fontsource/roboto/500.css';
 import '@fontsource/roboto/700.css';
+import React, { useEffect, useState } from 'react';
+import getForecast from './api/weatherForecast';
+import './App.scss';
+import {
+  // LS_SEARCH_KEY,
+  LS_DAILY_FORECAST_FILTER_KEY,
+} from './components/weather/Constants';
+import SummaryTable, {
+  SummaryTableProps,
+} from './components/weather/forecast_summary/SummaryTable';
+import LocationDetail, {
+  LocationDetailProps,
+} from './components/weather/location_details/LocationDetail';
+import weatherLoadingError from './images/little-rain-tornado-rainstorm.gif';
+import weatherLoading from './images/weather-loading.gif';
+import { DailyForecastFilter } from './interfaces/DailyForecastFilter';
+import {
+  DefaultForecastResponseStatus,
+  ForecastResponseStatus,
+} from './interfaces/ForecastResponseInterface';
+import { MatchedAreas } from './interfaces/MatchedAreas';
+import './reset.css';
+import findMatchedAreas from './utils/filterMatchedAreas';
+import useLocalStorage from './utils/localstorage';
 
 // interface SidebarNavProps extends ForecastFilterContainerProps {
 //   showSidebar: boolean;
 // }
 
-function isProduction() :boolean {
+function isProduction(): boolean {
   return process.env.NODE_ENV === 'production';
 }
 
 export function App() {
-  const [appState, setAppState] = useState<ForecastResponseStatus>(DefaultForecastResponseStatus);
+  const [appState, setAppState] = useState<ForecastResponseStatus>(
+    DefaultForecastResponseStatus,
+  );
 
   const dataSource = isProduction() ? 'real' : 'mock';
+  // let interval: any = 1;
 
   // const [sidebar, setSidebar] = useState(false);
   const [forecastDetailsForLocation, setForecastDetailsForLocation] = useState<string>();
   useEffect(() => {
     getForecast({ dataSource, setAppState });
+
+    // TODO: auto refresh page. Need to make sure that page
+    // is ONLY refreshed if latest request did not fail, so that
+    // we can show the latest valid data at all times on the page
+    // interval = setInterval(() => {
+    //   getForecast({ dataSource, setAppState });
+    // }, 10_000);
+
+    // // we call this when we unmount
+    // return () => clearInterval(interval);
   }, []);
 
   // const [searchText, setSearchText] = useLocalStorage(LS_SEARCH_KEY, '');
@@ -114,22 +132,23 @@ export function App() {
 
   return (
     <div className='theme'>
-      {/* {isProduction() && <span>{`${w} px`}</span>} */}
       <div className='container'>
-        {!appState.isLoaded && (
-          <div className='loading'>
-            <h2>Weather loading...</h2>
-          </div>
-        )}
-        {!appState.isLoaded && (
-          <div className='loading'>
-            <img src={weatherLoading} alt='Loading...' />
-          </div>
+        {!appState.isLoaded && !appState.error && (
+          <>
+            <div className='loading'>
+              <h2>Weather loading...</h2>
+            </div>
+            <div className='loading'>
+              <img src={weatherLoading} alt='Loading...' />
+            </div>
+          </>
         )}
         {appState?.error && (
-          <div>
-            Error:
-            {appState.error?.message}
+          <div className='error'>
+            <h2>{appState.error?.message}</h2>
+            <div className='error-image'>
+              <img src={weatherLoadingError} alt='Error loading weather...' />
+            </div>
           </div>
         )}
 
