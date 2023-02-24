@@ -7,53 +7,8 @@ import { DailyForecastInterface } from '../../../interfaces/DailyForecastInterfa
 import { ForeacastDates } from '../../../interfaces/ForecastResponseInterface';
 import { nth } from '../../../utils/date';
 
-const data = [
-  {
-    name: 'Page A',
-    tempMax: 4000,
-    tempMin: 2400,
-    amt: 2400,
-  },
-  {
-    name: 'Page B',
-    tempMax: 3000,
-    tempMin: 1398,
-    amt: 2210,
-  },
-  {
-    name: 'Page C',
-    tempMax: 2000,
-    tempMin: 9800,
-    amt: 2290,
-  },
-  {
-    name: 'Page D',
-    tempMax: 2780,
-    tempMin: 3908,
-    amt: 2000,
-  },
-  {
-    name: 'Page E',
-    tempMax: 1890,
-    tempMin: 4800,
-    amt: 2181,
-  },
-  {
-    name: 'Page F',
-    tempMax: 2390,
-    tempMin: 3800,
-    amt: 2500,
-  },
-  {
-    name: 'Page G',
-    tempMax: 3490,
-    tempMin: 4300,
-    amt: 2100,
-  },
-];
-
 function getDataFromForecast(forecast: DailyForecastInterface[], forecastDates: ForeacastDates) {
-  const tmpMax:any[] = [];
+  const forecastData:any[] = [];
   const { parsedDates } = forecastDates;
 
   forecast.forEach((f, index) => {
@@ -63,12 +18,10 @@ function getDataFromForecast(forecast: DailyForecastInterface[], forecastDates: 
       name: `${day}${nth(day)}`,
       ...f,
     };
-    tmpMax.push(h1);
+    forecastData.push(h1);
   });
 
-  return {
-    tmpmax: tmpMax,
-  };
+  return forecastData;
 }
 
 export interface LocationDetailChartProps {
@@ -79,12 +32,11 @@ export interface LocationDetailChartProps {
 
 function LocationDetailChart(props: LocationDetailChartProps) {
   const { forecast, weekends, forecastDates } = props;
-  console.log(data);
   console.log(weekends);
   console.log(forecastDates);
   const data1:any = getDataFromForecast(forecast, forecastDates);
   console.log('--------------');
-  console.log(data1.tmpmax);
+  console.log(data1);
   console.log('--------------');
   // {
   //   name: 'Page A',
@@ -96,7 +48,7 @@ function LocationDetailChart(props: LocationDetailChartProps) {
     <LineChart
       width={800}
       height={300}
-      data={data1.tmpmax}
+      data={data1}
       margin={{
         top: 5,
         right: 30,
