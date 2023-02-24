@@ -3,82 +3,73 @@ import {
   LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend,
 } from 'recharts';
 
-import { DailyForecastInterface, forecastProperty } from '../../../interfaces/DailyForecastInterface';
+import { DailyForecastInterface } from '../../../interfaces/DailyForecastInterface';
 import { ForeacastDates } from '../../../interfaces/ForecastResponseInterface';
 
 const data = [
   {
     name: 'Page A',
-    uv: 4000,
-    pv: 2400,
+    tempMax: 4000,
+    tempMin: 2400,
     amt: 2400,
   },
   {
     name: 'Page B',
-    uv: 3000,
-    pv: 1398,
+    tempMax: 3000,
+    tempMin: 1398,
     amt: 2210,
   },
   {
     name: 'Page C',
-    uv: 2000,
-    pv: 9800,
+    tempMax: 2000,
+    tempMin: 9800,
     amt: 2290,
   },
   {
     name: 'Page D',
-    uv: 2780,
-    pv: 3908,
+    tempMax: 2780,
+    tempMin: 3908,
     amt: 2000,
   },
   {
     name: 'Page E',
-    uv: 1890,
-    pv: 4800,
+    tempMax: 1890,
+    tempMin: 4800,
     amt: 2181,
   },
   {
     name: 'Page F',
-    uv: 2390,
-    pv: 3800,
+    tempMax: 2390,
+    tempMin: 3800,
     amt: 2500,
   },
   {
     name: 'Page G',
-    uv: 3490,
-    pv: 4300,
+    tempMax: 3490,
+    tempMin: 4300,
     amt: 2100,
   },
 ];
 
-function getDataFromForecast(forecast: DailyForecastInterface[]) {
+function getDataFromForecast(forecast: DailyForecastInterface[], forecastDates: ForeacastDates) {
   const tmpMax:any[] = [];
-  const tmpMin:any[] = [];
+  const { parsedDates } = forecastDates;
 
-  forecast.forEach((f) => {
-    const d = new Date(f.datetime);
-    const y = forecastProperty(f, 'tempmax');
+  forecast.forEach((f, index) => {
+    const d = parsedDates[index];
+    // const tempMax = forecastProperty(f, 'tempmax');
+    // const tempMin = forecastProperty(f, 'tempmin');
     const h1 = {
-      name: d.getDate(),
-      x: d.getDate(),
-      y,
-      value: y,
+      name: d?.getDate().toString(),
+      // tempMax,
+      // tempMin,
+      ...f,
     };
     tmpMax.push(h1);
-
-    const h2 = {
-      name: d.getDate(),
-      x: d.getDate(),
-      y,
-      value: y,
-    };
-    tmpMin.push(h2);
-    // return null;
   });
 
   return {
     tmpmax: tmpMax,
-    tmpmin: tmpMin,
   };
 }
 
@@ -90,23 +81,24 @@ export interface LocationDetailChartProps {
 
 function LocationDetailChart(props: LocationDetailChartProps) {
   const { forecast, weekends, forecastDates } = props;
+  console.log(data);
   console.log(weekends);
   console.log(forecastDates);
-  const data1:any = getDataFromForecast(forecast);
+  const data1:any = getDataFromForecast(forecast, forecastDates);
   console.log('--------------');
   console.log(data1.tmpmax);
   console.log('--------------');
   // {
   //   name: 'Page A',
-  //   uv: 4000,
-  //   pv: 2400,
+  //   tempMax: 4000,
+  //   tempMin: 2400,
   //   amt: 2400,
   // },
   return (
     <LineChart
       width={500}
       height={300}
-      data={data}
+      data={data1.tmpmax}
       margin={{
         top: 5,
         right: 30,
@@ -119,8 +111,8 @@ function LocationDetailChart(props: LocationDetailChartProps) {
       <YAxis />
       <Tooltip />
       <Legend />
-      <Line type='monotone' dataKey='pv' stroke='#8884d8' activeDot={{ r: 8 }} />
-      <Line type='monotone' dataKey='uv' stroke='#82ca9d' />
+      <Line type='monotone' dataKey='tempmin' stroke='#8884d8' activeDot={{ r: 4 }} />
+      <Line type='monotone' dataKey='tempmax' stroke='#ffb412' />
     </LineChart>
   );
 }
