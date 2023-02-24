@@ -33,7 +33,6 @@ function LocationDetail(props: LocationDetailProps) {
   if (!forecast) return null;
   const locProps:LocationDetailChartProps = {
     forecast,
-    weekends,
     forecastDates,
   };
 

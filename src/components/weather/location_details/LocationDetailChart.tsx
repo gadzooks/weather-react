@@ -1,11 +1,12 @@
 import React from 'react';
 import {
-  LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend,
+  ComposedChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, Area,
 } from 'recharts';
 
 import { DailyForecastInterface } from '../../../interfaces/DailyForecastInterface';
 import { ForeacastDates } from '../../../interfaces/ForecastResponseInterface';
 import { nth } from '../../../utils/date';
+import './LocationDetailChart.scss';
 
 function getDataFromForecast(forecast: DailyForecastInterface[], forecastDates: ForeacastDates) {
   const forecastData:any[] = [];
@@ -26,17 +27,15 @@ function getDataFromForecast(forecast: DailyForecastInterface[], forecastDates: 
 
 export interface LocationDetailChartProps {
   forecast: DailyForecastInterface[];
-  weekends: boolean[];
   forecastDates: ForeacastDates;
 }
 
 function LocationDetailChart(props: LocationDetailChartProps) {
-  const { forecast, weekends, forecastDates } = props;
-  console.log(weekends);
+  const { forecast, forecastDates } = props;
   console.log(forecastDates);
-  const data1:any = getDataFromForecast(forecast, forecastDates);
+  const data:any = getDataFromForecast(forecast, forecastDates);
   console.log('--------------');
-  console.log(data1);
+  console.log(data);
   console.log('--------------');
   // {
   //   name: 'Page A',
@@ -45,25 +44,29 @@ function LocationDetailChart(props: LocationDetailChartProps) {
   //   amt: 2400,
   // },
   return (
-    <LineChart
-      width={800}
-      height={300}
-      data={data1}
-      margin={{
-        top: 5,
-        right: 30,
-        left: 20,
-        bottom: 5,
-      }}
-    >
-      <CartesianGrid strokeDasharray='3 3' />
-      <XAxis dataKey='name' />
-      <YAxis />
-      <Tooltip />
-      <Legend />
-      <Line type='monotone' dataKey='tempmax' stroke='#ffb412' />
-      <Line type='monotone' dataKey='tempmin' stroke='#8884d8' activeDot={{ r: 4 }} />
-    </LineChart>
+    <div className='weather-weekly-chart'>
+      <ComposedChart
+        width={800}
+        height={300}
+        data={data}
+        margin={{
+          top: 5,
+          right: 30,
+          left: 20,
+          bottom: 5,
+        }}
+      >
+        <CartesianGrid strokeDasharray='3 3' />
+        <XAxis dataKey='name' name='day' />
+        <YAxis name='Temp' yAxisId='left' />
+        <YAxis name='Precip' yAxisId='right' orientation='right' />
+        <Tooltip />
+        <Legend />
+        <Area dataKey='precip' fill='rgb(135 201 249)' yAxisId='right' />
+        <Line type='monotone' dataKey='tempmax' stroke='#ffb412' yAxisId='left' />
+        <Line type='monotone' dataKey='tempmin' stroke='#8884d8' yAxisId='left' activeDot={{ r: 4 }} />
+      </ComposedChart>
+    </div>
   );
 }
 
