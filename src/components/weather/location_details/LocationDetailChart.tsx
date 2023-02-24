@@ -5,6 +5,7 @@ import {
 
 import { DailyForecastInterface } from '../../../interfaces/DailyForecastInterface';
 import { ForeacastDates } from '../../../interfaces/ForecastResponseInterface';
+import { nth } from '../../../utils/date';
 
 const data = [
   {
@@ -57,12 +58,9 @@ function getDataFromForecast(forecast: DailyForecastInterface[], forecastDates: 
 
   forecast.forEach((f, index) => {
     const d = parsedDates[index];
-    // const tempMax = forecastProperty(f, 'tempmax');
-    // const tempMin = forecastProperty(f, 'tempmin');
+    const day = d?.getDate() || 0;
     const h1 = {
-      name: d?.getDate().toString(),
-      // tempMax,
-      // tempMin,
+      name: `${day}${nth(day)}`,
       ...f,
     };
     tmpMax.push(h1);
@@ -96,7 +94,7 @@ function LocationDetailChart(props: LocationDetailChartProps) {
   // },
   return (
     <LineChart
-      width={500}
+      width={800}
       height={300}
       data={data1.tmpmax}
       margin={{
@@ -111,8 +109,8 @@ function LocationDetailChart(props: LocationDetailChartProps) {
       <YAxis />
       <Tooltip />
       <Legend />
-      <Line type='monotone' dataKey='tempmin' stroke='#8884d8' activeDot={{ r: 4 }} />
       <Line type='monotone' dataKey='tempmax' stroke='#ffb412' />
+      <Line type='monotone' dataKey='tempmin' stroke='#8884d8' activeDot={{ r: 4 }} />
     </LineChart>
   );
 }
