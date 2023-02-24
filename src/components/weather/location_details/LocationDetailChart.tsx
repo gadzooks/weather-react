@@ -57,8 +57,8 @@ function LocationDetailChart(props: LocationDetailChartProps) {
         }}
       >
         <CartesianGrid strokeDasharray='3 3' />
-        <XAxis dataKey='name' name='day' />
-        <YAxis name='Temp' yAxisId='left' />
+        <XAxis dataKey='name' name='day' label={{ value: 'Pages', position: 'insideBottomRight', offset: 0 }} />
+        <YAxis name='Temp' yAxisId='left' label={{ value: 'Temp', angle: -90, position: 'insideLeft' }} />
         <YAxis name='Precip' yAxisId='right' orientation='right' />
         <Tooltip />
         <Legend />
