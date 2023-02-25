@@ -61,28 +61,30 @@ function LocationDetailChart(props: LocationDetailChartProps) {
   return (
     <div className='weather-weekly-chart'>
       <ComposedChart
-        width={900}
+        className='weather-chart'
+        width={600}
         height={300}
         data={data}
         margin={{
           top: 5,
           right: 30,
-          left: 20,
+          left: 0,
           bottom: 5,
         }}
       >
         <CartesianGrid strokeDasharray='3 3' />
-        <XAxis dataKey='name' name='day' label={{ value: 'Days', position: 'insideBottomRight', offset: 0 }} />
-        <YAxis name='Temp' yAxisId='left' label={{ value: 'Temp', angle: -90, position: 'insideLeft' }} domain={[0, (dataMax:number) => (Math.max(dataMax, 100))]} />
+        <XAxis dataKey='name' name='day' label={{ value: 'Days', position: 'insideBottomRight', offset: 0 }} style={{ fontSize: '0.7rem', fontFamily: 'Arial' }} />
+        <YAxis name='Temp' yAxisId='left' label={{ value: 'Temp', angle: -90, position: 'insideLeft' }} domain={[0, (dataMax:number) => (Math.max(dataMax, 100))]} style={{ fontSize: '0.8rem', fontFamily: 'Arial' }} />
         <YAxis name='Precip' yAxisId='right' orientation='right' label={{ value: 'Precipitation', angle: -90, position: 'outsideRight' }} style={{ fontSize: '0.8rem', fontFamily: 'Arial' }} />
-        <ReferenceLine y={95} yAxisId='left' label='95' stroke='red' strokeDasharray='3 3' />
         <Tooltip />
         <Legend />
         <Bar dataKey={(d) => precipitation(d)} fill='rgb(135 201 249)' yAxisId='right' strokeWidth={1}>
-          <LabelList dataKey={(d) => precipLabel(d)} position='outside' />
+          <LabelList dataKey={(d) => precipLabel(d)} position='top' style={{ fontSize: '0.7rem', fontFamily: 'Arial', fontWeight: '1.3em' }} />
         </Bar>
-        <Line type='monotone' dataKey='tempmax' stroke='#ffb412' yAxisId='left' />
+        <Line type='monotone' dataKey='tempmax' stroke='#ffb412' yAxisId='left' label='max temp' />
         <Line type='monotone' dataKey='tempmin' stroke='#8884d8' yAxisId='left' activeDot={{ r: 4 }} />
+        <ReferenceLine y={95} yAxisId='left' label='95' stroke='red' strokeDasharray='3 3' />
+        <ReferenceLine y={32} yAxisId='left' label='32' stroke='blue' strokeDasharray='3 3' />
       </ComposedChart>
     </div>
   );
