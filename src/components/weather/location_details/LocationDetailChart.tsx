@@ -1,6 +1,6 @@
 import React from 'react';
 import {
-  ComposedChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, Area,
+  ComposedChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, Bar, LabelList, ReferenceLine,
 } from 'recharts';
 
 import { DailyForecastInterface } from '../../../interfaces/DailyForecastInterface';
@@ -46,7 +46,7 @@ function LocationDetailChart(props: LocationDetailChartProps) {
   return (
     <div className='weather-weekly-chart'>
       <ComposedChart
-        width={800}
+        width={900}
         height={300}
         data={data}
         margin={{
@@ -57,12 +57,16 @@ function LocationDetailChart(props: LocationDetailChartProps) {
         }}
       >
         <CartesianGrid strokeDasharray='3 3' />
-        <XAxis dataKey='name' name='day' label={{ value: 'Pages', position: 'insideBottomRight', offset: 0 }} />
-        <YAxis name='Temp' yAxisId='left' label={{ value: 'Temp', angle: -90, position: 'insideLeft' }} />
+        <XAxis dataKey='name' name='day' label={{ value: 'Days', position: 'insideBottomRight', offset: 0 }} />
+        <YAxis name='Temp' yAxisId='left' label={{ value: 'Temp', angle: -90, position: 'insideLeft' }} domain={[0, (dataMax:number) => (Math.max(dataMax, 100))]} />
         <YAxis name='Precip' yAxisId='right' orientation='right' />
+        <ReferenceLine y={95} yAxisId='left' label='95' stroke='red' strokeDasharray='3 3' />
         <Tooltip />
         <Legend />
-        <Area dataKey='precip' fill='rgb(135 201 249)' yAxisId='right' />
+        <Bar dataKey='precip' fill='rgb(135 201 249)' yAxisId='right' strokeWidth={1}>
+          { /* if precip below 0.1 set it to null */}
+          <LabelList dataKey='precip' position='outside' />
+        </Bar>
         <Line type='monotone' dataKey='tempmax' stroke='#ffb412' yAxisId='left' />
         <Line type='monotone' dataKey='tempmin' stroke='#8884d8' yAxisId='left' activeDot={{ r: 4 }} />
       </ComposedChart>
