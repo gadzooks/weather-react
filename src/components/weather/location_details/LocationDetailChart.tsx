@@ -47,6 +47,21 @@ function precipLabel(d:any):(string | null) {
   return precip <= 0.5 ? null : `${precip}"`;
 }
 
+// function CustomTooltip(active:any, payload:any[], label:any) {
+//   // eslint-disable-next-line react/destructuring-assignment
+//   if (active && payload && payload.length) {
+//     return (
+//       <div className='custom-tooltip'>
+//         <p className='label'>{`${label} : ${payload[0].value}`}</p>
+//         {/* <p className="intro">{getIntroOfPage(label)}</p> */}
+//         <p className='desc'>Anything you want can be displayed here.</p>
+//       </div>
+//     );
+//   }
+
+//   return null;
+// }
+
 function LocationDetailChart(props: LocationDetailChartProps) {
   const { forecast, forecastDates } = props;
   console.log(forecastDates);
@@ -78,7 +93,7 @@ function LocationDetailChart(props: LocationDetailChartProps) {
         <YAxis name='Precip' yAxisId='right' orientation='right' label={{ value: 'Precipitation', angle: -90, position: 'outsideRight' }} style={{ fontSize: '0.8rem', fontFamily: 'Arial' }} />
         <Tooltip />
         <Legend />
-        <Bar dataKey={(d) => precipitation(d)} fill='rgb(135 201 249)' yAxisId='right' strokeWidth={1}>
+        <Bar dataKey={(d) => precipitation(d)} fill='rgb(135 201 249)' yAxisId='right' strokeWidth={1} barSize={8}>
           <LabelList dataKey={(d) => precipLabel(d)} position='top' style={{ fontSize: '0.7rem', fontFamily: 'Arial', fontWeight: '1.3em' }} />
         </Bar>
         <Line type='monotone' dataKey='tempmax' stroke='#ffb412' yAxisId='left' label='max temp' />
