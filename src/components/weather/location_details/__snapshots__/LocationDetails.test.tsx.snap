@@ -2,705 +2,725 @@
 
 exports[`renders a snapshot 1`] = `
 <div
-  id="seattle"
+  className="location-details-page"
 >
-  <table
-    className="location-details table styled-table"
+  <div
+    className="heading"
   >
-    <thead
-      className="table-heading"
+    <div>
+      <a
+        className=""
+        href="https://www.wta.org/go-outside/trip-reports/tripreport_search?title=&searchabletext=&author=&startdate=&_submit=&enddate=&_submit=&month=all&format=list&filter=Search&region=04d37e830680c65b61df474e7e655d64&subregion=767d751df8b6495999e96486d4d32d49"
+        rel="noreferrer"
+        target="_blank"
+      >
+        <img
+          alt="wta-logo"
+          className="wta-logo"
+          src="wta-logo.png"
+        />
+      </a>
+    </div>
+    <div>
+      <button
+        className="button-2"
+        onClick={[Function]}
+        type="button"
+      >
+        CLE ELUM AREA1  
+      </button>
+    </div>
+  </div>
+  <div
+    className="weather-weekly-chart"
+  >
+    <div
+      className="recharts-responsive-container"
+      style={
+        Object {
+          "height": 300,
+          "maxHeight": undefined,
+          "minHeight": undefined,
+          "minWidth": undefined,
+          "width": 600,
+        }
+      }
+    />
+  </div>
+  <div
+    className="location-details-div"
+    id="seattle"
+  >
+    <table
+      className="location-details table"
     >
-      <tr
-        className="heading"
+      <thead
+        className="table-heading"
       >
-        <td
-          className="heading"
-          colSpan={7}
+        <tr
+          className="secondary-heading"
         >
-          <a
-            className=""
-            href="https://www.wta.org/go-outside/trip-reports/tripreport_search?title=&searchabletext=&author=&startdate=&_submit=&enddate=&_submit=&month=all&format=list&filter=Search&region=04d37e830680c65b61df474e7e655d64&subregion=767d751df8b6495999e96486d4d32d49"
-            rel="noreferrer"
-            target="_blank"
+          <td
+            className="center border-right"
+            colSpan={1}
           >
-            <img
-              alt="wta-logo"
-              className="wta-logo"
-              src="wta-logo.png"
+            DATE
+          </td>
+          <td
+            className="center border-right"
+            colSpan={2}
+          >
+            DETAILS
+          </td>
+          <td
+            className="border-right"
+          >
+            LOW / HIGH
+          </td>
+          <td
+            className="center border-right"
+            colSpan={2}
+          >
+            PRECIP
+          </td>
+          <td>
+            CLOUD COV
+          </td>
+        </tr>
+      </thead>
+      <tbody>
+        <tr
+          className=" weekend "
+        >
+          <td
+            className="border-right"
+          >
+            SAT
+              
+            17TH
+          </td>
+          <td>
+            <i
+              className="wi weather-icon wi-day-sunny day-sunny "
+              title="Clear conditions throughout the day."
             />
-          </a>
-          <button
-            className="button-2"
-            onClick={[Function]}
-            type="button"
+          </td>
+          <td
+            className="border-right align-left"
           >
-            CLE ELUM AREA1  
-          </button>
-        </td>
-      </tr>
-      <tr
-        className="secondary-heading"
-      >
-        <td
-          className="center border-right"
-          colSpan={1}
-        >
-          DATE
-        </td>
-        <td
-          className="center border-right"
-          colSpan={2}
-        >
-          DETAILS
-        </td>
-        <td
-          className="border-right"
-        >
-          LOW / HIGH
-        </td>
-        <td
-          className="center border-right"
-          colSpan={2}
-        >
-          PRECIP
-        </td>
-        <td>
-          CLOUD COV
-        </td>
-      </tr>
-    </thead>
-    <tbody>
-      <tr
-        className=" weekend "
-      >
-        <td
-          className="border-right"
-        >
-          SAT
-            
-          17TH
-        </td>
-        <td>
-          <i
-            className="wi weather-icon wi-day-sunny day-sunny "
-            title="Clear conditions throughout the day."
-          />
-        </td>
-        <td
-          className="border-right"
-        >
-          Clear day
-        </td>
-        <td
-          className="border-right"
-        >
-          47° / 75°
-        </td>
-        <td
-          className="align-right"
-        >
-          0%
-        </td>
-        <td
-          className="align-right border-right"
-        >
-          0"
-        </td>
-        <td
-          className="align-right"
-        >
-          1.8%       
-        </td>
-      </tr>
-      <tr
-        className=" weekend "
-      >
-        <td
-          className="border-right"
-        >
-          SUN
-            
-          18TH
-        </td>
-        <td>
-          <i
-            className="wi weather-icon wi-day-sunny day-sunny "
-            title="Clear conditions throughout the day."
-          />
-        </td>
-        <td
-          className="border-right"
-        >
-          Clear day
-        </td>
-        <td
-          className="border-right"
-        >
-          52° / 73°
-        </td>
-        <td
-          className="align-right"
-        >
-          0%
-        </td>
-        <td
-          className="align-right border-right"
-        >
-          0"
-        </td>
-        <td
-          className="align-right"
-        >
-          14.3%       
-        </td>
-      </tr>
-      <tr
-        className=" "
-      >
-        <td
-          className="border-right"
-        >
-          MON
-            
-          19TH
-        </td>
-        <td>
-          <i
-            className="wi weather-icon wi-day-sunny day-sunny "
-            title="Clear conditions throughout the day."
-          />
-        </td>
-        <td
-          className="border-right"
-        >
-          Clear day
-        </td>
-        <td
-          className="border-right"
-        >
-          52° / 70°
-        </td>
-        <td
-          className="align-right"
-        >
-          0%
-        </td>
-        <td
-          className="align-right border-right"
-        >
-          0"
-        </td>
-        <td
-          className="align-right"
-        >
-          18.5%       
-        </td>
-      </tr>
-      <tr
-        className=" "
-      >
-        <td
-          className="border-right"
-        >
-          TUE
-            
-          20TH
-        </td>
-        <td>
-          <i
-            className="wi weather-icon wi-day-cloudy day-cloudy "
-            title="Partly cloudy throughout the day."
-          />
-        </td>
-        <td
-          className="border-right"
-        >
-          Partly cloudy day
-        </td>
-        <td
-          className="border-right"
-        >
-          51° / 66°
-        </td>
-        <td
-          className="align-right"
-        >
-          19%
-        </td>
-        <td
-          className="align-right border-right"
-        >
-          0"
-        </td>
-        <td
-          className="align-right"
-        >
-          33.2%       
-        </td>
-      </tr>
-      <tr
-        className=" "
-      >
-        <td
-          className="border-right"
-        >
-          WED
-            
-          21ST
-        </td>
-        <td>
-          <i
-            className="wi weather-icon wi-day-cloudy day-cloudy "
-            title="Partly cloudy throughout the day."
-          />
-        </td>
-        <td
-          className="border-right"
-        >
-          Partly cloudy day
-        </td>
-        <td
-          className="border-right"
-        >
-          49° / 65°
-        </td>
-        <td
-          className="align-right"
-        >
-          5%
-        </td>
-        <td
-          className="align-right border-right"
-        >
-          0"
-        </td>
-        <td
-          className="align-right"
-        >
-          31.3%       
-        </td>
-      </tr>
-      <tr
-        className=" "
-      >
-        <td
-          className="border-right"
-        >
-          THU
-            
-          22ND
-        </td>
-        <td>
-          <i
-            className="wi weather-icon wi-rain rain "
-            title="Partly cloudy throughout the day with a chance of rain."
-          />
-        </td>
-        <td
-          className="border-right"
-        >
-          Rain
-        </td>
-        <td
-          className="border-right"
-        >
-          49° / 61°
-        </td>
-        <td
-          className="align-right"
-        >
-          48%
-        </td>
-        <td
-          className="align-right border-right"
-        >
-          0"
-        </td>
-        <td
-          className="align-right"
-        >
-          55%       
-        </td>
-      </tr>
-      <tr
-        className=" "
-      >
-        <td
-          className="border-right"
-        >
-          FRI
-            
-          23RD
-        </td>
-        <td>
-          <i
-            className="wi weather-icon wi-rain rain "
-            title="Partly cloudy throughout the day with morning rain."
-          />
-        </td>
-        <td
-          className="border-right"
-        >
-          Rain
-        </td>
-        <td
-          className="border-right"
-        >
-          49° / 59°
-        </td>
-        <td
-          className="align-right"
-        >
-          86%
-        </td>
-        <td
-          className="align-right border-right"
-        >
-          0"
-        </td>
-        <td
-          className="align-right"
-        >
-          80%       
-        </td>
-      </tr>
-      <tr
-        className=" weekend "
-      >
-        <td
-          className="border-right"
-        >
-          SAT
-            
-          24TH
-        </td>
-        <td>
-          <i
-            className="wi weather-icon wi-rain rain "
-            title="Cloudy skies throughout the day with a chance of rain."
-          />
-        </td>
-        <td
-          className="border-right"
-        >
-          Rain
-        </td>
-        <td
-          className="border-right"
-        >
-          50° / 66°
-        </td>
-        <td
-          className="align-right"
-        >
-          76%
-        </td>
-        <td
-          className="align-right border-right"
-        >
-          0"
-        </td>
-        <td
-          className="align-right"
-        >
-          100%       
-        </td>
-      </tr>
-      <tr
-        className=" weekend "
-      >
-        <td
-          className="border-right"
-        >
-          SUN
-            
-          25TH
-        </td>
-        <td>
-          <i
-            className="wi weather-icon wi-rain rain "
-            title="Cloudy skies throughout the day with a chance of rain throughout the day."
-          />
-        </td>
-        <td
-          className="border-right"
-        >
-          Rain
-        </td>
-        <td
-          className="border-right"
-        >
-          49° / 56°
-        </td>
-        <td
-          className="align-right"
-        >
-          71%
-        </td>
-        <td
-          className="align-right border-right"
-        >
-          0"
-        </td>
-        <td
-          className="align-right"
-        >
-          100%       
-        </td>
-      </tr>
-      <tr
-        className=" "
-      >
-        <td
-          className="border-right"
-        >
-          MON
-            
-          26TH
-        </td>
-        <td>
-          <i
-            className="wi weather-icon wi-rain rain "
-            title="Partly cloudy throughout the day with rain in the morning and afternoon."
-          />
-        </td>
-        <td
-          className="border-right"
-        >
-          Rain
-        </td>
-        <td
-          className="border-right"
-        >
-          46° / 56°
-        </td>
-        <td
-          className="align-right"
-        >
-          48%
-        </td>
-        <td
-          className="align-right border-right"
-        >
-          0"
-        </td>
-        <td
-          className="align-right"
-        >
-          74.4%       
-        </td>
-      </tr>
-      <tr
-        className=" "
-      >
-        <td
-          className="border-right"
-        >
-          TUE
-            
-          27TH
-        </td>
-        <td>
-          <i
-            className="wi weather-icon wi-cloudy cloudy sunshine-50"
-            title="Partly cloudy throughout the day."
-          />
-        </td>
-        <td
-          className="border-right"
-        >
-          Partly cloudy day
-        </td>
-        <td
-          className="border-right"
-        >
-          43° / 58°
-        </td>
-        <td
-          className="align-right"
-        >
-          43%
-        </td>
-        <td
-          className="align-right border-right"
-        >
-          0"
-        </td>
-        <td
-          className="align-right"
-        >
-          82.5%       
-        </td>
-      </tr>
-      <tr
-        className=" "
-      >
-        <td
-          className="border-right"
-        >
-          WED
-            
-          28TH
-        </td>
-        <td>
-          <i
-            className="wi weather-icon wi-cloudy cloudy sunshine-50"
-            title="Cloudy skies throughout the day."
-          />
-        </td>
-        <td
-          className="border-right"
-        >
-          Cloudy
-        </td>
-        <td
-          className="border-right"
-        >
-          47° / 51°
-        </td>
-        <td
-          className="align-right"
-        >
-          43%
-        </td>
-        <td
-          className="align-right border-right"
-        >
-          0"
-        </td>
-        <td
-          className="align-right"
-        >
-          100%       
-        </td>
-      </tr>
-      <tr
-        className=" "
-      >
-        <td
-          className="border-right"
-        >
-          THU
-            
-          29TH
-        </td>
-        <td>
-          <i
-            className="wi weather-icon wi-cloudy cloudy sunshine-50"
-            title="Partly cloudy throughout the day."
-          />
-        </td>
-        <td
-          className="border-right"
-        >
-          Partly cloudy day
-        </td>
-        <td
-          className="border-right"
-        >
-          50° / 62°
-        </td>
-        <td
-          className="align-right"
-        >
-          29%
-        </td>
-        <td
-          className="align-right border-right"
-        >
-          0"
-        </td>
-        <td
-          className="align-right"
-        >
-          89.1%       
-        </td>
-      </tr>
-      <tr
-        className=" "
-      >
-        <td
-          className="border-right"
-        >
-          FRI
-            
-          30TH
-        </td>
-        <td>
-          <i
-            className="wi weather-icon wi-cloudy cloudy sunshine-50"
-            title="Cloudy skies throughout the day."
-          />
-        </td>
-        <td
-          className="border-right"
-        >
-          Cloudy
-        </td>
-        <td
-          className="border-right"
-        >
-          51° / 60°
-        </td>
-        <td
-          className="align-right"
-        >
-          24%
-        </td>
-        <td
-          className="align-right border-right"
-        >
-          1"
-        </td>
-        <td
-          className="align-right"
-        >
-          97.4%       
-        </td>
-      </tr>
-      <tr
-        className=" weekend "
-      >
-        <td
-          className="border-right"
-        >
-          SAT
-            
-          1ST
-        </td>
-        <td>
-          <i
-            className="wi weather-icon wi-cloudy cloudy sunshine-10"
-            title="Partly cloudy throughout the day."
-          />
-        </td>
-        <td
-          className="border-right"
-        >
-          Partly cloudy day
-        </td>
-        <td
-          className="border-right"
-        >
-          46° / 56°
-        </td>
-        <td
-          className="align-right"
-        >
-          29%
-        </td>
-        <td
-          className="align-right border-right"
-        >
-          1"
-        </td>
-        <td
-          className="align-right"
-        >
-          55.1%       
-        </td>
-      </tr>
-    </tbody>
-  </table>
+            Clear 
+          </td>
+          <td
+            className="border-right"
+          >
+            47° / 75°
+          </td>
+          <td
+            className="align-right"
+          >
+            0%
+          </td>
+          <td
+            className="align-right border-right"
+          >
+            0"
+          </td>
+          <td
+            className="align-right"
+          >
+            1.8%       
+          </td>
+        </tr>
+        <tr
+          className=" weekend "
+        >
+          <td
+            className="border-right"
+          >
+            SUN
+              
+            18TH
+          </td>
+          <td>
+            <i
+              className="wi weather-icon wi-day-sunny day-sunny "
+              title="Clear conditions throughout the day."
+            />
+          </td>
+          <td
+            className="border-right align-left"
+          >
+            Clear 
+          </td>
+          <td
+            className="border-right"
+          >
+            52° / 73°
+          </td>
+          <td
+            className="align-right"
+          >
+            0%
+          </td>
+          <td
+            className="align-right border-right"
+          >
+            0"
+          </td>
+          <td
+            className="align-right"
+          >
+            14.3%       
+          </td>
+        </tr>
+        <tr
+          className=" "
+        >
+          <td
+            className="border-right"
+          >
+            MON
+              
+            19TH
+          </td>
+          <td>
+            <i
+              className="wi weather-icon wi-day-sunny day-sunny "
+              title="Clear conditions throughout the day."
+            />
+          </td>
+          <td
+            className="border-right align-left"
+          >
+            Clear 
+          </td>
+          <td
+            className="border-right"
+          >
+            52° / 70°
+          </td>
+          <td
+            className="align-right"
+          >
+            0%
+          </td>
+          <td
+            className="align-right border-right"
+          >
+            0"
+          </td>
+          <td
+            className="align-right"
+          >
+            18.5%       
+          </td>
+        </tr>
+        <tr
+          className=" "
+        >
+          <td
+            className="border-right"
+          >
+            TUE
+              
+            20TH
+          </td>
+          <td>
+            <i
+              className="wi weather-icon wi-day-cloudy day-cloudy "
+              title="Partly cloudy throughout the day."
+            />
+          </td>
+          <td
+            className="border-right align-left"
+          >
+            Partly cloudy 
+          </td>
+          <td
+            className="border-right"
+          >
+            51° / 66°
+          </td>
+          <td
+            className="align-right"
+          >
+            19%
+          </td>
+          <td
+            className="align-right border-right"
+          >
+            0"
+          </td>
+          <td
+            className="align-right"
+          >
+            33.2%       
+          </td>
+        </tr>
+        <tr
+          className=" "
+        >
+          <td
+            className="border-right"
+          >
+            WED
+              
+            21ST
+          </td>
+          <td>
+            <i
+              className="wi weather-icon wi-day-cloudy day-cloudy "
+              title="Partly cloudy throughout the day."
+            />
+          </td>
+          <td
+            className="border-right align-left"
+          >
+            Partly cloudy 
+          </td>
+          <td
+            className="border-right"
+          >
+            49° / 65°
+          </td>
+          <td
+            className="align-right"
+          >
+            5%
+          </td>
+          <td
+            className="align-right border-right"
+          >
+            0"
+          </td>
+          <td
+            className="align-right"
+          >
+            31.3%       
+          </td>
+        </tr>
+        <tr
+          className=" "
+        >
+          <td
+            className="border-right"
+          >
+            THU
+              
+            22ND
+          </td>
+          <td>
+            <i
+              className="wi weather-icon wi-rain rain "
+              title="Partly cloudy throughout the day with a chance of rain."
+            />
+          </td>
+          <td
+            className="border-right align-left"
+          >
+            Rain
+          </td>
+          <td
+            className="border-right"
+          >
+            49° / 61°
+          </td>
+          <td
+            className="align-right"
+          >
+            48%
+          </td>
+          <td
+            className="align-right border-right"
+          >
+            0"
+          </td>
+          <td
+            className="align-right"
+          >
+            55%       
+          </td>
+        </tr>
+        <tr
+          className=" "
+        >
+          <td
+            className="border-right"
+          >
+            FRI
+              
+            23RD
+          </td>
+          <td>
+            <i
+              className="wi weather-icon wi-rain rain "
+              title="Partly cloudy throughout the day with morning rain."
+            />
+          </td>
+          <td
+            className="border-right align-left"
+          >
+            Rain
+          </td>
+          <td
+            className="border-right"
+          >
+            49° / 59°
+          </td>
+          <td
+            className="align-right"
+          >
+            86%
+          </td>
+          <td
+            className="align-right border-right"
+          >
+            0"
+          </td>
+          <td
+            className="align-right"
+          >
+            80%       
+          </td>
+        </tr>
+        <tr
+          className=" weekend "
+        >
+          <td
+            className="border-right"
+          >
+            SAT
+              
+            24TH
+          </td>
+          <td>
+            <i
+              className="wi weather-icon wi-rain rain "
+              title="Cloudy skies throughout the day with a chance of rain."
+            />
+          </td>
+          <td
+            className="border-right align-left"
+          >
+            Rain
+          </td>
+          <td
+            className="border-right"
+          >
+            50° / 66°
+          </td>
+          <td
+            className="align-right"
+          >
+            76%
+          </td>
+          <td
+            className="align-right border-right"
+          >
+            0"
+          </td>
+          <td
+            className="align-right"
+          >
+            100%       
+          </td>
+        </tr>
+        <tr
+          className=" weekend "
+        >
+          <td
+            className="border-right"
+          >
+            SUN
+              
+            25TH
+          </td>
+          <td>
+            <i
+              className="wi weather-icon wi-rain rain "
+              title="Cloudy skies throughout the day with a chance of rain throughout the day."
+            />
+          </td>
+          <td
+            className="border-right align-left"
+          >
+            Rain
+          </td>
+          <td
+            className="border-right"
+          >
+            49° / 56°
+          </td>
+          <td
+            className="align-right"
+          >
+            71%
+          </td>
+          <td
+            className="align-right border-right"
+          >
+            0"
+          </td>
+          <td
+            className="align-right"
+          >
+            100%       
+          </td>
+        </tr>
+        <tr
+          className=" "
+        >
+          <td
+            className="border-right"
+          >
+            MON
+              
+            26TH
+          </td>
+          <td>
+            <i
+              className="wi weather-icon wi-rain rain "
+              title="Partly cloudy throughout the day with rain in the morning and afternoon."
+            />
+          </td>
+          <td
+            className="border-right align-left"
+          >
+            Rain
+          </td>
+          <td
+            className="border-right"
+          >
+            46° / 56°
+          </td>
+          <td
+            className="align-right"
+          >
+            48%
+          </td>
+          <td
+            className="align-right border-right"
+          >
+            0"
+          </td>
+          <td
+            className="align-right"
+          >
+            74.4%       
+          </td>
+        </tr>
+        <tr
+          className=" "
+        >
+          <td
+            className="border-right"
+          >
+            TUE
+              
+            27TH
+          </td>
+          <td>
+            <i
+              className="wi weather-icon wi-cloudy cloudy sunshine-50"
+              title="Partly cloudy throughout the day."
+            />
+          </td>
+          <td
+            className="border-right align-left"
+          >
+            Partly cloudy 
+          </td>
+          <td
+            className="border-right"
+          >
+            43° / 58°
+          </td>
+          <td
+            className="align-right"
+          >
+            43%
+          </td>
+          <td
+            className="align-right border-right"
+          >
+            0"
+          </td>
+          <td
+            className="align-right"
+          >
+            82.5%       
+          </td>
+        </tr>
+        <tr
+          className=" "
+        >
+          <td
+            className="border-right"
+          >
+            WED
+              
+            28TH
+          </td>
+          <td>
+            <i
+              className="wi weather-icon wi-cloudy cloudy sunshine-50"
+              title="Cloudy skies throughout the day."
+            />
+          </td>
+          <td
+            className="border-right align-left"
+          >
+            Cloudy
+          </td>
+          <td
+            className="border-right"
+          >
+            47° / 51°
+          </td>
+          <td
+            className="align-right"
+          >
+            43%
+          </td>
+          <td
+            className="align-right border-right"
+          >
+            0"
+          </td>
+          <td
+            className="align-right"
+          >
+            100%       
+          </td>
+        </tr>
+        <tr
+          className=" "
+        >
+          <td
+            className="border-right"
+          >
+            THU
+              
+            29TH
+          </td>
+          <td>
+            <i
+              className="wi weather-icon wi-cloudy cloudy sunshine-50"
+              title="Partly cloudy throughout the day."
+            />
+          </td>
+          <td
+            className="border-right align-left"
+          >
+            Partly cloudy 
+          </td>
+          <td
+            className="border-right"
+          >
+            50° / 62°
+          </td>
+          <td
+            className="align-right"
+          >
+            29%
+          </td>
+          <td
+            className="align-right border-right"
+          >
+            0"
+          </td>
+          <td
+            className="align-right"
+          >
+            89.1%       
+          </td>
+        </tr>
+        <tr
+          className=" "
+        >
+          <td
+            className="border-right"
+          >
+            FRI
+              
+            30TH
+          </td>
+          <td>
+            <i
+              className="wi weather-icon wi-cloudy cloudy sunshine-50"
+              title="Cloudy skies throughout the day."
+            />
+          </td>
+          <td
+            className="border-right align-left"
+          >
+            Cloudy
+          </td>
+          <td
+            className="border-right"
+          >
+            51° / 60°
+          </td>
+          <td
+            className="align-right"
+          >
+            24%
+          </td>
+          <td
+            className="align-right border-right"
+          >
+            1"
+          </td>
+          <td
+            className="align-right"
+          >
+            97.4%       
+          </td>
+        </tr>
+        <tr
+          className=" weekend "
+        >
+          <td
+            className="border-right"
+          >
+            SAT
+              
+            1ST
+          </td>
+          <td>
+            <i
+              className="wi weather-icon wi-cloudy cloudy sunshine-10"
+              title="Partly cloudy throughout the day."
+            />
+          </td>
+          <td
+            className="border-right align-left"
+          >
+            Partly cloudy 
+          </td>
+          <td
+            className="border-right"
+          >
+            46° / 56°
+          </td>
+          <td
+            className="align-right"
+          >
+            29%
+          </td>
+          <td
+            className="align-right border-right"
+          >
+            1"
+          </td>
+          <td
+            className="align-right"
+          >
+            55.1%       
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
 </div>
 `;
