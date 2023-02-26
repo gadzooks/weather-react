@@ -7,6 +7,7 @@ import { deserializeLocationData, LocationDetailData } from '../../../interfaces
 import WtaLink from './WtaLink';
 import WeatherIcon from '../main_page/WeatherIcon';
 import { ForecastResponseStatus } from '../../../interfaces/ForecastResponseInterface';
+import LocationDetailChart, { LocationDetailChartProps } from './LocationDetailChart';
 
 export interface LocationDetailProps {
   appState: ForecastResponseStatus;
@@ -30,77 +31,86 @@ function LocationDetail(props: LocationDetailProps) {
   const { parsedDates } = forecastDates;
 
   if (!forecast) return null;
-  return (
-    <div id={location.name}>
-      <table className='location-details table styled-table'>
-        <thead className='table-heading'>
-          <tr className='heading'>
-            <td colSpan={7} className='heading'>
-              <WtaLink
-                wtaRegion={location.wtaRegionKey}
-                wtaSubRegion={location.sub_region}
-              />
-              <button
-                className='button-2'
-                type='button'
-                onClick={() => setForecastDetailsForLocation(null)}
-              >
-                {`${description.toUpperCase()}  `}
+  const locProps:LocationDetailChartProps = {
+    forecast,
+    forecastDates,
+  };
 
-              </button>
-            </td>
-          </tr>
-          <tr className='secondary-heading'>
-            <td colSpan={1} className='center border-right'>
-              DATE
-            </td>
-            <td colSpan={2} className='center border-right'>
-              DETAILS
-            </td>
-            <td className='border-right'>LOW / HIGH</td>
-            <td colSpan={2} className='center border-right'>
-              PRECIP
-            </td>
-            <td>CLOUD COV</td>
-          </tr>
-        </thead>
-        <tbody>
-          {forecast.map((row, id) => {
-            const d = parsedDates[id];
-            if (d) {
-              const weekendClassName = weekends[id] ? ' weekend ' : ' ';
-              return (
-                <tr className={weekendClassName} key={row.datetime}>
-                  <td className='border-right'>
-                    {format(d, 'ddd').toUpperCase()}
-                    {'  '}
-                    {format(d, 'Do').toUpperCase()}
-                  </td>
-                  <td>
-                    <WeatherIcon {...row} key={row.datetime} />
-                  </td>
-                  <td className='border-right'>
-                    {convertToSentence(row.icon)}
-                  </td>
-                  <td className='border-right'>
-                    {`${Math.round(row.tempmin)}° / ${Math.round(
-                      row.tempmax,
-                    )}°`}
-                  </td>
-                  <td className='align-right'>
-                    {`${Math.round(row.precipprob)}%`}
-                  </td>
-                  <td className='align-right border-right'>
-                    {`${Math.round(row.precip)}"`}
-                  </td>
-                  <td className='align-right'>{`${row.cloudcover}%       `}</td>
-                </tr>
-              );
-            }
-            return null;
-          })}
-        </tbody>
-      </table>
+  return (
+    <div className='location-details-page'>
+      <div className='heading'>
+        <div>
+          <WtaLink
+            wtaRegion={location.wtaRegionKey}
+            wtaSubRegion={location.sub_region}
+          />
+        </div>
+        <div>
+          <button
+            className='button-2'
+            type='button'
+            onClick={() => setForecastDetailsForLocation(null)}
+          >
+            {`${description.toUpperCase()}  `}
+          </button>
+        </div>
+      </div>
+      <LocationDetailChart {...locProps} />
+      <div id={location.name} className='location-details-div'>
+        <table className='location-details table'>
+          <thead className='table-heading'>
+            <tr className='secondary-heading'>
+              <td colSpan={1} className='center border-right'>
+                DATE
+              </td>
+              <td colSpan={2} className='center border-right'>
+                DETAILS
+              </td>
+              <td className='border-right'>LOW / HIGH</td>
+              <td colSpan={2} className='center border-right'>
+                PRECIP
+              </td>
+              <td>CLOUD COV</td>
+            </tr>
+          </thead>
+          <tbody>
+            {forecast.map((row, id) => {
+              const d = parsedDates[id];
+              if (d) {
+                const weekendClassName = weekends[id] ? ' weekend ' : ' ';
+                return (
+                  <tr className={weekendClassName} key={row.datetime}>
+                    <td className='border-right'>
+                      {format(d, 'ddd').toUpperCase()}
+                      {'  '}
+                      {format(d, 'Do').toUpperCase()}
+                    </td>
+                    <td>
+                      <WeatherIcon {...row} key={row.datetime} />
+                    </td>
+                    <td className='border-right align-left'>
+                      {convertToSentence(row.icon).replace('day', '')}
+                    </td>
+                    <td className='border-right'>
+                      {`${Math.round(row.tempmin)}° / ${Math.round(
+                        row.tempmax,
+                      )}°`}
+                    </td>
+                    <td className='align-right'>
+                      {`${Math.round(row.precipprob)}%`}
+                    </td>
+                    <td className='align-right border-right'>
+                      {`${Math.round(row.precip)}"`}
+                    </td>
+                    <td className='align-right'>{`${row.cloudcover}%       `}</td>
+                  </tr>
+                );
+              }
+              return null;
+            })}
+          </tbody>
+        </table>
+      </div>
     </div>
   );
 }

@@ -34,3 +34,13 @@ export function dateDifferenceInDays(epochSeconds: number) {
   const diff = (date.getTime() - today.getTime()) / (1000 * 3600 * 24);
   return Math.floor(diff + 1);
 }
+
+export function nth(d: number) {
+  if (d > 3 && d < 21) return 'th';
+  switch (d % 10) {
+    case 1: return 'st';
+    case 2: return 'nd';
+    case 3: return 'rd';
+    default: return 'th';
+  }
+}

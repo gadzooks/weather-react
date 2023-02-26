@@ -12,4 +12,12 @@ export interface DailyForecastInterface {
     conditions: string;
     description: string;
     icon: string;
+    [key: string]: string | number | undefined;
+}
+
+export function forecastProperty(
+  forecast: DailyForecastInterface,
+  prop: string,
+): (string|number|undefined) {
+  return forecast[prop];
 }

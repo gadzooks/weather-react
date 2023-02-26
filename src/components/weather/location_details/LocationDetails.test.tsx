@@ -10,6 +10,24 @@ import {
 import { calculateWeekends } from '../../../utils/date';
 import LocationDetail, { LocationDetailProps } from './LocationDetail';
 
+const { ResizeObserver } = window;
+
+// from https://github.com/maslianok/react-resize-detector/issues/145#issuecomment-953569721
+beforeEach(() => {
+  // @ts-ignore
+  delete window.ResizeObserver;
+  window.ResizeObserver = jest.fn().mockImplementation(() => ({
+    observe: jest.fn(),
+    unobserve: jest.fn(),
+    disconnect: jest.fn(),
+  }));
+});
+
+afterEach(() => {
+  window.ResizeObserver = ResizeObserver;
+  jest.restoreAllMocks();
+});
+
 it('renders a snapshot', () => {
   const forecast = mockWeatherForecastNormalized()
     .data as unknown as ForecastResponse;
