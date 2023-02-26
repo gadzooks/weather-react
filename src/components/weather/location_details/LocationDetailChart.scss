@@ -1,4 +1,11 @@
-.weather-weekly-chart {
-  // margin: 15px;
-  width: 500px;
+div.custom-tooltip {
+  background-color: #f9d9b2;
+  // border-radius: 10px;
+  // padding: 10px;
+  font-size: 0.7rem;
+}
+
+div.weather-weekly-chart {
+  max-width: 600px;
+  height: 300px;
 }

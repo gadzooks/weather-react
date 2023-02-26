@@ -37,27 +37,24 @@ function LocationDetail(props: LocationDetailProps) {
   };
 
   return (
-    <>
+    <div className='location-details-page'>
+      <div className='heading'>
+        <WtaLink
+          wtaRegion={location.wtaRegionKey}
+          wtaSubRegion={location.sub_region}
+        />
+        <button
+          className='button-2'
+          type='button'
+          onClick={() => setForecastDetailsForLocation(null)}
+        >
+          {`${description.toUpperCase()}  `}
+        </button>
+      </div>
       <LocationDetailChart {...locProps} />
       <div id={location.name}>
-        <table className='location-details table styled-table'>
+        <table className='location-details table'>
           <thead className='table-heading'>
-            <tr className='heading'>
-              <td colSpan={7} className='heading'>
-                <WtaLink
-                  wtaRegion={location.wtaRegionKey}
-                  wtaSubRegion={location.sub_region}
-                />
-                <button
-                  className='button-2'
-                  type='button'
-                  onClick={() => setForecastDetailsForLocation(null)}
-                >
-                  {`${description.toUpperCase()}  `}
-
-                </button>
-              </td>
-            </tr>
             <tr className='secondary-heading'>
               <td colSpan={1} className='center border-right'>
                 DATE
@@ -87,8 +84,8 @@ function LocationDetail(props: LocationDetailProps) {
                     <td>
                       <WeatherIcon {...row} key={row.datetime} />
                     </td>
-                    <td className='border-right'>
-                      {convertToSentence(row.icon)}
+                    <td className='border-right align-left'>
+                      {convertToSentence(row.icon).replace('day', '')}
                     </td>
                     <td className='border-right'>
                       {`${Math.round(row.tempmin)}° / ${Math.round(
@@ -110,7 +107,7 @@ function LocationDetail(props: LocationDetailProps) {
           </tbody>
         </table>
       </div>
-    </>
+    </div>
   );
 }
 
