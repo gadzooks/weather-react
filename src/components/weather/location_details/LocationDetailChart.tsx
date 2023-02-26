@@ -88,15 +88,37 @@ function LocationDetailChart(props: LocationDetailChartProps) {
           data={data}
         >
           <CartesianGrid strokeDasharray='3 3' />
-          <XAxis dataKey='name' name='day' label={{ value: 'Days', position: 'insideBottomRight', offset: 0 }} style={{ fontSize: '0.5rem' }} />
+          <XAxis
+            dataKey='name'
+            name='day'
+            label={{ value: 'Days', position: 'insideBottomRight', offset: 0 }}
+            style={{ fontSize: '0.5rem' }}
+          />
           {/* <XAxis dataKey='name' tick={<WeatherIcon {...data} />} /> */}
-          <YAxis name='Temp' yAxisId='left' label={{ value: 'Temp °F', angle: -90, position: 'insideLeft' }} domain={[0, (dataMax:number) => (Math.max(dataMax, 100))]} style={{ fontSize: '0.8rem', fontFamily: 'Arial' }} />
-          <YAxis name='Precip' yAxisId='right' orientation='right' label={{ value: 'Precipitation', angle: -90, position: 'outsideRight' }} style={{ fontSize: '0.8rem', fontFamily: 'Arial' }} />
+          <YAxis
+            name='Temp'
+            yAxisId='left'
+            label={{ value: 'Temp °F', angle: -90, position: 'insideLeft' }}
+            domain={[0, (dataMax:number) => (Math.max(dataMax, 100))]}
+            style={{ fontSize: '0.8rem', fontFamily: 'Arial' }}
+          />
+          <YAxis
+            name='Precip'
+            yAxisId='right'
+            orientation='right'
+            domain={[0, (p:number) => (p + 0.2)]}
+            label={{ value: 'Precipitation', angle: -90, position: 'outsideRight' }}
+            style={{ fontSize: '0.8rem', fontFamily: 'Arial' }}
+          />
           <Tooltip />
           {/* <Tooltip content={<CustomTooltip />} trigger='click' /> */}
           <Legend />
           <Bar dataKey={(d) => precipitation(d)} fill='rgb(135 201 249)' yAxisId='right' strokeWidth={1} barSize={8}>
-            <LabelList dataKey={(d) => precipLabel(d)} position='top' style={{ fontSize: '0.7rem', fontFamily: 'Arial', fontWeight: '1.3em' }} />
+            <LabelList
+              dataKey={(d) => precipLabel(d)}
+              position='top'
+              style={{ fontSize: '0.7rem', fontFamily: 'Arial', fontWeight: '1.3em' }}
+            />
           </Bar>
           <Line type='monotone' dataKey='tempmax' stroke='#ffb412' yAxisId='left' label='max temp' />
           <Line type='monotone' dataKey='tempmin' stroke='#8884d8' yAxisId='left' activeDot={{ r: 4 }} />

@@ -1,7 +1,15 @@
 .location-details-page {
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: flex-start;
+  max-width: 600px;
+
+  .heading {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 600px;
+  }
 }
 
 div.location-details-div {
@@ -10,7 +18,6 @@ div.location-details-div {
 
 table.location-details {
   border-collapse:collapse;
-  max-width: 600px;
   font-size: 1.2rem;
 
   tbody {
@@ -53,5 +60,8 @@ table.location-details {
 //   table.location-details tbody tr td {
 //     padding: 6px 9px;
 //   }
+.location-details-page {
+//   max-width: 400px;
+}
   
 }
