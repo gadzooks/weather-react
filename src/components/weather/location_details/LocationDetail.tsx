@@ -52,7 +52,7 @@ function LocationDetail(props: LocationDetailProps) {
         </button>
       </div>
       <LocationDetailChart {...locProps} />
-      <div id={location.name}>
+      <div id={location.name} className='location-details-div'>
         <table className='location-details table'>
           <thead className='table-heading'>
             <tr className='secondary-heading'>
