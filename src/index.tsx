@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
@@ -5,28 +6,34 @@ import {
   createBrowserRouter,
   RouterProvider,
 } from 'react-router-dom';
-import { App } from './App';
+import { Provider } from 'react-redux';
+// import { App } from './App';
 import reportWebVitals from './reportWebVitals';
+import store from './app/store';
+import Counter from './features/counter/Counter';
 
 const router = createBrowserRouter([
   {
     path: '/',
-    element: <App />,
+    element: <Counter />,
     // loader: rootLoader,
-    children: [
-      {
-        path: 'team',
-        element: <App />,
-        // loader: teamLoader,
-      },
-    ],
+    // children: [
+    //   {
+    //     path: 'team',
+    //     element: <App />,
+    //     // loader: teamLoader,
+    //   },
+    // ],
   },
 ]);
 
 const root = ReactDOM.createRoot(document.getElementById('root') as Element);
 root.render(
   <React.StrictMode>
-    <RouterProvider router={router} />
+    <Provider store={store}>
+      {/* <RouterProvider router={router} /> */}
+      <Counter />
+    </Provider>
   </React.StrictMode>,
 );
 

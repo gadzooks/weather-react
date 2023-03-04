@@ -13,7 +13,7 @@ import AlertDetail from '../alerts/AlertDetail';
 import AlertProps from '../../../interfaces/AlertProps';
 
 // eslint-disable-next-line max-len
-export function matchedLocations(needle: RegExp | null, region: RegionInterface) :LocationInterface[] {
+export function matchedLocations(needle: RegExp | null, region: RegionInterface): LocationInterface[] {
   if (!needle) return region.locations;
   return region.locations.filter((l) => l.description.match(needle));
 }
