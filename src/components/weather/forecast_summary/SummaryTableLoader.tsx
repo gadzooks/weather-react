@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import getForecast from '../../../api/weatherForecast';
+import { parse } from 'fecha';
+import { getForecastAsync } from '../../../api/weatherForecast';
 import { DailyForecastFilter } from '../../../interfaces/DailyForecastFilter';
-import { ForecastResponseStatus, DefaultForecastResponseStatus } from '../../../interfaces/ForecastResponseInterface';
 import { MatchedAreas } from '../../../interfaces/MatchedAreas';
 import findMatchedAreas from '../../../utils/filterMatchedAreas';
 import useLocalStorage from '../../../utils/localstorage';
@@ -10,33 +10,48 @@ import LocationDetail, { LocationDetailProps } from '../location_details/Locatio
 import SummaryTable, { SummaryTableProps } from './SummaryTable';
 import weatherLoadingError from '../../../images/little-rain-tornado-rainstorm.gif';
 import weatherLoading from '../../../images/weather-loading.gif';
-
-function isProduction(): boolean {
-  return process.env.NODE_ENV === 'production';
-}
+import { useAppDispatch, useAppSelector } from '../../../app/hooks';
+import { mergeForecast } from '../../../features/forecast/forecastSlice';
+import { ForecastDates, ForecastResponseStatus } from '../../../interfaces/ForecastResponseInterface';
+import { calculateWeekends } from '../../../utils/date';
 
 export function SummaryTableLoader() {
-  const [appState, setAppState] = useState<ForecastResponseStatus>(
-    DefaultForecastResponseStatus,
-  );
-
-  const dataSource = isProduction() ? 'real' : 'mock';
-  // let interval: any = 1;
-
   const [forecastDetailsForLocation, setForecastDetailsForLocation] = useState<string>();
+  //   // TODO: auto refresh page. Need to make sure that page
+  //   // is ONLY refreshed if latest request did not fail, so that
+  //   // we can show the latest valid data at all times on the page
+  //   // interval = setInterval(() => {
+  //   //   getForecast({ dataSource, setAppState });
+  //   // }, 10_000);
+
+  //   // // we call this when we unmount
+  //   // return () => clearInterval(interval);
+  // }, []);
+
+  const dispatch = useAppDispatch();
+
   useEffect(() => {
-    getForecast({ dataSource, setAppState });
+    getForecastAsync().then((result) => {
+      const forecast = result.data;
+      const parsedDates = forecast.dates.map((d: string) => parse(d, 'YYYY-MM-DD'));
+      const weekends = calculateWeekends(parsedDates);
 
-    // TODO: auto refresh page. Need to make sure that page
-    // is ONLY refreshed if latest request did not fail, so that
-    // we can show the latest valid data at all times on the page
-    // interval = setInterval(() => {
-    //   getForecast({ dataSource, setAppState });
-    // }, 10_000);
-
-    // // we call this when we unmount
-    // return () => clearInterval(interval);
+      const forecastDates: ForecastDates = {
+        dates: forecast.dates,
+        parsedDates,
+        weekends,
+      };
+      const newAppState: ForecastResponseStatus = {
+        isLoaded: true,
+        forecast: result.data,
+        error: null,
+        forecastDates,
+      };
+      dispatch(mergeForecast(newAppState));
+    });
   }, []);
+
+  const appState = useAppSelector((state) => state.forecast);
 
   // const [searchText, setSearchText] = useLocalStorage(LS_SEARCH_KEY, '');
   const defaultDailyForecastFilter: DailyForecastFilter = {

@@ -7,7 +7,7 @@ import {
   RouterProvider,
 } from 'react-router-dom';
 import { Provider } from 'react-redux';
-// import { App } from './App';
+import { App } from './App';
 import reportWebVitals from './reportWebVitals';
 import Counter from './features/counter/Counter';
 import { store } from './app/store';
@@ -15,15 +15,15 @@ import { store } from './app/store';
 const router = createBrowserRouter([
   {
     path: '/',
-    element: <Counter />,
+    element: <App />,
     // loader: rootLoader,
-    // children: [
-    //   {
-    //     path: 'team',
-    //     element: <App />,
-    //     // loader: teamLoader,
-    //   },
-    // ],
+    children: [
+      {
+        path: 'team',
+        element: <Counter />,
+        // loader: teamLoader,
+      },
+    ],
   },
 ]);
 
