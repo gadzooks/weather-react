@@ -1,6 +1,4 @@
-import { parse } from 'fecha';
-import { DefaultForecastResponseStatus, ForecastDates, ForecastResponseStatus } from '../interfaces/ForecastResponseInterface';
-import { calculateWeekends } from '../utils/date';
+import { DefaultForecastResponseStatus, ForecastResponseStatus } from '../interfaces/ForecastResponseInterface';
 
 export interface GetForecastProps {
   dataSource: string,
@@ -41,20 +39,14 @@ const getForecast = async () : Promise<ForecastResponseStatus> => {
     })
     .then(
       (result) => {
-        const forecast = result.data;
-        const parsedDates = forecast.dates.map((d: string) => parse(d, 'YYYY-MM-DD'));
-        const weekends = calculateWeekends(parsedDates);
+        // const forecast = result.data;
+        // const parsedDates = forecast.dates.map((d: string) => parse(d, 'YYYY-MM-DD'));
+        // const weekends = calculateWeekends(parsedDates);
 
-        const forecastDates: ForecastDates = {
-          dates: forecast.dates,
-          parsedDates,
-          weekends,
-        };
         const newAppState: ForecastResponseStatus = {
           isLoaded: true,
           forecast: result.data,
           error: null,
-          forecastDates,
         };
         return newAppState;
       },
@@ -66,16 +58,15 @@ const getForecast = async () : Promise<ForecastResponseStatus> => {
       },
     ).catch((err) => {
       console.log(`catching error : ${err}`);
-      const forecastDates: ForecastDates = {
-        dates: [],
-        parsedDates: [],
-        weekends: [],
-      };
+      // const forecastDates: ForecastDates = {
+      //   dates: [],
+      //   parsedDates: [],
+      //   weekends: [],
+      // };
       const errorAppState: ForecastResponseStatus = {
         isLoaded: false,
         error: err,
         forecast: null,
-        forecastDates,
       };
       return errorAppState;
     });

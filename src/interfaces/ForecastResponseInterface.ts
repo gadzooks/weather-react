@@ -59,14 +59,12 @@ export interface ForecastResponseStatus {
   isLoaded?: boolean;
   error: Error | null;
   forecast: ForecastResponse | null;
-  forecastDates: ForecastDates;
 }
 
 export const DefaultForecastResponseStatus: ForecastResponseStatus = {
   isLoaded: false,
   error: null,
   forecast: null,
-  forecastDates: DefaultForecastDates,
 };
 
 // dates: [

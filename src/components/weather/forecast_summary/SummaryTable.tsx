@@ -1,9 +1,9 @@
 /* eslint-disable react/destructuring-assignment */
 import './SummaryTable.scss';
-import { format } from 'fecha';
+import { format, parse } from 'fecha';
 import React from 'react';
 import { LocationInterface } from '../../../interfaces/LocationInterface';
-import { ForecastDates, ForecastResponse } from '../../../interfaces/ForecastResponseInterface';
+import { ForecastResponse } from '../../../interfaces/ForecastResponseInterface';
 import Region from './Region';
 import { RegionInterface } from '../../../interfaces/RegionInterface';
 import { MatchedAreas } from '../../../interfaces/MatchedAreas';
@@ -11,6 +11,7 @@ import { DailyForecastFilter, dateSelectedMatchesForecastDates, matchesSelecteDa
 import alertsFound from '../../../utils/count';
 import AlertDetail from '../alerts/AlertDetail';
 import AlertProps from '../../../interfaces/AlertProps';
+import { calculateWeekends } from '../../../utils/date';
 
 // eslint-disable-next-line max-len
 export function matchedLocations(needle: RegExp | null, region: RegionInterface): LocationInterface[] {
@@ -20,7 +21,6 @@ export function matchedLocations(needle: RegExp | null, region: RegionInterface)
 
 export interface SummaryTableProps {
   forecastResponse: ForecastResponse | null;
-  forecastDates: ForecastDates;
   matchedAreas: MatchedAreas;
   dailyForecastFilter: DailyForecastFilter;
   setDailyForecastFilter: any;
@@ -53,14 +53,14 @@ function nextDateWithinRange(
 
 function SummaryTable(props: SummaryTableProps) {
   const {
-    forecastDates,
     matchedAreas,
     dailyForecastFilter,
     forecastResponse,
     setDailyForecastFilter,
     setForecastDetailsForLocation,
   } = props;
-  const { weekends, parsedDates } = forecastDates;
+  const parsedDates = (forecastResponse?.dates || []).map((d: string) => parse(d, 'YYYY-MM-DD'));
+  const weekends = calculateWeekends(parsedDates);
   const regions = matchedAreas.regions || [];
   const locationsByRegion = matchedAreas.locationsByRegion || {};
   const foundAlerts = alertsFound(forecastResponse?.alertsById);
@@ -71,7 +71,7 @@ function SummaryTable(props: SummaryTableProps) {
   };
 
   const dateSelectedIsWithinForecastRange = dateSelectedMatchesForecastDates(
-    forecastDates.dates,
+    forecastResponse?.dates || [],
     dailyForecastFilter.date,
   );
 

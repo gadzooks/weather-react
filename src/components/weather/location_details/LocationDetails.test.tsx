@@ -44,7 +44,6 @@ it('renders a snapshot', () => {
     isLoaded: true,
     error: null,
     forecast,
-    forecastDates,
   };
 
   const locDetailProps: LocationDetailProps = {
@@ -52,6 +51,7 @@ it('renders a snapshot', () => {
     forecastDetailsForLocation:
       '{"name":"seattle","description":"Cle Elum Area1","latitude":47.196943,"longitude":-120.939134,"sub_region":"767d751df8b6495999e96486d4d32d49","region":"snowqualmie_region","wtaRegionKey":"04d37e830680c65b61df474e7e655d64"}',
     setForecastDetailsForLocation: () => {},
+    forecastDates,
   };
 
   const tree = renderer

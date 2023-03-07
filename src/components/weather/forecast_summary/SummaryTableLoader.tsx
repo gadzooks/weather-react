@@ -32,20 +32,10 @@ export function SummaryTableLoader() {
 
   useEffect(() => {
     getForecastAsync().then((result) => {
-      const forecast = result.data;
-      const parsedDates = forecast.dates.map((d: string) => parse(d, 'YYYY-MM-DD'));
-      const weekends = calculateWeekends(parsedDates);
-
-      const forecastDates: ForecastDates = {
-        dates: forecast.dates,
-        parsedDates,
-        weekends,
-      };
       const newAppState: ForecastResponseStatus = {
         isLoaded: true,
         forecast: result.data,
         error: null,
-        forecastDates,
       };
       dispatch(mergeForecast(newAppState));
     });
@@ -71,10 +61,20 @@ export function SummaryTableLoader() {
     matchedAreas = findMatchedAreas(null, appState.forecast.regions);
   }
 
+  const parsedDates = (appState.forecast?.dates || []).map((d: string) => parse(d, 'YYYY-MM-DD'));
+  const weekends = calculateWeekends(parsedDates);
+
+  const forecastDates: ForecastDates = {
+    dates: appState.forecast?.dates || [],
+    parsedDates,
+    weekends,
+  };
+
   const locationDetailArgs: LocationDetailProps = {
     appState,
     forecastDetailsForLocation,
     setForecastDetailsForLocation,
+    forecastDates,
   };
 
   const summaryTableArgs: SummaryTableProps = {
@@ -82,7 +82,6 @@ export function SummaryTableLoader() {
     dailyForecastFilter,
     setDailyForecastFilter,
     setForecastDetailsForLocation,
-    forecastDates: appState.forecastDates,
     forecastResponse: appState.forecast,
   };
 

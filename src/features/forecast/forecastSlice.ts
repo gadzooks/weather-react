@@ -9,7 +9,6 @@ export const forecastSlice = createSlice({
   initialState,
   reducers: {
     mergeForecast(state, action: PayloadAction<ForecastResponseStatus>) {
-      state.forecastDates = action.payload.forecastDates;
       state.forecast = action.payload.forecast;
       state.error = action.payload.error;
       state.isLoaded = action.payload.isLoaded;
