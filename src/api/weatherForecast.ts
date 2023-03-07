@@ -1,5 +1,5 @@
 import { parse } from 'fecha';
-import { ForeacastDates, ForecastResponseStatus } from '../interfaces/ForecastResponseInterface';
+import { ForecastDates, ForecastResponseStatus } from '../interfaces/ForecastResponseInterface';
 import { calculateWeekends } from '../utils/date';
 
 export interface GetForecastProps {
@@ -36,7 +36,7 @@ const getForecast = async (props: GetForecastProps) => {
         const parsedDates = forecast.dates.map((d: string) => parse(d, 'YYYY-MM-DD'));
         const weekends = calculateWeekends(parsedDates);
 
-        const forecastDates: ForeacastDates = {
+        const forecastDates: ForecastDates = {
           dates: forecast.dates,
           parsedDates,
           weekends,
@@ -57,7 +57,7 @@ const getForecast = async (props: GetForecastProps) => {
       },
     ).catch((err) => {
       console.log(`catching error : ${err}`);
-      const forecastDates: ForeacastDates = {
+      const forecastDates: ForecastDates = {
         dates: [],
         parsedDates: [],
         weekends: [],

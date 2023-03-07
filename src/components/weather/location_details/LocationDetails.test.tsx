@@ -3,7 +3,7 @@ import React from 'react';
 import renderer from 'react-test-renderer';
 import mockWeatherForecastNormalized from '../../../api/mockData';
 import {
-  ForeacastDates,
+  ForecastDates,
   ForecastResponse,
   ForecastResponseStatus,
 } from '../../../interfaces/ForecastResponseInterface';
@@ -34,7 +34,7 @@ it('renders a snapshot', () => {
   const parsedDates = forecast.dates.map((d: string) => parse(d, 'YYYY-MM-DD'));
   const weekends = calculateWeekends(parsedDates);
 
-  const forecastDates: ForeacastDates = {
+  const forecastDates: ForecastDates = {
     dates: forecast.dates,
     parsedDates,
     weekends,

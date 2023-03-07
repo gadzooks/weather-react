@@ -9,8 +9,8 @@ import {
 import { Provider } from 'react-redux';
 // import { App } from './App';
 import reportWebVitals from './reportWebVitals';
-import store from './app/store';
 import Counter from './features/counter/Counter';
+import { store } from './app/store';
 
 const router = createBrowserRouter([
   {

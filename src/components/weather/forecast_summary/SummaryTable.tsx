@@ -3,7 +3,7 @@ import './SummaryTable.scss';
 import { format } from 'fecha';
 import React from 'react';
 import { LocationInterface } from '../../../interfaces/LocationInterface';
-import { ForeacastDates, ForecastResponse } from '../../../interfaces/ForecastResponseInterface';
+import { ForecastDates, ForecastResponse } from '../../../interfaces/ForecastResponseInterface';
 import Region from './Region';
 import { RegionInterface } from '../../../interfaces/RegionInterface';
 import { MatchedAreas } from '../../../interfaces/MatchedAreas';
@@ -20,7 +20,7 @@ export function matchedLocations(needle: RegExp | null, region: RegionInterface)
 
 export interface SummaryTableProps {
   forecastResponse: ForecastResponse | null;
-  forecastDates: ForeacastDates;
+  forecastDates: ForecastDates;
   matchedAreas: MatchedAreas;
   dailyForecastFilter: DailyForecastFilter;
   setDailyForecastFilter: any;
