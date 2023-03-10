@@ -1,45 +1,21 @@
 {
   "compilerOptions": {
-    /* Visit https://aka.ms/tsconfig to read more about this file */
-
-    /* Language and Environment */
-    "target": "es2016",                                  /* Set the JavaScript language version for emitted JavaScript and include compatible library declarations. */
-    "lib": ["ES2021.String", "DOM", "ES2015", "ES2016"], /* Specify a set of bundled library declaration files that describe the target runtime environment. */
-    "jsx": "react",                                /* Specify what JSX code is generated. */
-
-    /* Modules */
-    "module": "esnext",                                     /* Specify what module code is generated. */
-    "rootDir": "./src",                                  /* Specify the root folder within your source files. */
-    "moduleResolution": "node",                          /* Specify how TypeScript looks up a file from a given module specifier. */
-    "types": ["node"],                                      /* Specify type package names to be included without being referenced in a source file. */
-    "resolveJsonModule": true,                        /* Enable importing .json files. */
-
-    /* JavaScript Support */
-    "allowJs": true,                                  /* Allow JavaScript files to be a part of your program. Use the 'checkJS' option to get errors from these files. */
-
-    /* Emit */
-    "outDir": "dist",                                  /* Specify an output folder for all emitted files. */
-    "noEmit": true,                                   /* Disable emitting files from a compilation. */
-
-    /* Interop Constraints */
-    "isolatedModules": true,                          /* Ensure that each file can be safely transpiled without relying on other imports. */
-    "allowSyntheticDefaultImports": true,             /* Allow 'import x from y' when a module doesn't have a default export. */
-    "esModuleInterop": true,                             /* Emit additional JavaScript to ease support for importing CommonJS modules. This enables 'allowSyntheticDefaultImports' for type compatibility. */
-    "forceConsistentCasingInFileNames": true,            /* Ensure that casing is correct in imports. */
-
-    /* Type Checking */
-    "strict": true,                                      /* Enable all strict type-checking options. */
-    "noFallthroughCasesInSwitch": true,               /* Enable error reporting for fallthrough cases in switch statements. */
-
-    /* Completeness */
-    "skipLibCheck": true                                 /* Skip type checking all .d.ts files. */
+    "target": "ESNext",
+    "lib": ["dom", "dom.iterable", "esnext"],
+    "types": ["vite/client", "vite-plugin-svgr/client"],
+    "allowJs": false,
+    "skipLibCheck": false,
+    "esModuleInterop": false,
+    "allowSyntheticDefaultImports": true,
+    "strict": true,
+    "forceConsistentCasingInFileNames": true,
+    "noFallthroughCasesInSwitch": true,
+    "module": "esnext",
+    "moduleResolution": "node",
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "noEmit": true,
+    "jsx": "react-jsx"
   },
-  "exclude":[
-    "./node_modules"
-  ],
-  "include": [
-    "src",
-    // allows us to include images.
-    "src/custom.d.ts"
-  ]
+  "include": ["src"]
 }

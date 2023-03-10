@@ -5,9 +5,9 @@ export interface GetForecastProps {
   setAppState: any,
 }
 
-const dataSource = process.env.NODE_ENV === 'production' ? 'real' : 'mock';
-const WEATHER_API = process.env.REACT_APP_WEATHER_API;
-const WEATHER_JWT_TOKEN = process.env.REACT_APP_WEATHER_JWT_TOKEN;
+const dataSource = import.meta.env.NODE_ENV === 'production' ? 'real' : 'mock';
+const WEATHER_API = import.meta.env.VITE_WEATHER_API;
+const WEATHER_JWT_TOKEN = import.meta.env.VITE_WEATHER_JWT_TOKEN;
 const url = `${WEATHER_API}/forecasts/${dataSource}`;
 
 export async function getForecastAsync(): Promise<any> {

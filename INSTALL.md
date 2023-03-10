@@ -1,5 +1,5 @@
 # Installation (TODO)
 
 ## env variabls required : 
-REACT_APP_WEATHER_JWT_TOKEN (see weather-expressjs-api for details)
-REACT_APP_WEATHER_API
+VITE_WEATHER_JWT_TOKEN (see weather-expressjs-api for details)
+VITE_WEATHER_API
