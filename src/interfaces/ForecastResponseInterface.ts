@@ -43,13 +43,13 @@ export interface ForecastResponse {
   allAlertIds: string[];
 }
 
-export interface ForeacastDates {
+export interface ForecastDates {
   dates: string[];
   parsedDates: (Date|null)[];
   weekends: boolean[];
 }
 
-export const DefaultForecastDates: ForeacastDates = {
+export const DefaultForecastDates: ForecastDates = {
   dates: [],
   parsedDates: [],
   weekends: [],
@@ -59,14 +59,12 @@ export interface ForecastResponseStatus {
   isLoaded?: boolean;
   error: Error | null;
   forecast: ForecastResponse | null;
-  forecastDates: ForeacastDates;
 }
 
 export const DefaultForecastResponseStatus: ForecastResponseStatus = {
   isLoaded: false,
   error: null,
   forecast: null,
-  forecastDates: DefaultForecastDates,
 };
 
 // dates: [

@@ -10,7 +10,7 @@ import {
 import { ValueType, NameType } from 'recharts/types/component/DefaultTooltipContent';
 
 import { DailyForecastInterface } from '../../../interfaces/DailyForecastInterface';
-import { ForeacastDates } from '../../../interfaces/ForecastResponseInterface';
+import { ForecastDates } from '../../../interfaces/ForecastResponseInterface';
 import { nth } from '../../../utils/date';
 import WeatherIcon from '../main_page/WeatherIcon';
 import './LocationDetailChart.scss';
@@ -38,7 +38,7 @@ import './LocationDetailChart.scss';
 //   return null;
 // }
 
-function getDataFromForecast(forecast: DailyForecastInterface[], forecastDates: ForeacastDates) {
+function getDataFromForecast(forecast: DailyForecastInterface[], forecastDates: ForecastDates) {
   const forecastData:any[] = [];
   const { parsedDates } = forecastDates;
 
@@ -57,7 +57,7 @@ function getDataFromForecast(forecast: DailyForecastInterface[], forecastDates: 
 
 export interface LocationDetailChartProps {
   forecast: DailyForecastInterface[];
-  forecastDates: ForeacastDates;
+  forecastDates: ForecastDates;
 }
 
 function precipitation(d:DailyForecastInterface):(number | null) {

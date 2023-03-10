@@ -6,13 +6,14 @@ import convertToSentence from '../../../utils/string';
 import { deserializeLocationData, LocationDetailData } from '../../../interfaces/LocationInterface';
 import WtaLink from './WtaLink';
 import WeatherIcon from '../main_page/WeatherIcon';
-import { ForecastResponseStatus } from '../../../interfaces/ForecastResponseInterface';
+import { ForecastDates, ForecastResponseStatus } from '../../../interfaces/ForecastResponseInterface';
 import LocationDetailChart, { LocationDetailChartProps } from './LocationDetailChart';
 
 export interface LocationDetailProps {
   appState: ForecastResponseStatus;
   forecastDetailsForLocation: string | undefined;
   setForecastDetailsForLocation: any;
+  forecastDates: ForecastDates;
 }
 
 function LocationDetail(props: LocationDetailProps) {
@@ -20,13 +21,11 @@ function LocationDetail(props: LocationDetailProps) {
   if (!forecastDetailsForLocation) return null;
 
   const location:LocationDetailData = deserializeLocationData(forecastDetailsForLocation);
-  const { appState } = props;
-  const { setForecastDetailsForLocation } = props;
+  const { appState, setForecastDetailsForLocation, forecastDates } = props;
 
   const { description } = location;
   const forecastsByLocation = appState.forecast?.forecasts.byId || {};
   const forecast = forecastsByLocation[location.name];
-  const { forecastDates } = appState;
   const { weekends } = forecastDates;
   const { parsedDates } = forecastDates;
 
