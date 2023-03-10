@@ -39,10 +39,6 @@ const getForecast = async () : Promise<ForecastResponseStatus> => {
     })
     .then(
       (result) => {
-        // const forecast = result.data;
-        // const parsedDates = forecast.dates.map((d: string) => parse(d, 'YYYY-MM-DD'));
-        // const weekends = calculateWeekends(parsedDates);
-
         const newAppState: ForecastResponseStatus = {
           isLoaded: true,
           forecast: result.data,
@@ -50,19 +46,11 @@ const getForecast = async () : Promise<ForecastResponseStatus> => {
         };
         return newAppState;
       },
-      // Note: it's important to handle errors here
-      // instead of a catch() block so that we don't swallow
-      // exceptions from actual bugs in components.
       (error) => {
         throw new Error(error);
       },
     ).catch((err) => {
       console.log(`catching error : ${err}`);
-      // const forecastDates: ForecastDates = {
-      //   dates: [],
-      //   parsedDates: [],
-      //   weekends: [],
-      // };
       const errorAppState: ForecastResponseStatus = {
         isLoaded: false,
         error: err,
