@@ -6,7 +6,7 @@ import React from 'react';
 import './App.scss';
 // eslint-disable-next-line import/no-named-as-default
 import SummaryTableLoader from './components/weather/forecast_summary/SummaryTableLoader';
-import './reset.css';
+// import './reset.css';
 
 // eslint-disable-next-line import/prefer-default-export
 export function App() {
