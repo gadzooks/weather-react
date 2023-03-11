@@ -5,7 +5,7 @@ export interface GetForecastProps {
   setAppState: any,
 }
 
-const dataSource = import.meta.env.NODE_ENV === 'production' ? 'real' : 'mock';
+const dataSource = import.meta.env.PROD ? 'real' : 'mock';
 const WEATHER_API = import.meta.env.VITE_WEATHER_API;
 const WEATHER_JWT_TOKEN = import.meta.env.VITE_WEATHER_JWT_TOKEN;
 const url = `${WEATHER_API}/forecasts/${dataSource}`;
