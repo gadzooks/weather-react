@@ -36,6 +36,7 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
+    "preview": "vite preview --port 8080",
     "serve": "vite preview",
     "test": "vitest run",
     "test:watch": "vitest watch",
