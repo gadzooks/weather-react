@@ -13,10 +13,10 @@
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.3.0",
     "@testing-library/user-event": "^13.5.0",
-    "@types/jest": "^28.1.1",
     "@types/react": "^18.0.12",
     "@types/react-dom": "^18.0.5",
     "@types/recharts": "^1.8.24",
+    "@vitejs/plugin-react": "2.2.0",
     "axios": "^0.27.2",
     "fecha": "^4.2.3",
     "polished": "^4.2.2",
@@ -25,25 +25,26 @@
     "react-dom": "^18.1.0",
     "react-redux": "^8.0.5",
     "react-router-dom": "^6.8.1",
-    "react-scripts": "^5.0.1",
     "recharts": "^2.4.3",
-    "sass": "^1.52.3",
     "serve": "^14.2.0",
     "styled-components": "^5.3.5",
     "typescript": "^4.7.3",
+    "vite": "3.2.2",
+    "vite-plugin-svgr": "0.3.0",
     "web-vitals": "^2.1.4"
   },
   "scripts": {
-    "build": "react-scripts build",
-    "dev": "react-scripts start",
-    "eject": "react-scripts eject",
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview --port 8080",
+    "serve": "vite preview",
+    "test": "vitest run",
+    "test:watch": "vitest watch",
+    "test:coverage": "vitest run --coverage",
     "heroku-prebuild": "npm config set ignore-scripts true",
     "lint": "eslint ./src --fix",
     "prettier": "npx prettier src test --check",
-    "prettier:fix": "npm run prettier -- --write",
-    "start": "serve -s build",
-    "test": "CI=true react-scripts test",
-    "watch": "react-scripts test"
+    "prettier:fix": "npm run prettier -- --write"
   },
   "resolutions": {
     "@types/react": "^18.0.12"
@@ -72,6 +73,8 @@
     "@types/styled-components": "^5.1.25",
     "@typescript-eslint/eslint-plugin": "^5.29.0",
     "@typescript-eslint/parser": "^5.29.0",
+    "@vitest/coverage-c8": "^0.29.2",
+    "c8": "^7.13.0",
     "eslint": "^8.18.0",
     "eslint-config-airbnb": "^19.0.4",
     "eslint-plugin-import": "^2.26.0",
@@ -79,8 +82,11 @@
     "eslint-plugin-react": "^7.30.1",
     "eslint-plugin-react-hooks": "^4.6.0",
     "jest-watch-typeahead": "^0.6.5",
+    "jsdom": "^21.1.0",
     "lint-staged": "^13.0.1",
     "prettier": "2.7.0",
-    "react-test-renderer": "^18.2.0"
+    "react-test-renderer": "^18.2.0",
+    "sass": "^1.58.3",
+    "vitest": "^0.29.2"
   }
 }

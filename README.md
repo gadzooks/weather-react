@@ -53,7 +53,7 @@ docker run
     -v ${PWD}:/app \
     -v /app/node_modules \
     -p 3000:3000 \
-    -e REACT_APP_WEATHER_API=http://localhost:4000 \
+    -e VITE_WEATHER_API=http://localhost:4000 \
     sample:react-app
 ```
 
@@ -65,7 +65,7 @@ docker run \
     -v ${PWD}:/app \
     -v /app/node_modules \
     -p 80:80 \    
-    -e REACT_APP_WEATHER_API=https://weather-expressjs-api.onrender.com \
+    -e VITE_WEATHER_API=https://weather-expressjs-api.onrender.com \
     react-app-production
 
 ```

@@ -1,6 +1,7 @@
 import { parse } from 'fecha';
 import React from 'react';
 import renderer from 'react-test-renderer';
+// import { vi } from 'vitest';
 import mockWeatherForecastNormalized from '../../../api/mockData';
 import {
   ForecastDates,
@@ -10,23 +11,23 @@ import {
 import { calculateWeekends } from '../../../utils/date';
 import LocationDetail, { LocationDetailProps } from './LocationDetail';
 
-const { ResizeObserver } = window;
+// const { ResizeObserver } = window;
 
-// from https://github.com/maslianok/react-resize-detector/issues/145#issuecomment-953569721
-beforeEach(() => {
-  // @ts-ignore
-  delete window.ResizeObserver;
-  window.ResizeObserver = jest.fn().mockImplementation(() => ({
-    observe: jest.fn(),
-    unobserve: jest.fn(),
-    disconnect: jest.fn(),
-  }));
-});
+// // from https://github.com/maslianok/react-resize-detector/issues/145#issuecomment-953569721
+// beforeEach(() => {
+//   // @ts-ignore
+//   delete window.ResizeObserver;
+//   window.ResizeObserver = vi.fn().mockImplementation(() => ({
+//     observe: vi.fn(),
+//     unobserve: vi.fn(),
+//     disconnect: vi.fn(),
+//   }));
+// });
 
-afterEach(() => {
-  window.ResizeObserver = ResizeObserver;
-  jest.restoreAllMocks();
-});
+// afterEach(() => {
+//   window.ResizeObserver = ResizeObserver;
+//   vi.restoreAllMocks();
+// });
 
 it('renders a snapshot', () => {
   const forecast = mockWeatherForecastNormalized()

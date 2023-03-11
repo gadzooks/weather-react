@@ -1,4 +1,4 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
 exports[`renders a snapshot 1`] = `
 <div
@@ -17,7 +17,7 @@ exports[`renders a snapshot 1`] = `
         <img
           alt="wta-logo"
           className="wta-logo"
-          src="wta-logo.png"
+          src="/src/images/wta-logo.png"
         />
       </a>
     </div>
@@ -37,7 +37,7 @@ exports[`renders a snapshot 1`] = `
     <div
       className="recharts-responsive-container"
       style={
-        Object {
+        {
           "height": 300,
           "maxHeight": undefined,
           "minHeight": undefined,
