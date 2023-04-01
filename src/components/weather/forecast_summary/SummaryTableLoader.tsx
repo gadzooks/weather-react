@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { parse } from 'fecha';
-import { getForecastAsync } from '../../../api/weatherForecast';
+import getForecast, { getForecastAsync } from '../../../api/weatherForecast';
 import { DailyForecastFilter } from '../../../interfaces/DailyForecastFilter';
 import { MatchedAreas } from '../../../interfaces/MatchedAreas';
 import findMatchedAreas from '../../../utils/filterMatchedAreas';
@@ -31,7 +31,7 @@ export function SummaryTableLoader() {
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    getForecastAsync().then((result) => {
+    getForecast().then((result) => {
       const newAppState: ForecastResponseStatus = {
         isLoaded: true,
         forecast: result.data,

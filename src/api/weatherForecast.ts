@@ -1,4 +1,5 @@
-import { DefaultForecastResponseStatus, ForecastResponseStatus } from '../interfaces/ForecastResponseInterface';
+import { ForecastResponseStatus, DefaultForecastResponseStatus } from '../interfaces/ForecastResponseInterface';
+import fetchWithRetries from './retry';
 
 export interface GetForecastProps {
   dataSource: string,
@@ -10,8 +11,9 @@ const WEATHER_API = import.meta.env.VITE_WEATHER_API;
 const WEATHER_JWT_TOKEN = import.meta.env.VITE_WEATHER_JWT_TOKEN;
 const url = `${WEATHER_API}/forecasts/${dataSource}`;
 
-export async function getForecastAsync(): Promise<any> {
-  const results = await fetch(`${url}`, {
+export async function getForecast(): Promise<any> {
+  console.log(`calling ${url}`);
+  const results = await fetchWithRetries(`${url}`, {
     mode: 'cors',
     headers: new Headers({
       Authorization: `Bearer ${WEATHER_JWT_TOKEN}`,
@@ -22,10 +24,11 @@ export async function getForecastAsync(): Promise<any> {
   return forecast;
 }
 
-const getForecast = async () : Promise<ForecastResponseStatus> => {
+const getForecast1 = async () : Promise<ForecastResponseStatus> => {
   // eslint-disable-next-line no-promise-executor-return
   // await new Promise((r) => setTimeout(r, 300000));
-  await fetch(`${url}`, {
+  console.log(`calling ${url}`);
+  await fetchWithRetries(`${url}`, {
     mode: 'cors',
     headers: new Headers({
       Authorization: `Bearer ${WEATHER_JWT_TOKEN}`,
@@ -41,7 +44,7 @@ const getForecast = async () : Promise<ForecastResponseStatus> => {
       (result) => {
         const newAppState: ForecastResponseStatus = {
           isLoaded: true,
-          forecast: result.data,
+          forecast: result.forecast,
           error: null,
         };
         return newAppState;
