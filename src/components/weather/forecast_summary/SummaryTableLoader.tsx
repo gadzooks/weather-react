@@ -100,7 +100,7 @@ export function SummaryTableLoader() {
   };
 
   return (
-    <div className='theme'>
+    <div className='theme font-loader'>
       <div className='container'>
         {!appState.isLoaded && !appState.error && (
           <>
