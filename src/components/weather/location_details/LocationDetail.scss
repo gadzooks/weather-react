@@ -1,19 +1,24 @@
 .location-details-page {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
   max-width: 600px;
 
   .heading {
     display: flex;
     justify-content: center;
     align-items: flex-start;
-    width: 600px;
+    padding-top: 5px;
+    padding-bottom: 20px;
+
+    .wta-link {
+      padding-top: 7px;
+      padding-right: 10px;
+    }
   }
 }
 
 div.location-details-div {
   padding-top: 10px;
+  padding-left: 10px;
+  padding-bottom: 10px;
 }
 
 table.location-details {
@@ -27,6 +32,11 @@ table.location-details {
   thead tr {
     background-color: #cfe2f5;
     text-align: center;
+    font-weight: bolder;
+
+    td {
+      padding: 10px;
+    }
   }
 
   tbody td {
@@ -56,12 +66,13 @@ table.location-details {
   border-right: 1px solid #afafaf;
 }
 
-@media (max-width: 500px) {
-//   table.location-details tbody tr td {
-//     padding: 6px 9px;
-//   }
-.location-details-page {
-//   max-width: 400px;
-}
+// @media (max-width: 500px) {
+// //   table.location-details tbody tr td {
+// //     padding: 6px 9px;
+// //   }
+// .location-details-page {
+//   align-items: flex-start;
+// //   max-width: 400px;
+// }
   
-}
+// }

@@ -82,7 +82,7 @@ function LocationDetailChart(props: LocationDetailChartProps) {
   const data:any = getDataFromForecast(forecast, forecastDates);
   return (
     <div className='weather-weekly-chart'>
-      <ResponsiveContainer width={600} height={300}>
+      <ResponsiveContainer>
         <ComposedChart
           className='weather-chart'
           data={data}

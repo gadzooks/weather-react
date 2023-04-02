@@ -38,7 +38,7 @@ function LocationDetail(props: LocationDetailProps) {
   return (
     <div className='location-details-page'>
       <div className='heading'>
-        <div>
+        <div className='wta-link'>
           <WtaLink
             wtaRegion={location.wtaRegionKey}
             wtaSubRegion={location.sub_region}
@@ -65,7 +65,7 @@ function LocationDetail(props: LocationDetailProps) {
               <td colSpan={2} className='center border-right'>
                 DETAILS
               </td>
-              <td className='border-right'>LOW / HIGH</td>
+              <td className='border-right'>H / L</td>
               <td colSpan={2} className='center border-right'>
                 PRECIP
               </td>
@@ -91,8 +91,8 @@ function LocationDetail(props: LocationDetailProps) {
                       {convertToSentence(row.icon).replace('day', '')}
                     </td>
                     <td className='border-right'>
-                      {`${Math.round(row.tempmin)}° / ${Math.round(
-                        row.tempmax,
+                      {`${Math.round(row.tempmax)}° / ${Math.round(
+                        row.tempmin,
                       )}°`}
                     </td>
                     <td className='align-right'>
@@ -101,7 +101,7 @@ function LocationDetail(props: LocationDetailProps) {
                     <td className='align-right border-right'>
                       {`${Math.round(row.precip)}"`}
                     </td>
-                    <td className='align-right'>{`${row.cloudcover}%       `}</td>
+                    <td className='align-right'>{`${row.cloudcover}%`}</td>
                   </tr>
                 );
               }

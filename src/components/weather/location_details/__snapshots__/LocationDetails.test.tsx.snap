@@ -7,7 +7,9 @@ exports[`renders a snapshot 1`] = `
   <div
     className="heading"
   >
-    <div>
+    <div
+      className="wta-link"
+    >
       <a
         className=""
         href="https://www.wta.org/go-outside/trip-reports/tripreport_search?title=&searchabletext=&author=&startdate=&_submit=&enddate=&_submit=&month=all&format=list&filter=Search&region=04d37e830680c65b61df474e7e655d64&subregion=767d751df8b6495999e96486d4d32d49"
@@ -38,11 +40,11 @@ exports[`renders a snapshot 1`] = `
       className="recharts-responsive-container"
       style={
         {
-          "height": 300,
+          "height": "100%",
           "maxHeight": undefined,
           "minHeight": undefined,
           "minWidth": undefined,
-          "width": 600,
+          "width": "100%",
         }
       }
     />
@@ -75,7 +77,7 @@ exports[`renders a snapshot 1`] = `
           <td
             className="border-right"
           >
-            LOW / HIGH
+            H / L
           </td>
           <td
             className="center border-right"
@@ -113,7 +115,7 @@ exports[`renders a snapshot 1`] = `
           <td
             className="border-right"
           >
-            47° / 75°
+            75° / 47°
           </td>
           <td
             className="align-right"
@@ -128,7 +130,7 @@ exports[`renders a snapshot 1`] = `
           <td
             className="align-right"
           >
-            1.8%       
+            1.8%
           </td>
         </tr>
         <tr
@@ -155,7 +157,7 @@ exports[`renders a snapshot 1`] = `
           <td
             className="border-right"
           >
-            52° / 73°
+            73° / 52°
           </td>
           <td
             className="align-right"
@@ -170,7 +172,7 @@ exports[`renders a snapshot 1`] = `
           <td
             className="align-right"
           >
-            14.3%       
+            14.3%
           </td>
         </tr>
         <tr
@@ -197,7 +199,7 @@ exports[`renders a snapshot 1`] = `
           <td
             className="border-right"
           >
-            52° / 70°
+            70° / 52°
           </td>
           <td
             className="align-right"
@@ -212,7 +214,7 @@ exports[`renders a snapshot 1`] = `
           <td
             className="align-right"
           >
-            18.5%       
+            18.5%
           </td>
         </tr>
         <tr
@@ -234,12 +236,12 @@ exports[`renders a snapshot 1`] = `
           <td
             className="border-right align-left"
           >
-            Partly cloudy 
+            Ptly Cloudy
           </td>
           <td
             className="border-right"
           >
-            51° / 66°
+            66° / 51°
           </td>
           <td
             className="align-right"
@@ -254,7 +256,7 @@ exports[`renders a snapshot 1`] = `
           <td
             className="align-right"
           >
-            33.2%       
+            33.2%
           </td>
         </tr>
         <tr
@@ -276,12 +278,12 @@ exports[`renders a snapshot 1`] = `
           <td
             className="border-right align-left"
           >
-            Partly cloudy 
+            Ptly Cloudy
           </td>
           <td
             className="border-right"
           >
-            49° / 65°
+            65° / 49°
           </td>
           <td
             className="align-right"
@@ -296,7 +298,7 @@ exports[`renders a snapshot 1`] = `
           <td
             className="align-right"
           >
-            31.3%       
+            31.3%
           </td>
         </tr>
         <tr
@@ -323,7 +325,7 @@ exports[`renders a snapshot 1`] = `
           <td
             className="border-right"
           >
-            49° / 61°
+            61° / 49°
           </td>
           <td
             className="align-right"
@@ -338,7 +340,7 @@ exports[`renders a snapshot 1`] = `
           <td
             className="align-right"
           >
-            55%       
+            55%
           </td>
         </tr>
         <tr
@@ -365,7 +367,7 @@ exports[`renders a snapshot 1`] = `
           <td
             className="border-right"
           >
-            49° / 59°
+            59° / 49°
           </td>
           <td
             className="align-right"
@@ -380,7 +382,7 @@ exports[`renders a snapshot 1`] = `
           <td
             className="align-right"
           >
-            80%       
+            80%
           </td>
         </tr>
         <tr
@@ -407,7 +409,7 @@ exports[`renders a snapshot 1`] = `
           <td
             className="border-right"
           >
-            50° / 66°
+            66° / 50°
           </td>
           <td
             className="align-right"
@@ -422,7 +424,7 @@ exports[`renders a snapshot 1`] = `
           <td
             className="align-right"
           >
-            100%       
+            100%
           </td>
         </tr>
         <tr
@@ -449,7 +451,7 @@ exports[`renders a snapshot 1`] = `
           <td
             className="border-right"
           >
-            49° / 56°
+            56° / 49°
           </td>
           <td
             className="align-right"
@@ -464,7 +466,7 @@ exports[`renders a snapshot 1`] = `
           <td
             className="align-right"
           >
-            100%       
+            100%
           </td>
         </tr>
         <tr
@@ -491,7 +493,7 @@ exports[`renders a snapshot 1`] = `
           <td
             className="border-right"
           >
-            46° / 56°
+            56° / 46°
           </td>
           <td
             className="align-right"
@@ -506,7 +508,7 @@ exports[`renders a snapshot 1`] = `
           <td
             className="align-right"
           >
-            74.4%       
+            74.4%
           </td>
         </tr>
         <tr
@@ -528,12 +530,12 @@ exports[`renders a snapshot 1`] = `
           <td
             className="border-right align-left"
           >
-            Partly cloudy 
+            Ptly Cloudy
           </td>
           <td
             className="border-right"
           >
-            43° / 58°
+            58° / 43°
           </td>
           <td
             className="align-right"
@@ -548,7 +550,7 @@ exports[`renders a snapshot 1`] = `
           <td
             className="align-right"
           >
-            82.5%       
+            82.5%
           </td>
         </tr>
         <tr
@@ -575,7 +577,7 @@ exports[`renders a snapshot 1`] = `
           <td
             className="border-right"
           >
-            47° / 51°
+            51° / 47°
           </td>
           <td
             className="align-right"
@@ -590,7 +592,7 @@ exports[`renders a snapshot 1`] = `
           <td
             className="align-right"
           >
-            100%       
+            100%
           </td>
         </tr>
         <tr
@@ -612,12 +614,12 @@ exports[`renders a snapshot 1`] = `
           <td
             className="border-right align-left"
           >
-            Partly cloudy 
+            Ptly Cloudy
           </td>
           <td
             className="border-right"
           >
-            50° / 62°
+            62° / 50°
           </td>
           <td
             className="align-right"
@@ -632,7 +634,7 @@ exports[`renders a snapshot 1`] = `
           <td
             className="align-right"
           >
-            89.1%       
+            89.1%
           </td>
         </tr>
         <tr
@@ -659,7 +661,7 @@ exports[`renders a snapshot 1`] = `
           <td
             className="border-right"
           >
-            51° / 60°
+            60° / 51°
           </td>
           <td
             className="align-right"
@@ -674,7 +676,7 @@ exports[`renders a snapshot 1`] = `
           <td
             className="align-right"
           >
-            97.4%       
+            97.4%
           </td>
         </tr>
         <tr
@@ -696,12 +698,12 @@ exports[`renders a snapshot 1`] = `
           <td
             className="border-right align-left"
           >
-            Partly cloudy 
+            Ptly Cloudy
           </td>
           <td
             className="border-right"
           >
-            46° / 56°
+            56° / 46°
           </td>
           <td
             className="align-right"
@@ -716,7 +718,7 @@ exports[`renders a snapshot 1`] = `
           <td
             className="align-right"
           >
-            55.1%       
+            55.1%
           </td>
         </tr>
       </tbody>
