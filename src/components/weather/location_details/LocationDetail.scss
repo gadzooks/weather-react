@@ -1,14 +1,17 @@
 .location-details-page {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
   max-width: 600px;
 
   .heading {
     display: flex;
     justify-content: center;
     align-items: flex-start;
-    // width: 600px;
+    padding-top: 5px;
+    padding-bottom: 20px;
+
+    .wta-link {
+      padding-top: 7px;
+      padding-right: 10px;
+    }
   }
 }
 

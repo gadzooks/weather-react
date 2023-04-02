@@ -7,7 +7,9 @@ exports[`renders a snapshot 1`] = `
   <div
     className="heading"
   >
-    <div>
+    <div
+      className="wta-link"
+    >
       <a
         className=""
         href="https://www.wta.org/go-outside/trip-reports/tripreport_search?title=&searchabletext=&author=&startdate=&_submit=&enddate=&_submit=&month=all&format=list&filter=Search&region=04d37e830680c65b61df474e7e655d64&subregion=767d751df8b6495999e96486d4d32d49"

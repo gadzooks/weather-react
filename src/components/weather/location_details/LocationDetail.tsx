@@ -38,7 +38,7 @@ function LocationDetail(props: LocationDetailProps) {
   return (
     <div className='location-details-page'>
       <div className='heading'>
-        <div>
+        <div className='wta-link'>
           <WtaLink
             wtaRegion={location.wtaRegionKey}
             wtaSubRegion={location.sub_region}
