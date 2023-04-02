@@ -14,6 +14,8 @@
 
 div.location-details-div {
   padding-top: 10px;
+  padding-left: 10px;
+  padding-bottom: 10px;
 }
 
 table.location-details {
@@ -27,6 +29,11 @@ table.location-details {
   thead tr {
     background-color: #cfe2f5;
     text-align: center;
+    font-weight: bolder;
+
+    td {
+      padding: 10px;
+    }
   }
 
   tbody td {
