@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import { parse } from 'fecha';
-import getForecast, { getForecastAsync } from '../../../api/weatherForecast';
 import { DailyForecastFilter } from '../../../interfaces/DailyForecastFilter';
 import { MatchedAreas } from '../../../interfaces/MatchedAreas';
 import findMatchedAreas from '../../../utils/filterMatchedAreas';
@@ -14,31 +13,60 @@ import { useAppDispatch, useAppSelector } from '../../../app/hooks';
 import { mergeForecast } from '../../../features/forecast/forecastSlice';
 import { ForecastDates, ForecastResponseStatus } from '../../../interfaces/ForecastResponseInterface';
 import { calculateWeekends } from '../../../utils/date';
+import fetchWithRetries from '../../../api/retry';
+
+const dataSource = import.meta.env.PROD ? 'real' : 'mock';
+const WEATHER_API = import.meta.env.VITE_WEATHER_API;
+const WEATHER_JWT_TOKEN = import.meta.env.VITE_WEATHER_JWT_TOKEN;
+const url = `${WEATHER_API}/forecasts/${dataSource}`;
 
 export function SummaryTableLoader() {
   const [forecastDetailsForLocation, setForecastDetailsForLocation] = useState<string>();
-  //   // TODO: auto refresh page. Need to make sure that page
-  //   // is ONLY refreshed if latest request did not fail, so that
-  //   // we can show the latest valid data at all times on the page
-  //   // interval = setInterval(() => {
-  //   //   getForecast({ dataSource, setAppState });
-  //   // }, 10_000);
-
-  //   // // we call this when we unmount
-  //   // return () => clearInterval(interval);
-  // }, []);
-
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    getForecast().then((result) => {
+    const fetchData = async () => {
+      // get the data from the api
+      const data = await fetchWithRetries(`${url}`, {
+        mode: 'cors',
+        headers: new Headers({
+          Authorization: `Bearer ${WEATHER_JWT_TOKEN}`,
+        }),
+      });
+      // convert the data to json
+      const json = await data.json();
+      // set state with the result
       const newAppState: ForecastResponseStatus = {
         isLoaded: true,
-        forecast: result.data,
+        forecast: json.data,
         error: null,
       };
       dispatch(mergeForecast(newAppState));
+    };
+
+    fetchData().catch((err) => {
+      console.log(`catching error : ${err}`);
+      const errorAppState: ForecastResponseStatus = {
+        isLoaded: false,
+        error: err,
+        forecast: null,
+      };
+      dispatch(mergeForecast(errorAppState));
     });
+
+    // const newState:ForecastResponseStatus = getForecast().then;
+    // console.log(`new state is : ${JSON.stringify(newState)}`);
+    // dispatch(mergeForecast(newState));
+    // const fetchData = async() 
+    // getForecast().then((result: ForecastResponseStatus) => {
+    //   console.log(`here reply is ${JSON.stringify(result)}`);
+    //   // const newAppState: ForecastResponseStatus = {
+    //   //   isLoaded: true,
+    //   //   forecast: result.data,
+    //   //   error: null,
+    //   // };
+    //   dispatch(mergeForecast(result));
+    // });
   }, []);
 
   const appState = useAppSelector((state) => state.forecast);

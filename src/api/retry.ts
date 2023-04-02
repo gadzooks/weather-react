@@ -11,13 +11,13 @@ export const fetchWithTimeout = (url: string, options: any = {}) => {
   if (timeout) {
     return Promise.race([fetch(url, remainingOptions), throwOnTimeout(timeout)]);
   }
-  return fetch(url, remainingOptions);
+  return fetch(url, options);
 };
 
 const fetchWithRetries = async (url :string, options :any, retryCount = 0) : Promise<any> => {
   // split out the maxRetries option from the remaining
   // options (with a default of 3 retries)
-  const { maxRetries = 3, ...remainingOptions } = options;
+  const { maxRetries = 6, ...remainingOptions } = options;
   try {
     console.log(`retry ${retryCount}`);
     return await fetchWithTimeout(url, remainingOptions);

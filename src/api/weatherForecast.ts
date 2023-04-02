@@ -1,5 +1,5 @@
 import { ForecastResponseStatus, DefaultForecastResponseStatus } from '../interfaces/ForecastResponseInterface';
-import fetchWithRetries from './retry';
+import fetchWithRetries, { fetchWithTimeout } from './retry';
 
 export interface GetForecastProps {
   dataSource: string,
@@ -11,7 +11,7 @@ const WEATHER_API = import.meta.env.VITE_WEATHER_API;
 const WEATHER_JWT_TOKEN = import.meta.env.VITE_WEATHER_JWT_TOKEN;
 const url = `${WEATHER_API}/forecasts/${dataSource}`;
 
-export async function getForecast(): Promise<any> {
+export async function getForecast2(): Promise<any> {
   console.log(`calling ${url}`);
   const results = await fetchWithRetries(`${url}`, {
     mode: 'cors',
@@ -21,20 +21,26 @@ export async function getForecast(): Promise<any> {
   });
 
   const forecast = results.json();
+  console.log(`forecast is ${JSON.stringify(results.json())}`);
+  // const response: ForecastResponseStatus = {
+  //   isLoaded: true,
+  //   forecast,
+  //   error: null,
+  // };
   return forecast;
 }
 
-const getForecast1 = async () : Promise<ForecastResponseStatus> => {
+const getForecast = async (): Promise<ForecastResponseStatus> => {
   // eslint-disable-next-line no-promise-executor-return
   // await new Promise((r) => setTimeout(r, 300000));
   console.log(`calling ${url}`);
-  await fetchWithRetries(`${url}`, {
+  await fetch(`${url}`, {
     mode: 'cors',
     headers: new Headers({
       Authorization: `Bearer ${WEATHER_JWT_TOKEN}`,
     }),
   })
-    .then((res) => {
+    .then((res:any) => {
       if (!res.ok) {
         throw new Error('bad response from server ');
       }
@@ -52,7 +58,8 @@ const getForecast1 = async () : Promise<ForecastResponseStatus> => {
       (error) => {
         throw new Error(error);
       },
-    ).catch((err) => {
+    )
+    .catch((err) => {
       console.log(`catching error : ${err}`);
       const errorAppState: ForecastResponseStatus = {
         isLoaded: false,
@@ -62,6 +69,7 @@ const getForecast1 = async () : Promise<ForecastResponseStatus> => {
       return errorAppState;
     });
 
+  console.log('------------------------');
   return DefaultForecastResponseStatus;
 };
 
