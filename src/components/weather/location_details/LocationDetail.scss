@@ -1,14 +1,14 @@
 .location-details-page {
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: flex-start;
   max-width: 600px;
 
   .heading {
     display: flex;
     justify-content: center;
     align-items: flex-start;
-    width: 600px;
+    // width: 600px;
   }
 }
 
@@ -56,12 +56,13 @@ table.location-details {
   border-right: 1px solid #afafaf;
 }
 
-@media (max-width: 500px) {
-//   table.location-details tbody tr td {
-//     padding: 6px 9px;
-//   }
-.location-details-page {
-//   max-width: 400px;
-}
+// @media (max-width: 500px) {
+// //   table.location-details tbody tr td {
+// //     padding: 6px 9px;
+// //   }
+// .location-details-page {
+//   align-items: flex-start;
+// //   max-width: 400px;
+// }
   
-}
+// }
