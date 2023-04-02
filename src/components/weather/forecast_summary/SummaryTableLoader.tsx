@@ -53,20 +53,6 @@ export function SummaryTableLoader() {
       };
       dispatch(mergeForecast(errorAppState));
     });
-
-    // const newState:ForecastResponseStatus = getForecast().then;
-    // console.log(`new state is : ${JSON.stringify(newState)}`);
-    // dispatch(mergeForecast(newState));
-    // const fetchData = async() 
-    // getForecast().then((result: ForecastResponseStatus) => {
-    //   console.log(`here reply is ${JSON.stringify(result)}`);
-    //   // const newAppState: ForecastResponseStatus = {
-    //   //   isLoaded: true,
-    //   //   forecast: result.data,
-    //   //   error: null,
-    //   // };
-    //   dispatch(mergeForecast(result));
-    // });
   }, []);
 
   const appState = useAppSelector((state) => state.forecast);
