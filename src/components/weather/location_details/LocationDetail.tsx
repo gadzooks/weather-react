@@ -91,7 +91,7 @@ function LocationDetail(props: LocationDetailProps) {
                       {convertToSentence(row.icon).replace('day', '')}
                     </td>
                     <td className='border-right'>
-                      {`${Math.round(row.tempmax)}° / ${Math.round(
+                      {`${Math.round(row.tempmax)}°/ ${Math.round(
                         row.tempmin,
                       )}°`}
                     </td>

@@ -115,7 +115,7 @@ exports[`renders a snapshot 1`] = `
           <td
             className="border-right"
           >
-            75° / 47°
+            75°/ 47°
           </td>
           <td
             className="align-right"
@@ -157,7 +157,7 @@ exports[`renders a snapshot 1`] = `
           <td
             className="border-right"
           >
-            73° / 52°
+            73°/ 52°
           </td>
           <td
             className="align-right"
@@ -199,7 +199,7 @@ exports[`renders a snapshot 1`] = `
           <td
             className="border-right"
           >
-            70° / 52°
+            70°/ 52°
           </td>
           <td
             className="align-right"
@@ -241,7 +241,7 @@ exports[`renders a snapshot 1`] = `
           <td
             className="border-right"
           >
-            66° / 51°
+            66°/ 51°
           </td>
           <td
             className="align-right"
@@ -283,7 +283,7 @@ exports[`renders a snapshot 1`] = `
           <td
             className="border-right"
           >
-            65° / 49°
+            65°/ 49°
           </td>
           <td
             className="align-right"
@@ -325,7 +325,7 @@ exports[`renders a snapshot 1`] = `
           <td
             className="border-right"
           >
-            61° / 49°
+            61°/ 49°
           </td>
           <td
             className="align-right"
@@ -367,7 +367,7 @@ exports[`renders a snapshot 1`] = `
           <td
             className="border-right"
           >
-            59° / 49°
+            59°/ 49°
           </td>
           <td
             className="align-right"
@@ -409,7 +409,7 @@ exports[`renders a snapshot 1`] = `
           <td
             className="border-right"
           >
-            66° / 50°
+            66°/ 50°
           </td>
           <td
             className="align-right"
@@ -451,7 +451,7 @@ exports[`renders a snapshot 1`] = `
           <td
             className="border-right"
           >
-            56° / 49°
+            56°/ 49°
           </td>
           <td
             className="align-right"
@@ -493,7 +493,7 @@ exports[`renders a snapshot 1`] = `
           <td
             className="border-right"
           >
-            56° / 46°
+            56°/ 46°
           </td>
           <td
             className="align-right"
@@ -535,7 +535,7 @@ exports[`renders a snapshot 1`] = `
           <td
             className="border-right"
           >
-            58° / 43°
+            58°/ 43°
           </td>
           <td
             className="align-right"
@@ -577,7 +577,7 @@ exports[`renders a snapshot 1`] = `
           <td
             className="border-right"
           >
-            51° / 47°
+            51°/ 47°
           </td>
           <td
             className="align-right"
@@ -619,7 +619,7 @@ exports[`renders a snapshot 1`] = `
           <td
             className="border-right"
           >
-            62° / 50°
+            62°/ 50°
           </td>
           <td
             className="align-right"
@@ -661,7 +661,7 @@ exports[`renders a snapshot 1`] = `
           <td
             className="border-right"
           >
-            60° / 51°
+            60°/ 51°
           </td>
           <td
             className="align-right"
@@ -703,7 +703,7 @@ exports[`renders a snapshot 1`] = `
           <td
             className="border-right"
           >
-            56° / 46°
+            56°/ 46°
           </td>
           <td
             className="align-right"

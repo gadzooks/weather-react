@@ -20,6 +20,7 @@
 - https://www.becomebetterprogrammer.com/typescript-organizing-and-storing-types-and-interfaces/
 - https://v5.reactrouter.com/web/guides/quick-start
 - https://create-react-app.dev/docs/adding-images-fonts-and-files/
+- fonts - https://fonts.google.com/specimen/Roboto+Mono#styles
 
 # things I need to google regularly
 
