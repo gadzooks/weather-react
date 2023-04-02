@@ -4,7 +4,7 @@
 const throwOnTimeout = (timeout: number) => new Promise((_, reject) => setTimeout(() => reject(new Error('Timeout')), timeout));
 
 export const fetchWithTimeout = (url: string, options: any = {}) => {
-  const { timeout = 3000, ...remainingOptions } = options;
+  const { timeout = 10000, ...remainingOptions } = options;
   console.log(`timeout is ${timeout}`);
   // if the timeout option is specified, race the
   // fetch call
