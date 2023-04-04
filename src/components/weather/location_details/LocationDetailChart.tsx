@@ -108,7 +108,7 @@ function LocationDetailChart(props: LocationDetailChartProps) {
               <stop offset='95%' stopColor='#e6f7ff' stopOpacity={0} />
             </linearGradient>
           </defs>
-          <Area type='monotone' dataKey={(d) => normalizedCloudCover(d)} yAxisId='right' stroke='#cceeff' fillOpacity={1} fill='url(#colorUv)' />
+          <Area name='Cloud Cover' type='monotone' dataKey={(d) => normalizedCloudCover(d)} yAxisId='right' stroke='#cceeff' fillOpacity={1} fill='url(#colorUv)' />
           <YAxis
             name='Temp'
             yAxisId='left'
@@ -127,15 +127,15 @@ function LocationDetailChart(props: LocationDetailChartProps) {
           <Tooltip />
           {/* <Tooltip content={<CustomTooltip />} trigger='click' /> */}
           <Legend />
-          <Bar dataKey={(d) => precipitation(d)} fill='rgb(135 201 249)' yAxisId='right' strokeWidth={1} barSize={8}>
+          <Bar name='Precipitation' dataKey={(d) => precipitation(d)} fill='rgb(135 201 249)' yAxisId='right' strokeWidth={1} barSize={8}>
             <LabelList
               dataKey={(d) => precipLabel(d)}
               position='top'
               style={{ fontSize: '0.7rem', fontFamily: 'Arial', fontWeight: '1.3em' }}
             />
           </Bar>
-          <Line type='monotone' dataKey='tempmax' stroke='#ffb412' yAxisId='left' label='max temp' />
-          <Line type='monotone' dataKey='tempmin' stroke='#8884d8' yAxisId='left' activeDot={{ r: 4 }} />
+          <Line name='Max Temp' type='monotone' dataKey='tempmax' stroke='#ffb412' yAxisId='left' label='max temp' />
+          <Line name='Min Temp' type='monotone' dataKey='tempmin' stroke='#8884d8' yAxisId='left' activeDot={{ r: 4 }} />
           <ReferenceLine y={95} yAxisId='left' label='95 °F' stroke='red' strokeDasharray='3 3' />
           <ReferenceLine y={32} yAxisId='left' label='32 °F' stroke='blue' strokeDasharray='3 3' />
         </ComposedChart>
