@@ -69,7 +69,7 @@ function precipitation(d:DailyForecastInterface):(number | null) {
 }
 
 function normalizedCloudCover(d:DailyForecastInterface):(number | null) {
-  if (d.cloudcover === undefined) {
+  if (d.cloudcover === undefined || d.cloudcover < 10) {
     return null;
   }
   return d.cloudcover / 100.0;
@@ -86,7 +86,7 @@ function precipLabel(d:any):(string | null) {
 function LocationDetailChart(props: LocationDetailChartProps) {
   const { forecast, forecastDates } = props;
   const data:any = getDataFromForecast(forecast, forecastDates);
-  console.log(data);
+  // console.log(data);
   return (
     <div className='weather-weekly-chart'>
       <ResponsiveContainer>
@@ -102,7 +102,13 @@ function LocationDetailChart(props: LocationDetailChartProps) {
             style={{ fontSize: '0.5rem' }}
           />
           {/* <XAxis dataKey='name' tick={<WeatherIcon {...data} />} /> */}
-          <Area type='monotone' dataKey={(d) => normalizedCloudCover(d)} yAxisId='right' fill='#8884d8' stroke='#8884d8' />
+          <defs>
+            <linearGradient id='colorUv' x1='0' y1='0' x2='0' y2='1'>
+              <stop offset='5%' stopColor='#cceeff' stopOpacity={0.8} />
+              <stop offset='95%' stopColor='#e6f7ff' stopOpacity={0} />
+            </linearGradient>
+          </defs>
+          <Area type='monotone' dataKey={(d) => normalizedCloudCover(d)} yAxisId='right' stroke='#cceeff' fillOpacity={1} fill='url(#colorUv)' />
           <YAxis
             name='Temp'
             yAxisId='left'
