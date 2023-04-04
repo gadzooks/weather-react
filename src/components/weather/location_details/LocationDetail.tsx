@@ -62,10 +62,10 @@ function LocationDetail(props: LocationDetailProps) {
               <td colSpan={1} className='center border-right'>
                 DATE
               </td>
-              <td colSpan={2} className='center border-right'>
+              <td colSpan={1} className='center border-right'>
                 DETAILS
               </td>
-              <td className='border-right'>H / L</td>
+              <td className='border-right'>H/L</td>
               <td colSpan={2} className='center border-right'>
                 PRECIP
               </td>
@@ -84,16 +84,14 @@ function LocationDetail(props: LocationDetailProps) {
                       {'  '}
                       {format(d, 'Do').toUpperCase()}
                     </td>
-                    <td>
+                    <td className='border-right'>
                       <WeatherIcon {...row} key={row.datetime} />
-                    </td>
-                    <td className='border-right align-left'>
-                      {convertToSentence(row.icon).replace('day', '')}
+                      {` ${convertToSentence(row.icon).replace('day', '')}`}
                     </td>
                     <td className='border-right'>
-                      {`${Math.round(row.tempmax)}°/ ${Math.round(
+                      {`${Math.round(row.tempmax)} ${Math.round(
                         row.tempmin,
-                      )}°`}
+                      )}`}
                     </td>
                     <td className='align-right'>
                       {`${Math.round(row.precipprob)}%`}

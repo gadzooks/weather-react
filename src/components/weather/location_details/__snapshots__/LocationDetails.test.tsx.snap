@@ -70,14 +70,14 @@ exports[`renders a snapshot 1`] = `
           </td>
           <td
             className="center border-right"
-            colSpan={2}
+            colSpan={1}
           >
             DETAILS
           </td>
           <td
             className="border-right"
           >
-            H / L
+            H/L
           </td>
           <td
             className="center border-right"
@@ -101,21 +101,19 @@ exports[`renders a snapshot 1`] = `
               
             17TH
           </td>
-          <td>
+          <td
+            className="border-right"
+          >
             <i
               className="wi weather-icon wi-day-sunny day-sunny "
               title="Clear conditions throughout the day."
             />
-          </td>
-          <td
-            className="border-right align-left"
-          >
-            Clear 
+             Clear 
           </td>
           <td
             className="border-right"
           >
-            75°/ 47°
+            75 47
           </td>
           <td
             className="align-right"
@@ -143,21 +141,19 @@ exports[`renders a snapshot 1`] = `
               
             18TH
           </td>
-          <td>
+          <td
+            className="border-right"
+          >
             <i
               className="wi weather-icon wi-day-sunny day-sunny "
               title="Clear conditions throughout the day."
             />
-          </td>
-          <td
-            className="border-right align-left"
-          >
-            Clear 
+             Clear 
           </td>
           <td
             className="border-right"
           >
-            73°/ 52°
+            73 52
           </td>
           <td
             className="align-right"
@@ -185,21 +181,19 @@ exports[`renders a snapshot 1`] = `
               
             19TH
           </td>
-          <td>
+          <td
+            className="border-right"
+          >
             <i
               className="wi weather-icon wi-day-sunny day-sunny "
               title="Clear conditions throughout the day."
             />
-          </td>
-          <td
-            className="border-right align-left"
-          >
-            Clear 
+             Clear 
           </td>
           <td
             className="border-right"
           >
-            70°/ 52°
+            70 52
           </td>
           <td
             className="align-right"
@@ -227,21 +221,19 @@ exports[`renders a snapshot 1`] = `
               
             20TH
           </td>
-          <td>
+          <td
+            className="border-right"
+          >
             <i
               className="wi weather-icon wi-day-cloudy day-cloudy "
               title="Partly cloudy throughout the day."
             />
-          </td>
-          <td
-            className="border-right align-left"
-          >
-            Ptly Cloudy
+             Ptly Cloudy
           </td>
           <td
             className="border-right"
           >
-            66°/ 51°
+            66 51
           </td>
           <td
             className="align-right"
@@ -269,21 +261,19 @@ exports[`renders a snapshot 1`] = `
               
             21ST
           </td>
-          <td>
+          <td
+            className="border-right"
+          >
             <i
               className="wi weather-icon wi-day-cloudy day-cloudy "
               title="Partly cloudy throughout the day."
             />
-          </td>
-          <td
-            className="border-right align-left"
-          >
-            Ptly Cloudy
+             Ptly Cloudy
           </td>
           <td
             className="border-right"
           >
-            65°/ 49°
+            65 49
           </td>
           <td
             className="align-right"
@@ -311,21 +301,19 @@ exports[`renders a snapshot 1`] = `
               
             22ND
           </td>
-          <td>
+          <td
+            className="border-right"
+          >
             <i
               className="wi weather-icon wi-rain rain "
               title="Partly cloudy throughout the day with a chance of rain."
             />
-          </td>
-          <td
-            className="border-right align-left"
-          >
-            Rain
+             Rain
           </td>
           <td
             className="border-right"
           >
-            61°/ 49°
+            61 49
           </td>
           <td
             className="align-right"
@@ -353,21 +341,19 @@ exports[`renders a snapshot 1`] = `
               
             23RD
           </td>
-          <td>
+          <td
+            className="border-right"
+          >
             <i
               className="wi weather-icon wi-rain rain "
               title="Partly cloudy throughout the day with morning rain."
             />
-          </td>
-          <td
-            className="border-right align-left"
-          >
-            Rain
+             Rain
           </td>
           <td
             className="border-right"
           >
-            59°/ 49°
+            59 49
           </td>
           <td
             className="align-right"
@@ -395,21 +381,19 @@ exports[`renders a snapshot 1`] = `
               
             24TH
           </td>
-          <td>
+          <td
+            className="border-right"
+          >
             <i
               className="wi weather-icon wi-rain rain "
               title="Cloudy skies throughout the day with a chance of rain."
             />
-          </td>
-          <td
-            className="border-right align-left"
-          >
-            Rain
+             Rain
           </td>
           <td
             className="border-right"
           >
-            66°/ 50°
+            66 50
           </td>
           <td
             className="align-right"
@@ -437,21 +421,19 @@ exports[`renders a snapshot 1`] = `
               
             25TH
           </td>
-          <td>
+          <td
+            className="border-right"
+          >
             <i
               className="wi weather-icon wi-rain rain "
               title="Cloudy skies throughout the day with a chance of rain throughout the day."
             />
-          </td>
-          <td
-            className="border-right align-left"
-          >
-            Rain
+             Rain
           </td>
           <td
             className="border-right"
           >
-            56°/ 49°
+            56 49
           </td>
           <td
             className="align-right"
@@ -479,21 +461,19 @@ exports[`renders a snapshot 1`] = `
               
             26TH
           </td>
-          <td>
+          <td
+            className="border-right"
+          >
             <i
               className="wi weather-icon wi-rain rain "
               title="Partly cloudy throughout the day with rain in the morning and afternoon."
             />
-          </td>
-          <td
-            className="border-right align-left"
-          >
-            Rain
+             Rain
           </td>
           <td
             className="border-right"
           >
-            56°/ 46°
+            56 46
           </td>
           <td
             className="align-right"
@@ -521,21 +501,19 @@ exports[`renders a snapshot 1`] = `
               
             27TH
           </td>
-          <td>
+          <td
+            className="border-right"
+          >
             <i
               className="wi weather-icon wi-cloudy cloudy sunshine-50"
               title="Partly cloudy throughout the day."
             />
-          </td>
-          <td
-            className="border-right align-left"
-          >
-            Ptly Cloudy
+             Ptly Cloudy
           </td>
           <td
             className="border-right"
           >
-            58°/ 43°
+            58 43
           </td>
           <td
             className="align-right"
@@ -563,21 +541,19 @@ exports[`renders a snapshot 1`] = `
               
             28TH
           </td>
-          <td>
+          <td
+            className="border-right"
+          >
             <i
               className="wi weather-icon wi-cloudy cloudy sunshine-50"
               title="Cloudy skies throughout the day."
             />
-          </td>
-          <td
-            className="border-right align-left"
-          >
-            Cloudy
+             Cloudy
           </td>
           <td
             className="border-right"
           >
-            51°/ 47°
+            51 47
           </td>
           <td
             className="align-right"
@@ -605,21 +581,19 @@ exports[`renders a snapshot 1`] = `
               
             29TH
           </td>
-          <td>
+          <td
+            className="border-right"
+          >
             <i
               className="wi weather-icon wi-cloudy cloudy sunshine-50"
               title="Partly cloudy throughout the day."
             />
-          </td>
-          <td
-            className="border-right align-left"
-          >
-            Ptly Cloudy
+             Ptly Cloudy
           </td>
           <td
             className="border-right"
           >
-            62°/ 50°
+            62 50
           </td>
           <td
             className="align-right"
@@ -647,21 +621,19 @@ exports[`renders a snapshot 1`] = `
               
             30TH
           </td>
-          <td>
+          <td
+            className="border-right"
+          >
             <i
               className="wi weather-icon wi-cloudy cloudy sunshine-50"
               title="Cloudy skies throughout the day."
             />
-          </td>
-          <td
-            className="border-right align-left"
-          >
-            Cloudy
+             Cloudy
           </td>
           <td
             className="border-right"
           >
-            60°/ 51°
+            60 51
           </td>
           <td
             className="align-right"
@@ -689,21 +661,19 @@ exports[`renders a snapshot 1`] = `
               
             1ST
           </td>
-          <td>
+          <td
+            className="border-right"
+          >
             <i
               className="wi weather-icon wi-cloudy cloudy sunshine-10"
               title="Partly cloudy throughout the day."
             />
-          </td>
-          <td
-            className="border-right align-left"
-          >
-            Ptly Cloudy
+             Ptly Cloudy
           </td>
           <td
             className="border-right"
           >
-            56°/ 46°
+            56 46
           </td>
           <td
             className="align-right"
