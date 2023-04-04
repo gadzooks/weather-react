@@ -99,7 +99,7 @@ function LocationDetail(props: LocationDetailProps) {
                     <td className='align-right border-right'>
                       {`${Math.round(row.precip)}"`}
                     </td>
-                    <td className='align-right'>{`${row.cloudcover}%`}</td>
+                    <td className='align-right'>{`${Math.round(row.cloudcover)}%`}</td>
                   </tr>
                 );
               }

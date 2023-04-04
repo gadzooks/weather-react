@@ -128,7 +128,7 @@ exports[`renders a snapshot 1`] = `
           <td
             className="align-right"
           >
-            1.8%
+            2%
           </td>
         </tr>
         <tr
@@ -168,7 +168,7 @@ exports[`renders a snapshot 1`] = `
           <td
             className="align-right"
           >
-            14.3%
+            14%
           </td>
         </tr>
         <tr
@@ -208,7 +208,7 @@ exports[`renders a snapshot 1`] = `
           <td
             className="align-right"
           >
-            18.5%
+            19%
           </td>
         </tr>
         <tr
@@ -248,7 +248,7 @@ exports[`renders a snapshot 1`] = `
           <td
             className="align-right"
           >
-            33.2%
+            33%
           </td>
         </tr>
         <tr
@@ -288,7 +288,7 @@ exports[`renders a snapshot 1`] = `
           <td
             className="align-right"
           >
-            31.3%
+            31%
           </td>
         </tr>
         <tr
@@ -488,7 +488,7 @@ exports[`renders a snapshot 1`] = `
           <td
             className="align-right"
           >
-            74.4%
+            74%
           </td>
         </tr>
         <tr
@@ -528,7 +528,7 @@ exports[`renders a snapshot 1`] = `
           <td
             className="align-right"
           >
-            82.5%
+            83%
           </td>
         </tr>
         <tr
@@ -608,7 +608,7 @@ exports[`renders a snapshot 1`] = `
           <td
             className="align-right"
           >
-            89.1%
+            89%
           </td>
         </tr>
         <tr
@@ -648,7 +648,7 @@ exports[`renders a snapshot 1`] = `
           <td
             className="align-right"
           >
-            97.4%
+            97%
           </td>
         </tr>
         <tr
@@ -688,7 +688,7 @@ exports[`renders a snapshot 1`] = `
           <td
             className="align-right"
           >
-            55.1%
+            55%
           </td>
         </tr>
       </tbody>
