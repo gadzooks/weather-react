@@ -138,6 +138,7 @@ function LocationDetailChart(props: LocationDetailChartProps) {
           <Line name='Min Temp' type='monotone' dataKey='tempmin' stroke='#8884d8' yAxisId='left' activeDot={{ r: 4 }} />
           <ReferenceLine y={95} yAxisId='left' label='95 °F' stroke='red' strokeDasharray='3 3' />
           <ReferenceLine y={32} yAxisId='left' label='32 °F' stroke='blue' strokeDasharray='3 3' />
+          <ReferenceLine y={1} yAxisId='right' label='100% cloud cover' stroke='#99ddff' />
         </ComposedChart>
       </ResponsiveContainer>
     </div>
