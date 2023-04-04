@@ -4,7 +4,7 @@
 import React from 'react';
 import {
   // eslint-disable-next-line max-len
-  ComposedChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, Bar, LabelList, ReferenceLine, Label, TooltipProps, ResponsiveContainer,
+  ComposedChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, Bar, LabelList, ReferenceLine, Label, TooltipProps, ResponsiveContainer, AreaChart, Area,
 } from 'recharts';
 // eslint-disable-next-line import/no-unresolved
 import { ValueType, NameType } from 'recharts/types/component/DefaultTooltipContent';
@@ -68,6 +68,13 @@ function precipitation(d:DailyForecastInterface):(number | null) {
   return round === 0 ? null : d.precip;
 }
 
+function normalizedCloudCover(d:DailyForecastInterface):(number | null) {
+  if (d.cloudcover === undefined) {
+    return null;
+  }
+  return d.cloudcover / 100.0;
+}
+
 function precipLabel(d:any):(string | null) {
   const precip = d?.precip;
   if (precip === null || precip === undefined) {
@@ -78,8 +85,8 @@ function precipLabel(d:any):(string | null) {
 
 function LocationDetailChart(props: LocationDetailChartProps) {
   const { forecast, forecastDates } = props;
-  // console.log(forecastDates);
   const data:any = getDataFromForecast(forecast, forecastDates);
+  console.log(data);
   return (
     <div className='weather-weekly-chart'>
       <ResponsiveContainer>
@@ -95,6 +102,7 @@ function LocationDetailChart(props: LocationDetailChartProps) {
             style={{ fontSize: '0.5rem' }}
           />
           {/* <XAxis dataKey='name' tick={<WeatherIcon {...data} />} /> */}
+          <Area type='monotone' dataKey={(d) => normalizedCloudCover(d)} yAxisId='right' fill='#8884d8' stroke='#8884d8' />
           <YAxis
             name='Temp'
             yAxisId='left'
@@ -107,8 +115,8 @@ function LocationDetailChart(props: LocationDetailChartProps) {
             yAxisId='right'
             orientation='right'
             domain={[0, (p:number) => (p + 0.2)]}
-            label={{ value: 'Precipitation', angle: -90, position: 'outsideRight' }}
-            style={{ fontSize: '0.8rem', fontFamily: 'Arial' }}
+            label={{ value: 'Precip" / Cloud', angle: -90, position: 'outsideRight' }}
+            style={{ fontSize: '0.7rem', fontFamily: 'Arial' }}
           />
           <Tooltip />
           {/* <Tooltip content={<CustomTooltip />} trigger='click' /> */}
