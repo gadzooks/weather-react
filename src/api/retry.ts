@@ -24,7 +24,6 @@ const fetchWithRetries = async (url :string, options :any, retryCount = 0) : Pro
   } catch (error) {
     // if the retryCount has not been exceeded, call again
     if (retryCount < maxRetries) {
-      console.log(`retry ${retryCount}`);
       return fetchWithRetries(url, options, retryCount + 1);
     }
     // max retries exceeded
