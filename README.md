@@ -1,3 +1,7 @@
+# Basics
+- this website is deployed on https://dashboard.render.com/
+- the Express JS api is deployed on : AWS API Gateway + Lambda 
+
 # Study these more :
 ## Performance
 - Look into performance aspects like rerender : https://levelup.gitconnected.com/14-tips-for-effortlessly-improving-your-weak-ass-react-code-4aea5500559c
