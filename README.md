@@ -2,6 +2,20 @@
 - this website is deployed on https://dashboard.render.com/
 - the Express JS api is deployed on : AWS API Gateway + Lambda 
 
+## Deploy to S3 🚀 
+```sh
+# select the correct AWS Profile
+export AWS_PROFILE=saa
+
+# specify which backend endpoint to hit. This will be set in the build command
+export VITE_WEATHER_API=https://4gpn105y9k.execute-api.us-west-1.amazonaws.com/latest
+
+npm run build
+
+# push changes to s3
+aws s3 sync build s3://weather-react-static-site
+```
+
 # Study these more :
 ## Performance
 - Look into performance aspects like rerender : https://levelup.gitconnected.com/14-tips-for-effortlessly-improving-your-weak-ass-react-code-4aea5500559c
