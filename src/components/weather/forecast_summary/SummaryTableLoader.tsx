@@ -16,21 +16,64 @@ import { mergeForecast } from '../../../features/forecast/forecastSlice';
 import { ForecastDates, ForecastResponseStatus } from '../../../interfaces/ForecastResponseInterface';
 import { calculateWeekends } from '../../../utils/date';
 import fetchWithRetries from '../../../api/retry';
+import { useTheme } from '../../../utils/useTheme';
+import { ThemeToggle } from '../theme/ThemeToggle';
+import './SummaryTableLoader.scss';
 
-const dataSource = import.meta.env.PROD ? 'real' : 'mock';
-const WEATHER_API = import.meta.env.VITE_WEATHER_API;
-const url = `${WEATHER_API}/prod/forecasts/${dataSource}`;
+// Allow override via env var, otherwise use 'real' by default
+const dataSource = import.meta.env.VITE_DATA_SOURCE || 'real';
+// const WEATHER_API = import.meta.env.VITE_WEATHER_API;
+const WEATHER_API = 'https://ww0yxqvu8j.execute-api.us-west-1.amazonaws.com/prod';
+const WEATHER_JWT_TOKEN = import.meta.env.VITE_WEATHER_JWT_TOKEN;
+const url = `${WEATHER_API}/forecasts/${dataSource}`;
+
+console.log(`[SummaryTableLoader] Data source: ${dataSource}`);
 
 export function SummaryTableLoader() {
   const [forecastDetailsForLocation, setForecastDetailsForLocation] = useState<string>();
   const dispatch = useAppDispatch();
+  const { theme, toggleTheme } = useTheme();
 
   useEffect(() => {
     const fetchData = async () => {
-      // get the data from the api
-      const data = await fetchWithRetries(`${url}`, {});
+      // console.log(`[SummaryTableLoader] Fetching from: ${url}`);
+      // console.log(`[SummaryTableLoader] Using JWT token: ${WEATHER_JWT_TOKEN ? 'Yes' : 'No'}`);
+
+      // get the data from the api with JWT authentication
+      const response = await fetchWithRetries(`${url}`, {
+        headers: {
+          Authorization: `Bearer ${WEATHER_JWT_TOKEN}`,
+          'Content-Type': 'application/json',
+        },
+      });
+
+      // eslint-disable-next-line max-len
+      // console.log(`[SummaryTableLoader] Response status: ${response.status}`,
+      //   `${response.statusText}`);
+      console.log('[SummaryTableLoader] Response headers:', {
+        contentType: response.headers.get('content-type'),
+        contentLength: response.headers.get('content-length'),
+      });
+
+      // Check if response is ok
+      if (!response.ok) {
+        const text = await response.text();
+        console.error('[SummaryTableLoader] Error response body (first 500 chars):', text.substring(0, 500));
+        throw new Error(`HTTP ${response.status}: ${response.statusText}. Body: ${text.substring(0, 200)}`);
+      }
+
+      // Check content type
+      const contentType = response.headers.get('content-type');
+      if (!contentType || !contentType.includes('application/json')) {
+        const text = await response.text();
+        console.error(`[SummaryTableLoader] Unexpected content-type: ${contentType}`);
+        console.error('[SummaryTableLoader] Response body (first 500 chars):', text.substring(0, 500));
+        throw new Error(`Expected JSON but got ${contentType}. Body: ${text.substring(0, 200)}`);
+      }
+
       // convert the data to json
-      const json = await data.json();
+      const json = await response.json();
+
       // set state with the result
       const newAppState: ForecastResponseStatus = {
         isLoaded: true,
@@ -41,7 +84,8 @@ export function SummaryTableLoader() {
     };
 
     fetchData().catch((err) => {
-      console.log(`catching error : ${err}`);
+      console.error('[SummaryTableLoader] Caught error:', err);
+      console.error('[SummaryTableLoader] Error stack:', err.stack);
       const errorAppState: ForecastResponseStatus = {
         isLoaded: false,
         error: err,
@@ -97,6 +141,9 @@ export function SummaryTableLoader() {
 
   return (
     <div className='theme font-loader'>
+      <div className='app-header'>
+        <ThemeToggle theme={theme} onToggle={toggleTheme} />
+      </div>
       <div className='container'>
         {!appState.isLoaded && !appState.error && (
           <>

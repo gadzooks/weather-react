@@ -80,6 +80,48 @@ table.location-details {
   border-right: 1px solid #656b7e;
 }
 
+// ============================================
+// Light Theme Overrides
+// ============================================
+
+[data-theme="light"] {
+  table.location-details {
+    background: #f9f9f9;
+    color: #000000;
+
+    tbody tr {
+      border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+
+      &:hover {
+        background: #e8e8e8;
+      }
+    }
+
+    thead tr {
+      background-color: #f5f5f5;
+      color: #000000;
+    }
+
+    tbody td {
+      color: #000000;
+    }
+
+    tr.heading th {
+      background-color: #f5f5f5;
+      color: #000000;
+    }
+
+    tr.secondary-heading th {
+      background-color: #e8e8e8;
+      color: #000000;
+    }
+  }
+
+  .border-right {
+    border-right: 1px solid #cccccc;
+  }
+}
+
 // Weekend highlighting for detail view
 td.weekend {
   background: rgba(107, 155, 209, 0.05) !important;

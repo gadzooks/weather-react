@@ -31,6 +31,20 @@
       Learn how to configure a non-root public URL by running `npm run build`.
     -->
     <title>Weather App</title>
+    <!-- FOUC Prevention: Set theme before React loads -->
+    <script>
+      (function() {
+        const getSystemTheme = () => {
+          return window.matchMedia('(prefers-color-scheme: dark)').matches
+            ? 'dark'
+            : 'light';
+        };
+        const theme = localStorage.getItem('themePreference')
+          ? JSON.parse(localStorage.getItem('themePreference'))
+          : getSystemTheme();
+        document.documentElement.setAttribute('data-theme', theme);
+      })();
+    </script>
   </head>
   <body>
     <noscript>You need to enable JavaScript to run this app.</noscript>

@@ -16,3 +16,23 @@ div.alert span.alert-icon {
   padding-left: 5px;
   color: var(--color-text-secondary, #9fa5b8);
 }
+
+// ============================================
+// Light Theme Overrides
+// ============================================
+
+[data-theme="light"] {
+  div.alert {
+    background-color: rgba(255, 66, 39, 0.1);
+    border: 1px solid #ff4227;
+    color: #000000;
+  }
+
+  div.alert span.alert-icon {
+    color: #ff4227;
+  }
+
+  .till {
+    color: #4a4a4a;
+  }
+}

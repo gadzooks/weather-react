@@ -64,6 +64,60 @@
 }
 
 // ============================================
+// Light Theme Color Overrides
+// ============================================
+
+[data-theme="light"] {
+  // Backgrounds - Light and clean
+  --color-bg-primary: #ffffff;
+  --color-bg-surface: #f9f9f9;
+  --color-bg-elevated: #f5f5f5;
+  --color-bg-hover: #e8e8e8;
+
+  // Borders - Darker for visibility
+  --color-border-subtle: rgba(0, 0, 0, 0.1);
+  --color-border-medium: rgba(0, 0, 0, 0.15);
+  --color-border-strong: #cccccc;
+
+  // Typography - Black and grays
+  --color-text-primary: #000000;
+  --color-text-secondary: #4a4a4a;
+  --color-text-dimmed: #888888;
+
+  // Accents - Brighter blue
+  --color-accent-primary: #1976d2;
+  --color-accent-glow: rgba(25, 118, 210, 0.2);
+
+  // Weather colors - Bright from master
+  --color-rain-heavy: rgb(25, 151, 245);
+  --color-sun: #ffb412;
+  --color-clouds: blue;
+
+  // Weekend - handled separately (background-image pattern)
+  --color-weekend: transparent;
+
+  // Alert colors - More vibrant
+  --color-alert-advisory: #17bcff;
+  --color-alert-watch: #ffd52e;
+  --color-alert-warning: #ff4227;
+}
+
+// Weekend special case - restore green diagonal stripes from master
+[data-theme="light"] td.weekend {
+  background: linear-gradient(142deg, #b2f7c6 11.11%, #faf5f5 11.11%, #faf5f5 50%, #b2f7c6 50%, #b2f7c6 61.11%, #faf5f5 61.11%, #faf5f5 100%) !important;
+  background-size: 14.62px 11.42px;
+  box-shadow: none;
+  border-left: none;
+}
+
+// Light theme header styling
+[data-theme="light"] .app-header {
+  background: #f5f5f5;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+// ============================================
 // Base Table Styles - Mobile First
 // ============================================
 

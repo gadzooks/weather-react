@@ -1,0 +1,21 @@
+// ============================================
+// Summary Table Loader Header Styles
+// ============================================
+
+.app-header {
+  position: sticky;
+  top: 0;
+  z-index: calc(var(--z-sticky) + 1);
+  background: var(--color-bg-elevated);
+  padding: var(--spacing-sm);
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  border-bottom: 1px solid var(--color-border-medium);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+
+  // Mobile responsiveness
+  @media (max-width: 768px) {
+    padding: 10px;
+  }
+}

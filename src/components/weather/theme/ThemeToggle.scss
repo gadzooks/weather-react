@@ -1,0 +1,25 @@
+// ============================================
+// Theme Toggle Button Styles
+// ============================================
+
+.theme-toggle {
+  // Inherit from button-2 class styles defined in SummaryTable.scss
+  min-width: var(--touch-target-min);
+  min-height: var(--touch-target-min);
+  font-size: 1.5em;
+  padding: var(--spacing-sm);
+
+  // Remove extra margin for cleaner layout in header
+  margin: 0;
+
+  // Ensure proper alignment
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  // Mobile responsiveness
+  @media (max-width: 768px) {
+    font-size: 1.3em;
+    padding: 10px;
+  }
+}

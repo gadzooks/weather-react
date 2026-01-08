@@ -123,3 +123,65 @@ input[type="submit"],
     background: #16181f;
   }
 }
+
+/* ============================================
+   Light Theme Overrides
+   ============================================ */
+
+[data-theme="light"] body {
+  background: #ffffff;
+  color: #000000;
+}
+
+[data-theme="light"] code {
+  background: #f5f5f5;
+  color: #1976d2;
+}
+
+[data-theme="light"] ::selection {
+  background: #1976d2;
+  color: #ffffff;
+}
+
+[data-theme="light"] ::-moz-selection {
+  background: #1976d2;
+  color: #ffffff;
+}
+
+[data-theme="light"] ::-webkit-scrollbar-track {
+  background: #f5f5f5;
+}
+
+[data-theme="light"] ::-webkit-scrollbar-thumb {
+  background: #cccccc;
+  border: 2px solid #f5f5f5;
+}
+
+[data-theme="light"] ::-webkit-scrollbar-thumb:hover {
+  background: #999999;
+}
+
+/* ============================================
+   Smooth Theme Transitions
+   ============================================ */
+
+body,
+table,
+td,
+th,
+.button-2,
+.app-header {
+  transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+}
+
+/* Respect reduced motion preference */
+@media (prefers-reduced-motion: reduce) {
+  body,
+  table,
+  td,
+  th,
+  .button-2,
+  .app-header {
+    transition: none;
+  }
+}

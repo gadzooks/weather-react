@@ -14,3 +14,19 @@ div.weather-weekly-chart {
   height: 300px;
   background: var(--color-bg-surface, #242831);
 }
+
+// ============================================
+// Light Theme Overrides
+// ============================================
+
+[data-theme="light"] {
+  div.custom-tooltip {
+    background-color: #f5f5f5;
+    color: #000000;
+    border: 1px solid #cccccc;
+  }
+
+  div.weather-weekly-chart {
+    background: #f9f9f9;
+  }
+}

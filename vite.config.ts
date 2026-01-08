@@ -18,25 +18,6 @@ export default defineConfig({
   },
   server: {
     port: 3000,
-    proxy: {
-      '/api': {
-        target: 'https://ww0yxqvu8j.execute-api.us-west-1.amazonaws.com/prod',
-        changeOrigin: true,
-        rewrite: (path) => path.replace(/^\/api/, '/prod'),
-        secure: true,
-        configure: (proxy) => {
-          proxy.on('error', (err) => {
-            console.log('proxy error', err);
-          });
-          proxy.on('proxyReq', (proxyReq, req) => {
-            console.log('Sending Request to the Target:', req.method, req.url);
-          });
-          proxy.on('proxyRes', (proxyRes, req) => {
-            console.log('Received Response from the Target:', proxyRes.statusCode, req.url);
-          });
-        },
-      },
-    },
   },
   plugins: [
     reactRefresh(),
