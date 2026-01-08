@@ -1,0 +1,15 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(ls:*)",
+      "Bash(grep:*)",
+      "Bash(cat:*)",
+      "Bash(npm run dev:*)",
+      "Bash(curl:*)",
+      "Bash(node test-weekend.js:*)",
+      "Bash(npm rebuild:*)",
+      "mcp__ide__getDiagnostics",
+      "Bash(find:*)"
+    ]
+  }
+}
