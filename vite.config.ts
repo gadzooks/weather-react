@@ -24,14 +24,14 @@ export default defineConfig({
         changeOrigin: true,
         rewrite: (path) => path.replace(/^\/api/, '/prod'),
         secure: true,
-        configure: (proxy, _options) => {
-          proxy.on('error', (err, _req, _res) => {
+        configure: (proxy) => {
+          proxy.on('error', (err) => {
             console.log('proxy error', err);
           });
-          proxy.on('proxyReq', (proxyReq, req, _res) => {
+          proxy.on('proxyReq', (proxyReq, req) => {
             console.log('Sending Request to the Target:', req.method, req.url);
           });
-          proxy.on('proxyRes', (proxyRes, req, _res) => {
+          proxy.on('proxyRes', (proxyRes, req) => {
             console.log('Received Response from the Target:', proxyRes.statusCode, req.url);
           });
         },
@@ -40,11 +40,6 @@ export default defineConfig({
   },
   plugins: [
     reactRefresh(),
-    svgrPlugin({
-      svgrOptions: {
-        icon: true,
-        // ...svgr options (https://react-svgr.com/docs/options/)
-      },
-    }),
+    svgrPlugin(),
   ],
 });

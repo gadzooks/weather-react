@@ -104,11 +104,11 @@ function LocationDetailChart(props: LocationDetailChartProps) {
           {/* <XAxis dataKey='name' tick={<WeatherIcon {...data} />} /> */}
           <defs>
             <linearGradient id='colorUv' x1='0' y1='0' x2='0' y2='1'>
-              <stop offset='5%' stopColor='#cceeff' stopOpacity={0.8} />
-              <stop offset='95%' stopColor='#e6f7ff' stopOpacity={0} />
+              <stop offset='5%' stopColor='#6d9ed9' stopOpacity={0.4} />
+              <stop offset='95%' stopColor='#6d9ed9' stopOpacity={0.05} />
             </linearGradient>
           </defs>
-          <Area name='Cloud Cover' type='monotone' dataKey={(d) => normalizedCloudCover(d)} yAxisId='right' stroke='#cceeff' fillOpacity={1} fill='url(#colorUv)' />
+          <Area name='Cloud Cover' type='monotone' dataKey={(d) => normalizedCloudCover(d)} yAxisId='right' stroke='#6d9ed9' fillOpacity={1} fill='url(#colorUv)' />
           <YAxis
             name='Temp'
             yAxisId='left'
@@ -127,18 +127,18 @@ function LocationDetailChart(props: LocationDetailChartProps) {
           <Tooltip />
           {/* <Tooltip content={<CustomTooltip />} trigger='click' /> */}
           <Legend />
-          <Bar name='Precipitation' dataKey={(d) => precipitation(d)} fill='rgb(135 201 249)' yAxisId='right' strokeWidth={1} barSize={8}>
+          <Bar name='Precipitation' dataKey={(d) => precipitation(d)} fill='#7ba9d6' yAxisId='right' strokeWidth={1} barSize={8}>
             <LabelList
               dataKey={(d) => precipLabel(d)}
               position='top'
               style={{ fontSize: '0.7rem', fontFamily: 'Arial', fontWeight: '1.3em' }}
             />
           </Bar>
-          <Line name='Max Temp' type='monotone' dataKey='tempmax' stroke='#ffb412' yAxisId='left' label='max temp' />
-          <Line name='Min Temp' type='monotone' dataKey='tempmin' stroke='#8884d8' yAxisId='left' activeDot={{ r: 4 }} />
-          <ReferenceLine y={95} yAxisId='left' label='95 °F' stroke='red' strokeDasharray='3 3' />
-          <ReferenceLine y={32} yAxisId='left' label='32 °F' stroke='blue' strokeDasharray='3 3' />
-          <ReferenceLine y={1} yAxisId='right' label='100% cloud cover' stroke='#99ddff' />
+          <Line name='Max Temp' type='monotone' dataKey='tempmax' stroke='#d4b87a' yAxisId='left' label='max temp' />
+          <Line name='Min Temp' type='monotone' dataKey='tempmin' stroke='#7ba9d6' yAxisId='left' activeDot={{ r: 4 }} />
+          <ReferenceLine y={95} yAxisId='left' label='95 °F' stroke='#d97869' strokeDasharray='3 3' />
+          <ReferenceLine y={32} yAxisId='left' label='32 °F' stroke='#7ba9d6' strokeDasharray='3 3' />
+          <ReferenceLine y={1} yAxisId='right' label='100% cloud cover' stroke='#9ba4ba' />
         </ComposedChart>
       </ResponsiveContainer>
     </div>

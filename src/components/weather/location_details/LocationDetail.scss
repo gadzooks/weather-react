@@ -24,15 +24,26 @@ div.location-details-div {
 table.location-details {
   border-collapse:collapse;
   font-size: 1.2rem;
+  background: var(--color-bg-surface, #242831);
+  color: var(--color-text-primary, #d6d9e3);
 
   tbody {
     white-space: nowrap;
   }
 
+  tbody tr {
+    border-bottom: 1px solid var(--color-border-subtle, rgba(255, 255, 255, 0.04));
+
+    &:hover {
+      background: var(--color-bg-hover, #353b48);
+    }
+  }
+
   thead tr {
-    background-color: #cfe2f5;
+    background-color: #2d323d;
     text-align: center;
     font-weight: bolder;
+    color: #d6d9e3;
 
     td {
       padding: 10px;
@@ -41,16 +52,19 @@ table.location-details {
 
   tbody td {
     padding: 6px 8px;
+    color: #d6d9e3;
   }
 
   tr.heading th {
     font-weight: bold;
     text-align: center;
-    background-color: #f2f7fb;
+    background-color: #242831;
+    color: #d6d9e3;
   }
 
   tr.secondary-heading th {
-    background-color: #ffeaaa;
+    background-color: #353b48;
+    color: #d6d9e3;
   }
 
   td.align-right {
@@ -63,7 +77,7 @@ table.location-details {
 }
 
 .border-right {
-  border-right: 1px solid #afafaf;
+  border-right: 1px solid #656b7e;
 }
 
 // @media (max-width: 500px) {

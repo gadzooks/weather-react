@@ -2,39 +2,39 @@
 // 🌙 DARK MODE WEATHER FORECAST - MOBILE FIRST
 // ============================================
 
-// Design Tokens - Dark Mode Color Palette
+// Design Tokens - Soft & Calming Dark Mode Color Palette
 :root {
-  // Base colors - Optimized for OLED displays
-  --color-bg-primary: #0a0e27;
-  --color-bg-surface: #1a1f3a;
-  --color-bg-elevated: #252b4a;
-  --color-bg-hover: #2d3454;
+  // Base colors - Warm dark grays with subtle blue tint (avoid pure black)
+  --color-bg-primary: #1a1d26;
+  --color-bg-surface: #242831;
+  --color-bg-elevated: #2d323d;
+  --color-bg-hover: #353b48;
 
   // Borders & dividers
-  --color-border-subtle: rgba(255, 255, 255, 0.05);
-  --color-border-medium: rgba(255, 255, 255, 0.1);
-  --color-border-strong: #2d3454;
+  --color-border-subtle: rgba(255, 255, 255, 0.04);
+  --color-border-medium: rgba(255, 255, 255, 0.08);
+  --color-border-strong: #353b48;
 
-  // Typography
-  --color-text-primary: #e8eaf6;
-  --color-text-secondary: #b8bdd9;
-  --color-text-dimmed: #6b7199;
+  // Typography - Softer off-whites
+  --color-text-primary: #d6d9e3;
+  --color-text-secondary: #9fa5b8;
+  --color-text-dimmed: #656b7e;
 
-  // Accents
-  --color-accent-primary: #00d9ff;
-  --color-accent-glow: rgba(0, 217, 255, 0.3);
+  // Accents - Soft desaturated blue
+  --color-accent-primary: #6B9BD1;
+  --color-accent-glow: rgba(107, 155, 209, 0.18);
 
-  // Weather-specific colors
-  --color-rain-heavy: #4d9eff;
-  --color-rain-light: #7eb8ff;
-  --color-clouds: #8b95b8;
-  --color-sun: #ffd93d;
-  --color-weekend: rgba(0, 217, 255, 0.08);
+  // Weather-specific colors - Desaturated
+  --color-rain-heavy: #6d9ed9;
+  --color-rain-light: #9baed9;
+  --color-clouds: #9ba4ba;
+  --color-sun: #dac589;
+  --color-weekend: rgba(107, 155, 209, 0.05);
 
-  // Alert colors
-  --color-alert-advisory: #17bcff;
-  --color-alert-watch: #ffd52e;
-  --color-alert-warning: #ff4227;
+  // Alert colors - Muted but clear
+  --color-alert-advisory: #7ba9d6;
+  --color-alert-watch: #d4ba7a;
+  --color-alert-warning: #d97869;
 
   // Spacing (mobile-first)
   --spacing-xs: 8px;
@@ -120,10 +120,15 @@ table.table {
   thead tr td:nth-child(2) {
     position: sticky;
     left: 0;
-    background: var(--color-bg-surface);
+    background: linear-gradient(
+      90deg,
+      var(--color-bg-surface, #242831) 0%,
+      var(--color-bg-surface, #242831) 85%,
+      rgba(36, 40, 49, 0.95) 100%
+    );
     text-align: left;
     z-index: calc(var(--z-sticky) + 1);
-    box-shadow: 2px 0 8px rgba(0, 0, 0, 0.2);
+    box-shadow: 2px 0 6px rgba(0, 0, 0, 0.15);
     min-width: 140px;
     max-width: 180px;
     padding-left: var(--spacing-md);
@@ -138,21 +143,31 @@ table.table {
   thead tr td:first-child {
     position: sticky;
     left: 0;
-    background: var(--color-bg-surface);
+    background: linear-gradient(
+      90deg,
+      var(--color-bg-surface, #242831) 0%,
+      var(--color-bg-surface, #242831) 85%,
+      rgba(36, 40, 49, 0.95) 100%
+    );
     z-index: calc(var(--z-sticky) + 2);
     min-width: 60px;
     padding: var(--spacing-sm);
     border-right: 1px solid var(--color-border-medium);
-    box-shadow: 2px 0 8px rgba(0, 0, 0, 0.2);
+    box-shadow: 2px 0 6px rgba(0, 0, 0, 0.15);
   }
 
   // Adjust location column when alerts are present
   tbody tr td:nth-child(2) {
     position: sticky;
     left: 60px; // Width of alerts column
-    background: var(--color-bg-surface);
+    background: linear-gradient(
+      90deg,
+      var(--color-bg-surface, #242831) 0%,
+      var(--color-bg-surface, #242831) 85%,
+      rgba(36, 40, 49, 0.95) 100%
+    );
     z-index: calc(var(--z-sticky) + 1);
-    box-shadow: 2px 0 8px rgba(0, 0, 0, 0.2);
+    box-shadow: 2px 0 6px rgba(0, 0, 0, 0.15);
   }
 }
 
@@ -187,7 +202,7 @@ table.table {
 
   &:hover,
   &:focus {
-    background: rgba(0, 217, 255, 0.15);
+    background: rgba(107, 155, 209, 0.12);
     border-color: var(--color-accent-primary);
     color: var(--color-accent-primary);
     transform: translateY(-1px);
@@ -199,14 +214,14 @@ table.table {
 
   // Date buttons
   &.forecast-date {
-    background: rgba(0, 217, 255, 0.1);
+    background: rgba(107, 155, 209, 0.08);
     color: var(--color-text-primary);
     font-weight: 600;
     border: 2px solid var(--color-accent-primary);
-    box-shadow: 0 0 20px var(--color-accent-glow);
+    box-shadow: 0 0 16px var(--color-accent-glow);
 
     &:hover {
-      box-shadow: 0 0 30px var(--color-accent-glow);
+      box-shadow: 0 0 24px var(--color-accent-glow);
     }
   }
 
@@ -219,7 +234,7 @@ table.table {
     background: rgba(255, 255, 255, 0.03);
 
     &:hover {
-      background: rgba(0, 217, 255, 0.2);
+      background: rgba(107, 155, 209, 0.15);
     }
   }
 }
@@ -284,7 +299,7 @@ table.table {
       position: relative;
 
       &:active {
-        background: rgba(0, 217, 255, 0.1);
+        background: rgba(107, 155, 209, 0.08);
       }
 
       // Add subtle pulse for active weather
@@ -316,7 +331,7 @@ table.table {
     bottom: 0;
     width: 3px;
     background: var(--color-accent-primary);
-    box-shadow: 0 0 8px var(--color-accent-glow);
+    box-shadow: 0 0 6px var(--color-accent-glow);
   }
 }
 
@@ -535,12 +550,12 @@ a.freepik {
 // Dark Mode Enhancements for OLED
 // ============================================
 
-// True black mode for OLED power savings
+// Very dark warm gray for OLED (avoid pure black for better eye comfort)
 @media (prefers-color-scheme: dark) {
   :root {
-    --color-bg-primary: #000000;
-    --color-bg-surface: #0f1419;
-    --color-bg-elevated: #1a1f2e;
+    --color-bg-primary: #16181f;
+    --color-bg-surface: #1e2128;
+    --color-bg-elevated: #272b35;
   }
 }
 

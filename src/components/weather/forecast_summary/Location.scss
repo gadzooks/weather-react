@@ -1,59 +1,60 @@
 // ============================================
-// Weather Icon Colors - Dark Mode Optimized
+// Weather Icon Colors - Soft & Calming Palette
+// All colors desaturated by 30-40% for better dark mode comfort
 // ============================================
 
-// Weather conditions with enhanced visibility
+// Weather conditions with softer glow effects
 .fog {
-  color: #a8a6a8;
-  filter: drop-shadow(0 0 4px rgba(168, 166, 168, 0.4));
+  color: #b5b3b5;
+  filter: drop-shadow(0 0 3px rgba(181, 179, 181, 0.25));
 }
 
 .snow {
-  color: #4d9eff;
-  filter: drop-shadow(0 0 6px rgba(77, 158, 255, 0.5));
+  color: #6d9ed9;
+  filter: drop-shadow(0 0 5px rgba(109, 158, 217, 0.35));
 }
 
 .cloudy {
-  color: #8b95b8;
-  filter: drop-shadow(0 0 4px rgba(139, 149, 184, 0.3));
+  color: #9ba4ba;
+  filter: drop-shadow(0 0 3px rgba(155, 164, 186, 0.2));
 }
 
 .rain {
-  color: #4d9eff;
-  filter: drop-shadow(0 0 8px rgba(77, 158, 255, 0.6));
+  color: #6d9ed9;
+  filter: drop-shadow(0 0 6px rgba(109, 158, 217, 0.4));
 }
 
-// Sunshine levels with warm glow
+// Sunshine levels with soft warm glow
 .sunshine-10 {
-  color: #ffbb21;
-  filter: drop-shadow(0 0 6px rgba(255, 187, 33, 0.4));
+  color: #d4b87a;
+  filter: drop-shadow(0 0 5px rgba(212, 184, 122, 0.25));
 }
 
 .sunshine-50 {
-  color: #ffd93d;
-  filter: drop-shadow(0 0 8px rgba(255, 217, 61, 0.5));
+  color: #dac589;
+  filter: drop-shadow(0 0 6px rgba(218, 197, 137, 0.3));
 }
 
 .sunshine-100 {
-  color: #00d9ff;
-  filter: drop-shadow(0 0 6px rgba(0, 217, 255, 0.4));
+  color: #6B9BD1;
+  filter: drop-shadow(0 0 5px rgba(107, 155, 209, 0.3));
 }
 
 .day-sunny {
-  color: #ffd93d;
-  filter: drop-shadow(0 0 10px rgba(255, 217, 61, 0.6));
+  color: #dac589;
+  filter: drop-shadow(0 0 7px rgba(218, 197, 137, 0.4));
   animation: subtlePulse 3s ease-in-out infinite;
 }
 
-// Temperature indicators
+// Temperature indicators - muted but clear
 .high-temp-wi-hotter {
-  color: #ff5f21;
-  filter: drop-shadow(0 0 8px rgba(255, 95, 33, 0.5));
+  color: #d98969;
+  filter: drop-shadow(0 0 6px rgba(217, 137, 105, 0.35));
 }
 
 .high-temp-wi-hot {
-  color: #ffbb21;
-  filter: drop-shadow(0 0 6px rgba(255, 187, 33, 0.4));
+  color: #d4b87a;
+  filter: drop-shadow(0 0 5px rgba(212, 184, 122, 0.3));
 }
 
 // Location name styling

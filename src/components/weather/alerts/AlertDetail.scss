@@ -1,14 +1,18 @@
 div.alert {
   padding: 15px 10px;
   max-width: 1000px;
-  background-color: #ffd0e3;
-  border: 1px solid black;
+  background-color: rgba(217, 120, 105, 0.15);
+  border: 1px solid var(--color-alert-warning, #d97869);
+  border-radius: 8px;
+  color: var(--color-text-primary, #d6d9e3);
 }
 
 div.alert span.alert-icon {
   padding-right: 10px;
+  color: var(--color-alert-warning, #d97869);
 }
 
 .till {
   padding-left: 5px;
+  color: var(--color-text-secondary, #9fa5b8);
 }

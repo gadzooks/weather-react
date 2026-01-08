@@ -22,14 +22,14 @@ body {
   -moz-osx-font-smoothing: grayscale;
 
   /* Dark mode background */
-  background: var(--color-bg-primary, #0a0e27);
-  color: var(--color-text-primary, #e8eaf6);
+  background: var(--color-bg-primary, #1a1d26);
+  color: var(--color-text-primary, #d6d9e3);
 
   /* Prevent text size adjustment on orientation change in iOS */
   -webkit-text-size-adjust: 100%;
 
   /* Better tap highlighting */
-  -webkit-tap-highlight-color: rgba(0, 217, 255, 0.2);
+  -webkit-tap-highlight-color: rgba(107, 155, 209, 0.15);
 
   /* Full viewport height on mobile */
   min-height: 100vh;
@@ -44,21 +44,21 @@ html {
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
-  background: var(--color-bg-elevated, #252b4a);
+  background: var(--color-bg-elevated, #2d323d);
   padding: 2px 6px;
   border-radius: 4px;
-  color: var(--color-accent-primary, #00d9ff);
+  color: var(--color-accent-primary, #6B9BD1);
 }
 
 /* Selection styling for dark mode */
 ::selection {
-  background: var(--color-accent-primary, #00d9ff);
-  color: var(--color-bg-primary, #0a0e27);
+  background: var(--color-accent-primary, #6B9BD1);
+  color: var(--color-bg-primary, #1a1d26);
 }
 
 ::-moz-selection {
-  background: var(--color-accent-primary, #00d9ff);
-  color: var(--color-bg-primary, #0a0e27);
+  background: var(--color-accent-primary, #6B9BD1);
+  color: var(--color-bg-primary, #1a1d26);
 }
 
 /* Scrollbar styling for webkit browsers */
@@ -68,18 +68,18 @@ code {
 }
 
 ::-webkit-scrollbar-track {
-  background: var(--color-bg-surface, #1a1f3a);
+  background: var(--color-bg-surface, #242831);
   border-radius: 6px;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: var(--color-bg-elevated, #252b4a);
+  background: var(--color-bg-elevated, #2d323d);
   border-radius: 6px;
-  border: 2px solid var(--color-bg-surface, #1a1f3a);
+  border: 2px solid var(--color-bg-surface, #242831);
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: var(--color-bg-hover, #2d3454);
+  background: var(--color-bg-hover, #353b48);
 }
 
 /* Mobile scrollbar - thinner */
@@ -90,13 +90,13 @@ code {
   }
 
   ::-webkit-scrollbar-thumb {
-    border: 1px solid var(--color-bg-surface, #1a1f3a);
+    border: 1px solid var(--color-bg-surface, #242831);
   }
 }
 
 /* Focus visible for accessibility */
 *:focus-visible {
-  outline: 2px solid var(--color-accent-primary, #00d9ff);
+  outline: 2px solid var(--color-accent-primary, #6B9BD1);
   outline-offset: 2px;
 }
 
@@ -119,7 +119,7 @@ input[type="submit"],
 /* Dark mode color scheme preference */
 @media (prefers-color-scheme: dark) {
   body {
-    /* True black for OLED power savings */
-    background: #000000;
+    /* Very dark warm gray instead of pure black for better eye comfort */
+    background: #16181f;
   }
 }

@@ -5,17 +5,17 @@
 tr.region-details td {
   background: linear-gradient(
     90deg,
-    var(--color-bg-elevated, #252b4a) 0%,
-    var(--color-bg-surface, #1a1f3a) 100%
+    var(--color-bg-elevated, #2d323d) 0%,
+    var(--color-bg-surface, #242831) 100%
   );
-  color: var(--color-accent-primary, #00d9ff);
+  color: var(--color-accent-primary, #6B9BD1);
   font-weight: 600;
   text-transform: uppercase;
   font-size: 0.85em;
   letter-spacing: 0.5px;
   padding: var(--spacing-md, 16px);
-  border-top: 2px solid var(--color-border-strong, #2d3454);
-  border-bottom: 1px solid var(--color-accent-primary, #00d9ff);
+  border-top: 2px solid var(--color-border-strong, #353b48);
+  border-bottom: 1px solid var(--color-accent-primary, #6B9BD1);
   text-align: center;
 }
 
