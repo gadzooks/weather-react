@@ -1,3 +1,5 @@
+// SummaryTableLoader.tsx
+
 import React, { useEffect, useState } from 'react';
 import { parse } from 'fecha';
 import { DailyForecastFilter } from '../../../interfaces/DailyForecastFilter';
@@ -17,8 +19,7 @@ import fetchWithRetries from '../../../api/retry';
 
 const dataSource = import.meta.env.PROD ? 'real' : 'mock';
 const WEATHER_API = import.meta.env.VITE_WEATHER_API;
-const WEATHER_JWT_TOKEN = import.meta.env.VITE_WEATHER_JWT_TOKEN;
-const url = `${WEATHER_API}/forecasts/${dataSource}`;
+const url = `${WEATHER_API}/prod/forecasts/${dataSource}`;
 
 export function SummaryTableLoader() {
   const [forecastDetailsForLocation, setForecastDetailsForLocation] = useState<string>();
@@ -27,12 +28,7 @@ export function SummaryTableLoader() {
   useEffect(() => {
     const fetchData = async () => {
       // get the data from the api
-      const data = await fetchWithRetries(`${url}`, {
-        mode: 'cors',
-        headers: new Headers({
-          Authorization: `Bearer ${WEATHER_JWT_TOKEN}`,
-        }),
-      });
+      const data = await fetchWithRetries(`${url}`, {});
       // convert the data to json
       const json = await data.json();
       // set state with the result

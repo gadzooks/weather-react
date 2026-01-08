@@ -1,25 +1,98 @@
-.fog { color: rgb(152, 150, 152); }
-.snow { color: rgb(25, 151, 245); }
-.cloudy { color: blue; }
-.rain { color: blue; }
-.sunshine-10 { color: rgb(255, 187, 33); }
-.sunshine-50 { color: rgb(123, 96, 96); }
-.sunshine-100 { color: rgb(38, 163, 231); }
-.day-sunny { color: #ffb412; }
+// ============================================
+// Weather Icon Colors - Dark Mode Optimized
+// ============================================
 
+// Weather conditions with enhanced visibility
+.fog {
+  color: #a8a6a8;
+  filter: drop-shadow(0 0 4px rgba(168, 166, 168, 0.4));
+}
+
+.snow {
+  color: #4d9eff;
+  filter: drop-shadow(0 0 6px rgba(77, 158, 255, 0.5));
+}
+
+.cloudy {
+  color: #8b95b8;
+  filter: drop-shadow(0 0 4px rgba(139, 149, 184, 0.3));
+}
+
+.rain {
+  color: #4d9eff;
+  filter: drop-shadow(0 0 8px rgba(77, 158, 255, 0.6));
+}
+
+// Sunshine levels with warm glow
+.sunshine-10 {
+  color: #ffbb21;
+  filter: drop-shadow(0 0 6px rgba(255, 187, 33, 0.4));
+}
+
+.sunshine-50 {
+  color: #ffd93d;
+  filter: drop-shadow(0 0 8px rgba(255, 217, 61, 0.5));
+}
+
+.sunshine-100 {
+  color: #00d9ff;
+  filter: drop-shadow(0 0 6px rgba(0, 217, 255, 0.4));
+}
+
+.day-sunny {
+  color: #ffd93d;
+  filter: drop-shadow(0 0 10px rgba(255, 217, 61, 0.6));
+  animation: subtlePulse 3s ease-in-out infinite;
+}
+
+// Temperature indicators
 .high-temp-wi-hotter {
   color: #ff5f21;
+  filter: drop-shadow(0 0 8px rgba(255, 95, 33, 0.5));
 }
 
 .high-temp-wi-hot {
   color: #ffbb21;
+  filter: drop-shadow(0 0 6px rgba(255, 187, 33, 0.4));
 }
 
+// Location name styling
 .location-name {
   text-align: left;
 }
 
+// Weekend highlighting - defined in SummaryTable.scss
+// Removed old light-mode diagonal stripes
 .weekend {
-  background-image: linear-gradient(142deg, #b2f7c6 11.11%, #faf5f5 11.11%, #faf5f5 50%, #b2f7c6 50%, #b2f7c6 61.11%, #faf5f5 61.11%, #faf5f5 100%);
-  background-size: 14.62px 11.42px;
+  // Styles defined in SummaryTable.scss for consistency
+  // Background and glow effect applied globally
+}
+
+// Subtle pulse animation for sunny weather
+@keyframes subtlePulse {
+  0%, 100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.9;
+    transform: scale(1.05);
+  }
+}
+
+// Alert icon styling
+.alert-icon {
+  margin-right: 4px;
+  font-size: 1.2em;
+  text-decoration: none;
+  transition: transform var(--transition-fast, 150ms);
+  display: inline-block;
+
+  &:hover {
+    transform: scale(1.15);
+  }
+
+  &:active {
+    transform: scale(0.95);
+  }
 }

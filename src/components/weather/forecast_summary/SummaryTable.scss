@@ -1,355 +1,594 @@
-// Place all the styles related to the Weather controller here.
-// They will automatically be included in application.css.
-// You can use Sass (SCSS) here: http://sass-lang.com/
-// .weather-forecast-table {
-//   font-family: 'Courier';
-//   // font-family: 'Apercu Mono'
-//   border-collapse: collapse;
-//   margin: 25px 0;
-//   font-size: 0.9em;
-//   font-family: sans-serif;
-//   min-width: 400px;
-//   box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
-// }
+// ============================================
+// 🌙 DARK MODE WEATHER FORECAST - MOBILE FIRST
+// ============================================
 
-// $color-alert-bg: black;
+// Design Tokens - Dark Mode Color Palette
+:root {
+  // Base colors - Optimized for OLED displays
+  --color-bg-primary: #0a0e27;
+  --color-bg-surface: #1a1f3a;
+  --color-bg-elevated: #252b4a;
+  --color-bg-hover: #2d3454;
 
-// .alert-cell-triangle {
-//     position: relative;
-// }
-// .alert-cell-triangle:after {
-//   content: "";
-//   position: absolute;
-//   top: 0;
-//   right: 0;
-//   width: 0;
-//   height: 0; 
-//   display: block;
-//   border-left: 15px solid transparent;
-//   border-bottom: 15px solid transparent;
-//   border-top: 15px solid $color-alert-bg;
-// }
+  // Borders & dividers
+  --color-border-subtle: rgba(255, 255, 255, 0.05);
+  --color-border-medium: rgba(255, 255, 255, 0.1);
+  --color-border-strong: #2d3454;
 
-// .alert-details {
-//   padding: 0.5rem;
-//   margin-bottom: 1.25rem;
-//   border: 2px solid #eee;
-//   border-left-width: .25rem;
-//   border-radius: .5rem;
-//   span.title {
-//     margin-top: 0;
-//     margin-bottom: .25rem;
-//     font-weight: bolder;
-//     padding: 5px;
-//     border-radius: .25rem;
-//   }
-//   .regions {
-//     padding: 3px;
-//     span.region {
-//       font-weight: 700;
-//     }
-//   }
-//   .description {
-//     padding: 3px;
-//     span.description {
-//       font-weight: 700;
-//     }
-//   }
-// }
+  // Typography
+  --color-text-primary: #e8eaf6;
+  --color-text-secondary: #b8bdd9;
+  --color-text-dimmed: #6b7199;
 
+  // Accents
+  --color-accent-primary: #00d9ff;
+  --color-accent-glow: rgba(0, 217, 255, 0.3);
 
-// // level 1 warning
-// $color-alert-advisory: rgba(23, 188, 255, 1);
-// .alert-advisory {
-//   border-left-color: $color-alert-advisory;
-// }
+  // Weather-specific colors
+  --color-rain-heavy: #4d9eff;
+  --color-rain-light: #7eb8ff;
+  --color-clouds: #8b95b8;
+  --color-sun: #ffd93d;
+  --color-weekend: rgba(0, 217, 255, 0.08);
 
-// // level 2 warning
-// $color-alert-watch: rgba(255, 213, 46, 1);
-// .alert-watch {
-//   border-left-color: $color-alert-watch;
-// }
+  // Alert colors
+  --color-alert-advisory: #17bcff;
+  --color-alert-watch: #ffd52e;
+  --color-alert-warning: #ff4227;
 
-// $color-alert-warning: rgba(255, 66, 39, 0.88);
-// // level 3 warning
-// .alert-warning {
-//   border-left-color: $color-alert-warning;
-// }
+  // Spacing (mobile-first)
+  --spacing-xs: 8px;
+  --spacing-sm: 12px;
+  --spacing-md: 16px;
+  --spacing-lg: 24px;
+  --spacing-xl: 32px;
 
-// span.alerts-summary {
-//   background-color: blue;
-//   color: white;
-//   padding: 1px 5px;
-//   margin-right: 10px;
-//   border-radius: .2rem;
-// }
+  // Touch targets (iOS guidelines)
+  --touch-target-min: 44px;
 
-// span.alert_id {
-//   background-color: $color-alert-bg;
-//   padding: 1px 5px;
-//   margin: 3px;
-//   a {
-//     color: white;
-//   }
-//   border-radius: .2rem;
-// }
+  // Transitions
+  --transition-fast: 150ms ease-out;
+  --transition-normal: 250ms ease-out;
+  --transition-slow: 400ms ease-out;
 
-// table.weather-forecast-alerts {
-//   tr.table-heading {
-//     td {
-//       border: 0;
-//       font-size: 1.2em;
-//     }
-//   }
-// }
+  // Border radius
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  --radius-pill: 999px;
+
+  // Z-index layers
+  --z-sticky: 10;
+  --z-dropdown: 20;
+  --z-modal: 30;
+}
+
+// ============================================
+// Base Table Styles - Mobile First
+// ============================================
 
 table.table {
-  border-collapse: collapse;
-  font-size: 0.9em;
-  // font-family: sans-serif;
-  min-width: 400px;
-  box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+  border-collapse: separate;
+  border-spacing: 0;
+  font-size: 0.9rem;
+  min-width: 100%;
+  background: var(--color-bg-primary);
+  box-shadow: none;
+  position: relative;
+
+  // Enable smooth scrolling
+  overflow-x: auto;
+  overflow-y: visible;
+  -webkit-overflow-scrolling: touch;
+  scroll-behavior: smooth;
 }
 
-.styled-table thead tr {
-  background-color: #f9d6a7;
-  color: black;
-  font-weight: 5em;
-  // text-align: center;
+// ============================================
+// Table Header - Sticky & Glassmorphic
+// ============================================
+
+.styled-table {
+  thead {
+    position: sticky;
+    top: 0;
+    z-index: var(--z-sticky);
+
+    tr {
+      background: linear-gradient(
+        135deg,
+        var(--color-bg-elevated) 0%,
+        var(--color-bg-surface) 100%
+      );
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      box-shadow: 0 2px 12px rgba(0, 0, 0, 0.3);
+    }
+  }
+
+  th,
+  td {
+    padding: var(--spacing-sm);
+    text-align: center;
+    color: var(--color-text-primary);
+    border-bottom: 1px solid var(--color-border-subtle);
+    transition: background-color var(--transition-fast);
+  }
+
+  // Location column - Sticky on horizontal scroll
+  td.location-name,
+  th:first-child,
+  thead tr td:nth-child(2) {
+    position: sticky;
+    left: 0;
+    background: var(--color-bg-surface);
+    text-align: left;
+    z-index: calc(var(--z-sticky) + 1);
+    box-shadow: 2px 0 8px rgba(0, 0, 0, 0.2);
+    min-width: 140px;
+    max-width: 180px;
+    padding-left: var(--spacing-md);
+    font-weight: 500;
+    color: var(--color-text-primary);
+
+    // Add subtle border on the right
+    border-right: 1px solid var(--color-border-medium);
+  }
+
+  // Alerts column (if present)
+  thead tr td:first-child {
+    position: sticky;
+    left: 0;
+    background: var(--color-bg-surface);
+    z-index: calc(var(--z-sticky) + 2);
+    min-width: 60px;
+    padding: var(--spacing-sm);
+    border-right: 1px solid var(--color-border-medium);
+    box-shadow: 2px 0 8px rgba(0, 0, 0, 0.2);
+  }
+
+  // Adjust location column when alerts are present
+  tbody tr td:nth-child(2) {
+    position: sticky;
+    left: 60px; // Width of alerts column
+    background: var(--color-bg-surface);
+    z-index: calc(var(--z-sticky) + 1);
+    box-shadow: 2px 0 8px rgba(0, 0, 0, 0.2);
+  }
 }
 
-.styled-table th,
-.styled-table td {
-  padding: 12px 8px;
+// ============================================
+// Date Navigation Buttons - Touch Optimized
+// ============================================
+
+.button-2 {
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--color-border-subtle);
+  color: var(--color-text-secondary);
+  cursor: pointer;
+  display: inline-block;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  font-size: 15px;
+  font-weight: 500;
+  line-height: 1.4;
+  margin: 2px;
+  padding: var(--spacing-sm) var(--spacing-md);
   text-align: center;
+  transition: all var(--transition-normal);
+  vertical-align: middle;
+  white-space: nowrap;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+
+  // Minimum touch target for iOS
+  min-height: var(--touch-target-min);
+  min-width: var(--touch-target-min);
+
+  &:hover,
+  &:focus {
+    background: rgba(0, 217, 255, 0.15);
+    border-color: var(--color-accent-primary);
+    color: var(--color-accent-primary);
+    transform: translateY(-1px);
+  }
+
+  &:active {
+    transform: translateY(0);
+  }
+
+  // Date buttons
+  &.forecast-date {
+    background: rgba(0, 217, 255, 0.1);
+    color: var(--color-text-primary);
+    font-weight: 600;
+    border: 2px solid var(--color-accent-primary);
+    box-shadow: 0 0 20px var(--color-accent-glow);
+
+    &:hover {
+      box-shadow: 0 0 30px var(--color-accent-glow);
+    }
+  }
+
+  // Arrow buttons - More compact
+  &.left-arrow,
+  &.right-arrow {
+    padding: var(--spacing-sm);
+    min-width: var(--touch-target-min);
+    font-size: 18px;
+    background: rgba(255, 255, 255, 0.03);
+
+    &:hover {
+      background: rgba(0, 217, 255, 0.2);
+    }
+  }
 }
 
-.styled-table td.location-name {
-  text-align: left;
+// ============================================
+// Weather Icons - Enhanced with Glow Effects
+// ============================================
+
+.weather-icon {
+  font-size: 2em;
+  line-height: 1;
+  transition: all var(--transition-normal);
+  display: inline-block;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
+
+  // Glow effects for different weather
+  &:hover {
+    transform: scale(1.15);
+  }
 }
+
+// ============================================
+// Table Body - Rows & Cells
+// ============================================
+
+.styled-table tbody {
+  tr {
+    background: var(--color-bg-surface);
+    transition: background-color var(--transition-fast);
+
+    &:hover {
+      background: var(--color-bg-hover);
+    }
+
+    // Regional sections
+    &.region-header {
+      background: linear-gradient(
+        90deg,
+        var(--color-bg-elevated) 0%,
+        var(--color-bg-surface) 100%
+      );
+      font-weight: 600;
+      color: var(--color-accent-primary);
+      text-transform: uppercase;
+      font-size: 0.85em;
+      letter-spacing: 0.5px;
+
+      td {
+        padding: var(--spacing-md);
+        border-top: 2px solid var(--color-border-strong);
+        border-bottom: 1px solid var(--color-accent-primary);
+      }
+    }
+  }
+
+  td {
+    border-bottom: 1px solid var(--color-border-subtle);
+
+    // Weather cells -ClickableTouch feedback
+    &.weather-cell {
+      cursor: pointer;
+      position: relative;
+
+      &:active {
+        background: rgba(0, 217, 255, 0.1);
+      }
+
+      // Add subtle pulse for active weather
+      &.active-weather::after {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background: radial-gradient(circle, var(--color-accent-glow) 0%, transparent 70%);
+        pointer-events: none;
+        animation: pulse 2s ease-in-out infinite;
+      }
+    }
+  }
+}
+
+// ============================================
+// Weekend Highlighting - Subtle Glow
+// ============================================
+
+.weekend {
+  background: var(--color-weekend) !important;
+  position: relative;
+
+  &::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 3px;
+    background: var(--color-accent-primary);
+    box-shadow: 0 0 8px var(--color-accent-glow);
+  }
+}
+
+// ============================================
+// Location Links - Interactive
+// ============================================
 
 .forecast-button {
   background: none !important;
   border: none;
   padding: 0 !important;
-  /*optional*/
-  font-family: arial, sans-serif;
-  /*input has OS specific font-family*/
-  color: #069;
-  text-decoration: underline;
+  color: var(--color-accent-primary);
+  text-decoration: none;
   cursor: pointer;
-}
-
-// < !-- HTML !--><button class="button-2" role="button">Button 2</button>
-// https: //getcssscan.com/css-buttons-examples
-/* CSS */
-.button-2 {
-  background-color: rgb(51 51 51 / 10%);
-  border-radius: 8px;
-  border-width: 0;
-  color: #333333;
-  cursor: pointer;
-  display: inline-block;
-  font-family: "Haas Grot Text R Web", "Helvetica Neue", Helvetica, Arial, sans-serif;
-  font-size: 14px;
   font-weight: 500;
-  line-height: 20px;
-  list-style: none;
-  margin: 0;
-  padding: 10px 12px;
-  text-align: center;
-  transition: all 200ms;
-  vertical-align: baseline;
-  white-space: nowrap;
-  user-select: none;
-  -webkit-user-select: none;
-  touch-action: manipulation;
-}
+  font-size: inherit;
+  transition: color var(--transition-fast);
 
-// FIXME : not being used currently
-table.weather-forecast-summary-11111 {
-  tbody {
-    white-space: nowrap;
-    td {
-      padding: 0.45em;
-    }
-  }
-  td.weather-cell {
-    border: 2px solid rgba(1,2,4,0.07);
-  }
-  td.center {
-    text-align: center;
-  }
-  thead.table-heading {
-    td {
-      background-color: #f08e07;
-      color: #ffffff;
-      text-align: center;
-    }
+  &:hover,
+  &:focus {
+    color: var(--color-text-primary);
+    text-decoration: underline;
+    text-decoration-color: var(--color-accent-primary);
+    text-decoration-thickness: 2px;
+    text-underline-offset: 3px;
   }
 
-  tr.planetory-info {
-    span.sunrise {
-      i {
-        color: #ffc107;
-        padding-right: 0.4em;
-      }
-      padding-right: 2em;
-    }
-    span.sunset {
-      i {
-        color: #0e151d;
-        padding-right: 0.4em;
-      }
-      padding-left: 2em;
-    }
+  &:active {
+    color: var(--color-accent-glow);
   }
 }
 
-.wta-link {
-  padding-right: 5px;
-}
+// ============================================
+// Alerts Section
+// ============================================
 
 .all-alerts {
-  padding-top: 10px;
+  padding: var(--spacing-lg) var(--spacing-md);
+  background: var(--color-bg-surface);
+  border-radius: var(--radius-md);
+  margin-top: var(--spacing-lg);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
 }
 
 .alert-for-this-day {
-  border-bottom: 1px solid red;
+  border-bottom: 2px solid var(--color-alert-warning);
+  padding-bottom: var(--spacing-sm);
+  animation: alertPulse 2s ease-in-out infinite;
 }
 
-// table.weather-forecast {
-//   border-collapse:collapse;
-//   tr.weather-cell td {
-//     border: 2px solid rgba(1, 2, 4, 0.07);
-//   }
+.wta-link {
+  padding-right: var(--spacing-sm);
+  color: var(--color-accent-primary);
+  text-decoration: none;
 
-//   thead {
-//     tr.header-secondary-main {
-//       background-color:#f2d8a4;
-//     }
-//   }
+  &:hover {
+    text-decoration: underline;
+  }
+}
 
-//   tbody {
-//     white-space: nowrap;
+// ============================================
+// Animations
+// ============================================
 
-//     tr.daily-summary {
-//       background-color: #feffd4;
-//     }
+@keyframes pulse {
+  0%, 100% {
+    opacity: 0.6;
+  }
+  50% {
+    opacity: 1;
+  }
+}
 
-//     .weekend {
-//       background-image:linear-gradient(142deg, #b2f7c6 11.11%, #faf5f5 11.11%, #faf5f5 50%, #b2f7c6 50%, #b2f7c6 61.11%, #faf5f5 61.11%, #faf5f5 100%);
-//       background-size: 14.62px 11.42px;
-//     }
+@keyframes alertPulse {
+  0%, 100% {
+    border-color: var(--color-alert-warning);
+  }
+  50% {
+    border-color: rgba(255, 66, 39, 0.4);
+  }
+}
 
-//     tr.region-details {
-//       td {
-//         column-span: all;
-//         text-align: center;
-//       }
-//       background: #fef7e9;
-//     }
-
-//     tr.weather-details {
-//       span.forecast-id {
-//         color: white;
-//         background-color: rgba(156, 191, 240, 0.8);
-//         padding: 3px 3px 3px 5px;
-//         border-radius: 0.25em;
-//         margin-right: 5px;
-//       }
-
-//       td.summary {
-//         text-align: left;
-//       }
-
-//       td.location-row {
-//         text-align: left;
-//       }
-
-//       td.left-col-of-merged-cells {
-//         border-right: solid 1px #FFF;
-//       }
-
-//       td.right-col-of-merged-cells {
-//         border-left: solid 1px #FFF;
-//       }
-
-//       td.forecast-date span.day-of-month {
-//         border:none;
-//         color: #df788e;
-//         font-size: 0.85em;
-//         font-weight: 900;
-//         white-space: nowrap;
-//       }
-
-//       td.precipitation {
-//         text-align: center;
-//       }
-
-//       td.precipitation-prob {
-//         border-right: none;
-//         text-align: right;
-//       }
-//       td.precipitation-amount {
-//         border-left: none;
-//         text-align: right;
-//       }
-//       td.cloud-cover {
-//         text-align: right;
-//         padding-right: 4em;
-//       }
-//     }
-//   }
-
-//   .header-main {
-//     background-color:#def0ff;
-//   }
-
-//   tr.header-secondary {
-//     background-color:#fef7e9;
-//     text-align: center;
-//     td {
-//       padding: 8px 8px;
-//     }
-//   }
-// }
+// ============================================
+// Utility Classes
+// ============================================
 
 .align-right {
   text-align: right;
 }
 
-.weather-icon {
-  font-size: 1.4em;
-  font-weight: 1.2em;
-}
-
 a.freepik {
   text-decoration: underline;
-  font-size: 0.8em;
+  font-size: 0.75em;
+  color: var(--color-text-dimmed);
+
+  &:hover {
+    color: var(--color-text-secondary);
+  }
 }
 
-@media (max-width: 500px) {
-  .styled-table th,
-  .styled-table td {
-    padding: 6px 0px;
-    text-align: center;
-  }
+// ============================================
+// Mobile Optimizations (iPhone Primary Target)
+// ============================================
 
-  .weather-icon {
-    font-size: 1.1em;
+// Base mobile styles (default, mobile-first)
+@media (max-width: 768px) {
+  :root {
+    --spacing-sm: 10px;
+    --spacing-md: 14px;
+    --spacing-lg: 20px;
   }
 
   table.table {
-    font-size: 0.8em;
-  }
- 
-  .forecast-button {
-    font-size: 0.8em;
+    font-size: 0.85rem;
+    display: block;
+    overflow-x: auto;
+    white-space: nowrap;
+
+    // Improve scroll performance
+    -webkit-overflow-scrolling: touch;
+    scroll-snap-type: x proximity;
   }
 
-  .styled-table td.location-name {
-    padding-left: 12px;
+  .styled-table {
+    th,
+    td {
+      padding: var(--spacing-sm) 8px;
+    }
+
+    td.location-name {
+      min-width: 120px;
+      max-width: 150px;
+      font-size: 0.9em;
+      padding-left: var(--spacing-sm);
+    }
+
+    thead tr td:first-child {
+      min-width: 50px;
+    }
   }
 
+  .weather-icon {
+    font-size: 1.6em;
+  }
+
+  .button-2 {
+    padding: 10px 14px;
+    font-size: 14px;
+    min-height: var(--touch-target-min);
+
+    &.left-arrow,
+    &.right-arrow {
+      padding: 10px;
+      min-width: var(--touch-target-min);
+    }
+
+    &.forecast-date {
+      min-width: 50px;
+    }
+  }
+}
+
+// Extra small devices (iPhone SE, small phones)
+@media (max-width: 390px) {
+  table.table {
+    font-size: 0.8rem;
+  }
+
+  .weather-icon {
+    font-size: 1.4em;
+  }
+
+  .styled-table {
+    td.location-name {
+      min-width: 100px;
+      max-width: 120px;
+      font-size: 0.85em;
+    }
+  }
+
+  .button-2 {
+    font-size: 13px;
+    padding: 8px 12px;
+  }
+}
+
+// Tablet and larger (landscape, iPad)
+@media (min-width: 769px) {
+  table.table {
+    font-size: 1rem;
+  }
+
+  .styled-table {
+    th,
+    td {
+      padding: var(--spacing-md) var(--spacing-lg);
+    }
+
+    td.location-name {
+      min-width: 180px;
+      max-width: 220px;
+    }
+  }
+
+  .weather-icon {
+    font-size: 2.2em;
+  }
+
+  .button-2 {
+    padding: var(--spacing-md) var(--spacing-lg);
+    font-size: 16px;
+  }
+}
+
+// ============================================
+// Dark Mode Enhancements for OLED
+// ============================================
+
+// True black mode for OLED power savings
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-bg-primary: #000000;
+    --color-bg-surface: #0f1419;
+    --color-bg-elevated: #1a1f2e;
+  }
+}
+
+// High contrast mode support
+@media (prefers-contrast: high) {
+  :root {
+    --color-border-subtle: rgba(255, 255, 255, 0.2);
+    --color-border-medium: rgba(255, 255, 255, 0.3);
+    --color-text-secondary: #d0d4f0;
+  }
+}
+
+// Reduced motion for accessibility
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+// ============================================
+// iOS Safe Area Support
+// ============================================
+
+@supports (padding: env(safe-area-inset-left)) {
+  table.table {
+    padding-left: env(safe-area-inset-left);
+    padding-right: env(safe-area-inset-right);
+  }
+
+  .all-alerts {
+    padding-left: calc(var(--spacing-md) + env(safe-area-inset-left));
+    padding-right: calc(var(--spacing-md) + env(safe-area-inset-right));
+  }
+}
+
+// ============================================
+// Scroll Shadows (Visual Hint for Scrollable Content)
+// ============================================
+
+table.table {
+  background:
+    linear-gradient(90deg, var(--color-bg-primary) 30%, transparent),
+    linear-gradient(90deg, transparent, var(--color-bg-primary) 70%) 100% 0,
+    radial-gradient(farthest-side at 0 50%, rgba(0, 0, 0, 0.3), transparent),
+    radial-gradient(farthest-side at 100% 50%, rgba(0, 0, 0, 0.3), transparent) 100% 0;
+  background-repeat: no-repeat;
+  background-size: 40px 100%, 40px 100%, 14px 100%, 14px 100%;
+  background-attachment: local, local, scroll, scroll;
 }
