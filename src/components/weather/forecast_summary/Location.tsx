@@ -54,6 +54,8 @@ function Location(props: LocationProps) {
   const forecasts = forecastsById.byId[location.name] || [];
   const locationHasAlerts = alertIds && (alertIds?.length > 0);
   const maxDaysWithAlerts = maxAlertDays(alertProps, alertIds);
+  // Check if ANY day in this location is a weekend to apply styling to the row's first cell
+  const hasWeekendDays = isWeekend.some((w) => w);
   return (
     <tr className='weather-cell'>
       {alertProps.foundAlerts && (
@@ -79,8 +81,8 @@ function Location(props: LocationProps) {
         ) {
           return null;
         }
-        const weekendClassName = isWeekend[index] ? ' weekend ' : ' ';
-        const alertClassName = index <= maxDaysWithAlerts ? ' alert-for-this-day ' : ' ';
+        const weekendClassName = isWeekend[index] ? 'weekend' : '';
+        const alertClassName = index <= maxDaysWithAlerts ? 'alert-for-this-day' : '';
         return (
           <td
             key={d.datetime}

@@ -76,30 +76,30 @@ function LocationDetail(props: LocationDetailProps) {
             {forecast.map((row, id) => {
               const d = parsedDates[id];
               if (d) {
-                const weekendClassName = weekends[id] ? ' weekend ' : ' ';
+                const weekendClassName = weekends[id] ? 'weekend' : '';
                 return (
-                  <tr className={weekendClassName} key={row.datetime}>
-                    <td className='border-right'>
+                  <tr key={row.datetime}>
+                    <td className={`border-right ${weekendClassName}`}>
                       {format(d, 'ddd').toUpperCase()}
                       {'  '}
                       {format(d, 'Do').toUpperCase()}
                     </td>
-                    <td className='border-right'>
+                    <td className={`border-right ${weekendClassName}`}>
                       <WeatherIcon {...row} key={row.datetime} />
                       {` ${convertToSentence(row.icon).replace('day', '')}`}
                     </td>
-                    <td className='border-right'>
+                    <td className={`border-right ${weekendClassName}`}>
                       {`${Math.round(row.tempmax)} ${Math.round(
                         row.tempmin,
                       )}`}
                     </td>
-                    <td className='align-right'>
+                    <td className={`align-right ${weekendClassName}`}>
                       {`${Math.round(row.precipprob)}%`}
                     </td>
-                    <td className='align-right border-right'>
+                    <td className={`align-right border-right ${weekendClassName}`}>
                       {`${Math.round(row.precip)}"`}
                     </td>
-                    <td className='align-right'>{`${Math.round(row.cloudcover)}%`}</td>
+                    <td className={`align-right ${weekendClassName}`}>{`${Math.round(row.cloudcover)}%`}</td>
                   </tr>
                 );
               }

@@ -319,20 +319,18 @@ table.table {
 // Weekend Highlighting - Subtle Glow
 // ============================================
 
-.weekend {
+// Apply weekend background to all cells in the row
+td.weekend {
   background: var(--color-weekend) !important;
-  position: relative;
 
-  &::before {
-    content: '';
-    position: absolute;
-    left: 0;
-    top: 0;
-    bottom: 0;
-    width: 3px;
-    background: var(--color-accent-primary);
-    box-shadow: 0 0 6px var(--color-accent-glow);
+  // Add left border only to the first cell (location name column or alerts column if present)
+  &:first-child {
+    border-left: 3px solid var(--color-accent-primary);
+    box-shadow: inset 3px 0 6px var(--color-accent-glow);
   }
+
+  // Subtle box-shadow on all weekend cells for extra differentiation
+  box-shadow: inset 0 0 20px rgba(107, 155, 209, 0.03);
 }
 
 // ============================================
