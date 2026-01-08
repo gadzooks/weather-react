@@ -19,3 +19,63 @@
     padding: 10px;
   }
 }
+
+// ============================================
+// Container with responsive max-width constraint
+// ============================================
+
+.container {
+  max-width: 100%;
+  margin: 0 auto;
+  padding: 0 16px;
+  box-sizing: border-box;
+
+  // Tablet: Use 95% of viewport
+  @media (min-width: 768px) {
+    max-width: 95%;
+  }
+
+  // Desktop: Fixed 1400px
+  @media (min-width: 1200px) {
+    max-width: 1400px;
+  }
+
+  // Large desktop: Slightly wider
+  @media (min-width: 1600px) {
+    max-width: 1600px;
+  }
+
+  // Mobile: Reduce padding
+  @media (max-width: 767px) {
+    padding: 0 8px;
+  }
+}
+
+// ============================================
+// Table wrapper for horizontal scrolling
+// ============================================
+
+.table-wrapper {
+  overflow-x: auto;
+  overflow-y: visible;
+  -webkit-overflow-scrolling: touch;
+  margin: 16px 0;
+
+  // Scroll shadows for visual hint
+  background:
+    linear-gradient(90deg, var(--color-bg-primary, #fff) 30%, transparent),
+    linear-gradient(90deg, transparent, var(--color-bg-primary, #fff) 70%) 100% 0;
+  background-repeat: no-repeat;
+  background-size: 40px 100%, 40px 100%;
+  background-attachment: local, local;
+}
+
+// Dark mode support for table wrapper
+[data-theme="dark"] .table-wrapper {
+  background:
+    linear-gradient(90deg, var(--color-bg-primary, #1a1d26) 30%, transparent),
+    linear-gradient(90deg, transparent, var(--color-bg-primary, #1a1d26) 70%) 100% 0;
+  background-repeat: no-repeat;
+  background-size: 40px 100%, 40px 100%;
+  background-attachment: local, local;
+}

@@ -3,8 +3,8 @@
    ============================================ */
 
 html {
-  /* Prevent horizontal scroll on mobile */
-  overflow-x: hidden;
+  /* Allow horizontal scrolling when needed */
+  overflow-x: auto;
   /* Better text rendering on OLED screens */
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;

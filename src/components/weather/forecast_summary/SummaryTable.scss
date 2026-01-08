@@ -125,7 +125,7 @@
 table.table {
   border-collapse: separate;
   border-spacing: 0;
-  font-size: 0.9rem;
+  font-size: 0.9em;
   min-width: 100%;
   background: var(--color-bg-primary);
   box-shadow: none;
@@ -136,6 +136,15 @@ table.table {
   overflow-y: visible;
   -webkit-overflow-scrolling: touch;
   scroll-behavior: smooth;
+}
+
+// Restore original table properties for light mode
+[data-theme="light"] table.table {
+  border-collapse: collapse;
+  font-size: 0.9em;
+  min-width: 400px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+  background: #ffffff;
 }
 
 // ============================================
@@ -171,7 +180,7 @@ table.table {
 
   th,
   td {
-    padding: var(--spacing-sm);
+    padding: 12px 8px;
     text-align: center;
     color: var(--color-text-primary);
     border-bottom: 1px solid var(--color-border-subtle);
@@ -362,7 +371,7 @@ table.table {
 // ============================================
 
 .weather-icon {
-  font-size: 2em;
+  font-size: 1.4em;
   line-height: 1;
   transition: all var(--transition-normal);
   display: inline-block;
@@ -436,10 +445,10 @@ table.table {
 // Override table body backgrounds for light mode
 [data-theme="light"] .styled-table tbody {
   tr {
-    background: #ffffff !important;
+    background: #ffffff;
 
-    &:hover {
-      background: #f9f9f9 !important;
+    &:hover td:not(.weekend) {
+      background: #f9f9f9;
     }
 
     // Override region header gradient
@@ -452,6 +461,11 @@ table.table {
         border-bottom: 1px solid #999999;
       }
     }
+  }
+
+  // Ensure non-weekend cells have white background
+  td:not(.weekend) {
+    background: #ffffff;
   }
 }
 
@@ -612,7 +626,7 @@ a.freepik {
   }
 
   .weather-icon {
-    font-size: 1.6em;
+    font-size: 1.2em;
   }
 
   .button-2 {
@@ -635,11 +649,11 @@ a.freepik {
 // Extra small devices (iPhone SE, small phones)
 @media (max-width: 390px) {
   table.table {
-    font-size: 0.8rem;
+    font-size: 0.8em;
   }
 
   .weather-icon {
-    font-size: 1.4em;
+    font-size: 1.1em;
   }
 
   .styled-table {
@@ -744,4 +758,12 @@ table.table {
   background-repeat: no-repeat;
   background-size: 40px 100%, 40px 100%, 14px 100%, 14px 100%;
   background-attachment: local, local, scroll, scroll;
+}
+
+// Remove scroll shadows for light mode - use simple background
+[data-theme="light"] table.table {
+  background: #ffffff !important;
+  background-repeat: initial;
+  background-size: initial;
+  background-attachment: initial;
 }
