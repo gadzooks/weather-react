@@ -254,6 +254,24 @@ table.table {
     left: 50px; // Offset by alerts column width
   }
 
+  // Body alerts column - sticky when alerts are present
+  td.alerts-cell {
+    position: sticky;
+    left: 0;
+    background: linear-gradient(
+      90deg,
+      var(--color-bg-surface, #242831) 0%,
+      var(--color-bg-surface, #242831) 85%,
+      rgba(36, 40, 49, 0.95) 100%
+    );
+    z-index: calc(var(--z-sticky) + 2); // Higher than location column
+    width: 50px;
+    min-width: 50px;
+    padding: var(--spacing-xs);
+    border-right: 1px solid var(--color-border-medium);
+    box-shadow: 2px 0 4px rgba(0, 0, 0, 0.12);
+  }
+
   // Body location column offset when alerts are present (via data attribute)
   &[data-has-alerts] td.location-name {
     left: 50px; // Offset by alerts column width
@@ -261,8 +279,9 @@ table.table {
 
   // Override sticky column gradients for light mode
   [data-theme="light"] & {
-    // Body location cells - white background
+    // Body location and alerts cells - white background
     td.location-name,
+    td.alerts-cell,
     th:first-child {
       background: #ffffff !important;
       box-shadow: 2px 0 4px rgba(0, 0, 0, 0.08);

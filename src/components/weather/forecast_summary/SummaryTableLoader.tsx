@@ -23,7 +23,6 @@ import './SummaryTableLoader.scss';
 // Allow override via env var, otherwise use 'real' by default
 const dataSource = import.meta.env.VITE_DATA_SOURCE || 'real';
 const WEATHER_API = import.meta.env.VITE_WEATHER_API;
-// const WEATHER_API = 'https://ww0yxqvu8j.execute-api.us-west-1.amazonaws.com/prod';
 const WEATHER_JWT_TOKEN = import.meta.env.VITE_WEATHER_JWT_TOKEN;
 const url = `${WEATHER_API}/forecasts/${dataSource}`;
 

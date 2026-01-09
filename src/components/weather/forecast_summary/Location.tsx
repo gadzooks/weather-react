@@ -65,7 +65,7 @@ function Location(props: LocationProps) {
   return (
     <tr className='weather-cell'>
       {alertProps.foundAlerts && (
-        <td>
+        <td className='alerts-cell'>
           {locationHasAlerts
             && alertIds.map((alert) => (
               <a href={`#${alert}`} className='alert-icon' key={alert}>
