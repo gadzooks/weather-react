@@ -132,9 +132,8 @@ table.table {
   box-shadow: none;
   position: relative;
 
-  // Enable smooth scrolling
-  overflow-x: auto;
-  overflow-y: visible;
+  // Note: Overflow is handled by .table-wrapper, not the table itself
+  // This allows sticky positioning to work correctly
   -webkit-overflow-scrolling: touch;
   scroll-behavior: smooth;
 }
@@ -212,8 +211,8 @@ table.table {
     border-right: 1px solid var(--color-border-medium);
   }
 
-  // Alerts column in header (if present)
-  thead tr td:first-child {
+  // Alerts column in header (only when alerts are present)
+  thead tr td.alerts-header {
     position: sticky;
     left: 0;
     background: linear-gradient(
@@ -223,16 +222,17 @@ table.table {
       rgba(36, 40, 49, 0.95) 100%
     );
     z-index: calc(var(--z-sticky) + 7); // Higher than body sticky cells
+    width: 50px; // Fixed width for consistent offset calculation
     min-width: 50px;
     padding: var(--spacing-xs);
     border-right: 1px solid var(--color-border-medium);
     box-shadow: 2px 0 4px rgba(0, 0, 0, 0.12);
   }
 
-  // Location header column (second cell in header)
-  thead tr td:nth-child(2) {
+  // Location header column - default position (no alerts)
+  thead tr td.location-header {
     position: sticky;
-    left: 50px; // Width of alerts column
+    left: 0; // Default: no offset when alerts not present
     background: linear-gradient(
       90deg,
       var(--color-bg-surface, #242831) 0%,
@@ -249,18 +249,14 @@ table.table {
     border-right: 1px solid var(--color-border-medium);
   }
 
-  // Adjust location column when alerts are present
-  tbody tr td:nth-child(2) {
-    position: sticky;
-    left: 50px; // Width of alerts column
-    background: linear-gradient(
-      90deg,
-      var(--color-bg-surface, #242831) 0%,
-      var(--color-bg-surface, #242831) 85%,
-      rgba(36, 40, 49, 0.95) 100%
-    );
-    z-index: calc(var(--z-sticky) + 1);
-    box-shadow: 2px 0 4px rgba(0, 0, 0, 0.12);
+  // Location header offset when alerts column is present (sibling selector)
+  thead tr td.alerts-header ~ td.location-header {
+    left: 50px; // Offset by alerts column width
+  }
+
+  // Body location column offset when alerts are present (via data attribute)
+  &[data-has-alerts] td.location-name {
+    left: 50px; // Offset by alerts column width
   }
 
   // Override sticky column gradients for light mode
@@ -273,16 +269,11 @@ table.table {
     }
 
     // Header cells - tan background with black text
-    thead tr td:first-child,
-    thead tr td:nth-child(2) {
+    thead tr td.alerts-header,
+    thead tr td.location-header {
       background: #f9d6a7 !important;
       box-shadow: 2px 0 4px rgba(0, 0, 0, 0.08);
       color: #000000;
-    }
-
-    tbody tr td:nth-child(2) {
-      background: #ffffff !important;
-      box-shadow: 2px 0 4px rgba(0, 0, 0, 0.08);
     }
   }
 }
@@ -617,8 +608,6 @@ a.freepik {
 
   table.table {
     font-size: 0.82rem;
-    display: block;
-    overflow-x: auto;
     white-space: nowrap;
 
     // Improve scroll performance
@@ -639,7 +628,7 @@ a.freepik {
       padding-left: var(--spacing-sm);
     }
 
-    thead tr td:first-child {
+    thead tr td.alerts-header {
       min-width: 40px;
     }
   }
