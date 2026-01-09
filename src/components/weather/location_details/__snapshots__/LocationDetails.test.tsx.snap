@@ -121,12 +121,12 @@ exports[`renders a snapshot 1`] = `
           <td
             className="align-right border-right weekend"
           >
-            0'
+            0.00"
           </td>
           <td
-            className="align-right weekend"
+            className="align-left weekend"
           >
-            2%
+              2%
           </td>
         </tr>
         <tr>
@@ -159,12 +159,12 @@ exports[`renders a snapshot 1`] = `
           <td
             className="align-right border-right weekend"
           >
-            0'
+            0.00"
           </td>
           <td
-            className="align-right weekend"
+            className="align-left weekend"
           >
-            14%
+             14%
           </td>
         </tr>
         <tr>
@@ -197,12 +197,12 @@ exports[`renders a snapshot 1`] = `
           <td
             className="align-right border-right "
           >
-            0'
+            0.00"
           </td>
           <td
-            className="align-right "
+            className="align-left "
           >
-            19%
+             19%
           </td>
         </tr>
         <tr>
@@ -235,12 +235,12 @@ exports[`renders a snapshot 1`] = `
           <td
             className="align-right border-right "
           >
-            0'
+            0.00"
           </td>
           <td
-            className="align-right "
+            className="align-left "
           >
-            33%
+             33%
           </td>
         </tr>
         <tr>
@@ -273,12 +273,12 @@ exports[`renders a snapshot 1`] = `
           <td
             className="align-right border-right "
           >
-            0'
+            0.00"
           </td>
           <td
-            className="align-right "
+            className="align-left "
           >
-            31%
+             31%
           </td>
         </tr>
         <tr>
@@ -311,12 +311,12 @@ exports[`renders a snapshot 1`] = `
           <td
             className="align-right border-right "
           >
-            0'
+            0.00"
           </td>
           <td
-            className="align-right "
+            className="align-left "
           >
-            55%
+             55%
           </td>
         </tr>
         <tr>
@@ -349,12 +349,12 @@ exports[`renders a snapshot 1`] = `
           <td
             className="align-right border-right "
           >
-            0'
+            0.03"
           </td>
           <td
-            className="align-right "
+            className="align-left "
           >
-            80%
+             80%
           </td>
         </tr>
         <tr>
@@ -387,10 +387,10 @@ exports[`renders a snapshot 1`] = `
           <td
             className="align-right border-right weekend"
           >
-            0'
+            0.00"
           </td>
           <td
-            className="align-right weekend"
+            className="align-left weekend"
           >
             100%
           </td>
@@ -425,10 +425,10 @@ exports[`renders a snapshot 1`] = `
           <td
             className="align-right border-right weekend"
           >
-            0'
+            0.18"
           </td>
           <td
-            className="align-right weekend"
+            className="align-left weekend"
           >
             100%
           </td>
@@ -463,12 +463,12 @@ exports[`renders a snapshot 1`] = `
           <td
             className="align-right border-right "
           >
-            0'
+            0.24"
           </td>
           <td
-            className="align-right "
+            className="align-left "
           >
-            74%
+             74%
           </td>
         </tr>
         <tr>
@@ -501,12 +501,12 @@ exports[`renders a snapshot 1`] = `
           <td
             className="align-right border-right "
           >
-            0'
+            0.00"
           </td>
           <td
-            className="align-right "
+            className="align-left "
           >
-            83%
+             83%
           </td>
         </tr>
         <tr>
@@ -539,10 +539,10 @@ exports[`renders a snapshot 1`] = `
           <td
             className="align-right border-right "
           >
-            0'
+            0.34"
           </td>
           <td
-            className="align-right "
+            className="align-left "
           >
             100%
           </td>
@@ -577,12 +577,12 @@ exports[`renders a snapshot 1`] = `
           <td
             className="align-right border-right "
           >
-            0'
+            0.26"
           </td>
           <td
-            className="align-right "
+            className="align-left "
           >
-            89%
+             89%
           </td>
         </tr>
         <tr>
@@ -615,12 +615,12 @@ exports[`renders a snapshot 1`] = `
           <td
             className="align-right border-right "
           >
-            1'
+            0.80"
           </td>
           <td
-            className="align-right "
+            className="align-left "
           >
-            97%
+             97%
           </td>
         </tr>
         <tr>
@@ -653,12 +653,12 @@ exports[`renders a snapshot 1`] = `
           <td
             className="align-right border-right weekend"
           >
-            1'
+            0.67"
           </td>
           <td
-            className="align-right weekend"
+            className="align-left weekend"
           >
-            55%
+             55%
           </td>
         </tr>
       </tbody>

@@ -9,7 +9,9 @@ exports[`renders a snapshot 1`] = `
       className="table-heading"
     >
       <tr>
-        <td>
+        <td
+          className="location-header"
+        >
           Location
         </td>
         <td
@@ -184,11 +186,55 @@ exports[`renders a snapshot 1`] = `
         className="region-details"
       >
         <td
-          align="center"
-          colSpan={16}
+          className="region-name-cell"
         >
           Cities
         </td>
+        <td
+          className="region-date-cell"
+        />
+        <td
+          className="region-date-cell"
+        />
+        <td
+          className="region-date-cell"
+        />
+        <td
+          className="region-date-cell"
+        />
+        <td
+          className="region-date-cell"
+        />
+        <td
+          className="region-date-cell"
+        />
+        <td
+          className="region-date-cell"
+        />
+        <td
+          className="region-date-cell"
+        />
+        <td
+          className="region-date-cell"
+        />
+        <td
+          className="region-date-cell"
+        />
+        <td
+          className="region-date-cell"
+        />
+        <td
+          className="region-date-cell"
+        />
+        <td
+          className="region-date-cell"
+        />
+        <td
+          className="region-date-cell"
+        />
+        <td
+          className="region-date-cell"
+        />
       </tr>
       <tr
         className="weather-cell"
