@@ -29,7 +29,7 @@
   --color-rain-light: #9baed9;
   --color-clouds: #9ba4ba;
   --color-sun: #dac589;
-  --color-weekend: rgba(107, 155, 209, 0.05);
+  --color-weekend: rgba(107, 155, 209, 0.12);
 
   // Alert colors - Muted but clear
   --color-alert-advisory: #7ba9d6;
@@ -93,8 +93,8 @@
   --color-sun: #ffb412;
   --color-clouds: blue;
 
-  // Weekend - handled separately (background-image pattern)
-  --color-weekend: transparent;
+  // Weekend - subtle warm highlight
+  --color-weekend: rgba(255, 200, 120, 0.18);
 
   // Alert colors - More vibrant
   --color-alert-advisory: #17bcff;
@@ -102,10 +102,9 @@
   --color-alert-warning: #ff4227;
 }
 
-// Weekend special case - restore green diagonal stripes from master
+// Weekend special case - subtle warm background for light mode
 [data-theme="light"] td.weekend {
-  background: linear-gradient(142deg, #b2f7c6 11.11%, #faf5f5 11.11%, #faf5f5 50%, #b2f7c6 50%, #b2f7c6 61.11%, #faf5f5 61.11%, #faf5f5 100%) !important;
-  background-size: 14.62px 11.42px;
+  background: var(--color-weekend) !important;
   box-shadow: none;
   border-left: none;
 }
@@ -155,7 +154,7 @@ table.table {
   thead {
     position: sticky;
     top: 0;
-    z-index: var(--z-sticky);
+    z-index: calc(var(--z-sticky) + 5); // Higher than body sticky cells
 
     tr {
       background: linear-gradient(
@@ -187,10 +186,9 @@ table.table {
     transition: background-color var(--transition-fast);
   }
 
-  // Location column - Sticky on horizontal scroll
+  // Body location column - Sticky on horizontal scroll
   td.location-name,
-  th:first-child,
-  thead tr td:nth-child(2) {
+  th:first-child {
     position: sticky;
     left: 0;
     background: linear-gradient(
@@ -212,7 +210,7 @@ table.table {
     border-right: 1px solid var(--color-border-medium);
   }
 
-  // Alerts column (if present)
+  // Alerts column in header (if present)
   thead tr td:first-child {
     position: sticky;
     left: 0;
@@ -222,11 +220,31 @@ table.table {
       var(--color-bg-surface, #242831) 85%,
       rgba(36, 40, 49, 0.95) 100%
     );
-    z-index: calc(var(--z-sticky) + 2);
+    z-index: calc(var(--z-sticky) + 7); // Higher than body sticky cells
     min-width: 50px;
     padding: var(--spacing-xs);
     border-right: 1px solid var(--color-border-medium);
     box-shadow: 2px 0 4px rgba(0, 0, 0, 0.12);
+  }
+
+  // Location header column (second cell in header)
+  thead tr td:nth-child(2) {
+    position: sticky;
+    left: 50px; // Width of alerts column
+    background: linear-gradient(
+      90deg,
+      var(--color-bg-surface, #242831) 0%,
+      var(--color-bg-surface, #242831) 85%,
+      rgba(36, 40, 49, 0.95) 100%
+    );
+    z-index: calc(var(--z-sticky) + 6); // Higher than body sticky cells
+    box-shadow: 2px 0 4px rgba(0, 0, 0, 0.12);
+    text-align: left;
+    min-width: 110px;
+    max-width: 150px;
+    padding-left: var(--spacing-sm);
+    font-weight: 500;
+    border-right: 1px solid var(--color-border-medium);
   }
 
   // Adjust location column when alerts are present
@@ -245,16 +263,19 @@ table.table {
 
   // Override sticky column gradients for light mode
   [data-theme="light"] & {
+    // Body location cells - white background
     td.location-name,
-    th:first-child,
-    thead tr td:nth-child(2) {
+    th:first-child {
       background: #ffffff !important;
       box-shadow: 2px 0 4px rgba(0, 0, 0, 0.08);
     }
 
-    thead tr td:first-child {
+    // Header cells - tan background with black text
+    thead tr td:first-child,
+    thead tr td:nth-child(2) {
       background: #f9d6a7 !important;
       box-shadow: 2px 0 4px rgba(0, 0, 0, 0.08);
+      color: #000000;
     }
 
     tbody tr td:nth-child(2) {

@@ -40,7 +40,8 @@
       "Bash(yarn test:unit:*)",
       "Bash(node:*)",
       "Bash(yarn jest:*)",
-      "Bash(npm run dev:*)"
+      "Bash(npm run dev:*)",
+      "Bash(npm run build:*)"
     ]
   }
 }
