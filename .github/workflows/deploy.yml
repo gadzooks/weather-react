@@ -8,6 +8,7 @@ on:
 jobs:
   deploy-dev:
     name: Deploy to Dev
+    if: vars.ENABLE_DEV_DEPLOY == 'true'
     runs-on: ubuntu-latest
     environment:
       name: dev
