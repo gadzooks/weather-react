@@ -1,354 +1,789 @@
-// Place all the styles related to the Weather controller here.
-// They will automatically be included in application.css.
-// You can use Sass (SCSS) here: http://sass-lang.com/
-// .weather-forecast-table {
-//   font-family: 'Courier';
-//   // font-family: 'Apercu Mono'
-//   border-collapse: collapse;
-//   margin: 25px 0;
-//   font-size: 0.9em;
-//   font-family: sans-serif;
-//   min-width: 400px;
-//   box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
-// }
+/* SummaryTable.scss */
 
-// $color-alert-bg: black;
+// ============================================
+// 🌙 DARK MODE WEATHER FORECAST - MOBILE FIRST
+// ============================================
 
-// .alert-cell-triangle {
-//     position: relative;
-// }
-// .alert-cell-triangle:after {
-//   content: "";
-//   position: absolute;
-//   top: 0;
-//   right: 0;
-//   width: 0;
-//   height: 0;
-//   display: block;
-//   border-left: 15px solid transparent;
-//   border-bottom: 15px solid transparent;
-//   border-top: 15px solid $color-alert-bg;
-// }
+// Design Tokens - Soft & Calming Dark Mode Color Palette
+:root {
+  // Base colors - Warm dark grays with subtle blue tint (avoid pure black)
+  --color-bg-primary: #1a1d26;
+  --color-bg-surface: #242831;
+  --color-bg-elevated: #2d323d;
+  --color-bg-hover: #353b48;
 
-// .alert-details {
-//   padding: 0.5rem;
-//   margin-bottom: 1.25rem;
-//   border: 2px solid #eee;
-//   border-left-width: .25rem;
-//   border-radius: .5rem;
-//   span.title {
-//     margin-top: 0;
-//     margin-bottom: .25rem;
-//     font-weight: bolder;
-//     padding: 5px;
-//     border-radius: .25rem;
-//   }
-//   .regions {
-//     padding: 3px;
-//     span.region {
-//       font-weight: 700;
-//     }
-//   }
-//   .description {
-//     padding: 3px;
-//     span.description {
-//       font-weight: 700;
-//     }
-//   }
-// }
+  // Borders & dividers
+  --color-border-subtle: rgba(255, 255, 255, 0.04);
+  --color-border-medium: rgba(255, 255, 255, 0.08);
+  --color-border-strong: #353b48;
 
-// // level 1 warning
-// $color-alert-advisory: rgba(23, 188, 255, 1);
-// .alert-advisory {
-//   border-left-color: $color-alert-advisory;
-// }
+  // Typography - Softer off-whites
+  --color-text-primary: #d6d9e3;
+  --color-text-secondary: #9fa5b8;
+  --color-text-dimmed: #656b7e;
 
-// // level 2 warning
-// $color-alert-watch: rgba(255, 213, 46, 1);
-// .alert-watch {
-//   border-left-color: $color-alert-watch;
-// }
+  // Accents - Soft desaturated blue
+  --color-accent-primary: #6B9BD1;
+  --color-accent-glow: rgba(107, 155, 209, 0.18);
 
-// $color-alert-warning: rgba(255, 66, 39, 0.88);
-// // level 3 warning
-// .alert-warning {
-//   border-left-color: $color-alert-warning;
-// }
+  // Weather-specific colors - Desaturated
+  --color-rain-heavy: #6d9ed9;
+  --color-rain-light: #9baed9;
+  --color-clouds: #9ba4ba;
+  --color-sun: #dac589;
+  --color-weekend: rgba(107, 155, 209, 0.12);
 
-// span.alerts-summary {
-//   background-color: blue;
-//   color: white;
-//   padding: 1px 5px;
-//   margin-right: 10px;
-//   border-radius: .2rem;
-// }
+  // Alert colors - Muted but clear
+  --color-alert-advisory: #7ba9d6;
+  --color-alert-watch: #d4ba7a;
+  --color-alert-warning: #d97869;
 
-// span.alert_id {
-//   background-color: $color-alert-bg;
-//   padding: 1px 5px;
-//   margin: 3px;
-//   a {
-//     color: white;
-//   }
-//   border-radius: .2rem;
-// }
+  // Spacing (mobile-first) - compact values
+  --spacing-xs: 4px;
+  --spacing-sm: 8px;
+  --spacing-md: 12px;
+  --spacing-lg: 16px;
+  --spacing-xl: 24px;
 
-// table.weather-forecast-alerts {
-//   tr.table-heading {
-//     td {
-//       border: 0;
-//       font-size: 1.2em;
-//     }
-//   }
-// }
+  // Touch targets (iOS guidelines) - slightly reduced for compact UI
+  --touch-target-min: 36px;
+
+  // Transitions
+  --transition-fast: 150ms ease-out;
+  --transition-normal: 250ms ease-out;
+  --transition-slow: 400ms ease-out;
+
+  // Border radius - smaller for compact UI
+  --radius-sm: 6px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+  --radius-pill: 999px;
+
+  // Z-index layers
+  --z-sticky: 10;
+  --z-dropdown: 20;
+  --z-modal: 30;
+
+  // App header height for sticky thead offset
+  --app-header-height: 44px;
+}
+
+// ============================================
+// Light Theme Color Overrides
+// ============================================
+
+[data-theme="light"] {
+  // Backgrounds - Light and clean
+  --color-bg-primary: #ffffff;
+  --color-bg-surface: #ffffff;
+  --color-bg-elevated: #f9d6a7;
+  --color-bg-hover: #f0f0f0;
+
+  // Borders - Darker for visibility
+  --color-border-subtle: rgba(0, 0, 0, 0.1);
+  --color-border-medium: rgba(0, 0, 0, 0.15);
+  --color-border-strong: #cccccc;
+
+  // Typography - Black and grays
+  --color-text-primary: #000000;
+  --color-text-secondary: #4a4a4a;
+  --color-text-dimmed: #888888;
+
+  // Accents - Brighter blue
+  --color-accent-primary: #1976d2;
+  --color-accent-glow: rgba(25, 118, 210, 0.2);
+
+  // Weather colors - Bright from master
+  --color-rain-heavy: rgb(25, 151, 245);
+  --color-sun: #ffb412;
+  --color-clouds: blue;
+
+  // Weekend - subtle warm highlight
+  --color-weekend: rgba(255, 200, 120, 0.18);
+
+  // Alert colors - More vibrant
+  --color-alert-advisory: #17bcff;
+  --color-alert-watch: #ffd52e;
+  --color-alert-warning: #ff4227;
+}
+
+// Weekend special case - subtle warm background for light mode
+[data-theme="light"] td.weekend {
+  background: var(--color-weekend) !important;
+  box-shadow: none;
+  border-left: none;
+}
+
+// Light theme header styling
+[data-theme="light"] .app-header {
+  background: #f9d6a7;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  color: black;
+}
+
+// ============================================
+// Base Table Styles - Mobile First
+// ============================================
 
 table.table {
+  border-collapse: separate;
+  border-spacing: 0;
+  font-size: 0.9em;
+  min-width: 100%;
+  background: var(--color-bg-primary);
+  box-shadow: none;
+  position: relative;
+
+  // Note: Overflow is handled by .table-wrapper, not the table itself
+  // This allows sticky positioning to work correctly
+  -webkit-overflow-scrolling: touch;
+  scroll-behavior: smooth;
+}
+
+// Restore original table properties for light mode
+[data-theme="light"] table.table {
   border-collapse: collapse;
   font-size: 0.9em;
-  // font-family: sans-serif;
   min-width: 400px;
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+  background: #ffffff;
 }
 
-.styled-table thead tr {
-  background-color: #f9d6a7;
-  color: black;
-  font-weight: 5em;
-  // text-align: center;
+// ============================================
+// Table Header - Sticky & Glassmorphic
+// ============================================
+
+.styled-table {
+  thead {
+    position: sticky;
+    top: 0; // Sticky at top of table-wrapper scroll container
+    z-index: calc(var(--z-sticky) + 5); // Higher than body sticky cells
+
+    tr {
+      background: linear-gradient(
+        135deg,
+        var(--color-bg-elevated) 0%,
+        var(--color-bg-surface) 100%
+      );
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      box-shadow: 0 2px 12px rgba(0, 0, 0, 0.3);
+    }
+  }
+
+  // Override gradient for light mode - use solid tan color
+  [data-theme="light"] & thead tr {
+    background: #f9d6a7 !important;
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    color: black;
+  }
+
+  th,
+  td {
+    padding: 8px 6px;
+    text-align: center;
+    color: var(--color-text-primary);
+    border-bottom: 1px solid var(--color-border-subtle);
+    transition: background-color var(--transition-fast);
+  }
+
+  // Body location column - Sticky on horizontal scroll
+  td.location-name,
+  th:first-child {
+    position: sticky;
+    left: 0;
+    background: var(--color-bg-surface, #242831);
+    text-align: left;
+    z-index: calc(var(--z-sticky) + 1);
+    box-shadow: 2px 0 4px rgba(0, 0, 0, 0.12);
+    min-width: 140px;
+    width: 140px; // Fixed width for consistent layout
+    padding-left: var(--spacing-md);
+    font-weight: 500;
+    color: var(--color-text-primary);
+    overflow: visible; // Ensure content isn't clipped
+
+    // Add subtle border on the right
+    border-right: 1px solid var(--color-border-medium);
+  }
+
+  // Alerts column in header (only when alerts are present)
+  thead tr td.alerts-header {
+    position: sticky;
+    left: 0;
+    background: var(--color-bg-elevated, #2d323d);
+    z-index: calc(var(--z-sticky) + 7); // Higher than body sticky cells
+    width: 50px; // Fixed width for consistent offset calculation
+    min-width: 50px;
+    padding: var(--spacing-xs);
+    border-right: 1px solid var(--color-border-medium);
+    box-shadow: 2px 0 4px rgba(0, 0, 0, 0.12);
+  }
+
+  // Location header column - default position (no alerts)
+  thead tr td.location-header {
+    position: sticky;
+    left: 0; // Default: no offset when alerts not present
+    background: var(--color-bg-elevated, #2d323d);
+    z-index: calc(var(--z-sticky) + 6); // Higher than body sticky cells
+    box-shadow: 2px 0 4px rgba(0, 0, 0, 0.12);
+    text-align: left;
+    min-width: 140px;
+    width: 140px; // Fixed width to match body location column
+    padding-left: var(--spacing-md);
+    font-weight: 500;
+    border-right: 1px solid var(--color-border-medium);
+  }
+
+  // Location header offset when alerts column is present (sibling selector)
+  thead tr td.alerts-header ~ td.location-header {
+    left: 50px; // Offset by alerts column width
+  }
+
+  // Body alerts column - sticky when alerts are present
+  td.alerts-cell {
+    position: sticky;
+    left: 0;
+    background: var(--color-bg-surface, #242831);
+    z-index: calc(var(--z-sticky) + 2); // Higher than location column
+    width: 50px;
+    min-width: 50px;
+    padding: var(--spacing-xs);
+    border-right: 1px solid var(--color-border-medium);
+    box-shadow: 2px 0 4px rgba(0, 0, 0, 0.12);
+  }
+
+  // Body location column offset when alerts are present (via data attribute)
+  &[data-has-alerts] td.location-name {
+    left: 50px; // Offset by alerts column width
+  }
+
+  // Override sticky column gradients for light mode
+  [data-theme="light"] & {
+    // Body location and alerts cells - white background
+    td.location-name,
+    td.alerts-cell,
+    th:first-child {
+      background: #ffffff !important;
+      box-shadow: 2px 0 4px rgba(0, 0, 0, 0.08);
+    }
+
+    // Header cells - tan background with black text
+    thead tr td.alerts-header,
+    thead tr td.location-header {
+      background: #f9d6a7 !important;
+      box-shadow: 2px 0 4px rgba(0, 0, 0, 0.08);
+      color: #000000;
+    }
+  }
 }
 
-.styled-table th,
-.styled-table td {
-  padding: 12px 8px;
+// ============================================
+// Date Navigation Buttons - Touch Optimized
+// ============================================
+
+.button-2 {
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--color-border-subtle);
+  color: var(--color-text-secondary);
+  cursor: pointer;
+  display: inline-block;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  font-size: 13px;
+  font-weight: 500;
+  line-height: 1.3;
+  margin: 2px;
+  padding: 6px 10px;
   text-align: center;
+  transition: all var(--transition-normal);
+  vertical-align: middle;
+  white-space: nowrap;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+
+  // Minimum touch target for iOS
+  min-height: var(--touch-target-min);
+  min-width: var(--touch-target-min);
+
+  &:hover,
+  &:focus {
+    background: rgba(107, 155, 209, 0.12);
+    border-color: var(--color-accent-primary);
+    color: var(--color-accent-primary);
+    transform: translateY(-1px);
+  }
+
+  &:active {
+    transform: translateY(0);
+  }
+
+  // Date buttons - compact style
+  &.forecast-date {
+    background: rgba(107, 155, 209, 0.06);
+    color: var(--color-text-primary);
+    font-weight: 600;
+    border: 1px solid var(--color-accent-primary);
+    box-shadow: 0 0 8px var(--color-accent-glow);
+
+    &:hover {
+      box-shadow: 0 0 12px var(--color-accent-glow);
+    }
+  }
+
+  // Arrow buttons - More compact
+  &.left-arrow,
+  &.right-arrow {
+    padding: 6px;
+    min-width: var(--touch-target-min);
+    font-size: 16px;
+    background: rgba(255, 255, 255, 0.03);
+
+    &:hover {
+      background: rgba(107, 155, 209, 0.15);
+    }
+  }
 }
 
-.styled-table td.location-name {
-  text-align: left;
+// Override button styling for light mode
+[data-theme="light"] .button-2 {
+  background: rgba(51, 51, 51, 0.08);
+  border: 1px solid rgba(0, 0, 0, 0.12);
+  color: #333333;
+
+  &:hover,
+  &:focus {
+    background: rgba(51, 51, 51, 0.12);
+    border-color: #1976d2;
+    color: #1976d2;
+  }
+
+  &.forecast-date {
+    background: rgba(25, 118, 210, 0.08);
+    border: 1px solid #1976d2;
+    box-shadow: none;
+    color: #333333;
+
+    &:hover {
+      background: rgba(25, 118, 210, 0.12);
+    }
+  }
+
+  &.left-arrow,
+  &.right-arrow {
+    background: rgba(51, 51, 51, 0.06);
+
+    &:hover {
+      background: rgba(25, 118, 210, 0.12);
+    }
+  }
 }
+
+// ============================================
+// Weather Icons - Enhanced with Glow Effects
+// ============================================
+
+.weather-icon {
+  font-size: 1.2em;
+  line-height: 1;
+  transition: all var(--transition-normal);
+  display: inline-block;
+  filter: drop-shadow(0 1px 3px rgba(0, 0, 0, 0.25));
+
+  // Glow effects for different weather
+  &:hover {
+    transform: scale(1.1);
+  }
+}
+
+// ============================================
+// Table Body - Rows & Cells
+// ============================================
+
+.styled-table tbody {
+  tr {
+    background: var(--color-bg-surface);
+    transition: background-color var(--transition-fast);
+
+    &:hover {
+      background: var(--color-bg-hover);
+    }
+
+    // Regional sections
+    &.region-header {
+      background: rgba(107, 155, 209, 0.06);
+      font-weight: 600;
+      color: var(--color-accent-primary);
+      text-transform: uppercase;
+      font-size: 0.75em;
+      letter-spacing: 0.4px;
+
+      td {
+        padding: var(--spacing-sm);
+        border-top: 1px solid var(--color-border-strong);
+        border-bottom: 1px solid var(--color-border-medium);
+      }
+    }
+  }
+
+  td {
+    border-bottom: 1px solid var(--color-border-subtle);
+
+    // Weather cells -ClickableTouch feedback
+    &.weather-cell {
+      cursor: pointer;
+      position: relative;
+
+      &:active {
+        background: rgba(107, 155, 209, 0.08);
+      }
+
+      // Add subtle pulse for active weather
+      &.active-weather::after {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background: radial-gradient(circle, var(--color-accent-glow) 0%, transparent 70%);
+        pointer-events: none;
+        animation: pulse 2s ease-in-out infinite;
+      }
+    }
+  }
+}
+
+// Override table body backgrounds for light mode
+[data-theme="light"] .styled-table tbody {
+  tr {
+    background: #ffffff;
+
+    &:hover td:not(.weekend) {
+      background: #f9f9f9;
+    }
+
+    // Override region header - soft warm gray
+    &.region-header {
+      background: #f0e6d3 !important;
+      color: #5a5a5a;
+
+      td {
+        border-top: 1px solid #d0d0d0;
+        border-bottom: 1px solid #d0d0d0;
+      }
+    }
+  }
+
+  // Ensure non-weekend cells have white background
+  td:not(.weekend) {
+    background: #ffffff;
+  }
+}
+
+// ============================================
+// Weekend Highlighting - Subtle Glow
+// ============================================
+
+// Apply weekend background to all cells in the row
+td.weekend {
+  background: var(--color-weekend) !important;
+
+  // Add left border only to the first cell (location name column or alerts column if present)
+  &:first-child {
+    border-left: 3px solid var(--color-accent-primary);
+    box-shadow: inset 3px 0 6px var(--color-accent-glow);
+  }
+
+  // Subtle box-shadow on all weekend cells for extra differentiation
+  box-shadow: inset 0 0 20px rgba(107, 155, 209, 0.03);
+}
+
+// ============================================
+// Location Links - Interactive
+// ============================================
 
 .forecast-button {
   background: none !important;
   border: none;
   padding: 0 !important;
-  /*optional*/
-  font-family: arial, sans-serif;
-  /*input has OS specific font-family*/
-  color: #069;
+  color: var(--color-text-primary);
   text-decoration: underline;
+  text-decoration-color: var(--color-accent-primary);
+  text-decoration-thickness: 1px;
+  text-underline-offset: 2px;
   cursor: pointer;
-}
+  font-weight: 400;
+  font-size: inherit;
+  transition: color var(--transition-fast);
 
-// < !-- HTML !--><button class="button-2" role="button">Button 2</button>
-// https: //getcssscan.com/css-buttons-examples
-/* CSS */
-.button-2 {
-  background-color: rgb(51 51 51 / 10%);
-  border-radius: 8px;
-  border-width: 0;
-  color: #333333;
-  cursor: pointer;
-  display: inline-block;
-  font-family: "Haas Grot Text R Web", "Helvetica Neue", Helvetica, Arial,
-    sans-serif;
-  font-size: 14px;
-  font-weight: 500;
-  line-height: 20px;
-  list-style: none;
-  margin: 0;
-  padding: 10px 12px;
-  text-align: center;
-  transition: all 200ms;
-  vertical-align: baseline;
-  white-space: nowrap;
-  user-select: none;
-  -webkit-user-select: none;
-  touch-action: manipulation;
-}
-
-// FIXME : not being used currently
-table.weather-forecast-summary-11111 {
-  tbody {
-    white-space: nowrap;
-    td {
-      padding: 0.45em;
-    }
-  }
-  td.weather-cell {
-    border: 2px solid rgba(1, 2, 4, 0.07);
-  }
-  td.center {
-    text-align: center;
-  }
-  thead.table-heading {
-    td {
-      background-color: #f08e07;
-      color: #ffffff;
-      text-align: center;
-    }
+  &:hover,
+  &:focus {
+    color: var(--color-accent-primary);
+    text-decoration-thickness: 2px;
   }
 
-  tr.planetory-info {
-    span.sunrise {
-      i {
-        color: #ffc107;
-        padding-right: 0.4em;
-      }
-      padding-right: 2em;
-    }
-    span.sunset {
-      i {
-        color: #0e151d;
-        padding-right: 0.4em;
-      }
-      padding-left: 2em;
-    }
+  &:active {
+    opacity: 0.8;
   }
 }
 
-.wta-link {
-  padding-right: 5px;
-}
+// ============================================
+// Alerts Section
+// ============================================
 
 .all-alerts {
-  padding-top: 10px;
+  padding: var(--spacing-lg) var(--spacing-md);
+  background: var(--color-bg-surface);
+  border-radius: var(--radius-md);
+  margin-top: var(--spacing-lg);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
 }
 
 .alert-for-this-day {
-  border-bottom: 1px solid red;
+  border-bottom: 2px solid var(--color-alert-warning);
+  padding-bottom: var(--spacing-sm);
+  animation: alertPulse 2s ease-in-out infinite;
 }
 
-// table.weather-forecast {
-//   border-collapse:collapse;
-//   tr.weather-cell td {
-//     border: 2px solid rgba(1, 2, 4, 0.07);
-//   }
+.wta-link {
+  padding-right: var(--spacing-sm);
+  color: var(--color-accent-primary);
+  text-decoration: none;
 
-//   thead {
-//     tr.header-secondary-main {
-//       background-color:#f2d8a4;
-//     }
-//   }
+  &:hover {
+    text-decoration: underline;
+  }
+}
 
-//   tbody {
-//     white-space: nowrap;
+// ============================================
+// Animations
+// ============================================
 
-//     tr.daily-summary {
-//       background-color: #feffd4;
-//     }
+@keyframes pulse {
+  0%, 100% {
+    opacity: 0.6;
+  }
+  50% {
+    opacity: 1;
+  }
+}
 
-//     .weekend {
-//       background-image:linear-gradient(142deg, #b2f7c6 11.11%, #faf5f5 11.11%, #faf5f5 50%, #b2f7c6 50%, #b2f7c6 61.11%, #faf5f5 61.11%, #faf5f5 100%);
-//       background-size: 14.62px 11.42px;
-//     }
+@keyframes alertPulse {
+  0%, 100% {
+    border-color: var(--color-alert-warning);
+  }
+  50% {
+    border-color: rgba(255, 66, 39, 0.4);
+  }
+}
 
-//     tr.region-details {
-//       td {
-//         column-span: all;
-//         text-align: center;
-//       }
-//       background: #fef7e9;
-//     }
-
-//     tr.weather-details {
-//       span.forecast-id {
-//         color: white;
-//         background-color: rgba(156, 191, 240, 0.8);
-//         padding: 3px 3px 3px 5px;
-//         border-radius: 0.25em;
-//         margin-right: 5px;
-//       }
-
-//       td.summary {
-//         text-align: left;
-//       }
-
-//       td.location-row {
-//         text-align: left;
-//       }
-
-//       td.left-col-of-merged-cells {
-//         border-right: solid 1px #FFF;
-//       }
-
-//       td.right-col-of-merged-cells {
-//         border-left: solid 1px #FFF;
-//       }
-
-//       td.forecast-date span.day-of-month {
-//         border:none;
-//         color: #df788e;
-//         font-size: 0.85em;
-//         font-weight: 900;
-//         white-space: nowrap;
-//       }
-
-//       td.precipitation {
-//         text-align: center;
-//       }
-
-//       td.precipitation-prob {
-//         border-right: none;
-//         text-align: right;
-//       }
-//       td.precipitation-amount {
-//         border-left: none;
-//         text-align: right;
-//       }
-//       td.cloud-cover {
-//         text-align: right;
-//         padding-right: 4em;
-//       }
-//     }
-//   }
-
-//   .header-main {
-//     background-color:#def0ff;
-//   }
-
-//   tr.header-secondary {
-//     background-color:#fef7e9;
-//     text-align: center;
-//     td {
-//       padding: 8px 8px;
-//     }
-//   }
-// }
+// ============================================
+// Utility Classes
+// ============================================
 
 .align-right {
   text-align: right;
 }
 
-.weather-icon {
-  font-size: 1.4em;
-  font-weight: 1.2em;
-}
-
 a.freepik {
   text-decoration: underline;
-  font-size: 0.8em;
+  font-size: 0.75em;
+  color: var(--color-text-dimmed);
+
+  &:hover {
+    color: var(--color-text-secondary);
+  }
 }
 
-@media (max-width: 500px) {
-  .styled-table th,
-  .styled-table td {
-    padding: 6px 0px;
-    text-align: center;
+// ============================================
+// Mobile Optimizations (iPhone Primary Target)
+// ============================================
+
+// Base mobile styles (default, mobile-first) - compact
+@media (max-width: 768px) {
+  :root {
+    --spacing-sm: 6px;
+    --spacing-md: 10px;
+    --spacing-lg: 14px;
+  }
+
+  table.table {
+    font-size: 0.82rem;
+    white-space: nowrap;
+
+    // Improve scroll performance
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .styled-table {
+    th,
+    td {
+      padding: 6px 4px;
+    }
+
+    td.location-name,
+    thead tr td.location-header {
+      min-width: 120px;
+      width: 120px;
+      font-size: 0.85em;
+      padding-left: var(--spacing-sm);
+    }
+
+    thead tr td.alerts-header,
+    td.alerts-cell {
+      min-width: 40px;
+      width: 40px;
+    }
+
+    // Adjust location offset for mobile alerts column width
+    thead tr td.alerts-header ~ td.location-header,
+    &[data-has-alerts] td.location-name {
+      left: 40px;
+    }
   }
 
   .weather-icon {
     font-size: 1.1em;
   }
 
+  .button-2 {
+    padding: 6px 8px;
+    font-size: 12px;
+    min-height: 32px;
+
+    &.left-arrow,
+    &.right-arrow {
+      padding: 6px;
+      min-width: 32px;
+    }
+
+    &.forecast-date {
+      min-width: 40px;
+    }
+  }
+}
+
+// Extra small devices (iPhone SE, small phones)
+@media (max-width: 390px) {
   table.table {
-    font-size: 0.8em;
+    font-size: 0.78em;
   }
 
-  .forecast-button {
-    font-size: 0.8em;
+  .weather-icon {
+    font-size: 1em;
   }
 
-  .styled-table td.location-name {
-    padding-left: 12px;
+  .styled-table {
+    td.location-name {
+      min-width: 90px;
+      max-width: 110px;
+      font-size: 0.8em;
+    }
   }
+
+  .button-2 {
+    font-size: 11px;
+    padding: 5px 7px;
+    min-height: 28px;
+  }
+}
+
+// Tablet and larger (landscape, iPad)
+@media (min-width: 769px) {
+  table.table {
+    font-size: 0.95rem;
+  }
+
+  .styled-table {
+    th,
+    td {
+      padding: 10px 14px;
+    }
+
+    td.location-name {
+      min-width: 140px;
+      max-width: 180px;
+    }
+  }
+
+  .weather-icon {
+    font-size: 1.8em;
+  }
+
+  .button-2 {
+    padding: 8px 14px;
+    font-size: 14px;
+  }
+}
+
+// ============================================
+// Dark Mode Enhancements for OLED
+// ============================================
+
+// Very dark warm gray for OLED (avoid pure black for better eye comfort)
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-bg-primary: #16181f;
+    --color-bg-surface: #1e2128;
+    --color-bg-elevated: #272b35;
+  }
+}
+
+// High contrast mode support
+@media (prefers-contrast: high) {
+  :root {
+    --color-border-subtle: rgba(255, 255, 255, 0.2);
+    --color-border-medium: rgba(255, 255, 255, 0.3);
+    --color-text-secondary: #d0d4f0;
+  }
+}
+
+// Reduced motion for accessibility
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+// ============================================
+// iOS Safe Area Support
+// ============================================
+
+@supports (padding: env(safe-area-inset-left)) {
+  table.table {
+    padding-left: env(safe-area-inset-left);
+    padding-right: env(safe-area-inset-right);
+  }
+
+  .all-alerts {
+    padding-left: calc(var(--spacing-md) + env(safe-area-inset-left));
+    padding-right: calc(var(--spacing-md) + env(safe-area-inset-right));
+  }
+}
+
+// ============================================
+// Scroll Shadows (Visual Hint for Scrollable Content)
+// ============================================
+
+table.table {
+  background:
+    linear-gradient(90deg, var(--color-bg-primary) 30%, transparent),
+    linear-gradient(90deg, transparent, var(--color-bg-primary) 70%) 100% 0,
+    radial-gradient(farthest-side at 0 50%, rgba(0, 0, 0, 0.3), transparent),
+    radial-gradient(farthest-side at 100% 50%, rgba(0, 0, 0, 0.3), transparent) 100% 0;
+  background-repeat: no-repeat;
+  background-size: 40px 100%, 40px 100%, 14px 100%, 14px 100%;
+  background-attachment: local, local, scroll, scroll;
+}
+
+// Remove scroll shadows for light mode - use simple background
+[data-theme="light"] table.table {
+  background: #ffffff !important;
+  background-repeat: initial;
+  background-size: initial;
+  background-attachment: initial;
 }

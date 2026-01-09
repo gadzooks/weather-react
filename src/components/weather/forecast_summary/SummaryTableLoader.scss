@@ -1,0 +1,87 @@
+// ============================================
+// Summary Table Loader Header Styles
+// ============================================
+
+.app-header {
+  position: sticky;
+  top: 0;
+  z-index: calc(var(--z-sticky) + 6); // Higher than thead (z-sticky + 5)
+  background: var(--color-bg-elevated);
+  height: var(--app-header-height);
+  padding: 0 var(--spacing-sm);
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  border-bottom: 1px solid var(--color-border-medium);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  box-sizing: border-box;
+
+  // Mobile responsiveness
+  @media (max-width: 768px) {
+    padding: 0 10px;
+  }
+}
+
+// ============================================
+// Container with responsive max-width constraint
+// ============================================
+
+.container {
+  max-width: 100%;
+  margin: 0 auto;
+  padding: 0 16px;
+  box-sizing: border-box;
+
+  // Tablet: Use 95% of viewport
+  @media (min-width: 768px) {
+    max-width: 95%;
+  }
+
+  // Desktop: Fixed 1400px
+  @media (min-width: 1200px) {
+    max-width: 1400px;
+  }
+
+  // Large desktop: Slightly wider
+  @media (min-width: 1600px) {
+    max-width: 1600px;
+  }
+
+  // Mobile: Reduce padding
+  @media (max-width: 767px) {
+    padding: 0 8px;
+  }
+}
+
+// ============================================
+// Table wrapper for horizontal scrolling
+// ============================================
+
+.table-wrapper {
+  overflow-x: auto;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  margin: 0;
+  // Fixed height so vertical scroll happens within this container
+  // This allows thead sticky to work properly
+  max-height: calc(100vh - var(--app-header-height));
+  height: calc(100vh - var(--app-header-height));
+
+  // Scroll shadows for visual hint
+  background:
+    linear-gradient(90deg, var(--color-bg-primary, #fff) 30%, transparent),
+    linear-gradient(90deg, transparent, var(--color-bg-primary, #fff) 70%) 100% 0;
+  background-repeat: no-repeat;
+  background-size: 40px 100%, 40px 100%;
+  background-attachment: local, local;
+}
+
+// Dark mode support for table wrapper
+[data-theme="dark"] .table-wrapper {
+  background:
+    linear-gradient(90deg, var(--color-bg-primary, #1a1d26) 30%, transparent),
+    linear-gradient(90deg, transparent, var(--color-bg-primary, #1a1d26) 70%) 100% 0;
+  background-repeat: no-repeat;
+  background-size: 40px 100%, 40px 100%;
+  background-attachment: local, local;
+}

@@ -1,13 +1,189 @@
+/* index.css */
+
+/* ============================================
+   Global Dark Mode Styles - Mobile Optimized
+   ============================================ */
+
+html {
+  /* Allow horizontal scrolling when needed */
+  overflow-x: auto;
+  /* Better text rendering on OLED screens */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  /* Smooth scrolling */
+  scroll-behavior: smooth;
+}
+
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
-    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
+  padding: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+
+  /* Dark mode background */
+  background: var(--color-bg-primary, #1a1d26);
+  color: var(--color-text-primary, #d6d9e3);
+
+  /* Prevent text size adjustment on orientation change in iOS */
+  -webkit-text-size-adjust: 100%;
+
+  /* Better tap highlighting */
+  -webkit-tap-highlight-color: rgba(107, 155, 209, 0.15);
+
+  /* Full viewport height on mobile */
+  min-height: 100vh;
+  min-height: -webkit-fill-available;
+}
+
+/* Fix for iOS Safari viewport height */
+html {
+  height: -webkit-fill-available;
 }
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
+  background: var(--color-bg-elevated, #2d323d);
+  padding: 2px 6px;
+  border-radius: 4px;
+  color: var(--color-accent-primary, #6B9BD1);
+}
+
+/* Selection styling for dark mode */
+::selection {
+  background: var(--color-accent-primary, #6B9BD1);
+  color: var(--color-bg-primary, #1a1d26);
+}
+
+::-moz-selection {
+  background: var(--color-accent-primary, #6B9BD1);
+  color: var(--color-bg-primary, #1a1d26);
+}
+
+/* Scrollbar styling for webkit browsers */
+::-webkit-scrollbar {
+  width: 12px;
+  height: 12px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--color-bg-surface, #242831);
+  border-radius: 6px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--color-bg-elevated, #2d323d);
+  border-radius: 6px;
+  border: 2px solid var(--color-bg-surface, #242831);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-bg-hover, #353b48);
+}
+
+/* Mobile scrollbar - thinner */
+@media (max-width: 768px) {
+  ::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    border: 1px solid var(--color-bg-surface, #242831);
+  }
+}
+
+/* Focus visible for accessibility */
+*:focus-visible {
+  outline: 2px solid var(--color-accent-primary, #6B9BD1);
+  outline-offset: 2px;
+}
+
+/* Remove focus outline for mouse users */
+*:focus:not(:focus-visible) {
+  outline: none;
+}
+
+/* Prevent text selection on UI elements (mobile optimization) */
+button,
+input[type="button"],
+input[type="submit"],
+.no-select {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+/* Dark mode color scheme preference */
+@media (prefers-color-scheme: dark) {
+  body {
+    /* Very dark warm gray instead of pure black for better eye comfort */
+    background: #16181f;
+  }
+}
+
+/* ============================================
+   Light Theme Overrides
+   ============================================ */
+
+[data-theme="light"] body {
+  background: #ffffff;
+  color: #000000;
+}
+
+[data-theme="light"] code {
+  background: #f5f5f5;
+  color: #1976d2;
+}
+
+[data-theme="light"] ::selection {
+  background: #1976d2;
+  color: #ffffff;
+}
+
+[data-theme="light"] ::-moz-selection {
+  background: #1976d2;
+  color: #ffffff;
+}
+
+[data-theme="light"] ::-webkit-scrollbar-track {
+  background: #f5f5f5;
+}
+
+[data-theme="light"] ::-webkit-scrollbar-thumb {
+  background: #cccccc;
+  border: 2px solid #f5f5f5;
+}
+
+[data-theme="light"] ::-webkit-scrollbar-thumb:hover {
+  background: #999999;
+}
+
+/* ============================================
+   Smooth Theme Transitions
+   ============================================ */
+
+body,
+table,
+td,
+th,
+.button-2,
+.app-header {
+  transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+}
+
+/* Respect reduced motion preference */
+@media (prefers-reduced-motion: reduce) {
+  body,
+  table,
+  td,
+  th,
+  .button-2,
+  .app-header {
+    transition: none;
+  }
 }

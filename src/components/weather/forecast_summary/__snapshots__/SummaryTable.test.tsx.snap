@@ -9,7 +9,9 @@ exports[`renders a snapshot 1`] = `
       className="table-heading"
     >
       <tr>
-        <td>
+        <td
+          className="location-header"
+        >
           Location
         </td>
         <td
@@ -184,11 +186,55 @@ exports[`renders a snapshot 1`] = `
         className="region-details"
       >
         <td
-          align="center"
-          colSpan={16}
+          className="region-name-cell"
         >
           Cities
         </td>
+        <td
+          className="region-date-cell"
+        />
+        <td
+          className="region-date-cell"
+        />
+        <td
+          className="region-date-cell"
+        />
+        <td
+          className="region-date-cell"
+        />
+        <td
+          className="region-date-cell"
+        />
+        <td
+          className="region-date-cell"
+        />
+        <td
+          className="region-date-cell"
+        />
+        <td
+          className="region-date-cell"
+        />
+        <td
+          className="region-date-cell"
+        />
+        <td
+          className="region-date-cell"
+        />
+        <td
+          className="region-date-cell"
+        />
+        <td
+          className="region-date-cell"
+        />
+        <td
+          className="region-date-cell"
+        />
+        <td
+          className="region-date-cell"
+        />
+        <td
+          className="region-date-cell"
+        />
       </tr>
       <tr
         className="weather-cell"
@@ -205,7 +251,7 @@ exports[`renders a snapshot 1`] = `
           </button>
         </td>
         <td
-          className="weather-cell center  weekend   "
+          className="weather-cell center weekend "
         >
           <i
             className="wi weather-icon wi-day-sunny day-sunny "
@@ -213,7 +259,7 @@ exports[`renders a snapshot 1`] = `
           />
         </td>
         <td
-          className="weather-cell center  weekend   "
+          className="weather-cell center weekend "
         >
           <i
             className="wi weather-icon wi-day-sunny day-sunny "
@@ -221,7 +267,7 @@ exports[`renders a snapshot 1`] = `
           />
         </td>
         <td
-          className="weather-cell center    "
+          className="weather-cell center  "
         >
           <i
             className="wi weather-icon wi-day-sunny day-sunny "
@@ -229,7 +275,7 @@ exports[`renders a snapshot 1`] = `
           />
         </td>
         <td
-          className="weather-cell center    "
+          className="weather-cell center  "
         >
           <i
             className="wi weather-icon wi-day-cloudy day-cloudy "
@@ -237,7 +283,7 @@ exports[`renders a snapshot 1`] = `
           />
         </td>
         <td
-          className="weather-cell center    "
+          className="weather-cell center  "
         >
           <i
             className="wi weather-icon wi-day-cloudy day-cloudy "
@@ -245,7 +291,7 @@ exports[`renders a snapshot 1`] = `
           />
         </td>
         <td
-          className="weather-cell center    "
+          className="weather-cell center  "
         >
           <i
             className="wi weather-icon wi-rain rain "
@@ -253,7 +299,7 @@ exports[`renders a snapshot 1`] = `
           />
         </td>
         <td
-          className="weather-cell center    "
+          className="weather-cell center  "
         >
           <i
             className="wi weather-icon wi-rain rain "
@@ -261,7 +307,7 @@ exports[`renders a snapshot 1`] = `
           />
         </td>
         <td
-          className="weather-cell center  weekend   "
+          className="weather-cell center weekend "
         >
           <i
             className="wi weather-icon wi-rain rain "
@@ -269,7 +315,7 @@ exports[`renders a snapshot 1`] = `
           />
         </td>
         <td
-          className="weather-cell center  weekend   "
+          className="weather-cell center weekend "
         >
           <i
             className="wi weather-icon wi-rain rain "
@@ -277,7 +323,7 @@ exports[`renders a snapshot 1`] = `
           />
         </td>
         <td
-          className="weather-cell center    "
+          className="weather-cell center  "
         >
           <i
             className="wi weather-icon wi-rain rain "
@@ -285,7 +331,7 @@ exports[`renders a snapshot 1`] = `
           />
         </td>
         <td
-          className="weather-cell center    "
+          className="weather-cell center  "
         >
           <i
             className="wi weather-icon wi-cloudy cloudy sunshine-50"
@@ -293,7 +339,7 @@ exports[`renders a snapshot 1`] = `
           />
         </td>
         <td
-          className="weather-cell center    "
+          className="weather-cell center  "
         >
           <i
             className="wi weather-icon wi-cloudy cloudy sunshine-50"
@@ -301,7 +347,7 @@ exports[`renders a snapshot 1`] = `
           />
         </td>
         <td
-          className="weather-cell center    "
+          className="weather-cell center  "
         >
           <i
             className="wi weather-icon wi-cloudy cloudy sunshine-50"
@@ -309,7 +355,7 @@ exports[`renders a snapshot 1`] = `
           />
         </td>
         <td
-          className="weather-cell center    "
+          className="weather-cell center  "
         >
           <i
             className="wi weather-icon wi-cloudy cloudy sunshine-50"
@@ -317,7 +363,7 @@ exports[`renders a snapshot 1`] = `
           />
         </td>
         <td
-          className="weather-cell center  weekend   "
+          className="weather-cell center weekend "
         >
           <i
             className="wi weather-icon wi-cloudy cloudy sunshine-10"
@@ -340,7 +386,7 @@ exports[`renders a snapshot 1`] = `
           </button>
         </td>
         <td
-          className="weather-cell center  weekend   "
+          className="weather-cell center weekend "
         >
           <i
             className="wi weather-icon wi-day-sunny day-sunny "
@@ -348,7 +394,7 @@ exports[`renders a snapshot 1`] = `
           />
         </td>
         <td
-          className="weather-cell center  weekend   "
+          className="weather-cell center weekend "
         >
           <i
             className="wi weather-icon wi-day-sunny day-sunny "
@@ -356,7 +402,7 @@ exports[`renders a snapshot 1`] = `
           />
         </td>
         <td
-          className="weather-cell center    "
+          className="weather-cell center  "
         >
           <i
             className="wi weather-icon wi-day-sunny day-sunny "
@@ -364,7 +410,7 @@ exports[`renders a snapshot 1`] = `
           />
         </td>
         <td
-          className="weather-cell center    "
+          className="weather-cell center  "
         >
           <i
             className="wi weather-icon wi-rain rain "
@@ -372,7 +418,7 @@ exports[`renders a snapshot 1`] = `
           />
         </td>
         <td
-          className="weather-cell center    "
+          className="weather-cell center  "
         >
           <i
             className="wi weather-icon wi-day-cloudy day-cloudy "
@@ -380,7 +426,7 @@ exports[`renders a snapshot 1`] = `
           />
         </td>
         <td
-          className="weather-cell center    "
+          className="weather-cell center  "
         >
           <i
             className="wi weather-icon wi-rain rain "
@@ -388,7 +434,7 @@ exports[`renders a snapshot 1`] = `
           />
         </td>
         <td
-          className="weather-cell center    "
+          className="weather-cell center  "
         >
           <i
             className="wi weather-icon wi-rain rain "
@@ -396,7 +442,7 @@ exports[`renders a snapshot 1`] = `
           />
         </td>
         <td
-          className="weather-cell center  weekend   "
+          className="weather-cell center weekend "
         >
           <i
             className="wi weather-icon wi-rain rain "
@@ -404,7 +450,7 @@ exports[`renders a snapshot 1`] = `
           />
         </td>
         <td
-          className="weather-cell center  weekend   "
+          className="weather-cell center weekend "
         >
           <i
             className="wi weather-icon wi-rain rain "
@@ -412,7 +458,7 @@ exports[`renders a snapshot 1`] = `
           />
         </td>
         <td
-          className="weather-cell center    "
+          className="weather-cell center  "
         >
           <i
             className="wi weather-icon wi-rain rain "
@@ -420,7 +466,7 @@ exports[`renders a snapshot 1`] = `
           />
         </td>
         <td
-          className="weather-cell center    "
+          className="weather-cell center  "
         >
           <i
             className="wi weather-icon wi-rain rain "
@@ -428,7 +474,7 @@ exports[`renders a snapshot 1`] = `
           />
         </td>
         <td
-          className="weather-cell center    "
+          className="weather-cell center  "
         >
           <i
             className="wi weather-icon wi-rain rain "
@@ -436,7 +482,7 @@ exports[`renders a snapshot 1`] = `
           />
         </td>
         <td
-          className="weather-cell center    "
+          className="weather-cell center  "
         >
           <i
             className="wi weather-icon wi-cloudy cloudy sunshine-50"
@@ -444,7 +490,7 @@ exports[`renders a snapshot 1`] = `
           />
         </td>
         <td
-          className="weather-cell center    "
+          className="weather-cell center  "
         >
           <i
             className="wi weather-icon wi-cloudy cloudy sunshine-50"
@@ -452,7 +498,7 @@ exports[`renders a snapshot 1`] = `
           />
         </td>
         <td
-          className="weather-cell center  weekend   "
+          className="weather-cell center weekend "
         >
           <i
             className="wi weather-icon wi-cloudy cloudy sunshine-10"

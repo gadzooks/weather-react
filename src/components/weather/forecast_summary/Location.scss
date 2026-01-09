@@ -1,50 +1,113 @@
+/* Location.scss */
+
+// ============================================
+// Weather Icon Colors - Soft & Calming Palette
+// All colors desaturated by 30-40% for better dark mode comfort
+// ============================================
+
+// Weather conditions with softer glow effects
 .fog {
-  color: rgb(152, 150, 152);
-}
-.snow {
-  color: rgb(25, 151, 245);
-}
-.cloudy {
-  color: blue;
-}
-.rain {
-  color: blue;
-}
-.sunshine-10 {
-  color: rgb(255, 187, 33);
-}
-.sunshine-50 {
-  color: rgb(123, 96, 96);
-}
-.sunshine-100 {
-  color: rgb(38, 163, 231);
-}
-.day-sunny {
-  color: #ffb412;
+  color: #b5b3b5;
+  filter: drop-shadow(0 0 3px rgba(181, 179, 181, 0.25));
 }
 
+.snow {
+  color: #6d9ed9;
+  filter: drop-shadow(0 0 5px rgba(109, 158, 217, 0.35));
+}
+
+.cloudy {
+  color: #9ba4ba;
+  filter: drop-shadow(0 0 3px rgba(155, 164, 186, 0.2));
+}
+
+.rain {
+  color: #6d9ed9;
+  filter: drop-shadow(0 0 6px rgba(109, 158, 217, 0.4));
+}
+
+// Sunshine levels with soft warm glow
+.sunshine-10 {
+  color: #d4b87a;
+  filter: drop-shadow(0 0 5px rgba(212, 184, 122, 0.25));
+}
+
+.sunshine-50 {
+  color: #dac589;
+  filter: drop-shadow(0 0 6px rgba(218, 197, 137, 0.3));
+}
+
+.sunshine-100 {
+  color: #6B9BD1;
+  filter: drop-shadow(0 0 5px rgba(107, 155, 209, 0.3));
+}
+
+.day-sunny {
+  color: #dac589;
+  filter: drop-shadow(0 0 7px rgba(218, 197, 137, 0.4));
+  animation: subtlePulse 3s ease-in-out infinite;
+}
+
+// Temperature indicators - muted but clear
 .high-temp-wi-hotter {
-  color: #ff5f21;
+  color: #d98969;
+  filter: drop-shadow(0 0 6px rgba(217, 137, 105, 0.35));
 }
 
 .high-temp-wi-hot {
-  color: #ffbb21;
+  color: #d4b87a;
+  filter: drop-shadow(0 0 5px rgba(212, 184, 122, 0.3));
 }
 
+// Location name styling
 .location-name {
   text-align: left;
 }
 
-.weekend {
-  background-image: linear-gradient(
-    142deg,
-    #b2f7c6 11.11%,
-    #faf5f5 11.11%,
-    #faf5f5 50%,
-    #b2f7c6 50%,
-    #b2f7c6 61.11%,
-    #faf5f5 61.11%,
-    #faf5f5 100%
-  );
-  background-size: 14.62px 11.42px;
+// Note: Weekend highlighting styles are defined in SummaryTable.scss for consistency
+
+// Subtle pulse animation for sunny weather
+@keyframes subtlePulse {
+  0%, 100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.9;
+    transform: scale(1.05);
+  }
+}
+
+// Alert icon styling - compact
+.alert-icon {
+  margin-right: 2px;
+  font-size: 1em;
+  text-decoration: none;
+  transition: transform var(--transition-fast, 150ms);
+  display: inline-block;
+
+  &:hover {
+    transform: scale(1.1);
+  }
+
+  &:active {
+    transform: scale(0.95);
+  }
+}
+
+// ============================================
+// Light Theme - Restore Original Bright Colors
+// ============================================
+
+[data-theme="light"] {
+  .fog { color: rgb(152, 150, 152); filter: none; }
+  .snow { color: rgb(25, 151, 245); filter: none; }
+  .cloudy { color: blue; filter: none; }
+  .rain { color: blue; filter: none; }
+  .sunshine-10 { color: rgb(255, 187, 33); filter: none; }
+  .sunshine-50 { color: rgb(123, 96, 96); filter: none; }
+  .sunshine-100 { color: rgb(38, 163, 231); filter: none; }
+  .day-sunny { color: #ffb412; filter: none; animation: none; }
+  .high-temp-wi-hotter { color: #ff5f21; filter: none; }
+  .high-temp-wi-hot { color: #ffbb21; filter: none; }
 }

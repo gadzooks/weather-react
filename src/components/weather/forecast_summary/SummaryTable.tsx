@@ -98,7 +98,7 @@ function SummaryTable(props: SummaryTableProps) {
 
   return (
     <>
-      <table className="table styled-table">
+      <table className="table styled-table" data-has-alerts={foundAlerts || undefined}>
         <thead className="table-heading">
           {/* <tr>
           <td rowSpan={2}>Location</td>
@@ -120,8 +120,8 @@ function SummaryTable(props: SummaryTableProps) {
         </tr> */}
 
           <tr>
-            {foundAlerts && <td>Alerts</td>}
-            <td>Location</td>
+            {foundAlerts && <td className="alerts-header">Alerts</td>}
+            <td className="location-header">Location</td>
             {parsedDates.map((date, index) => {
               const txt = date === null ? "" : format(date, "DD").toUpperCase();
               const dateKey =

@@ -1,21 +1,23 @@
-import React from "react";
-import { format } from "fecha";
-import "../../../css/weather-icons.css";
-import "./LocationDetail.scss";
-import convertToSentence from "../../../utils/string";
+// LocationDetail.tsx
+
+import React from 'react';
+import { format } from 'fecha';
+import '../../../css/weather-icons.css';
+import './LocationDetail.scss';
+import convertToSentence from '../../../utils/string';
 import {
   deserializeLocationData,
   LocationDetailData,
-} from "../../../interfaces/LocationInterface";
-import WtaLink from "./WtaLink";
-import WeatherIcon from "../main_page/WeatherIcon";
+} from '../../../interfaces/LocationInterface';
+import WtaLink from './WtaLink';
+import WeatherIcon from '../main_page/WeatherIcon';
 import {
   ForecastDates,
   ForecastResponseStatus,
-} from "../../../interfaces/ForecastResponseInterface";
+} from '../../../interfaces/ForecastResponseInterface';
 import LocationDetailChart, {
   LocationDetailChartProps,
-} from "./LocationDetailChart";
+} from './LocationDetailChart';
 
 export interface LocationDetailProps {
   appState: ForecastResponseStatus;
@@ -46,9 +48,9 @@ function LocationDetail(props: LocationDetailProps) {
   };
 
   return (
-    <div className="location-details-page">
-      <div className="heading">
-        <div className="wta-link">
+    <div className='location-details-page'>
+      <div className='heading'>
+        <div className='wta-link'>
           <WtaLink
             wtaRegion={location.wtaRegionKey}
             wtaSubRegion={location.sub_region}
@@ -56,8 +58,8 @@ function LocationDetail(props: LocationDetailProps) {
         </div>
         <div>
           <button
-            className="button-2"
-            type="button"
+            className='button-2'
+            type='button'
             onClick={() => setForecastDetailsForLocation(null)}
           >
             {`${description.toUpperCase()}  `}
@@ -65,18 +67,18 @@ function LocationDetail(props: LocationDetailProps) {
         </div>
       </div>
       <LocationDetailChart {...locProps} />
-      <div id={location.name} className="location-details-div">
-        <table className="location-details table">
-          <thead className="table-heading">
-            <tr className="secondary-heading">
-              <td colSpan={1} className="center border-right">
+      <div id={location.name} className='location-details-div'>
+        <table className='location-details table'>
+          <thead className='table-heading'>
+            <tr className='secondary-heading'>
+              <td colSpan={1} className='center border-right'>
                 DATE
               </td>
-              <td colSpan={1} className="center border-right">
+              <td colSpan={1} className='center border-right'>
                 DETAILS
               </td>
-              <td className="border-right">H/L</td>
-              <td colSpan={2} className="center border-right">
+              <td className='border-right'>H/L</td>
+              <td colSpan={2} className='center border-right'>
                 PRECIP
               </td>
               <td>CLOUD COV</td>
@@ -86,30 +88,30 @@ function LocationDetail(props: LocationDetailProps) {
             {forecast.map((row, id) => {
               const d = parsedDates[id];
               if (d) {
-                const weekendClassName = weekends[id] ? " weekend " : " ";
+                const weekendClassName = weekends[id] ? 'weekend' : '';
                 return (
-                  <tr className={weekendClassName} key={row.datetime}>
-                    <td className="border-right">
-                      {format(d, "ddd").toUpperCase()}
-                      {"  "}
-                      {format(d, "Do").toUpperCase()}
+                  <tr key={row.datetime}>
+                    <td className={`border-right ${weekendClassName}`}>
+                      {format(d, 'ddd').toUpperCase()}
+                      {'  '}
+                      {format(d, 'Do').toUpperCase()}
                     </td>
-                    <td className="border-right">
+                    <td className={`border-right ${weekendClassName}`}>
                       <WeatherIcon {...row} key={row.datetime} />
-                      {` ${convertToSentence(row.icon).replace("day", "")}`}
+                      {` ${convertToSentence(row.icon).replace('day', '')}`}
                     </td>
-                    <td className="border-right">
-                      {`${Math.round(row.tempmax)} ${Math.round(row.tempmin)}`}
+                    <td className={`border-right ${weekendClassName}`}>
+                      {`${Math.round(row.tempmax)} ${Math.round(
+                        row.tempmin,
+                      )}`}
                     </td>
-                    <td className="align-right">
+                    <td className={`align-right ${weekendClassName}`}>
                       {`${Math.round(row.precipprob)}%`}
                     </td>
-                    <td className="align-right border-right">
-                      {`${Math.round(row.precip)}"`}
+                    <td className={`align-right border-right ${weekendClassName}`}>
+                      {`${row.precip.toFixed(2)}"`}
                     </td>
-                    <td className="align-right">{`${Math.round(
-                      row.cloudcover
-                    )}%`}</td>
+                    <td className={`align-left ${weekendClassName}`}>{`${Math.round(row.cloudcover).toString().padStart(3, '\u00A0')}%`}</td>
                   </tr>
                 );
               }
@@ -128,9 +130,9 @@ export default LocationDetail;
 //     byId: {
 //       renton: [
 //         {
-//           time: "2021-04-17T07:00:00.000+00:00",
-//           summary: "Clear conditions throughout the day.",
-//           icon: "day-hail",
+//           time: '2021-04-17T07:00:00.000+00:00',
+//           summary: 'Clear conditions throughout the day.',
+//           icon: 'day-hail',
 //           precipProbability: 0.0,
 //           temperature: 60.9,
 //           apparentTemperature: 60.9,
