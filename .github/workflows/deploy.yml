@@ -4,12 +4,12 @@ on:
   workflow_run:
     workflows: ["CI"]
     types: [completed]
-    branches: [dev, qa]
+    branches: [dev, qa, feature/cicd-pipeline]
 
 jobs:
   deploy-dev:
     name: Deploy to Dev
-    if: github.event.workflow_run.conclusion == 'success' && github.event.workflow_run.head_branch == 'dev'
+    if: github.event.workflow_run.conclusion == 'success' && (github.event.workflow_run.head_branch == 'dev' || github.event.workflow_run.head_branch == 'feature/cicd-pipeline')
     runs-on: ubuntu-latest
     environment:
       name: dev
