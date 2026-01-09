@@ -1,20 +1,28 @@
 name: Deploy
 
 on:
+  pull_request:
+    branches: [dev]
+    types: [opened, synchronize, reopened]
   workflow_run:
     workflows: ["CI"]
     types: [completed]
-    branches: [dev, qa, feature/cicd-pipeline]
+    branches: [qa]
 
 jobs:
   deploy-dev:
     name: Deploy to Dev
-    if: github.event.workflow_run.conclusion == 'success' && (github.event.workflow_run.head_branch == 'dev' || github.event.workflow_run.head_branch == 'feature/cicd-pipeline')
+    if: github.event_name == 'pull_request' || (github.event_name == 'workflow_run' && github.event.workflow_run.conclusion == 'success' && github.event.workflow_run.head_branch == 'dev')
     runs-on: ubuntu-latest
     environment:
       name: dev
       url: https://weather-react-dev.onrender.com
     steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+
       - name: Trigger Render Deploy
         run: curl -X POST "${{ secrets.RENDER_DEPLOY_HOOK_DEV }}"
 
