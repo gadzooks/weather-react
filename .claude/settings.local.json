@@ -41,7 +41,14 @@
       "Bash(node:*)",
       "Bash(yarn jest:*)",
       "Bash(npm run dev:*)",
-      "Bash(npm run build:*)"
+      "Bash(npm run build:*)",
+      "Bash(git worktree:*)",
+      "Bash(npm test)",
+      "Bash(npm install:*)",
+      "Bash(npm run lint)",
+      "Bash(npm run prettier:*)",
+      "Bash(npm run prettier:fix:*)",
+      "Bash(git add:*)"
     ]
   }
 }

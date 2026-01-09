@@ -1,3 +1,8 @@
+# TODO:
+- remove Redux if not required
+- upgrade Node, upgrade react
+- use yarn instead of npm
+
 # Study these more :
 ## Performance
 - Look into performance aspects like rerender : https://levelup.gitconnected.com/14-tips-for-effortlessly-improving-your-weak-ass-react-code-4aea5500559c
