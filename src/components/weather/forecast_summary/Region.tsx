@@ -1,13 +1,12 @@
-/* eslint-disable react/destructuring-assignment */
-import "./Region.scss";
-import React from "react";
-import { RegionInterface } from "../../../interfaces/RegionInterface";
-import { ForecastsById } from "../../../interfaces/ForecastResponseInterface";
-import Location from "./Location";
-import WtaLink from "../location_details/WtaLink";
-import { LocationInterface } from "../../../interfaces/LocationInterface";
-import { DailyForecastFilter } from "../../../interfaces/DailyForecastFilter";
-import AlertProps from "../../../interfaces/AlertProps";
+import './Region.scss';
+import React from 'react';
+import type { RegionInterface } from '../../../interfaces/RegionInterface';
+import type { ForecastsById } from '../../../interfaces/ForecastResponseInterface';
+import Location from './Location';
+import WtaLink from '../location_details/WtaLink';
+import type { LocationInterface } from '../../../interfaces/LocationInterface';
+import type { DailyForecastFilter } from '../../../interfaces/DailyForecastFilter';
+import type { AlertProps } from '../../../interfaces/AlertProps';
 
 export interface RegionProps {
   isWeekend: boolean[];
@@ -29,15 +28,14 @@ function Region(props: RegionProps) {
   const numDateCols = dateSelectedIsWithinForecastRange ? 1 : isWeekend.length;
   return (
     <tbody>
-      <tr className="region-details">
-        {alertProps.foundAlerts && <td className="region-alerts-cell" />}
-        <td className="region-name-cell">
-          <WtaLink wtaRegion={searchKey} className="wta-link" />
+      <tr className='region-details'>
+        {alertProps.foundAlerts && <td className='region-alerts-cell' />}
+        <td className='region-name-cell'>
+          <WtaLink wtaRegion={searchKey} className='wta-link' />
           {description}
         </td>
         {Array.from({ length: numDateCols }).map((_, i) => (
-          // eslint-disable-next-line react/no-array-index-key
-          <td key={i} className="region-date-cell" />
+          <td key={`region-cell-${region.name}-${i}`} className='region-date-cell' />
         ))}
       </tr>
       {locations.map((loc) => (
@@ -45,7 +43,7 @@ function Region(props: RegionProps) {
           wtaRegionKey={region.search_key}
           location={loc}
           key={loc.name}
-          atleastOneDateMatches={props.dateSelectedIsWithinForecastRange}
+          atleastOneDateMatches={dateSelectedIsWithinForecastRange}
           alertIds={loc.alertIds}
           {...props}
         />

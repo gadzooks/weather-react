@@ -1,4 +1,4 @@
-import { DailyForecastInterface } from "./DailyForecastInterface";
+import type { DailyForecastInterface } from './DailyForecastInterface';
 
 interface ForecastInterface {
   latitude: number;
@@ -7,4 +7,4 @@ interface ForecastInterface {
   days: DailyForecastInterface[];
 }
 
-export default ForecastInterface;
+export type { ForecastInterface as default };

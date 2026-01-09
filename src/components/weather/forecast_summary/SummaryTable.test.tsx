@@ -1,12 +1,12 @@
-import React from "react";
-import renderer from "react-test-renderer";
-import mockWeatherForecastNormalized from "../../../api/mockData";
-import { ForecastResponse } from "../../../interfaces/ForecastResponseInterface";
-import { MatchedAreas } from "../../../interfaces/MatchedAreas";
-import findMatchedAreas from "../../../utils/filterMatchedAreas";
-import SummaryTable, { SummaryTableProps } from "./SummaryTable";
+import React from 'react';
+import renderer from 'react-test-renderer';
+import mockWeatherForecastNormalized from '../../../api/mockData';
+import type { ForecastResponse } from '../../../interfaces/ForecastResponseInterface';
+import type { MatchedAreas } from '../../../interfaces/MatchedAreas';
+import findMatchedAreas from '../../../utils/filterMatchedAreas';
+import SummaryTable, { type SummaryTableProps } from './SummaryTable';
 
-it("renders a snapshot", () => {
+it('renders a snapshot', () => {
   const forecast = mockWeatherForecastNormalized()
     .data as unknown as ForecastResponse;
 

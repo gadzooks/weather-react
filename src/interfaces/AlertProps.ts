@@ -1,9 +1,9 @@
-import { AlertsById } from "./ForecastResponseInterface";
+// AlertProps.ts
 
-interface AlertProps {
+import type { AlertsById } from './ForecastResponseInterface';
+
+export interface AlertProps {
   allAlerts: string[] | null;
   alertsById: AlertsById | null;
   foundAlerts: boolean;
 }
-
-export default AlertProps;

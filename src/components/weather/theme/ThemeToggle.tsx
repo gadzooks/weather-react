@@ -9,15 +9,18 @@ interface ThemeToggleProps {
   onToggle: () => void;
 }
 
-export const ThemeToggle: React.FC<ThemeToggleProps> = ({ theme, onToggle }) => {
+export const ThemeToggle: React.FC<ThemeToggleProps> = ({
+  theme,
+  onToggle,
+}) => {
   const isDark = theme === THEME_DARK;
 
   return (
     <button
-      className="theme-toggle button-2"
+      className='theme-toggle button-2'
       onClick={onToggle}
       aria-label={`Switch to ${isDark ? 'light' : 'dark'} mode`}
-      type="button"
+      type='button'
     >
       {isDark ? '☀️' : '🌙'}
     </button>

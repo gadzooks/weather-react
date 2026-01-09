@@ -1,5 +1,4 @@
-/* eslint-disable react/destructuring-assignment */
-import * as React from "react";
+import * as React from 'react';
 // import InputLabel from '@mui/material/InputLabel';
 // import MenuItem from '@mui/material/MenuItem';
 // import FormControl from '@mui/material/FormControl';
@@ -12,9 +11,10 @@ interface SelectDayProps {
 }
 
 export default function SelectDay(props: SelectDayProps) {
-  let txt = props.dateSelected || "";
-  const foundOne = props.dates.find((d) => d === txt);
-  if (!foundOne) txt = "";
+  const { dateSelected, dates } = props;
+  let txt = dateSelected || '';
+  const foundOne = dates.find((d) => d === txt);
+  if (!foundOne) txt = '';
 
   return (
     <div>
@@ -24,7 +24,6 @@ export default function SelectDay(props: SelectDayProps) {
           labelId='demo-simple-select-helper-label'
           id='demo-simple-select-helper'
           value={txt}
-          // eslint-disable-next-line react/destructuring-assignment
           onChange={props.handleChange}
         >
           <MenuItem value=''>

@@ -2,18 +2,23 @@
 
 import React, { useEffect, useState } from 'react';
 import { parse } from 'fecha';
-import { DailyForecastFilter } from '../../../interfaces/DailyForecastFilter';
-import { MatchedAreas } from '../../../interfaces/MatchedAreas';
+import type { DailyForecastFilter } from '../../../interfaces/DailyForecastFilter';
+import type { MatchedAreas } from '../../../interfaces/MatchedAreas';
 import findMatchedAreas from '../../../utils/filterMatchedAreas';
 import useLocalStorage from '../../../utils/localstorage';
 import { LS_DAILY_FORECAST_FILTER_KEY } from '../Constants';
-import LocationDetail, { LocationDetailProps } from '../location_details/LocationDetail';
-import SummaryTable, { SummaryTableProps } from './SummaryTable';
+import LocationDetail, {
+  type LocationDetailProps,
+} from '../location_details/LocationDetail';
+import SummaryTable, { type SummaryTableProps } from './SummaryTable';
 import weatherLoadingError from '../../../images/little-rain-tornado-rainstorm.gif';
 import weatherLoading from '../../../images/weather-loading.gif';
 import { useAppDispatch, useAppSelector } from '../../../app/hooks';
 import { mergeForecast } from '../../../features/forecast/forecastSlice';
-import { ForecastDates, ForecastResponseStatus } from '../../../interfaces/ForecastResponseInterface';
+import type {
+  ForecastDates,
+  ForecastResponseStatus,
+} from '../../../interfaces/ForecastResponseInterface';
 import { calculateWeekends } from '../../../utils/date';
 import fetchWithRetries from '../../../api/retry';
 import { useTheme } from '../../../utils/useTheme';
@@ -29,7 +34,8 @@ const url = `${WEATHER_API}/forecasts/${dataSource}`;
 console.log(`[SummaryTableLoader] Data source: ${dataSource}`);
 
 export function SummaryTableLoader() {
-  const [forecastDetailsForLocation, setForecastDetailsForLocation] = useState<string>();
+  const [forecastDetailsForLocation, setForecastDetailsForLocation] =
+    useState<string>();
   const dispatch = useAppDispatch();
   const { theme, toggleTheme } = useTheme();
 
@@ -46,7 +52,6 @@ export function SummaryTableLoader() {
         },
       });
 
-      // eslint-disable-next-line max-len
       // console.log(`[SummaryTableLoader] Response status: ${response.status}`,
       //   `${response.statusText}`);
       console.log('[SummaryTableLoader] Response headers:', {
@@ -57,17 +62,29 @@ export function SummaryTableLoader() {
       // Check if response is ok
       if (!response.ok) {
         const text = await response.text();
-        console.error('[SummaryTableLoader] Error response body (first 500 chars):', text.substring(0, 500));
-        throw new Error(`HTTP ${response.status}: ${response.statusText}. Body: ${text.substring(0, 200)}`);
+        console.error(
+          '[SummaryTableLoader] Error response body (first 500 chars):',
+          text.substring(0, 500),
+        );
+        throw new Error(
+          `HTTP ${response.status}: ${response.statusText}. Body: ${text.substring(0, 200)}`,
+        );
       }
 
       // Check content type
       const contentType = response.headers.get('content-type');
       if (!contentType || !contentType.includes('application/json')) {
         const text = await response.text();
-        console.error(`[SummaryTableLoader] Unexpected content-type: ${contentType}`);
-        console.error('[SummaryTableLoader] Response body (first 500 chars):', text.substring(0, 500));
-        throw new Error(`Expected JSON but got ${contentType}. Body: ${text.substring(0, 200)}`);
+        console.error(
+          `[SummaryTableLoader] Unexpected content-type: ${contentType}`,
+        );
+        console.error(
+          '[SummaryTableLoader] Response body (first 500 chars):',
+          text.substring(0, 500),
+        );
+        throw new Error(
+          `Expected JSON but got ${contentType}. Body: ${text.substring(0, 200)}`,
+        );
       }
 
       // convert the data to json
@@ -106,7 +123,7 @@ export function SummaryTableLoader() {
   };
   const [dailyForecastFilter, setDailyForecastFilter] = useLocalStorage(
     LS_DAILY_FORECAST_FILTER_KEY,
-    defaultDailyForecastFilter
+    defaultDailyForecastFilter,
   );
 
   let matchedAreas: MatchedAreas = { totalMatchedLocations: 0 };
@@ -115,7 +132,7 @@ export function SummaryTableLoader() {
   }
 
   const parsedDates = (appState.forecast?.dates || []).map((d: string) =>
-    parse(d, 'YYYY-MM-DD')
+    parse(d, 'YYYY-MM-DD'),
   );
   const weekends = calculateWeekends(parsedDates);
 
@@ -164,12 +181,12 @@ export function SummaryTableLoader() {
             </div>
           </div>
         )}
-        {!forecastDetailsForLocation
-          && matchedAreas.totalMatchedLocations > 0 && (
+        {!forecastDetailsForLocation &&
+          matchedAreas.totalMatchedLocations > 0 && (
             <div className='table-wrapper'>
               <SummaryTable {...summaryTableArgs} />
             </div>
-        )}
+          )}
         <div>
           {forecastDetailsForLocation && (
             <LocationDetail {...locationDetailArgs} />

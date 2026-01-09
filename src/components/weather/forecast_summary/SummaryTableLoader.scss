@@ -70,9 +70,12 @@
   // Scroll shadows for visual hint
   background:
     linear-gradient(90deg, var(--color-bg-primary, #fff) 30%, transparent),
-    linear-gradient(90deg, transparent, var(--color-bg-primary, #fff) 70%) 100% 0;
+    linear-gradient(90deg, transparent, var(--color-bg-primary, #fff) 70%) 100%
+      0;
   background-repeat: no-repeat;
-  background-size: 40px 100%, 40px 100%;
+  background-size:
+    40px 100%,
+    40px 100%;
   background-attachment: local, local;
 }
 
@@ -80,8 +83,11 @@
 [data-theme="dark"] .table-wrapper {
   background:
     linear-gradient(90deg, var(--color-bg-primary, #1a1d26) 30%, transparent),
-    linear-gradient(90deg, transparent, var(--color-bg-primary, #1a1d26) 70%) 100% 0;
+    linear-gradient(90deg, transparent, var(--color-bg-primary, #1a1d26) 70%)
+      100% 0;
   background-repeat: no-repeat;
-  background-size: 40px 100%, 40px 100%;
+  background-size:
+    40px 100%,
+    40px 100%;
   background-attachment: local, local;
 }

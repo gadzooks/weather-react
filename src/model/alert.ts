@@ -1,8 +1,10 @@
-import AlertProps from "../interfaces/AlertProps";
+// alert.ts
+
+import type { AlertProps } from '../interfaces/AlertProps';
 
 export default function getAlertIndex(
   alertProps: AlertProps,
-  alertId: string
+  alertId: string,
 ): number {
   const { allAlerts, foundAlerts } = alertProps;
 
@@ -21,14 +23,14 @@ export function getAlertIcon(index: number): string | null {
 
 export function getAlertIconFromAlerts(
   alertProps: AlertProps,
-  alertId: string
+  alertId: string,
 ): string | null {
   return getAlertIcon(getAlertIndex(alertProps, alertId));
 }
 
 export function getAlertIconFromAllAlerts(
   allAlerts: string[],
-  alertId: string
+  alertId: string,
 ): string | null {
   const matcher = (element: string) => element === alertId;
   const index = allAlerts.findIndex(matcher);

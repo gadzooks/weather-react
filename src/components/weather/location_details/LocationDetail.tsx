@@ -7,16 +7,16 @@ import './LocationDetail.scss';
 import convertToSentence from '../../../utils/string';
 import {
   deserializeLocationData,
-  LocationDetailData,
+  type LocationDetailData,
 } from '../../../interfaces/LocationInterface';
 import WtaLink from './WtaLink';
 import WeatherIcon from '../main_page/WeatherIcon';
-import {
+import type {
   ForecastDates,
   ForecastResponseStatus,
 } from '../../../interfaces/ForecastResponseInterface';
 import LocationDetailChart, {
-  LocationDetailChartProps,
+  type LocationDetailChartProps,
 } from './LocationDetailChart';
 
 export interface LocationDetailProps {
@@ -31,7 +31,7 @@ function LocationDetail(props: LocationDetailProps) {
   if (!forecastDetailsForLocation) return null;
 
   const location: LocationDetailData = deserializeLocationData(
-    forecastDetailsForLocation
+    forecastDetailsForLocation,
   );
   const { appState, setForecastDetailsForLocation, forecastDates } = props;
 
@@ -101,17 +101,19 @@ function LocationDetail(props: LocationDetailProps) {
                       {` ${convertToSentence(row.icon).replace('day', '')}`}
                     </td>
                     <td className={`border-right ${weekendClassName}`}>
-                      {`${Math.round(row.tempmax)} ${Math.round(
-                        row.tempmin,
-                      )}`}
+                      {`${Math.round(row.tempmax)} ${Math.round(row.tempmin)}`}
                     </td>
                     <td className={`align-right ${weekendClassName}`}>
                       {`${Math.round(row.precipprob)}%`}
                     </td>
-                    <td className={`align-right border-right ${weekendClassName}`}>
+                    <td
+                      className={`align-right border-right ${weekendClassName}`}
+                    >
                       {`${row.precip.toFixed(2)}"`}
                     </td>
-                    <td className={`align-left ${weekendClassName}`}>{`${Math.round(row.cloudcover).toString().padStart(3, '\u00A0')}%`}</td>
+                    <td
+                      className={`align-left ${weekendClassName}`}
+                    >{`${Math.round(row.cloudcover).toString().padStart(3, '\u00A0')}%`}</td>
                   </tr>
                 );
               }

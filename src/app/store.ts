@@ -1,6 +1,6 @@
-import { configureStore } from "@reduxjs/toolkit";
-import counterReducer from "../features/counter/counterSlice";
-import forecastReducer from "../features/forecast/forecastSlice";
+import { configureStore } from '@reduxjs/toolkit';
+import counterReducer from '../features/counter/counterSlice';
+import forecastReducer from '../features/forecast/forecastSlice';
 
 export const store = configureStore({
   reducer: {

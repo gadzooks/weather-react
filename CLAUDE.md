@@ -4,29 +4,33 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-Weather forecast visualization app built with React 18.1 + TypeScript 4.7, using Vite as the build tool. Displays weather forecasts in a table format with detailed views and charts powered by Recharts. Mobile-first dark mode design optimized for iPhone.
+Weather forecast visualization app built with React 19.0 + TypeScript 5.x, using Vite as the build tool. Displays weather forecasts in a table format with detailed views and charts powered by Recharts. Mobile-first dark mode design optimized for iPhone.
 
 **Note:** The project was migrated from Create React App to Vite - ignore outdated CRA references in README.md.
 
 ## Development Commands
 
+**Package Manager:** This project uses Yarn (Node 24.x required)
+
 ```bash
 # Development
-npm run dev              # Start dev server on port 3000
+yarn dev                 # Start dev server on port 3000
 
 # Building
-npm run build            # Production build → build/ directory
-npm run preview          # Preview production build on port 8080
+yarn build               # Production build → dist/ directory
+yarn build:qa            # QA environment build
+yarn build:production    # Production environment build
+yarn preview             # Preview production build on port 8080
 
 # Testing
-npm run test             # Run tests once
-npm run test:watch       # Watch mode for tests
-npm run test:coverage    # Generate coverage report
+yarn test                # Run tests once
+yarn test:watch          # Watch mode for tests
+yarn test:coverage       # Generate coverage report
 
 # Code Quality
-npm run lint             # ESLint with auto-fix
-npm run prettier         # Check formatting
-npm run prettier:fix     # Auto-format code
+yarn lint                # ESLint with auto-fix
+yarn prettier            # Check formatting
+yarn prettier:fix        # Auto-format code
 ```
 
 ## Environment Setup
@@ -37,7 +41,11 @@ VITE_WEATHER_API=https://weather-expressjs-api.onrender.com
 VITE_WEATHER_JWT_TOKEN=<your-jwt-token>
 ```
 
-**Node version:** 18.x required
+**Alternative API endpoints:**
+- AWS Lambda: `https://4gpn105y9k.execute-api.us-west-1.amazonaws.com/latest`
+- Local dev: `http://localhost:4000`
+
+**Node version:** 24.x required
 
 ## Architecture
 
@@ -57,7 +65,6 @@ Components (SummaryTable → Region → Location)
 
 **Redux Store** (`src/app/store.ts`):
 - `forecast`: ForecastResponseStatus (isLoaded, error, forecast data)
-- `counter`: Example counter slice
 
 **Custom hooks** (`src/app/hooks.ts`):
 - `useAppDispatch`: Typed dispatch hook
@@ -126,10 +133,10 @@ App
 
 ## Testing
 
-- **Framework:** Vitest 0.29.2 with jsdom
+- **Framework:** Vitest 4.x with jsdom
 - **Location:** Tests co-located with components in `src/components/weather/` and `src/utils/`
-- **Testing Library:** React Testing Library for component tests
-- **Coverage:** C8 coverage tool (run `npm run test:coverage`)
+- **Testing Library:** React Testing Library 16.x for component tests
+- **Coverage:** V8 coverage tool (run `yarn test:coverage`)
 
 ## Important Implementation Details
 
@@ -187,6 +194,40 @@ docker run -it --rm \
 
 **Pre-commit:** Husky + lint-staged runs ESLint and Prettier on `.tsx` files
 
+## Deployment
+
+**Hosted on:**
+
+- Frontend: Render.com dashboard (auto-deploys on push to configured branches)
+- Backend API: AWS API Gateway + Lambda
+
+**Render.com Configuration:**
+
+**Important:** This project uses Yarn 4.12.0 (specified in `package.json` via `packageManager` field). Corepack must be enabled before running Yarn commands.
+
+- **Node Version:** `24.x`
+- **Build Command:** `corepack enable && yarn build`
+- **Publish Directory:** `dist`
+- **Environment Variables:**
+  - `VITE_WEATHER_API` - Backend API endpoint
+  - `VITE_WEATHER_JWT_TOKEN` - JWT authentication token
+
+**Why Corepack?** The `packageManager` field in `package.json` indicates this project requires Corepack (included with Node.js 16.9+). Corepack ensures the correct Yarn version (4.12.0) is used. Without `corepack enable`, deployments will fail with version mismatch errors (global Yarn 1.x vs required Yarn 4.x).
+
+**Deploy to S3:**
+
+```bash
+# Set AWS profile
+export AWS_PROFILE=saa
+
+# Set backend endpoint for build
+export VITE_WEATHER_API=https://4gpn105y9k.execute-api.us-west-1.amazonaws.com/latest
+
+# Build and deploy
+yarn build
+aws s3 sync dist s3://weather-react-static-site
+```
+
 ## Recent Development Focus
 
 - Area charts for cloud cover visualization with 100% reference line
@@ -194,3 +235,4 @@ docker run -it --rm \
 - Mobile-first dark mode redesign
 - API retry logic implementation (6 retries, 10s timeout)
 - Location details table optimization
+- Migration to Yarn package manager

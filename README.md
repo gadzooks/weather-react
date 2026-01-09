@@ -1,8 +1,19 @@
 # Basics
 - this website is deployed on https://dashboard.render.com/
-- the Express JS api is deployed on : AWS API Gateway + Lambda 
+- the Express JS api is deployed on : AWS API Gateway + Lambda
 
-## Deploy to S3 🚀 
+## Render.com Deployment Configuration
+
+**Important:** This project uses Yarn 4.12.0 (specified in `package.json` via `packageManager` field). Render.com must enable Corepack before running Yarn commands.
+
+- **Node Version:** `24.x`
+- **Build Command:** `corepack enable && yarn build`
+- **Publish Directory:** `dist`
+- **Environment Variables:** `VITE_WEATHER_API`, `VITE_WEATHER_JWT_TOKEN`
+
+**Why Corepack?** The `packageManager` field in `package.json` indicates this project requires Corepack (included with Node.js 16.9+). Corepack ensures the correct Yarn version (4.12.0) is used. Without `corepack enable`, Render.com will use the global Yarn 1.x, causing version conflicts.
+
+## Deploy to S3 🚀
 ```sh
 # select the correct AWS Profile
 export AWS_PROFILE=saa
@@ -10,10 +21,10 @@ export AWS_PROFILE=saa
 # specify which backend endpoint to hit. This will be set in the build command
 export VITE_WEATHER_API=https://4gpn105y9k.execute-api.us-west-1.amazonaws.com/latest
 
-npm run build
+yarn build
 
 # push changes to s3
-aws s3 sync build s3://weather-react-static-site
+aws s3 sync dist s3://weather-react-static-site
 ```
 
 # Study these more :
@@ -89,73 +100,55 @@ docker run \
 
 ```
 
-# Getting Started with Create React App
+# Getting Started
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This project uses **Vite** as the build tool and **Yarn** as the package manager.
+
+## Prerequisites
+
+- **Node.js:** Version 24.x required
+- **Package Manager:** Yarn (installed automatically via Corepack)
 
 ## Available Scripts
 
 In the project directory, you can run:
 
-### `npm start`
+### `yarn dev`
 
-Runs the app in the development mode.\
+Runs the app in development mode.\
 Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
 
 The page will reload when you make changes.\
 You may also see any lint errors in the console.
 
-### `npm test`
+### `yarn test`
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+Launches the test runner (Vitest) in interactive watch mode.\
+Use `yarn test:coverage` to generate a coverage report.
 
-### `npm run build`
+### `yarn build`
 
-Builds the app for production to the `build` folder.\
+Builds the app for production to the `dist` folder.\
 It correctly bundles React in production mode and optimizes the build for the best performance.
 
 The build is minified and the filenames include the hashes.\
 Your app is ready to be deployed!
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+### `yarn preview`
 
-### `npm run eject`
+Preview the production build locally on [http://localhost:8080](http://localhost:8080).\
+Run this after `yarn build` to test the production bundle.
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+### `yarn lint`
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+Runs ESLint with auto-fix enabled to check code quality.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+### `yarn prettier:fix`
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+Formats all code using Prettier according to the project's style guide.
 
 ## Learn More
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+- [Vite Documentation](https://vite.dev/)
+- [React Documentation](https://react.dev/)
+- [Vitest Testing Framework](https://vitest.dev/)

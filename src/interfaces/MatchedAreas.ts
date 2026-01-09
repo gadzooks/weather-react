@@ -1,5 +1,5 @@
-import { LocationInterface } from "./LocationInterface";
-import { RegionInterface } from "./RegionInterface";
+import type { LocationInterface } from './LocationInterface';
+import type { RegionInterface } from './RegionInterface';
 
 export interface MatchedAreas {
   regions?: RegionInterface[];

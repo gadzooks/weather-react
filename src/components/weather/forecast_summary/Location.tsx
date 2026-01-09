@@ -1,12 +1,17 @@
 // Location.tsx
 
 import './Location.scss';
-import React from 'react';
-import { LocationInterface, serializeLocationData } from '../../../interfaces/LocationInterface';
-import { ForecastsById } from '../../../interfaces/ForecastResponseInterface';
+import {
+  type LocationInterface,
+  serializeLocationData,
+} from '../../../interfaces/LocationInterface';
+import type { ForecastsById } from '../../../interfaces/ForecastResponseInterface';
 import WeatherIcon from '../main_page/WeatherIcon';
-import { DailyForecastFilter, matchesSelecteDateString } from '../../../interfaces/DailyForecastFilter';
-import AlertProps from '../../../interfaces/AlertProps';
+import {
+  type DailyForecastFilter,
+  matchesSelecteDateString,
+} from '../../../interfaces/DailyForecastFilter';
+import type { AlertProps } from '../../../interfaces/AlertProps';
 import { getAlertIconFromAlerts } from '../../../model/alert';
 import { dateDifferenceInDays } from '../../../utils/date';
 
@@ -17,11 +22,9 @@ interface LocationProps {
   dailyForecastFilter: DailyForecastFilter;
   atleastOneDateMatches: boolean;
   setForecastDetailsForLocation: any;
-  // eslint-disable-next-line react/require-default-props
-  wtaRegionKey?: string;
+  wtaRegionKey: string | undefined;
   alertProps: AlertProps;
-  // eslint-disable-next-line react/require-default-props
-  alertIds?: string[];
+  alertIds: string[] | undefined;
 }
 
 function maxAlertDays(
@@ -30,10 +33,11 @@ function maxAlertDays(
 ): number {
   const { alertsById } = alertProps;
   if (
-    !alertProps.foundAlerts
-    || alertsById === null
-    || locationAlerts === undefined
-  ) return -1;
+    !alertProps.foundAlerts ||
+    alertsById === null ||
+    locationAlerts === undefined
+  )
+    return -1;
 
   return Math.max.apply(
     null,
@@ -66,8 +70,8 @@ function Location(props: LocationProps) {
     <tr className='weather-cell'>
       {alertProps.foundAlerts && (
         <td className='alerts-cell'>
-          {locationHasAlerts
-            && alertIds.map((alert) => (
+          {locationHasAlerts &&
+            alertIds.map((alert) => (
               <a href={`#${alert}`} className='alert-icon' key={alert}>
                 {getAlertIconFromAlerts(alertProps, alert)}
               </a>
@@ -78,22 +82,25 @@ function Location(props: LocationProps) {
         <button
           type='button'
           className='forecast-button'
-          onClick={() => setForecastDetailsForLocation(
-            serializeLocationData(location, wtaRegionKey),
-          )}
+          onClick={() =>
+            setForecastDetailsForLocation(
+              serializeLocationData(location, wtaRegionKey),
+            )
+          }
         >
           {location.description.toLocaleUpperCase()}
         </button>
       </td>
       {forecasts.map((d, index) => {
         if (
-          atleastOneDateMatches
-          && !matchesSelecteDateString(d.datetime, dailyForecastFilter.date)
+          atleastOneDateMatches &&
+          !matchesSelecteDateString(d.datetime, dailyForecastFilter.date)
         ) {
           return null;
         }
         const weekendClassName = isWeekend[index] ? 'weekend' : '';
-        const alertClassName = index <= maxDaysWithAlerts ? 'alert-for-this-day' : '';
+        const alertClassName =
+          index <= maxDaysWithAlerts ? 'alert-for-this-day' : '';
         return (
           <td
             key={d.datetime}

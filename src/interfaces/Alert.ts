@@ -8,4 +8,4 @@ interface Alert {
   link: string;
 }
 
-export default Alert;
+export type { Alert as default };
