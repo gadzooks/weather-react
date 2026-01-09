@@ -15,7 +15,7 @@ jobs:
     runs-on: ubuntu-latest
     environment:
       name: production
-      url: https://weather-react-prod.onrender.com
+      url: https://weather.weekendwanderings.com
     steps:
       - name: Verify branch is master
         run: |
@@ -43,9 +43,9 @@ jobs:
       - name: Health check
         run: |
           echo "Checking production health..."
-          curl -f https://weather-react-prod.onrender.com || exit 1
+          curl -f https://weather.weekendwanderings.com || exit 1
 
       - name: Deployment successful
         run: |
           echo "✅ Production deployment completed successfully!"
-          echo "Site URL: https://weather-react-prod.onrender.com"
+          echo "Site URL: https://weather.weekendwanderings.com"

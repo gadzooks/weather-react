@@ -1,0 +1,16 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npm run prettier:*)",
+      "Bash(npm run prettier:fix:*)",
+      "Bash(cat:*)",
+      "Bash(git diff:*)",
+      "Bash(git fetch:*)",
+      "Bash(npx prettier:*)",
+      "Bash(git add:*)",
+      "Bash(git commit:*)",
+      "Bash(git push)",
+      "Bash(ls:*)"
+    ]
+  }
+}
