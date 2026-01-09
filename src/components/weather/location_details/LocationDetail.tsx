@@ -109,9 +109,9 @@ function LocationDetail(props: LocationDetailProps) {
                       {`${Math.round(row.precipprob)}%`}
                     </td>
                     <td className={`align-right border-right ${weekendClassName}`}>
-                      {`${Math.round(row.precip)}'`}
+                      {`${row.precip.toFixed(2)}"`}
                     </td>
-                    <td className={`align-right ${weekendClassName}`}>{`${Math.round(row.cloudcover)}%`}</td>
+                    <td className={`align-left ${weekendClassName}`}>{`${Math.round(row.cloudcover).toString().padStart(3, '\u00A0')}%`}</td>
                   </tr>
                 );
               }
