@@ -1,0 +1,13 @@
+services:
+  - type: web
+    name: weather-react-cicd
+    env: static
+    buildCommand: corepack enable && yarn install && yarn build
+    staticPublishPath: dist
+    envVars:
+      - key: NODE_VERSION
+        value: 24.12.0
+      - key: VITE_WEATHER_API
+        sync: false
+      - key: VITE_WEATHER_JWT_TOKEN
+        sync: false
