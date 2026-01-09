@@ -36,6 +36,8 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
+    "build:qa": "vite build --mode qa",
+    "build:production": "vite build --mode production",
     "preview": "vite preview --port 8080",
     "serve": "vite preview",
     "test": "vitest run",
@@ -43,8 +45,8 @@
     "test:coverage": "vitest run --coverage",
     "heroku-prebuild": "npm config set ignore-scripts true",
     "lint": "eslint ./src --fix",
-    "prettier": "npx prettier src test --check",
-    "prettier:fix": "npm run prettier -- --write"
+    "prettier": "npx prettier src --check",
+    "prettier:fix": "npx prettier src --write"
   },
   "resolutions": {
     "@types/react": "^18.0.12"

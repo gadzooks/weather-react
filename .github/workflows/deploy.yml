@@ -1,0 +1,32 @@
+name: Deploy
+
+on:
+  pull_request:
+    branches: [master]
+    types: [opened, synchronize, reopened]
+
+jobs:
+  deploy-dev:
+    name: Deploy to Dev
+    runs-on: ubuntu-latest
+    environment:
+      name: dev
+      url: https://dev-weather-react.onrender.com
+    steps:
+      - name: Checkout PR code
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
+          fetch-depth: 0
+
+      - name: Force push to dev branch
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git push origin HEAD:dev --force
+
+      - name: Wait for Render auto-deploy
+        run: sleep 60
+
+      - name: Health check
+        run: curl -f https://dev-weather-react.onrender.com || exit 1

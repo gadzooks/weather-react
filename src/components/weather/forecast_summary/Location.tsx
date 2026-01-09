@@ -24,19 +24,27 @@ interface LocationProps {
   alertIds?: string[];
 }
 
-function maxAlertDays(alertProps: AlertProps, locationAlerts: string[] | undefined):number {
+function maxAlertDays(
+  alertProps: AlertProps,
+  locationAlerts: string[] | undefined
+): number {
   const { alertsById } = alertProps;
-  if (!alertProps.foundAlerts || alertsById === null || locationAlerts === undefined) return -1;
+  if (
+    !alertProps.foundAlerts ||
+    alertsById === null ||
+    locationAlerts === undefined
+  )
+    return -1;
 
   return Math.max.apply(
     null,
     locationAlerts.map((alertId) => {
       const alert = alertsById[alertId];
       if (alert !== undefined) {
-        return (dateDifferenceInDays(alert.endsEpoch) || -1);
+        return dateDifferenceInDays(alert.endsEpoch) || -1;
       }
       return -1;
-    }),
+    })
   );
 }
 
@@ -51,38 +59,50 @@ function Location(props: LocationProps) {
     wtaRegionKey,
     alertProps,
     alertIds,
-
   } = props;
   const forecasts = forecastsById.byId[location.name] || [];
-  const locationHasAlerts = alertIds && (alertIds?.length > 0);
+  const locationHasAlerts = alertIds && alertIds?.length > 0;
   const maxDaysWithAlerts = maxAlertDays(alertProps, alertIds);
   return (
-    <tr className='weather-cell'>
+    <tr className="weather-cell">
       {alertProps.foundAlerts && (
         <td>
-          {locationHasAlerts && alertIds.map((alert) => <a href={`#${alert}`} className='alert-icon' key={alert}>{getAlertIconFromAlerts(alertProps, alert)}</a>)}
+          {locationHasAlerts &&
+            alertIds.map((alert) => (
+              <a href={`#${alert}`} className="alert-icon" key={alert}>
+                {getAlertIconFromAlerts(alertProps, alert)}
+              </a>
+            ))}
         </td>
       )}
-      <td className='location-name'>
+      <td className="location-name">
         <button
-          type='button'
-          className='forecast-button'
-          onClick={() => setForecastDetailsForLocation(
-            serializeLocationData(location, wtaRegionKey),
-          )}
+          type="button"
+          className="forecast-button"
+          onClick={() =>
+            setForecastDetailsForLocation(
+              serializeLocationData(location, wtaRegionKey)
+            )
+          }
         >
           {location.description.toLocaleUpperCase()}
         </button>
       </td>
       {forecasts.map((d, index) => {
         if (
-          atleastOneDateMatches
-          && !matchesSelecteDateString(d.datetime, dailyForecastFilter.date)
+          atleastOneDateMatches &&
+          !matchesSelecteDateString(d.datetime, dailyForecastFilter.date)
         ) {
           return null;
         }
+<<<<<<< HEAD
         const weekendClassName = isWeekend[index] ? 'weekend' : '';
         const alertClassName = index <= maxDaysWithAlerts ? 'alert-for-this-day' : '';
+=======
+        const weekendClassName = isWeekend[index] ? " weekend " : " ";
+        const alertClassName =
+          index <= maxDaysWithAlerts ? " alert-for-this-day " : " ";
+>>>>>>> master
         return (
           <td
             key={d.datetime}

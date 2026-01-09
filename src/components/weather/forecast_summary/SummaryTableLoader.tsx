@@ -107,7 +107,7 @@ export function SummaryTableLoader() {
   };
   const [dailyForecastFilter, setDailyForecastFilter] = useLocalStorage(
     LS_DAILY_FORECAST_FILTER_KEY,
-    defaultDailyForecastFilter,
+    defaultDailyForecastFilter
   );
 
   let matchedAreas: MatchedAreas = { totalMatchedLocations: 0 };
@@ -115,7 +115,9 @@ export function SummaryTableLoader() {
     matchedAreas = findMatchedAreas(null, appState.forecast.regions);
   }
 
-  const parsedDates = (appState.forecast?.dates || []).map((d: string) => parse(d, 'YYYY-MM-DD'));
+  const parsedDates = (appState.forecast?.dates || []).map((d: string) =>
+    parse(d, 'YYYY-MM-DD')
+  );
   const weekends = calculateWeekends(parsedDates);
 
   const forecastDates: ForecastDates = {

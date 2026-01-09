@@ -1,3 +1,6 @@
+/* SummaryTable.scss */
+
+<<<<<<< HEAD
 // ============================================
 // 🌙 DARK MODE WEATHER FORECAST - MOBILE FIRST
 // ============================================
@@ -120,6 +123,111 @@
 // ============================================
 // Base Table Styles - Mobile First
 // ============================================
+=======
+// Place all the styles related to the Weather controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+// .weather-forecast-table {
+//   font-family: 'Courier';
+//   // font-family: 'Apercu Mono'
+//   border-collapse: collapse;
+//   margin: 25px 0;
+//   font-size: 0.9em;
+//   font-family: sans-serif;
+//   min-width: 400px;
+//   box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+// }
+
+// $color-alert-bg: black;
+
+// .alert-cell-triangle {
+//     position: relative;
+// }
+// .alert-cell-triangle:after {
+//   content: "";
+//   position: absolute;
+//   top: 0;
+//   right: 0;
+//   width: 0;
+//   height: 0;
+//   display: block;
+//   border-left: 15px solid transparent;
+//   border-bottom: 15px solid transparent;
+//   border-top: 15px solid $color-alert-bg;
+// }
+
+// .alert-details {
+//   padding: 0.5rem;
+//   margin-bottom: 1.25rem;
+//   border: 2px solid #eee;
+//   border-left-width: .25rem;
+//   border-radius: .5rem;
+//   span.title {
+//     margin-top: 0;
+//     margin-bottom: .25rem;
+//     font-weight: bolder;
+//     padding: 5px;
+//     border-radius: .25rem;
+//   }
+//   .regions {
+//     padding: 3px;
+//     span.region {
+//       font-weight: 700;
+//     }
+//   }
+//   .description {
+//     padding: 3px;
+//     span.description {
+//       font-weight: 700;
+//     }
+//   }
+// }
+
+// // level 1 warning
+// $color-alert-advisory: rgba(23, 188, 255, 1);
+// .alert-advisory {
+//   border-left-color: $color-alert-advisory;
+// }
+
+// // level 2 warning
+// $color-alert-watch: rgba(255, 213, 46, 1);
+// .alert-watch {
+//   border-left-color: $color-alert-watch;
+// }
+
+// $color-alert-warning: rgba(255, 66, 39, 0.88);
+// // level 3 warning
+// .alert-warning {
+//   border-left-color: $color-alert-warning;
+// }
+
+// span.alerts-summary {
+//   background-color: blue;
+//   color: white;
+//   padding: 1px 5px;
+//   margin-right: 10px;
+//   border-radius: .2rem;
+// }
+
+// span.alert_id {
+//   background-color: $color-alert-bg;
+//   padding: 1px 5px;
+//   margin: 3px;
+//   a {
+//     color: white;
+//   }
+//   border-radius: .2rem;
+// }
+
+// table.weather-forecast-alerts {
+//   tr.table-heading {
+//     td {
+//       border: 0;
+//       font-size: 1.2em;
+//     }
+//   }
+// }
+>>>>>>> master
 
 table.table {
   border-collapse: separate;
@@ -296,8 +404,14 @@ table.table {
   color: var(--color-text-secondary);
   cursor: pointer;
   display: inline-block;
+<<<<<<< HEAD
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
   font-size: 13px;
+=======
+  font-family: "Haas Grot Text R Web", "Helvetica Neue", Helvetica, Arial,
+    sans-serif;
+  font-size: 14px;
+>>>>>>> master
   font-weight: 500;
   line-height: 1.3;
   margin: 2px;
@@ -669,6 +783,7 @@ a.freepik {
     font-size: 0.78em;
   }
 
+<<<<<<< HEAD
   .weather-icon {
     font-size: 1em;
   }
@@ -679,6 +794,10 @@ a.freepik {
       max-width: 110px;
       font-size: 0.8em;
     }
+=======
+  .forecast-button {
+    font-size: 0.8em;
+>>>>>>> master
   }
 
   .button-2 {
@@ -687,6 +806,7 @@ a.freepik {
     min-height: 28px;
   }
 }
+<<<<<<< HEAD
 
 // Tablet and larger (landscape, iPad)
 @media (min-width: 769px) {
@@ -785,3 +905,5 @@ table.table {
   background-size: initial;
   background-attachment: initial;
 }
+=======
+>>>>>>> master

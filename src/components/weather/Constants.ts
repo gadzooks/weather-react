@@ -1,3 +1,5 @@
+// Constants.ts
+
 export const DEFAULT_DATA_SOURCE = 'mock';
 // LS = local storage keys
 export const LS_SEARCH_KEY = 'searchKeyText';

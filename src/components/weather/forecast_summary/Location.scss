@@ -1,3 +1,5 @@
+/* Location.scss */
+
 // ============================================
 // Weather Icon Colors - Soft & Calming Palette
 // All colors desaturated by 30-40% for better dark mode comfort
@@ -62,6 +64,7 @@
   text-align: left;
 }
 
+<<<<<<< HEAD
 // Note: Weekend highlighting styles are defined in SummaryTable.scss for consistency
 
 // Subtle pulse animation for sunny weather
@@ -109,3 +112,18 @@
   .high-temp-wi-hotter { color: #ff5f21; filter: none; }
   .high-temp-wi-hot { color: #ffbb21; filter: none; }
 }
+=======
+.weekend {
+  background-image: linear-gradient(
+    142deg,
+    #b2f7c6 11.11%,
+    #faf5f5 11.11%,
+    #faf5f5 50%,
+    #b2f7c6 50%,
+    #b2f7c6 61.11%,
+    #faf5f5 61.11%,
+    #faf5f5 100%
+  );
+  background-size: 14.62px 11.42px;
+}
+>>>>>>> master

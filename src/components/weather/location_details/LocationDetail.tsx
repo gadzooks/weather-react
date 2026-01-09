@@ -1,13 +1,23 @@
+// LocationDetail.tsx
+
 import React from 'react';
 import { format } from 'fecha';
 import '../../../css/weather-icons.css';
 import './LocationDetail.scss';
 import convertToSentence from '../../../utils/string';
-import { deserializeLocationData, LocationDetailData } from '../../../interfaces/LocationInterface';
+import {
+  deserializeLocationData,
+  LocationDetailData,
+} from '../../../interfaces/LocationInterface';
 import WtaLink from './WtaLink';
 import WeatherIcon from '../main_page/WeatherIcon';
-import { ForecastDates, ForecastResponseStatus } from '../../../interfaces/ForecastResponseInterface';
-import LocationDetailChart, { LocationDetailChartProps } from './LocationDetailChart';
+import {
+  ForecastDates,
+  ForecastResponseStatus,
+} from '../../../interfaces/ForecastResponseInterface';
+import LocationDetailChart, {
+  LocationDetailChartProps,
+} from './LocationDetailChart';
 
 export interface LocationDetailProps {
   appState: ForecastResponseStatus;
@@ -20,7 +30,9 @@ function LocationDetail(props: LocationDetailProps) {
   const { forecastDetailsForLocation } = props;
   if (!forecastDetailsForLocation) return null;
 
-  const location:LocationDetailData = deserializeLocationData(forecastDetailsForLocation);
+  const location: LocationDetailData = deserializeLocationData(
+    forecastDetailsForLocation
+  );
   const { appState, setForecastDetailsForLocation, forecastDates } = props;
 
   const { description } = location;
@@ -30,7 +42,7 @@ function LocationDetail(props: LocationDetailProps) {
   const { parsedDates } = forecastDates;
 
   if (!forecast) return null;
-  const locProps:LocationDetailChartProps = {
+  const locProps: LocationDetailChartProps = {
     forecast,
     forecastDates,
   };
@@ -97,7 +109,7 @@ function LocationDetail(props: LocationDetailProps) {
                       {`${Math.round(row.precipprob)}%`}
                     </td>
                     <td className={`align-right border-right ${weekendClassName}`}>
-                      {`${Math.round(row.precip)}"`}
+                      {`${Math.round(row.precip)}'`}
                     </td>
                     <td className={`align-right ${weekendClassName}`}>{`${Math.round(row.cloudcover)}%`}</td>
                   </tr>
@@ -118,9 +130,9 @@ export default LocationDetail;
 //     byId: {
 //       renton: [
 //         {
-//           time: "2021-04-17T07:00:00.000+00:00",
-//           summary: "Clear conditions throughout the day.",
-//           icon: "day-hail",
+//           time: '2021-04-17T07:00:00.000+00:00',
+//           summary: 'Clear conditions throughout the day.',
+//           icon: 'day-hail',
 //           precipProbability: 0.0,
 //           temperature: 60.9,
 //           apparentTemperature: 60.9,

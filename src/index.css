@@ -1,3 +1,5 @@
+/* index.css */
+
 /* ============================================
    Global Dark Mode Styles - Mobile Optimized
    ============================================ */
@@ -42,7 +44,7 @@ html {
 }
 
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
   background: var(--color-bg-elevated, #2d323d);
   padding: 2px 6px;

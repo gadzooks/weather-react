@@ -1,0 +1,51 @@
+name: Deploy to Production
+
+on:
+  workflow_dispatch:
+    inputs:
+      confirm:
+        description: 'Type "deploy" to confirm production deployment'
+        required: true
+        default: ''
+
+jobs:
+  deploy-production:
+    name: Deploy to Production
+    if: github.event.inputs.confirm == 'deploy'
+    runs-on: ubuntu-latest
+    environment:
+      name: production
+      url: https://weather.weekendwanderings.com
+    steps:
+      - name: Verify branch is master
+        run: |
+          if [ "${{ github.ref }}" != "refs/heads/master" ]; then
+            echo "❌ Production deploys must be from master branch"
+            echo "Current branch: ${{ github.ref }}"
+            exit 1
+          fi
+
+      - name: Checkout master branch
+        uses: actions/checkout@v4
+        with:
+          ref: master
+          fetch-depth: 0
+
+      - name: Force push to prod branch
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git push origin HEAD:prod --force
+
+      - name: Wait for Render auto-deploy
+        run: sleep 90
+
+      - name: Health check
+        run: |
+          echo "Checking production health..."
+          curl -f https://weather.weekendwanderings.com || exit 1
+
+      - name: Deployment successful
+        run: |
+          echo "✅ Production deployment completed successfully!"
+          echo "Site URL: https://weather.weekendwanderings.com"

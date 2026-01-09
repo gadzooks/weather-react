@@ -1,16 +1,16 @@
 /* eslint-disable react/destructuring-assignment */
-import './Region.scss';
-import React from 'react';
-import { RegionInterface } from '../../../interfaces/RegionInterface';
-import { ForecastsById } from '../../../interfaces/ForecastResponseInterface';
-import Location from './Location';
-import WtaLink from '../location_details/WtaLink';
-import { LocationInterface } from '../../../interfaces/LocationInterface';
+import "./Region.scss";
+import React from "react";
+import { RegionInterface } from "../../../interfaces/RegionInterface";
+import { ForecastsById } from "../../../interfaces/ForecastResponseInterface";
+import Location from "./Location";
+import WtaLink from "../location_details/WtaLink";
+import { LocationInterface } from "../../../interfaces/LocationInterface";
 import {
   DailyForecastFilter,
   forecastColSpan,
-} from '../../../interfaces/DailyForecastFilter';
-import AlertProps from '../../../interfaces/AlertProps';
+} from "../../../interfaces/DailyForecastFilter";
+import AlertProps from "../../../interfaces/AlertProps";
 
 export interface RegionProps {
   isWeekend: boolean[];
@@ -30,13 +30,13 @@ function Region(props: RegionProps) {
   const { locations } = props;
   const colSpan = forecastColSpan(
     props.dateSelectedIsWithinForecastRange,
-    props.alertProps.foundAlerts,
+    props.alertProps.foundAlerts
   );
   return (
     <tbody>
-      <tr className='region-details'>
-        <td colSpan={colSpan} align='center'>
-          <WtaLink wtaRegion={searchKey} className='wta-link' />
+      <tr className="region-details">
+        <td colSpan={colSpan} align="center">
+          <WtaLink wtaRegion={searchKey} className="wta-link" />
           {description}
         </td>
       </tr>

@@ -1,11 +1,14 @@
 /* eslint-disable no-param-reassign */
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { DefaultForecastResponseStatus, ForecastResponseStatus } from '../../interfaces/ForecastResponseInterface';
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import {
+  DefaultForecastResponseStatus,
+  ForecastResponseStatus,
+} from "../../interfaces/ForecastResponseInterface";
 
 const initialState: ForecastResponseStatus = DefaultForecastResponseStatus;
 
 export const forecastSlice = createSlice({
-  name: 'forecast',
+  name: "forecast",
   initialState,
   reducers: {
     mergeForecast(state, action: PayloadAction<ForecastResponseStatus>) {
