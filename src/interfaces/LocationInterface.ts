@@ -13,8 +13,11 @@ export interface LocationDetailData extends LocationInterface {
 }
 
 // eslint-disable-next-line max-len
-export function serializeLocationData(location: LocationInterface, wtaRegionKey: string | undefined): string {
-  const obj:LocationDetailData = {
+export function serializeLocationData(
+  location: LocationInterface,
+  wtaRegionKey: string | undefined
+): string {
+  const obj: LocationDetailData = {
     ...location,
   };
   if (wtaRegionKey) obj.wtaRegionKey = wtaRegionKey;

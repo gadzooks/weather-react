@@ -1,12 +1,12 @@
 /* eslint-disable max-len */
 interface AlertInterface {
-    event: string;
-    headline: string;
-    description: string;
-    ends: string;
-    id: string;
-    link: string;
-    endsEpoch: number;
+  event: string;
+  headline: string;
+  description: string;
+  ends: string;
+  id: string;
+  link: string;
+  endsEpoch: number;
 }
 
 export default AlertInterface;

@@ -1,4 +1,4 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   count: 0,
@@ -6,7 +6,7 @@ const initialState = {
 
 /* eslint-disable no-param-reassign */
 export const counterSlice = createSlice({
-  name: 'counter',
+  name: "counter",
   initialState,
   reducers: {
     increment: (state) => {
@@ -24,8 +24,7 @@ export const counterSlice = createSlice({
   },
 });
 
-export const {
-  increment, decrement, decrementBy, reset,
-} = counterSlice.actions;
+export const { increment, decrement, decrementBy, reset } =
+  counterSlice.actions;
 
 export default counterSlice.reducer;

@@ -1,11 +1,11 @@
 /* eslint-disable max-len */
-import { LocationInterface } from './LocationInterface';
-import { RegionInterface } from './RegionInterface';
-import { DailyForecastInterface } from './DailyForecastInterface';
-import AlertInterface from './AlertInterface';
+import { LocationInterface } from "./LocationInterface";
+import { RegionInterface } from "./RegionInterface";
+import { DailyForecastInterface } from "./DailyForecastInterface";
+import AlertInterface from "./AlertInterface";
 
 export interface RegionById {
-    [key: string]: RegionInterface;
+  [key: string]: RegionInterface;
 }
 
 export interface RegionsById {
@@ -45,7 +45,7 @@ export interface ForecastResponse {
 
 export interface ForecastDates {
   dates: string[];
-  parsedDates: (Date|null)[];
+  parsedDates: (Date | null)[];
   weekends: boolean[];
 }
 

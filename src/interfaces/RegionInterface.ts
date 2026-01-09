@@ -1,4 +1,4 @@
-import { LocationInterface } from './LocationInterface';
+import { LocationInterface } from "./LocationInterface";
 
 export interface RegionInterface {
   name: string;

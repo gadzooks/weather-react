@@ -1,4 +1,4 @@
-import { AlertsById } from './ForecastResponseInterface';
+import { AlertsById } from "./ForecastResponseInterface";
 
 interface AlertProps {
   allAlerts: string[] | null;

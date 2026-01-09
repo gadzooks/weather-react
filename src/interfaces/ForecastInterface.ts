@@ -1,10 +1,10 @@
-import { DailyForecastInterface } from './DailyForecastInterface';
+import { DailyForecastInterface } from "./DailyForecastInterface";
 
 interface ForecastInterface {
-    latitude: number;
-    longitude: number;
-    description: string;
-    days: DailyForecastInterface[];
+  latitude: number;
+  longitude: number;
+  description: string;
+  days: DailyForecastInterface[];
 }
 
 export default ForecastInterface;

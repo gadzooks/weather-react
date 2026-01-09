@@ -1,0 +1,49 @@
+services:
+  # Development environment - auto-deploys from dev branch
+  - type: web
+    name: weather-react-dev
+    env: static
+    branch: dev
+    buildCommand: npm install && npm run build
+    staticPublishPath: ./build
+    envVars:
+      - key: VITE_WEATHER_API
+        sync: false  # Set in Render dashboard
+      - key: VITE_WEATHER_JWT_TOKEN
+        sync: false
+      - key: VITE_DATA_SOURCE
+        value: mock  # Dev uses mock data
+    autoDeploy: false  # Controlled by GitHub Actions
+
+  # QA environment - auto-deploys from qa branch
+  - type: web
+    name: weather-react-qa
+    env: static
+    branch: qa
+    buildCommand: npm install && npm run build
+    staticPublishPath: ./build
+    envVars:
+      - key: VITE_WEATHER_API
+        sync: false
+      - key: VITE_WEATHER_JWT_TOKEN
+        sync: false
+      - key: VITE_DATA_SOURCE
+        value: real
+    autoDeploy: false  # Controlled by GitHub Actions
+
+  # Production environment - manual deploys only
+  - type: web
+    name: weather-react-prod
+    env: static
+    branch: master
+    buildCommand: npm install && npm run build
+    staticPublishPath: ./build
+    envVars:
+      - key: VITE_WEATHER_API
+        sync: false
+      - key: VITE_WEATHER_JWT_TOKEN
+        sync: false
+      - key: VITE_DATA_SOURCE
+        value: real
+    autoDeploy: false  # Manual promotion only via GitHub Actions
+    # Note: Custom domain will be preserved from existing service
