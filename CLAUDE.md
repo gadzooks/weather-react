@@ -10,25 +10,27 @@ Weather forecast visualization app built with React 19.0 + TypeScript 5.x, using
 
 ## Development Commands
 
+**Package Manager:** This project uses Yarn (Node 24.x required)
+
 ```bash
 # Development
-npm run dev              # Start dev server on port 3000
+yarn dev                 # Start dev server on port 3000
 
 # Building
-npm run build            # Production build → dist/ directory
-npm run build:qa         # QA environment build
-npm run build:production # Production environment build
-npm run preview          # Preview production build on port 8080
+yarn build               # Production build → dist/ directory
+yarn build:qa            # QA environment build
+yarn build:production    # Production environment build
+yarn preview             # Preview production build on port 8080
 
 # Testing
-npm run test             # Run tests once
-npm run test:watch       # Watch mode for tests
-npm run test:coverage    # Generate coverage report
+yarn test                # Run tests once
+yarn test:watch          # Watch mode for tests
+yarn test:coverage       # Generate coverage report
 
 # Code Quality
-npm run lint             # ESLint with auto-fix
-npm run prettier         # Check formatting
-npm run prettier:fix     # Auto-format code
+yarn lint                # ESLint with auto-fix
+yarn prettier            # Check formatting
+yarn prettier:fix        # Auto-format code
 ```
 
 ## Environment Setup
@@ -134,7 +136,7 @@ App
 - **Framework:** Vitest 4.x with jsdom
 - **Location:** Tests co-located with components in `src/components/weather/` and `src/utils/`
 - **Testing Library:** React Testing Library 16.x for component tests
-- **Coverage:** V8 coverage tool (run `npm run test:coverage`)
+- **Coverage:** V8 coverage tool (run `yarn test:coverage`)
 
 ## Important Implementation Details
 
@@ -198,6 +200,14 @@ docker run -it --rm \
 - Frontend: Render.com dashboard
 - Backend API: AWS API Gateway + Lambda
 
+**Render.com Configuration:**
+- **Node Version:** `24.x`
+- **Build Command:** `yarn build`
+- **Publish Directory:** `dist`
+- **Environment Variables:**
+  - `VITE_WEATHER_API` - Backend API endpoint
+  - `VITE_WEATHER_JWT_TOKEN` - JWT authentication token
+
 **Deploy to S3:**
 ```bash
 # Set AWS profile
@@ -207,7 +217,7 @@ export AWS_PROFILE=saa
 export VITE_WEATHER_API=https://4gpn105y9k.execute-api.us-west-1.amazonaws.com/latest
 
 # Build and deploy
-npm run build
+yarn build
 aws s3 sync dist s3://weather-react-static-site
 ```
 
