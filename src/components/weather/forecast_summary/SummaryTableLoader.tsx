@@ -164,12 +164,12 @@ export function SummaryTableLoader() {
             </div>
           </div>
         )}
-        <div className='table-wrapper'>
-          {!forecastDetailsForLocation
-            && matchedAreas.totalMatchedLocations > 0 && (
+        {!forecastDetailsForLocation
+          && matchedAreas.totalMatchedLocations > 0 && (
+            <div className='table-wrapper'>
               <SummaryTable {...summaryTableArgs} />
-          )}
-        </div>
+            </div>
+        )}
         <div>
           {forecastDetailsForLocation && (
             <LocationDetail {...locationDetailArgs} />
