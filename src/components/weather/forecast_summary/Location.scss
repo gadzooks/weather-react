@@ -76,16 +76,16 @@
   }
 }
 
-// Alert icon styling
+// Alert icon styling - compact
 .alert-icon {
-  margin-right: 4px;
-  font-size: 1.2em;
+  margin-right: 2px;
+  font-size: 1em;
   text-decoration: none;
   transition: transform var(--transition-fast, 150ms);
   display: inline-block;
 
   &:hover {
-    transform: scale(1.15);
+    transform: scale(1.1);
   }
 
   &:active {

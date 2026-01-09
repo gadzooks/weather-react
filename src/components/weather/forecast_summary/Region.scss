@@ -1,21 +1,17 @@
 // ============================================
-// Region Details - Dark Mode
+// Region Details - Compact Dark Mode
 // ============================================
 
 tr.region-details td {
-  background: linear-gradient(
-    90deg,
-    var(--color-bg-elevated, #2d323d) 0%,
-    var(--color-bg-surface, #242831) 100%
-  );
+  background: rgba(107, 155, 209, 0.06);
   color: var(--color-accent-primary, #6B9BD1);
   font-weight: 600;
   text-transform: uppercase;
-  font-size: 0.85em;
-  letter-spacing: 0.5px;
-  padding: var(--spacing-md, 16px);
-  border-top: 2px solid var(--color-border-strong, #353b48);
-  border-bottom: 1px solid var(--color-accent-primary, #6B9BD1);
+  font-size: 0.75em;
+  letter-spacing: 0.4px;
+  padding: var(--spacing-sm, 8px);
+  border-top: 1px solid var(--color-border-strong, #353b48);
+  border-bottom: 1px solid var(--color-border-medium, rgba(255, 255, 255, 0.08));
   text-align: center;
 }
 
@@ -23,26 +19,26 @@ tr.region-details td {
 @media (max-width: 768px) {
   tr.region-details td {
     text-align: left;
-    padding: var(--spacing-sm, 12px) var(--spacing-sm, 12px) var(--spacing-sm, 12px) var(--spacing-md, 16px);
-    font-size: 0.8em;
+    padding: 6px 6px 6px var(--spacing-sm, 8px);
+    font-size: 0.7em;
   }
 }
 
 @media (max-width: 500px) {
   tr.region-details td {
-    padding: 8px 8px 8px 12px;
+    padding: 5px 5px 5px 8px;
   }
 }
 
 // ============================================
-// Light Theme Overrides
+// Light Theme Overrides - Soft Warm Gray
 // ============================================
 
 [data-theme="light"] {
   tr.region-details td {
-    background: #fcfdcc !important;
-    color: #000000;
-    border-top: 2px solid #cccccc;
-    border-bottom: 1px solid #999999;
+    background: #f0e6d3 !important;
+    color: #5a5a5a;
+    border-top: 1px solid #d0d0d0;
+    border-bottom: 1px solid #d0d0d0;
   }
 }

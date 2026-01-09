@@ -1,3 +1,5 @@
+// Location.tsx
+
 import './Location.scss';
 import React from 'react';
 import { LocationInterface, serializeLocationData } from '../../../interfaces/LocationInterface';
@@ -54,8 +56,6 @@ function Location(props: LocationProps) {
   const forecasts = forecastsById.byId[location.name] || [];
   const locationHasAlerts = alertIds && (alertIds?.length > 0);
   const maxDaysWithAlerts = maxAlertDays(alertProps, alertIds);
-  // Check if ANY day in this location is a weekend to apply styling to the row's first cell
-  const hasWeekendDays = isWeekend.some((w) => w);
   return (
     <tr className='weather-cell'>
       {alertProps.foundAlerts && (
