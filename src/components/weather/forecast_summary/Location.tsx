@@ -95,14 +95,8 @@ function Location(props: LocationProps) {
         ) {
           return null;
         }
-<<<<<<< HEAD
         const weekendClassName = isWeekend[index] ? 'weekend' : '';
         const alertClassName = index <= maxDaysWithAlerts ? 'alert-for-this-day' : '';
-=======
-        const weekendClassName = isWeekend[index] ? " weekend " : " ";
-        const alertClassName =
-          index <= maxDaysWithAlerts ? " alert-for-this-day " : " ";
->>>>>>> master
         return (
           <td
             key={d.datetime}
