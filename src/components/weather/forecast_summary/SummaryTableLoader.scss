@@ -5,18 +5,20 @@
 .app-header {
   position: sticky;
   top: 0;
-  z-index: calc(var(--z-sticky) + 1);
+  z-index: calc(var(--z-sticky) + 6); // Higher than thead (z-sticky + 5)
   background: var(--color-bg-elevated);
-  padding: var(--spacing-sm);
+  height: var(--app-header-height);
+  padding: 0 var(--spacing-sm);
   display: flex;
   justify-content: flex-end;
   align-items: center;
   border-bottom: 1px solid var(--color-border-medium);
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  box-sizing: border-box;
 
   // Mobile responsiveness
   @media (max-width: 768px) {
-    padding: 10px;
+    padding: 0 10px;
   }
 }
 
@@ -57,9 +59,13 @@
 
 .table-wrapper {
   overflow-x: auto;
-  overflow-y: visible;
+  overflow-y: auto;
   -webkit-overflow-scrolling: touch;
-  margin: 16px 0;
+  margin: 0;
+  // Fixed height so vertical scroll happens within this container
+  // This allows thead sticky to work properly
+  max-height: calc(100vh - var(--app-header-height));
+  height: calc(100vh - var(--app-header-height));
 
   // Scroll shadows for visual hint
   background:

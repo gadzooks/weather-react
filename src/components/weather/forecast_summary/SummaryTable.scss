@@ -63,6 +63,9 @@
   --z-sticky: 10;
   --z-dropdown: 20;
   --z-modal: 30;
+
+  // App header height for sticky thead offset
+  --app-header-height: 44px;
 }
 
 // ============================================
@@ -154,7 +157,7 @@ table.table {
 .styled-table {
   thead {
     position: sticky;
-    top: 0;
+    top: 0; // Sticky at top of table-wrapper scroll container
     z-index: calc(var(--z-sticky) + 5); // Higher than body sticky cells
 
     tr {
@@ -192,20 +195,16 @@ table.table {
   th:first-child {
     position: sticky;
     left: 0;
-    background: linear-gradient(
-      90deg,
-      var(--color-bg-surface, #242831) 0%,
-      var(--color-bg-surface, #242831) 85%,
-      rgba(36, 40, 49, 0.95) 100%
-    );
+    background: var(--color-bg-surface, #242831);
     text-align: left;
     z-index: calc(var(--z-sticky) + 1);
     box-shadow: 2px 0 4px rgba(0, 0, 0, 0.12);
-    min-width: 110px;
-    max-width: 150px;
-    padding-left: var(--spacing-sm);
+    min-width: 140px;
+    width: 140px; // Fixed width for consistent layout
+    padding-left: var(--spacing-md);
     font-weight: 500;
     color: var(--color-text-primary);
+    overflow: visible; // Ensure content isn't clipped
 
     // Add subtle border on the right
     border-right: 1px solid var(--color-border-medium);
@@ -215,12 +214,7 @@ table.table {
   thead tr td.alerts-header {
     position: sticky;
     left: 0;
-    background: linear-gradient(
-      90deg,
-      var(--color-bg-surface, #242831) 0%,
-      var(--color-bg-surface, #242831) 85%,
-      rgba(36, 40, 49, 0.95) 100%
-    );
+    background: var(--color-bg-elevated, #2d323d);
     z-index: calc(var(--z-sticky) + 7); // Higher than body sticky cells
     width: 50px; // Fixed width for consistent offset calculation
     min-width: 50px;
@@ -233,18 +227,13 @@ table.table {
   thead tr td.location-header {
     position: sticky;
     left: 0; // Default: no offset when alerts not present
-    background: linear-gradient(
-      90deg,
-      var(--color-bg-surface, #242831) 0%,
-      var(--color-bg-surface, #242831) 85%,
-      rgba(36, 40, 49, 0.95) 100%
-    );
+    background: var(--color-bg-elevated, #2d323d);
     z-index: calc(var(--z-sticky) + 6); // Higher than body sticky cells
     box-shadow: 2px 0 4px rgba(0, 0, 0, 0.12);
     text-align: left;
-    min-width: 110px;
-    max-width: 150px;
-    padding-left: var(--spacing-sm);
+    min-width: 140px;
+    width: 140px; // Fixed width to match body location column
+    padding-left: var(--spacing-md);
     font-weight: 500;
     border-right: 1px solid var(--color-border-medium);
   }
@@ -258,12 +247,7 @@ table.table {
   td.alerts-cell {
     position: sticky;
     left: 0;
-    background: linear-gradient(
-      90deg,
-      var(--color-bg-surface, #242831) 0%,
-      var(--color-bg-surface, #242831) 85%,
-      rgba(36, 40, 49, 0.95) 100%
-    );
+    background: var(--color-bg-surface, #242831);
     z-index: calc(var(--z-sticky) + 2); // Higher than location column
     width: 50px;
     min-width: 50px;
@@ -631,7 +615,6 @@ a.freepik {
 
     // Improve scroll performance
     -webkit-overflow-scrolling: touch;
-    scroll-snap-type: x proximity;
   }
 
   .styled-table {
@@ -640,15 +623,24 @@ a.freepik {
       padding: 6px 4px;
     }
 
-    td.location-name {
-      min-width: 100px;
-      max-width: 130px;
+    td.location-name,
+    thead tr td.location-header {
+      min-width: 120px;
+      width: 120px;
       font-size: 0.85em;
       padding-left: var(--spacing-sm);
     }
 
-    thead tr td.alerts-header {
+    thead tr td.alerts-header,
+    td.alerts-cell {
       min-width: 40px;
+      width: 40px;
+    }
+
+    // Adjust location offset for mobile alerts column width
+    thead tr td.alerts-header ~ td.location-header,
+    &[data-has-alerts] td.location-name {
+      left: 40px;
     }
   }
 
