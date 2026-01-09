@@ -11,7 +11,7 @@ jobs:
     runs-on: ubuntu-latest
     environment:
       name: dev
-      url: https://weather-react-dev.onrender.com
+      url: https://dev-weather-react.onrender.com
     steps:
       - name: Checkout PR code
         uses: actions/checkout@v4
@@ -29,4 +29,4 @@ jobs:
         run: sleep 60
 
       - name: Health check
-        run: curl -f https://weather-react-dev.onrender.com || exit 1
+        run: curl -f https://dev-weather-react.onrender.com || exit 1
