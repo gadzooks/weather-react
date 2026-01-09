@@ -1,4 +1,4 @@
-name: Deploy
+name: Deploy to Dev on PR
 
 on:
   pull_request:
