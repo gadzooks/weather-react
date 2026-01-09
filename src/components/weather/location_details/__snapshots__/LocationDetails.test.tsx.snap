@@ -91,18 +91,16 @@ exports[`renders a snapshot 1`] = `
         </tr>
       </thead>
       <tbody>
-        <tr
-          className=" weekend "
-        >
+        <tr>
           <td
-            className="border-right"
+            className="border-right weekend"
           >
             SAT
               
             17TH
           </td>
           <td
-            className="border-right"
+            className="border-right weekend"
           >
             <i
               className="wi weather-icon wi-day-sunny day-sunny "
@@ -111,38 +109,36 @@ exports[`renders a snapshot 1`] = `
              Clear 
           </td>
           <td
-            className="border-right"
+            className="border-right weekend"
           >
             75 47
           </td>
           <td
-            className="align-right"
+            className="align-right weekend"
           >
             0%
           </td>
           <td
-            className="align-right border-right"
+            className="align-right border-right weekend"
           >
-            0"
+            0'
           </td>
           <td
-            className="align-right"
+            className="align-right weekend"
           >
             2%
           </td>
         </tr>
-        <tr
-          className=" weekend "
-        >
+        <tr>
           <td
-            className="border-right"
+            className="border-right weekend"
           >
             SUN
               
             18TH
           </td>
           <td
-            className="border-right"
+            className="border-right weekend"
           >
             <i
               className="wi weather-icon wi-day-sunny day-sunny "
@@ -151,38 +147,36 @@ exports[`renders a snapshot 1`] = `
              Clear 
           </td>
           <td
-            className="border-right"
+            className="border-right weekend"
           >
             73 52
           </td>
           <td
-            className="align-right"
+            className="align-right weekend"
           >
             0%
           </td>
           <td
-            className="align-right border-right"
+            className="align-right border-right weekend"
           >
-            0"
+            0'
           </td>
           <td
-            className="align-right"
+            className="align-right weekend"
           >
             14%
           </td>
         </tr>
-        <tr
-          className=" "
-        >
+        <tr>
           <td
-            className="border-right"
+            className="border-right "
           >
             MON
               
             19TH
           </td>
           <td
-            className="border-right"
+            className="border-right "
           >
             <i
               className="wi weather-icon wi-day-sunny day-sunny "
@@ -191,38 +185,36 @@ exports[`renders a snapshot 1`] = `
              Clear 
           </td>
           <td
-            className="border-right"
+            className="border-right "
           >
             70 52
           </td>
           <td
-            className="align-right"
+            className="align-right "
           >
             0%
           </td>
           <td
-            className="align-right border-right"
+            className="align-right border-right "
           >
-            0"
+            0'
           </td>
           <td
-            className="align-right"
+            className="align-right "
           >
             19%
           </td>
         </tr>
-        <tr
-          className=" "
-        >
+        <tr>
           <td
-            className="border-right"
+            className="border-right "
           >
             TUE
               
             20TH
           </td>
           <td
-            className="border-right"
+            className="border-right "
           >
             <i
               className="wi weather-icon wi-day-cloudy day-cloudy "
@@ -231,38 +223,36 @@ exports[`renders a snapshot 1`] = `
              Ptly Cloudy
           </td>
           <td
-            className="border-right"
+            className="border-right "
           >
             66 51
           </td>
           <td
-            className="align-right"
+            className="align-right "
           >
             19%
           </td>
           <td
-            className="align-right border-right"
+            className="align-right border-right "
           >
-            0"
+            0'
           </td>
           <td
-            className="align-right"
+            className="align-right "
           >
             33%
           </td>
         </tr>
-        <tr
-          className=" "
-        >
+        <tr>
           <td
-            className="border-right"
+            className="border-right "
           >
             WED
               
             21ST
           </td>
           <td
-            className="border-right"
+            className="border-right "
           >
             <i
               className="wi weather-icon wi-day-cloudy day-cloudy "
@@ -271,38 +261,36 @@ exports[`renders a snapshot 1`] = `
              Ptly Cloudy
           </td>
           <td
-            className="border-right"
+            className="border-right "
           >
             65 49
           </td>
           <td
-            className="align-right"
+            className="align-right "
           >
             5%
           </td>
           <td
-            className="align-right border-right"
+            className="align-right border-right "
           >
-            0"
+            0'
           </td>
           <td
-            className="align-right"
+            className="align-right "
           >
             31%
           </td>
         </tr>
-        <tr
-          className=" "
-        >
+        <tr>
           <td
-            className="border-right"
+            className="border-right "
           >
             THU
               
             22ND
           </td>
           <td
-            className="border-right"
+            className="border-right "
           >
             <i
               className="wi weather-icon wi-rain rain "
@@ -311,38 +299,36 @@ exports[`renders a snapshot 1`] = `
              Rain
           </td>
           <td
-            className="border-right"
+            className="border-right "
           >
             61 49
           </td>
           <td
-            className="align-right"
+            className="align-right "
           >
             48%
           </td>
           <td
-            className="align-right border-right"
+            className="align-right border-right "
           >
-            0"
+            0'
           </td>
           <td
-            className="align-right"
+            className="align-right "
           >
             55%
           </td>
         </tr>
-        <tr
-          className=" "
-        >
+        <tr>
           <td
-            className="border-right"
+            className="border-right "
           >
             FRI
               
             23RD
           </td>
           <td
-            className="border-right"
+            className="border-right "
           >
             <i
               className="wi weather-icon wi-rain rain "
@@ -351,38 +337,36 @@ exports[`renders a snapshot 1`] = `
              Rain
           </td>
           <td
-            className="border-right"
+            className="border-right "
           >
             59 49
           </td>
           <td
-            className="align-right"
+            className="align-right "
           >
             86%
           </td>
           <td
-            className="align-right border-right"
+            className="align-right border-right "
           >
-            0"
+            0'
           </td>
           <td
-            className="align-right"
+            className="align-right "
           >
             80%
           </td>
         </tr>
-        <tr
-          className=" weekend "
-        >
+        <tr>
           <td
-            className="border-right"
+            className="border-right weekend"
           >
             SAT
               
             24TH
           </td>
           <td
-            className="border-right"
+            className="border-right weekend"
           >
             <i
               className="wi weather-icon wi-rain rain "
@@ -391,38 +375,36 @@ exports[`renders a snapshot 1`] = `
              Rain
           </td>
           <td
-            className="border-right"
+            className="border-right weekend"
           >
             66 50
           </td>
           <td
-            className="align-right"
+            className="align-right weekend"
           >
             76%
           </td>
           <td
-            className="align-right border-right"
+            className="align-right border-right weekend"
           >
-            0"
+            0'
           </td>
           <td
-            className="align-right"
+            className="align-right weekend"
           >
             100%
           </td>
         </tr>
-        <tr
-          className=" weekend "
-        >
+        <tr>
           <td
-            className="border-right"
+            className="border-right weekend"
           >
             SUN
               
             25TH
           </td>
           <td
-            className="border-right"
+            className="border-right weekend"
           >
             <i
               className="wi weather-icon wi-rain rain "
@@ -431,38 +413,36 @@ exports[`renders a snapshot 1`] = `
              Rain
           </td>
           <td
-            className="border-right"
+            className="border-right weekend"
           >
             56 49
           </td>
           <td
-            className="align-right"
+            className="align-right weekend"
           >
             71%
           </td>
           <td
-            className="align-right border-right"
+            className="align-right border-right weekend"
           >
-            0"
+            0'
           </td>
           <td
-            className="align-right"
+            className="align-right weekend"
           >
             100%
           </td>
         </tr>
-        <tr
-          className=" "
-        >
+        <tr>
           <td
-            className="border-right"
+            className="border-right "
           >
             MON
               
             26TH
           </td>
           <td
-            className="border-right"
+            className="border-right "
           >
             <i
               className="wi weather-icon wi-rain rain "
@@ -471,38 +451,36 @@ exports[`renders a snapshot 1`] = `
              Rain
           </td>
           <td
-            className="border-right"
+            className="border-right "
           >
             56 46
           </td>
           <td
-            className="align-right"
+            className="align-right "
           >
             48%
           </td>
           <td
-            className="align-right border-right"
+            className="align-right border-right "
           >
-            0"
+            0'
           </td>
           <td
-            className="align-right"
+            className="align-right "
           >
             74%
           </td>
         </tr>
-        <tr
-          className=" "
-        >
+        <tr>
           <td
-            className="border-right"
+            className="border-right "
           >
             TUE
               
             27TH
           </td>
           <td
-            className="border-right"
+            className="border-right "
           >
             <i
               className="wi weather-icon wi-cloudy cloudy sunshine-50"
@@ -511,38 +489,36 @@ exports[`renders a snapshot 1`] = `
              Ptly Cloudy
           </td>
           <td
-            className="border-right"
+            className="border-right "
           >
             58 43
           </td>
           <td
-            className="align-right"
+            className="align-right "
           >
             43%
           </td>
           <td
-            className="align-right border-right"
+            className="align-right border-right "
           >
-            0"
+            0'
           </td>
           <td
-            className="align-right"
+            className="align-right "
           >
             83%
           </td>
         </tr>
-        <tr
-          className=" "
-        >
+        <tr>
           <td
-            className="border-right"
+            className="border-right "
           >
             WED
               
             28TH
           </td>
           <td
-            className="border-right"
+            className="border-right "
           >
             <i
               className="wi weather-icon wi-cloudy cloudy sunshine-50"
@@ -551,38 +527,36 @@ exports[`renders a snapshot 1`] = `
              Cloudy
           </td>
           <td
-            className="border-right"
+            className="border-right "
           >
             51 47
           </td>
           <td
-            className="align-right"
+            className="align-right "
           >
             43%
           </td>
           <td
-            className="align-right border-right"
+            className="align-right border-right "
           >
-            0"
+            0'
           </td>
           <td
-            className="align-right"
+            className="align-right "
           >
             100%
           </td>
         </tr>
-        <tr
-          className=" "
-        >
+        <tr>
           <td
-            className="border-right"
+            className="border-right "
           >
             THU
               
             29TH
           </td>
           <td
-            className="border-right"
+            className="border-right "
           >
             <i
               className="wi weather-icon wi-cloudy cloudy sunshine-50"
@@ -591,38 +565,36 @@ exports[`renders a snapshot 1`] = `
              Ptly Cloudy
           </td>
           <td
-            className="border-right"
+            className="border-right "
           >
             62 50
           </td>
           <td
-            className="align-right"
+            className="align-right "
           >
             29%
           </td>
           <td
-            className="align-right border-right"
+            className="align-right border-right "
           >
-            0"
+            0'
           </td>
           <td
-            className="align-right"
+            className="align-right "
           >
             89%
           </td>
         </tr>
-        <tr
-          className=" "
-        >
+        <tr>
           <td
-            className="border-right"
+            className="border-right "
           >
             FRI
               
             30TH
           </td>
           <td
-            className="border-right"
+            className="border-right "
           >
             <i
               className="wi weather-icon wi-cloudy cloudy sunshine-50"
@@ -631,38 +603,36 @@ exports[`renders a snapshot 1`] = `
              Cloudy
           </td>
           <td
-            className="border-right"
+            className="border-right "
           >
             60 51
           </td>
           <td
-            className="align-right"
+            className="align-right "
           >
             24%
           </td>
           <td
-            className="align-right border-right"
+            className="align-right border-right "
           >
-            1"
+            1'
           </td>
           <td
-            className="align-right"
+            className="align-right "
           >
             97%
           </td>
         </tr>
-        <tr
-          className=" weekend "
-        >
+        <tr>
           <td
-            className="border-right"
+            className="border-right weekend"
           >
             SAT
               
             1ST
           </td>
           <td
-            className="border-right"
+            className="border-right weekend"
           >
             <i
               className="wi weather-icon wi-cloudy cloudy sunshine-10"
@@ -671,22 +641,22 @@ exports[`renders a snapshot 1`] = `
              Ptly Cloudy
           </td>
           <td
-            className="border-right"
+            className="border-right weekend"
           >
             56 46
           </td>
           <td
-            className="align-right"
+            className="align-right weekend"
           >
             29%
           </td>
           <td
-            className="align-right border-right"
+            className="align-right border-right weekend"
           >
-            1"
+            1'
           </td>
           <td
-            className="align-right"
+            className="align-right weekend"
           >
             55%
           </td>
