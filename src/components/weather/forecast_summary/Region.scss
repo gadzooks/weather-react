@@ -2,6 +2,7 @@
 // Region Details - Compact Dark Mode
 // ============================================
 
+// Base styles for all region cells
 tr.region-details td {
   background: rgba(107, 155, 209, 0.06);
   color: var(--color-accent-primary, #6B9BD1);
@@ -12,7 +13,34 @@ tr.region-details td {
   padding: var(--spacing-sm, 8px);
   border-top: 1px solid var(--color-border-strong, #353b48);
   border-bottom: 1px solid var(--color-border-medium, rgba(255, 255, 255, 0.08));
-  text-align: center;
+}
+
+// Sticky alerts cell (when present)
+tr.region-details td.region-alerts-cell {
+  position: sticky;
+  left: 0;
+  z-index: calc(var(--z-sticky, 10) + 2);
+  width: 50px;
+  min-width: 50px;
+}
+
+// Sticky region name cell
+tr.region-details td.region-name-cell {
+  position: sticky;
+  left: 0;
+  z-index: calc(var(--z-sticky, 10) + 1);
+  text-align: left;
+  padding-left: var(--spacing-md, 12px);
+}
+
+// Offset region name when alerts are present
+tr.region-details td.region-alerts-cell ~ td.region-name-cell {
+  left: 50px;
+}
+
+// Empty date cells - minimal styling
+tr.region-details td.region-date-cell {
+  // Inherits base styles, no special treatment
 }
 
 // Mobile optimizations

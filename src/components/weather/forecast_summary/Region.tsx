@@ -6,10 +6,7 @@ import { ForecastsById } from "../../../interfaces/ForecastResponseInterface";
 import Location from "./Location";
 import WtaLink from "../location_details/WtaLink";
 import { LocationInterface } from "../../../interfaces/LocationInterface";
-import {
-  DailyForecastFilter,
-  forecastColSpan,
-} from "../../../interfaces/DailyForecastFilter";
+import { DailyForecastFilter } from "../../../interfaces/DailyForecastFilter";
 import AlertProps from "../../../interfaces/AlertProps";
 
 export interface RegionProps {
@@ -28,17 +25,20 @@ function Region(props: RegionProps) {
   const { description } = region;
   const { search_key: searchKey } = region;
   const { locations } = props;
-  const colSpan = forecastColSpan(
-    props.dateSelectedIsWithinForecastRange,
-    props.alertProps.foundAlerts
-  );
+  const { alertProps, isWeekend, dateSelectedIsWithinForecastRange } = props;
+  const numDateCols = dateSelectedIsWithinForecastRange ? 1 : isWeekend.length;
   return (
     <tbody>
       <tr className="region-details">
-        <td colSpan={colSpan} align="center">
+        {alertProps.foundAlerts && <td className="region-alerts-cell" />}
+        <td className="region-name-cell">
           <WtaLink wtaRegion={searchKey} className="wta-link" />
           {description}
         </td>
+        {Array.from({ length: numDateCols }).map((_, i) => (
+          // eslint-disable-next-line react/no-array-index-key
+          <td key={i} className="region-date-cell" />
+        ))}
       </tr>
       {locations.map((loc) => (
         <Location
