@@ -1,8 +1,11 @@
-import { format } from 'fecha';
+import { format } from "fecha";
 
 export function formatDate(str: string) {
-  return new Date(str)
-    .toLocaleDateString([], { year: 'numeric', month: 'long', day: 'numeric' });
+  return new Date(str).toLocaleDateString([], {
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+  });
 }
 
 export function calculateWeekends(dates: (Date | null)[]): boolean[] {
@@ -13,8 +16,8 @@ export function calculateWeekends(dates: (Date | null)[]): boolean[] {
 
   dates.forEach((d) => {
     if (d) {
-      const dayOfWeek = format(d, 'ddd').toUpperCase();
-      weekends.push(dayOfWeek === 'SUN' || dayOfWeek === 'SAT');
+      const dayOfWeek = format(d, "ddd").toUpperCase();
+      weekends.push(dayOfWeek === "SUN" || dayOfWeek === "SAT");
     } else {
       weekends.push(false);
     }
@@ -36,11 +39,15 @@ export function dateDifferenceInDays(epochSeconds: number) {
 }
 
 export function nth(d: number) {
-  if (d > 3 && d < 21) return 'th';
+  if (d > 3 && d < 21) return "th";
   switch (d % 10) {
-    case 1: return 'st';
-    case 2: return 'nd';
-    case 3: return 'rd';
-    default: return 'th';
+    case 1:
+      return "st";
+    case 2:
+      return "nd";
+    case 3:
+      return "rd";
+    default:
+      return "th";
   }
 }

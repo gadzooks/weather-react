@@ -43,8 +43,8 @@
     "test:coverage": "vitest run --coverage",
     "heroku-prebuild": "npm config set ignore-scripts true",
     "lint": "eslint ./src --fix",
-    "prettier": "npx prettier src test --check",
-    "prettier:fix": "npm run prettier -- --write"
+    "prettier": "npx prettier src --check",
+    "prettier:fix": "npx prettier src --write"
   },
   "resolutions": {
     "@types/react": "^18.0.12"
