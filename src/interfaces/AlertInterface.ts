@@ -1,5 +1,4 @@
-/* eslint-disable max-len */
-interface AlertInterface {
+export interface AlertInterface {
   event: string;
   headline: string;
   description: string;
@@ -8,8 +7,6 @@ interface AlertInterface {
   link: string;
   endsEpoch: number;
 }
-
-export default AlertInterface;
 
 // "alerts": [
 //     {

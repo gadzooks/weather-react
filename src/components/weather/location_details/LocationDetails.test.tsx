@@ -1,15 +1,17 @@
-import { parse } from "fecha";
-import React from "react";
-import renderer from "react-test-renderer";
+// LocationDetails.test.tsx
+
+import { parse } from 'fecha';
+import React from 'react';
+import renderer from 'react-test-renderer';
 // import { vi } from 'vitest';
-import mockWeatherForecastNormalized from "../../../api/mockData";
-import {
+import mockWeatherForecastNormalized from '../../../api/mockData';
+import type {
   ForecastDates,
   ForecastResponse,
   ForecastResponseStatus,
-} from "../../../interfaces/ForecastResponseInterface";
-import { calculateWeekends } from "../../../utils/date";
-import LocationDetail, { LocationDetailProps } from "./LocationDetail";
+} from '../../../interfaces/ForecastResponseInterface';
+import { calculateWeekends } from '../../../utils/date';
+import LocationDetail, { type LocationDetailProps } from './LocationDetail';
 
 // const { ResizeObserver } = window;
 
@@ -29,10 +31,10 @@ import LocationDetail, { LocationDetailProps } from "./LocationDetail";
 //   vi.restoreAllMocks();
 // });
 
-it("renders a snapshot", () => {
+it('renders a snapshot', () => {
   const forecast = mockWeatherForecastNormalized()
     .data as unknown as ForecastResponse;
-  const parsedDates = forecast.dates.map((d: string) => parse(d, "YYYY-MM-DD"));
+  const parsedDates = forecast.dates.map((d: string) => parse(d, 'YYYY-MM-DD'));
   const weekends = calculateWeekends(parsedDates);
 
   const forecastDates: ForecastDates = {

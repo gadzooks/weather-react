@@ -1,20 +1,24 @@
-/* eslint-disable no-param-reassign */
-import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+// forecastSlice.ts
+
+import { createSlice, type PayloadAction } from '@reduxjs/toolkit';
 import {
   DefaultForecastResponseStatus,
-  ForecastResponseStatus,
-} from "../../interfaces/ForecastResponseInterface";
+  type ForecastResponseStatus,
+} from '../../interfaces/ForecastResponseInterface';
 
 const initialState: ForecastResponseStatus = DefaultForecastResponseStatus;
 
 export const forecastSlice = createSlice({
-  name: "forecast",
+  name: 'forecast',
   initialState,
   reducers: {
     mergeForecast(state, action: PayloadAction<ForecastResponseStatus>) {
-      state.forecast = action.payload.forecast;
-      state.error = action.payload.error;
-      state.isLoaded = action.payload.isLoaded;
+      return {
+        ...state,
+        forecast: action.payload.forecast,
+        error: action.payload.error,
+        isLoaded: action.payload.isLoaded,
+      };
     },
   },
 });

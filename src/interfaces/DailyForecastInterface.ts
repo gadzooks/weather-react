@@ -17,7 +17,7 @@ export interface DailyForecastInterface {
 
 export function forecastProperty(
   forecast: DailyForecastInterface,
-  prop: string
+  prop: string,
 ): string | number | undefined {
   return forecast[prop];
 }

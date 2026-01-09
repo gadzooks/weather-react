@@ -38,7 +38,7 @@
 }
 
 .sunshine-100 {
-  color: #6B9BD1;
+  color: #6b9bd1;
   filter: drop-shadow(0 0 5px rgba(107, 155, 209, 0.3));
 }
 
@@ -68,7 +68,8 @@
 
 // Subtle pulse animation for sunny weather
 @keyframes subtlePulse {
-  0%, 100% {
+  0%,
+  100% {
     opacity: 1;
     transform: scale(1);
   }
@@ -100,14 +101,45 @@
 // ============================================
 
 [data-theme="light"] {
-  .fog { color: rgb(152, 150, 152); filter: none; }
-  .snow { color: rgb(25, 151, 245); filter: none; }
-  .cloudy { color: blue; filter: none; }
-  .rain { color: blue; filter: none; }
-  .sunshine-10 { color: rgb(255, 187, 33); filter: none; }
-  .sunshine-50 { color: rgb(123, 96, 96); filter: none; }
-  .sunshine-100 { color: rgb(38, 163, 231); filter: none; }
-  .day-sunny { color: #ffb412; filter: none; animation: none; }
-  .high-temp-wi-hotter { color: #ff5f21; filter: none; }
-  .high-temp-wi-hot { color: #ffbb21; filter: none; }
+  .fog {
+    color: rgb(152, 150, 152);
+    filter: none;
+  }
+  .snow {
+    color: rgb(25, 151, 245);
+    filter: none;
+  }
+  .cloudy {
+    color: blue;
+    filter: none;
+  }
+  .rain {
+    color: blue;
+    filter: none;
+  }
+  .sunshine-10 {
+    color: rgb(255, 187, 33);
+    filter: none;
+  }
+  .sunshine-50 {
+    color: rgb(123, 96, 96);
+    filter: none;
+  }
+  .sunshine-100 {
+    color: rgb(38, 163, 231);
+    filter: none;
+  }
+  .day-sunny {
+    color: #ffb412;
+    filter: none;
+    animation: none;
+  }
+  .high-temp-wi-hotter {
+    color: #ff5f21;
+    filter: none;
+  }
+  .high-temp-wi-hot {
+    color: #ffbb21;
+    filter: none;
+  }
 }

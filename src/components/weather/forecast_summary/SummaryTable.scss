@@ -23,7 +23,7 @@
   --color-text-dimmed: #656b7e;
 
   // Accents - Soft desaturated blue
-  --color-accent-primary: #6B9BD1;
+  --color-accent-primary: #6b9bd1;
   --color-accent-glow: rgba(107, 155, 209, 0.18);
 
   // Weather-specific colors - Desaturated
@@ -292,7 +292,9 @@ table.table {
   color: var(--color-text-secondary);
   cursor: pointer;
   display: inline-block;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  font-family:
+    -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial,
+    sans-serif;
   font-size: 13px;
   font-weight: 500;
   line-height: 1.3;
@@ -444,10 +446,14 @@ table.table {
 
       // Add subtle pulse for active weather
       &.active-weather::after {
-        content: '';
+        content: "";
         position: absolute;
         inset: 0;
-        background: radial-gradient(circle, var(--color-accent-glow) 0%, transparent 70%);
+        background: radial-gradient(
+          circle,
+          var(--color-accent-glow) 0%,
+          transparent 70%
+        );
         pointer-events: none;
         animation: pulse 2s ease-in-out infinite;
       }
@@ -562,7 +568,8 @@ td.weekend {
 // ============================================
 
 @keyframes pulse {
-  0%, 100% {
+  0%,
+  100% {
     opacity: 0.6;
   }
   50% {
@@ -571,7 +578,8 @@ td.weekend {
 }
 
 @keyframes alertPulse {
-  0%, 100% {
+  0%,
+  100% {
     border-color: var(--color-alert-warning);
   }
   50% {
@@ -774,9 +782,14 @@ table.table {
     linear-gradient(90deg, var(--color-bg-primary) 30%, transparent),
     linear-gradient(90deg, transparent, var(--color-bg-primary) 70%) 100% 0,
     radial-gradient(farthest-side at 0 50%, rgba(0, 0, 0, 0.3), transparent),
-    radial-gradient(farthest-side at 100% 50%, rgba(0, 0, 0, 0.3), transparent) 100% 0;
+    radial-gradient(farthest-side at 100% 50%, rgba(0, 0, 0, 0.3), transparent)
+      100% 0;
   background-repeat: no-repeat;
-  background-size: 40px 100%, 40px 100%, 14px 100%, 14px 100%;
+  background-size:
+    40px 100%,
+    40px 100%,
+    14px 100%,
+    14px 100%;
   background-attachment: local, local, scroll, scroll;
 }
 

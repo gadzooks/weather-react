@@ -1,13 +1,13 @@
-import React from "react";
-import "./reset.css";
-import "./App.scss";
-import SummaryTableLoader from "./components/weather/forecast_summary/SummaryTableLoader";
+// App.tsx
 
-// eslint-disable-next-line import/prefer-default-export
+import './reset.css';
+import './App.scss';
+import SummaryTableLoader from './components/weather/forecast_summary/SummaryTableLoader';
+
 export function App() {
   return <SummaryTableLoader />;
 }
 
 export default {
-  title: "Controls/Nav/Sidebar",
+  title: 'Controls/Nav/Sidebar',
 };

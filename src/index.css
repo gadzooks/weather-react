@@ -17,9 +17,9 @@ html {
 body {
   margin: 0;
   padding: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
+  font-family:
+    -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu",
+    "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 
@@ -44,22 +44,22 @@ html {
 }
 
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
-    monospace;
+  font-family:
+    source-code-pro, Menlo, Monaco, Consolas, "Courier New", monospace;
   background: var(--color-bg-elevated, #2d323d);
   padding: 2px 6px;
   border-radius: 4px;
-  color: var(--color-accent-primary, #6B9BD1);
+  color: var(--color-accent-primary, #6b9bd1);
 }
 
 /* Selection styling for dark mode */
 ::selection {
-  background: var(--color-accent-primary, #6B9BD1);
+  background: var(--color-accent-primary, #6b9bd1);
   color: var(--color-bg-primary, #1a1d26);
 }
 
 ::-moz-selection {
-  background: var(--color-accent-primary, #6B9BD1);
+  background: var(--color-accent-primary, #6b9bd1);
   color: var(--color-bg-primary, #1a1d26);
 }
 
@@ -98,7 +98,7 @@ code {
 
 /* Focus visible for accessibility */
 *:focus-visible {
-  outline: 2px solid var(--color-accent-primary, #6B9BD1);
+  outline: 2px solid var(--color-accent-primary, #6b9bd1);
   outline-offset: 2px;
 }
 
@@ -173,7 +173,10 @@ td,
 th,
 .button-2,
 .app-header {
-  transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+  transition:
+    background-color 0.3s ease,
+    color 0.3s ease,
+    border-color 0.3s ease;
 }
 
 /* Respect reduced motion preference */

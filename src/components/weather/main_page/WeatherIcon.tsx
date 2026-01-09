@@ -1,10 +1,10 @@
-import React from "react";
-import "../../../css/weather-icons.css";
-import { DailyForecastInterface } from "../../../interfaces/DailyForecastInterface";
-import iconClass from "../../../utils/icon";
+import React from 'react';
+import '../../../css/weather-icons.css';
+import type { DailyForecastInterface } from '../../../interfaces/DailyForecastInterface';
+import iconClass from '../../../utils/icon';
 
 function WeatherIcon(props: DailyForecastInterface) {
-  let icon = "wi";
+  let icon = 'wi';
   const forecast = props;
 
   if (forecast.icon) {
@@ -12,7 +12,7 @@ function WeatherIcon(props: DailyForecastInterface) {
       forecast.icon,
       forecast.precip,
       forecast.cloudcover,
-      forecast.tempmax
+      forecast.tempmax,
     );
   }
 

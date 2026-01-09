@@ -1,6 +1,10 @@
 import { useEffect } from 'react';
 import useLocalStorage from './localstorage';
-import { LS_THEME_KEY, THEME_DARK, THEME_LIGHT } from '../components/weather/Constants';
+import {
+  LS_THEME_KEY,
+  THEME_DARK,
+  THEME_LIGHT,
+} from '../components/weather/Constants';
 
 // Detect system theme preference
 const getSystemTheme = (): string => {

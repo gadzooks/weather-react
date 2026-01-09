@@ -1,14 +1,14 @@
 const replaceRegex = /-/g;
 function convertToSentence(input: string): string {
-  if (input === "") {
+  if (input === '') {
     return input;
   }
 
-  if (input === "partly-cloudy-day") {
-    return "Ptly Cloudy";
+  if (input === 'partly-cloudy-day') {
+    return 'Ptly Cloudy';
   }
 
-  const str = input.replace(replaceRegex, " ");
+  const str = input.replace(replaceRegex, ' ');
   return str.charAt(0).toUpperCase() + str.slice(1);
 }
 

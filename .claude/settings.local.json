@@ -58,7 +58,19 @@
       "Bash(git add:*)",
       "Bash(git commit:*)",
       "Bash(git push)",
-      "Bash(ls:*)"
+      "Bash(ls:*)",
+      "Bash(test:*)",
+      "Bash(npm --version:*)",
+      "Bash(npm ls:*)",
+      "Bash(npm outdated:*)",
+      "Bash(git checkout:*)",
+      "Bash(corepack enable:*)",
+      "Bash(yarn set:*)",
+      "Bash(yarn remove:*)",
+      "Bash(yarn prettier:*)",
+      "Bash(yarn prettier:fix:*)",
+      "Bash(lsof:*)",
+      "Bash(xargs kill -9)"
     ]
   }
 }

@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-Weather forecast visualization app built with React 18.1 + TypeScript 4.7, using Vite as the build tool. Displays weather forecasts in a table format with detailed views and charts powered by Recharts. Mobile-first dark mode design optimized for iPhone.
+Weather forecast visualization app built with React 19.0 + TypeScript 5.x, using Vite as the build tool. Displays weather forecasts in a table format with detailed views and charts powered by Recharts. Mobile-first dark mode design optimized for iPhone.
 
 **Note:** The project was migrated from Create React App to Vite - ignore outdated CRA references in README.md.
 
@@ -15,7 +15,9 @@ Weather forecast visualization app built with React 18.1 + TypeScript 4.7, using
 npm run dev              # Start dev server on port 3000
 
 # Building
-npm run build            # Production build → build/ directory
+npm run build            # Production build → dist/ directory
+npm run build:qa         # QA environment build
+npm run build:production # Production environment build
 npm run preview          # Preview production build on port 8080
 
 # Testing
@@ -37,7 +39,11 @@ VITE_WEATHER_API=https://weather-expressjs-api.onrender.com
 VITE_WEATHER_JWT_TOKEN=<your-jwt-token>
 ```
 
-**Node version:** 18.x required
+**Alternative API endpoints:**
+- AWS Lambda: `https://4gpn105y9k.execute-api.us-west-1.amazonaws.com/latest`
+- Local dev: `http://localhost:4000`
+
+**Node version:** 24.x required
 
 ## Architecture
 
@@ -57,7 +63,6 @@ Components (SummaryTable → Region → Location)
 
 **Redux Store** (`src/app/store.ts`):
 - `forecast`: ForecastResponseStatus (isLoaded, error, forecast data)
-- `counter`: Example counter slice
 
 **Custom hooks** (`src/app/hooks.ts`):
 - `useAppDispatch`: Typed dispatch hook
@@ -126,10 +131,10 @@ App
 
 ## Testing
 
-- **Framework:** Vitest 0.29.2 with jsdom
+- **Framework:** Vitest 4.x with jsdom
 - **Location:** Tests co-located with components in `src/components/weather/` and `src/utils/`
-- **Testing Library:** React Testing Library for component tests
-- **Coverage:** C8 coverage tool (run `npm run test:coverage`)
+- **Testing Library:** React Testing Library 16.x for component tests
+- **Coverage:** V8 coverage tool (run `npm run test:coverage`)
 
 ## Important Implementation Details
 
@@ -187,6 +192,25 @@ docker run -it --rm \
 
 **Pre-commit:** Husky + lint-staged runs ESLint and Prettier on `.tsx` files
 
+## Deployment
+
+**Hosted on:**
+- Frontend: Render.com dashboard
+- Backend API: AWS API Gateway + Lambda
+
+**Deploy to S3:**
+```bash
+# Set AWS profile
+export AWS_PROFILE=saa
+
+# Set backend endpoint for build
+export VITE_WEATHER_API=https://4gpn105y9k.execute-api.us-west-1.amazonaws.com/latest
+
+# Build and deploy
+npm run build
+aws s3 sync dist s3://weather-react-static-site
+```
+
 ## Recent Development Focus
 
 - Area charts for cloud cover visualization with 100% reference line
@@ -194,3 +218,4 @@ docker run -it --rm \
 - Mobile-first dark mode redesign
 - API retry logic implementation (6 retries, 10s timeout)
 - Location details table optimization
+- Migration to Yarn package manager

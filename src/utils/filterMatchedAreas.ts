@@ -1,9 +1,11 @@
-import { RegionsById } from "../interfaces/ForecastResponseInterface";
-import { MatchedAreas } from "../interfaces/MatchedAreas";
+// filterMatchedAreas.ts
+
+import type { RegionsById } from '../interfaces/ForecastResponseInterface';
+import type { MatchedAreas } from '../interfaces/MatchedAreas';
 
 export default function findMatchedAreas(
   needle: RegExp | null,
-  regionsById: RegionsById
+  regionsById: RegionsById,
 ): MatchedAreas {
   const matchedAreas: MatchedAreas = {
     totalMatchedLocations: 0,
@@ -14,7 +16,7 @@ export default function findMatchedAreas(
     const region = regionsById.byId[regionName];
     if (needle) {
       const locations = region.locations.filter((l) =>
-        l.description.match(needle)
+        l.description.match(needle),
       );
       if (locations.length > 0) {
         totalLocations += locations.length;

@@ -1,11 +1,6 @@
 // LocationDetailChart.tsx
 
-/* eslint-disable react/destructuring-assignment */
-/* eslint-disable react/prop-types */
-/* eslint-disable no-unused-vars */
-import React from "react";
 import {
-  // eslint-disable-next-line max-len
   ComposedChart,
   Line,
   XAxis,
@@ -16,50 +11,18 @@ import {
   Bar,
   LabelList,
   ReferenceLine,
-  Label,
-  TooltipProps,
   ResponsiveContainer,
-  AreaChart,
   Area,
-} from "recharts";
-// eslint-disable-next-line import/no-unresolved
-import {
-  ValueType,
-  NameType,
-} from "recharts/types/component/DefaultTooltipContent";
+} from 'recharts';
 
-import { DailyForecastInterface } from "../../../interfaces/DailyForecastInterface";
-import { ForecastDates } from "../../../interfaces/ForecastResponseInterface";
-import { nth } from "../../../utils/date";
-import WeatherIcon from "../main_page/WeatherIcon";
-import "./LocationDetailChart.scss";
-
-// function CustomTooltip({
-//   active,
-//   payload,
-//   label,
-// }: TooltipProps<ValueType, NameType>) {
-//   if (active && payload) {
-//     const forecast = payload[0].payload as DailyForecastInterface;
-//     // console.log(forecast.datetime);
-//     return (
-//       <div className='custom-tooltip'>
-//         <div className='icon'>
-//           <WeatherIcon {...forecast} />
-//           {/* <span>{forecast.datetime}</span> */}
-//         </div>
-//         <p className='label'>{`${label} : ${payload?.[0].value}`}</p>
-//         <p className='desc'>Anything you want can be displayed here.</p>
-//       </div>
-//     );
-//   }
-
-//   return null;
-// }
+import type { DailyForecastInterface } from '../../../interfaces/DailyForecastInterface';
+import type { ForecastDates } from '../../../interfaces/ForecastResponseInterface';
+import { nth } from '../../../utils/date';
+import './LocationDetailChart.scss';
 
 function getDataFromForecast(
   forecast: DailyForecastInterface[],
-  forecastDates: ForecastDates
+  forecastDates: ForecastDates,
 ) {
   const forecastData: any[] = [];
   const { parsedDates } = forecastDates;
@@ -110,15 +73,15 @@ function LocationDetailChart(props: LocationDetailChartProps) {
   const data: any = getDataFromForecast(forecast, forecastDates);
   // console.log(data);
   return (
-    <div className="weather-weekly-chart">
+    <div className='weather-weekly-chart'>
       <ResponsiveContainer>
-        <ComposedChart className="weather-chart" data={data}>
-          <CartesianGrid strokeDasharray="3 3" />
+        <ComposedChart className='weather-chart' data={data}>
+          <CartesianGrid strokeDasharray='3 3' />
           <XAxis
-            dataKey="name"
-            name="day"
-            label={{ value: "Days", position: "insideBottomRight", offset: 0 }}
-            style={{ fontSize: "0.5rem" }}
+            dataKey='name'
+            name='day'
+            label={{ value: 'Days', position: 'insideBottomRight', offset: 0 }}
+            style={{ fontSize: '0.5rem' }}
           />
           {/* <XAxis dataKey='name' tick={<WeatherIcon {...data} />} /> */}
           <defs>
@@ -127,45 +90,90 @@ function LocationDetailChart(props: LocationDetailChartProps) {
               <stop offset='95%' stopColor='#6d9ed9' stopOpacity={0.05} />
             </linearGradient>
           </defs>
-          <Area name='Cloud Cover' type='monotone' dataKey={(d) => normalizedCloudCover(d)} yAxisId='right' stroke='#6d9ed9' fillOpacity={1} fill='url(#colorUv)' />
-          <YAxis
-            name="Temp"
-            yAxisId="left"
-            label={{ value: "Temp °F", angle: -90, position: "insideLeft" }}
-            domain={[0, (dataMax: number) => Math.max(dataMax, 100)]}
-            style={{ fontSize: "0.8rem", fontFamily: "Arial" }}
+          <Area
+            name='Cloud Cover'
+            type='monotone'
+            dataKey={(d) => normalizedCloudCover(d)}
+            yAxisId='right'
+            stroke='#6d9ed9'
+            fillOpacity={1}
+            fill='url(#colorUv)'
           />
           <YAxis
-            name="Precip"
-            yAxisId="right"
-            orientation="right"
+            name='Temp'
+            yAxisId='left'
+            label={{ value: 'Temp °F', angle: -90, position: 'insideLeft' }}
+            domain={[0, (dataMax: number) => Math.max(dataMax, 100)]}
+            style={{ fontSize: '0.8rem', fontFamily: 'Arial' }}
+          />
+          <YAxis
+            name='Precip'
+            yAxisId='right'
+            orientation='right'
             domain={[0, (p: number) => p + 0.2]}
             label={{
               value: 'Precip" / Cloud',
               angle: -90,
-              position: "outsideRight",
+              position: 'insideRight',
             }}
-            style={{ fontSize: "0.7rem", fontFamily: "Arial" }}
+            style={{ fontSize: '0.7rem', fontFamily: 'Arial' }}
           />
           <Tooltip />
           {/* <Tooltip content={<CustomTooltip />} trigger='click' /> */}
           <Legend />
-          <Bar name='Precipitation' dataKey={(d) => precipitation(d)} fill='#7ba9d6' yAxisId='right' strokeWidth={1} barSize={8}>
+          <Bar
+            name='Precipitation'
+            dataKey={(d) => precipitation(d)}
+            fill='#7ba9d6'
+            yAxisId='right'
+            strokeWidth={1}
+            barSize={8}
+          >
             <LabelList
               dataKey={(d) => precipLabel(d)}
-              position="top"
+              position='top'
               style={{
-                fontSize: "0.7rem",
-                fontFamily: "Arial",
-                fontWeight: "1.3em",
+                fontSize: '0.7rem',
+                fontFamily: 'Arial',
+                fontWeight: '1.3em',
               }}
             />
           </Bar>
-          <Line name='Max Temp' type='monotone' dataKey='tempmax' stroke='#d4b87a' yAxisId='left' label='max temp' />
-          <Line name='Min Temp' type='monotone' dataKey='tempmin' stroke='#7ba9d6' yAxisId='left' activeDot={{ r: 4 }} />
-          <ReferenceLine y={95} yAxisId='left' label='95 °F' stroke='#d97869' strokeDasharray='3 3' />
-          <ReferenceLine y={32} yAxisId='left' label='32 °F' stroke='#7ba9d6' strokeDasharray='3 3' />
-          <ReferenceLine y={1} yAxisId='right' label='100% cloud cover' stroke='#9ba4ba' />
+          <Line
+            name='Max Temp'
+            type='monotone'
+            dataKey='tempmax'
+            stroke='#d4b87a'
+            yAxisId='left'
+          />
+          <Line
+            name='Min Temp'
+            type='monotone'
+            dataKey='tempmin'
+            stroke='#7ba9d6'
+            yAxisId='left'
+            activeDot={{ r: 4 }}
+          />
+          <ReferenceLine
+            y={95}
+            yAxisId='left'
+            label='95 °F'
+            stroke='#d97869'
+            strokeDasharray='3 3'
+          />
+          <ReferenceLine
+            y={32}
+            yAxisId='left'
+            label='32 °F'
+            stroke='#7ba9d6'
+            strokeDasharray='3 3'
+          />
+          <ReferenceLine
+            y={1}
+            yAxisId='right'
+            label='100% cloud cover'
+            stroke='#9ba4ba'
+          />
         </ComposedChart>
       </ResponsiveContainer>
     </div>

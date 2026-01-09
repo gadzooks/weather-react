@@ -1,8 +1,7 @@
-/* eslint-disable max-len */
-import { LocationInterface } from "./LocationInterface";
-import { RegionInterface } from "./RegionInterface";
-import { DailyForecastInterface } from "./DailyForecastInterface";
-import AlertInterface from "./AlertInterface";
+import type { LocationInterface } from './LocationInterface';
+import type { RegionInterface } from './RegionInterface';
+import type { DailyForecastInterface } from './DailyForecastInterface';
+import type { AlertInterface } from './AlertInterface';
 
 export interface RegionById {
   [key: string]: RegionInterface;

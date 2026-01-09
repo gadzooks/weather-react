@@ -32,7 +32,8 @@ table.location-details {
   }
 
   tbody tr {
-    border-bottom: 1px solid var(--color-border-subtle, rgba(255, 255, 255, 0.04));
+    border-bottom: 1px solid
+      var(--color-border-subtle, rgba(255, 255, 255, 0.04));
 
     &:hover {
       background: var(--color-bg-hover, #353b48);
@@ -128,7 +129,7 @@ td.weekend {
 
   // Add left border only to the first cell
   &:first-child {
-    border-left: 3px solid #6B9BD1;
+    border-left: 3px solid #6b9bd1;
     box-shadow: inset 3px 0 6px rgba(107, 155, 209, 0.18);
   }
 

@@ -1,26 +1,24 @@
-/* eslint-disable react/destructuring-assignment */
-import "./SummaryTable.scss";
-import { format, parse } from "fecha";
-import React from "react";
-import { LocationInterface } from "../../../interfaces/LocationInterface";
-import { ForecastResponse } from "../../../interfaces/ForecastResponseInterface";
-import Region from "./Region";
-import { RegionInterface } from "../../../interfaces/RegionInterface";
-import { MatchedAreas } from "../../../interfaces/MatchedAreas";
+import './SummaryTable.scss';
+import { format, parse } from 'fecha';
+import React from 'react';
+import type { LocationInterface } from '../../../interfaces/LocationInterface';
+import type { ForecastResponse } from '../../../interfaces/ForecastResponseInterface';
+import Region from './Region';
+import type { RegionInterface } from '../../../interfaces/RegionInterface';
+import type { MatchedAreas } from '../../../interfaces/MatchedAreas';
 import {
-  DailyForecastFilter,
+  type DailyForecastFilter,
   dateSelectedMatchesForecastDates,
   matchesSelecteDate,
-} from "../../../interfaces/DailyForecastFilter";
-import alertsFound from "../../../utils/count";
-import AlertDetail from "../alerts/AlertDetail";
-import AlertProps from "../../../interfaces/AlertProps";
-import { calculateWeekends } from "../../../utils/date";
+} from '../../../interfaces/DailyForecastFilter';
+import alertsFound from '../../../utils/count';
+import AlertDetail from '../alerts/AlertDetail';
+import type { AlertProps } from '../../../interfaces/AlertProps';
+import { calculateWeekends } from '../../../utils/date';
 
-// eslint-disable-next-line max-len
 export function matchedLocations(
   needle: RegExp | null,
-  region: RegionInterface
+  region: RegionInterface,
 ): LocationInterface[] {
   if (!needle) return region.locations;
   return region.locations.filter((l) => l.description.match(needle));
@@ -37,25 +35,25 @@ export interface SummaryTableProps {
 function prevDateWithinRange(
   date: Date | null,
   index: number,
-  dates: (Date | null)[]
+  dates: (Date | null)[],
 ): string | null {
   if (date === null) return null;
   if (index === 0) return null;
   const prevParsedDate = dates[index - 1];
   if (!prevParsedDate) return null;
-  return format(prevParsedDate, "YYYY-MM-DD");
+  return format(prevParsedDate, 'YYYY-MM-DD');
 }
 
 function nextDateWithinRange(
   date: Date | null,
   index: number,
-  dates: (Date | null)[]
+  dates: (Date | null)[],
 ): string | null {
   if (date === null) return null;
   if (index === dates.length - 1) return null;
   const nextParsedDate = dates[index + 1];
   if (!nextParsedDate) return null;
-  return format(nextParsedDate, "YYYY-MM-DD");
+  return format(nextParsedDate, 'YYYY-MM-DD');
 }
 
 function SummaryTable(props: SummaryTableProps) {
@@ -67,7 +65,7 @@ function SummaryTable(props: SummaryTableProps) {
     setForecastDetailsForLocation,
   } = props;
   const parsedDates = (forecastResponse?.dates || []).map((d: string) =>
-    parse(d, "YYYY-MM-DD")
+    parse(d, 'YYYY-MM-DD'),
   );
   const weekends = calculateWeekends(parsedDates);
   const regions = matchedAreas.regions || [];
@@ -81,13 +79,13 @@ function SummaryTable(props: SummaryTableProps) {
 
   const dateSelectedIsWithinForecastRange = dateSelectedMatchesForecastDates(
     forecastResponse?.dates || [],
-    dailyForecastFilter.date
+    dailyForecastFilter.date,
   );
 
   const selectDate = (date: string) => {
     const dFF = { ...dailyForecastFilter } as DailyForecastFilter;
     if (date === dFF.date) {
-      dFF.date = "";
+      dFF.date = '';
     } else {
       dFF.date = date;
     }
@@ -98,8 +96,11 @@ function SummaryTable(props: SummaryTableProps) {
 
   return (
     <>
-      <table className="table styled-table" data-has-alerts={foundAlerts || undefined}>
-        <thead className="table-heading">
+      <table
+        className='table styled-table'
+        data-has-alerts={foundAlerts || undefined}
+      >
+        <thead className='table-heading'>
           {/* <tr>
           <td rowSpan={2}>Location</td>
           {parsedDates.map((date) => {
@@ -120,41 +121,41 @@ function SummaryTable(props: SummaryTableProps) {
         </tr> */}
 
           <tr>
-            {foundAlerts && <td className="alerts-header">Alerts</td>}
-            <td className="location-header">Location</td>
+            {foundAlerts && <td className='alerts-header'>Alerts</td>}
+            <td className='location-header'>Location</td>
             {parsedDates.map((date, index) => {
-              const txt = date === null ? "" : format(date, "DD").toUpperCase();
+              const txt = date === null ? '' : format(date, 'DD').toUpperCase();
               const dateKey =
-                date === null ? "" : format(date, "YYYY-MM-DD").toUpperCase();
+                date === null ? '' : format(date, 'YYYY-MM-DD').toUpperCase();
               const dateMatches = matchesSelecteDate(
                 date,
-                dailyForecastFilter.date
+                dailyForecastFilter.date,
               );
               const prevDateKey = prevDateWithinRange(date, index, parsedDates);
               const nextDateKey = nextDateWithinRange(date, index, parsedDates);
               return (
                 (!dateSelectedIsWithinForecastRange || dateMatches) && (
-                  <td key={txt} align="center">
+                  <td key={txt} align='center'>
                     {dateSelectedIsWithinForecastRange && (
                       <>
                         <button
-                          className="button-2 left-arrow"
-                          type="button"
-                          onClick={() => selectDate(prevDateKey || "")}
+                          className='button-2 left-arrow'
+                          type='button'
+                          onClick={() => selectDate(prevDateKey || '')}
                         >
                           &larr;
                         </button>
                         <button
-                          type="button"
-                          className="button-2 forecast-date"
+                          type='button'
+                          className='button-2 forecast-date'
                           onClick={() => selectDate(dateKey)}
                         >
                           {txt}
                         </button>
                         <button
-                          className="button-2 right-arrow"
-                          type="button"
-                          onClick={() => selectDate(nextDateKey || "")}
+                          className='button-2 right-arrow'
+                          type='button'
+                          onClick={() => selectDate(nextDateKey || '')}
                         >
                           &rarr;
                         </button>
@@ -162,8 +163,8 @@ function SummaryTable(props: SummaryTableProps) {
                     )}
                     {!dateSelectedIsWithinForecastRange && (
                       <button
-                        type="button"
-                        className="button-2"
+                        type='button'
+                        className='button-2'
                         onClick={() => selectDate(dateKey)}
                       >
                         {txt}
@@ -197,10 +198,10 @@ function SummaryTable(props: SummaryTableProps) {
           return null;
         })}
       </table>
-      <div className="all-alerts">
+      <div className='all-alerts'>
         <AlertDetail
-          allAlertIds={props.forecastResponse?.allAlertIds}
-          alertsById={props.forecastResponse?.alertsById}
+          allAlertIds={forecastResponse?.allAlertIds}
+          alertsById={forecastResponse?.alertsById}
         />
       </div>
     </>

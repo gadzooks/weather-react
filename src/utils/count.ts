@@ -1,10 +1,10 @@
-import { AlertsById } from "../interfaces/ForecastResponseInterface";
+import type { AlertsById } from '../interfaces/ForecastResponseInterface';
 
 export default function alertsFound(
-  alertsById: AlertsById | undefined
+  alertsById: AlertsById | undefined,
 ): boolean {
   if (alertsById === undefined || alertsById === null) {
     return false;
   }
-  return JSON.stringify(alertsById) !== "{}";
+  return JSON.stringify(alertsById) !== '{}';
 }
