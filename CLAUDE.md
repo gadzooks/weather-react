@@ -197,18 +197,25 @@ docker run -it --rm \
 ## Deployment
 
 **Hosted on:**
-- Frontend: Render.com dashboard
+
+- Frontend: Render.com dashboard (auto-deploys on push to configured branches)
 - Backend API: AWS API Gateway + Lambda
 
 **Render.com Configuration:**
+
+**Important:** This project uses Yarn 4.12.0 (specified in `package.json` via `packageManager` field). Corepack must be enabled before running Yarn commands.
+
 - **Node Version:** `24.x`
-- **Build Command:** `yarn build`
+- **Build Command:** `corepack enable && yarn build`
 - **Publish Directory:** `dist`
 - **Environment Variables:**
   - `VITE_WEATHER_API` - Backend API endpoint
   - `VITE_WEATHER_JWT_TOKEN` - JWT authentication token
 
+**Why Corepack?** The `packageManager` field in `package.json` indicates this project requires Corepack (included with Node.js 16.9+). Corepack ensures the correct Yarn version (4.12.0) is used. Without `corepack enable`, deployments will fail with version mismatch errors (global Yarn 1.x vs required Yarn 4.x).
+
 **Deploy to S3:**
+
 ```bash
 # Set AWS profile
 export AWS_PROFILE=saa

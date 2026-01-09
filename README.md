@@ -3,10 +3,15 @@
 - the Express JS api is deployed on : AWS API Gateway + Lambda
 
 ## Render.com Deployment Configuration
+
+**Important:** This project uses Yarn 4.12.0 (specified in `package.json` via `packageManager` field). Render.com must enable Corepack before running Yarn commands.
+
 - **Node Version:** `24.x`
-- **Build Command:** `yarn build`
+- **Build Command:** `corepack enable && yarn build`
 - **Publish Directory:** `dist`
 - **Environment Variables:** `VITE_WEATHER_API`, `VITE_WEATHER_JWT_TOKEN`
+
+**Why Corepack?** The `packageManager` field in `package.json` indicates this project requires Corepack (included with Node.js 16.9+). Corepack ensures the correct Yarn version (4.12.0) is used. Without `corepack enable`, Render.com will use the global Yarn 1.x, causing version conflicts.
 
 ## Deploy to S3 🚀
 ```sh
