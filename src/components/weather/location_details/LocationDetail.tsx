@@ -67,7 +67,6 @@ function LocationDetail(props: LocationDetailProps) {
     setForecastDetailsForLocation,
     forecastDates,
     alertsById,
-    allAlertIds,
   } = props;
 
   const { description, alertIds } = location;
