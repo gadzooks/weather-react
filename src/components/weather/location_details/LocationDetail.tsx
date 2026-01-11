@@ -1,6 +1,6 @@
 // LocationDetail.tsx
 
-import React from 'react';
+import { useState } from 'react';
 import { format } from 'fecha';
 import '../../../css/weather-icons.css';
 import './LocationDetail.scss';
@@ -18,6 +18,9 @@ import type {
 import LocationDetailChart, {
   type LocationDetailChartProps,
 } from './LocationDetailChart';
+import TripReports from './TripReports';
+
+type TabType = 'forecast' | 'tripreports';
 
 export interface LocationDetailProps {
   appState: ForecastResponseStatus;
@@ -28,6 +31,8 @@ export interface LocationDetailProps {
 
 function LocationDetail(props: LocationDetailProps) {
   const { forecastDetailsForLocation } = props;
+  const [activeTab, setActiveTab] = useState<TabType>('forecast');
+
   if (!forecastDetailsForLocation) return null;
 
   const location: LocationDetailData = deserializeLocationData(
@@ -66,62 +71,92 @@ function LocationDetail(props: LocationDetailProps) {
           </button>
         </div>
       </div>
-      <LocationDetailChart {...locProps} />
-      <div id={location.name} className='location-details-div'>
-        <table className='location-details table'>
-          <thead className='table-heading'>
-            <tr className='secondary-heading'>
-              <td colSpan={1} className='center border-right'>
-                DATE
-              </td>
-              <td colSpan={1} className='center border-right'>
-                DETAILS
-              </td>
-              <td className='border-right'>H/L</td>
-              <td colSpan={2} className='center border-right'>
-                PRECIP
-              </td>
-              <td>CLOUD COV</td>
-            </tr>
-          </thead>
-          <tbody>
-            {forecast.map((row, id) => {
-              const d = parsedDates[id];
-              if (d) {
-                const weekendClassName = weekends[id] ? 'weekend' : '';
-                return (
-                  <tr key={row.datetime}>
-                    <td className={`border-right ${weekendClassName}`}>
-                      {format(d, 'ddd').toUpperCase()}
-                      {'  '}
-                      {format(d, 'Do').toUpperCase()}
-                    </td>
-                    <td className={`border-right ${weekendClassName}`}>
-                      <WeatherIcon {...row} key={row.datetime} />
-                      {` ${convertToSentence(row.icon).replace('day', '')}`}
-                    </td>
-                    <td className={`border-right ${weekendClassName}`}>
-                      {`${Math.round(row.tempmax)} ${Math.round(row.tempmin)}`}
-                    </td>
-                    <td className={`align-right ${weekendClassName}`}>
-                      {`${Math.round(row.precipprob)}%`}
-                    </td>
-                    <td
-                      className={`align-right border-right ${weekendClassName}`}
-                    >
-                      {`${row.precip.toFixed(2)}"`}
-                    </td>
-                    <td
-                      className={`align-left ${weekendClassName}`}
-                    >{`${Math.round(row.cloudcover).toString().padStart(3, '\u00A0')}%`}</td>
-                  </tr>
-                );
-              }
-              return null;
-            })}
-          </tbody>
-        </table>
+
+      <div className='tabs'>
+        <button
+          type='button'
+          className={`tab ${activeTab === 'forecast' ? 'active' : ''}`}
+          onClick={() => setActiveTab('forecast')}
+        >
+          Forecast
+        </button>
+        <button
+          type='button'
+          className={`tab ${activeTab === 'tripreports' ? 'active' : ''}`}
+          onClick={() => setActiveTab('tripreports')}
+        >
+          Trip Reports
+        </button>
       </div>
+
+      {activeTab === 'forecast' && (
+        <>
+          <LocationDetailChart {...locProps} />
+          <div id={location.name} className='location-details-div'>
+            <table className='location-details table'>
+              <thead className='table-heading'>
+                <tr className='secondary-heading'>
+                  <td colSpan={1} className='center border-right'>
+                    DATE
+                  </td>
+                  <td colSpan={1} className='center border-right'>
+                    DETAILS
+                  </td>
+                  <td className='border-right'>H/L</td>
+                  <td colSpan={2} className='center border-right'>
+                    PRECIP
+                  </td>
+                  <td>CLOUD COV</td>
+                </tr>
+              </thead>
+              <tbody>
+                {forecast.map((row, id) => {
+                  const d = parsedDates[id];
+                  if (d) {
+                    const weekendClassName = weekends[id] ? 'weekend' : '';
+                    return (
+                      <tr key={row.datetime}>
+                        <td className={`border-right ${weekendClassName}`}>
+                          {format(d, 'ddd').toUpperCase()}
+                          {'  '}
+                          {format(d, 'Do').toUpperCase()}
+                        </td>
+                        <td className={`border-right ${weekendClassName}`}>
+                          <WeatherIcon {...row} key={row.datetime} />
+                          {` ${convertToSentence(row.icon).replace('day', '')}`}
+                        </td>
+                        <td className={`border-right ${weekendClassName}`}>
+                          {`${Math.round(row.tempmax)} ${Math.round(row.tempmin)}`}
+                        </td>
+                        <td className={`align-right ${weekendClassName}`}>
+                          {`${Math.round(row.precipprob)}%`}
+                        </td>
+                        <td
+                          className={`align-right border-right ${weekendClassName}`}
+                        >
+                          {`${row.precip.toFixed(2)}"`}
+                        </td>
+                        <td
+                          className={`align-left ${weekendClassName}`}
+                        >{`${Math.round(row.cloudcover).toString().padStart(3, '\u00A0')}%`}</td>
+                      </tr>
+                    );
+                  }
+                  return null;
+                })}
+              </tbody>
+            </table>
+          </div>
+        </>
+      )}
+
+      {activeTab === 'tripreports' && (
+        <TripReports
+          wtaRegion={location.wtaRegionKey}
+          wtaSubRegion={location.sub_region}
+          isActive={activeTab === 'tripreports'}
+        />
+      )}
     </div>
   );
 }

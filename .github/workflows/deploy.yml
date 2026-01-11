@@ -8,6 +8,7 @@ on:
 jobs:
   deploy-dev:
     name: Deploy to Dev
+    # https://github.com/gadzooks/weather-react/settings/variables/actions
     if: vars.ENABLE_DEV_DEPLOY == 'true'
     runs-on: ubuntu-latest
     environment:
