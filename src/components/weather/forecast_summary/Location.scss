@@ -79,16 +79,21 @@
   }
 }
 
-// Alert icon styling - compact
+// Alert icon styling - larger and more visible
 .alert-icon {
-  margin-right: 2px;
-  font-size: 1em;
+  margin-right: 4px;
+  // font-size: 1.1em;
+  font-weight: 700;
   text-decoration: none;
   transition: transform var(--transition-fast, 150ms);
   display: inline-block;
+  color: #ffc107; // Bright amber/gold - high contrast against dark background
+  text-shadow: 0 0 8px rgba(255, 193, 7, 0.5);
 
   &:hover {
-    transform: scale(1.1);
+    transform: scale(1.15);
+    color: #ffd54f;
+    text-shadow: 0 0 12px rgba(255, 193, 7, 0.7);
   }
 
   &:active {
@@ -101,6 +106,16 @@
 // ============================================
 
 [data-theme="light"] {
+  .alert-icon {
+    color: #e65100; // Deep orange for light mode - readable on white background
+    text-shadow: none;
+
+    &:hover {
+      color: #ff6d00;
+      text-shadow: none;
+    }
+  }
+
   .fog {
     color: rgb(152, 150, 152);
     filter: none;

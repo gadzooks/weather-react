@@ -547,6 +547,12 @@ td.weekend {
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
 }
 
+// Light mode override for alerts container
+[data-theme="light"] .all-alerts {
+  background: #ffffff;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
 .alert-for-this-day {
   border-bottom: 2px solid var(--color-alert-warning);
   padding-bottom: var(--spacing-sm);
