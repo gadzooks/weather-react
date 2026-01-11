@@ -55,6 +55,15 @@ function TripReportCard({ report }: { report: TripReport }) {
                 {report.helpfulCount} found helpful
               </span>
             )}
+            <a
+              href={report.reportUrl}
+              target='_blank'
+              rel='noreferrer'
+              className='view-on-wta-link'
+              onClick={(e) => e.stopPropagation()}
+            >
+              View on WTA
+            </a>
           </div>
         </div>
         <span className={`expand-icon ${expanded ? 'expanded' : ''}`}>

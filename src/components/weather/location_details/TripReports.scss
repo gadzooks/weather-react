@@ -117,6 +117,15 @@
   .helpful-count::before {
     content: '👍 ';
   }
+
+  .view-on-wta-link {
+    color: var(--accent-color, #4a9eff);
+    text-decoration: none;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
 }
 
 .expand-icon {
@@ -259,6 +268,10 @@
 
   .trip-report-stats {
     color: #666;
+
+    .view-on-wta-link {
+      color: #0066cc;
+    }
   }
 
   .expand-icon {
