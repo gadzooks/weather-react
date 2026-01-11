@@ -22,7 +22,10 @@ function TripReportCard({ report }: { report: TripReport }) {
 
   return (
     <div className='trip-report-card'>
-      <div className='trip-report-header' onClick={() => setExpanded(!expanded)}>
+      <div
+        className='trip-report-header'
+        onClick={() => setExpanded(!expanded)}
+      >
         {report.thumbnailUrl && (
           <img
             src={report.thumbnailUrl}

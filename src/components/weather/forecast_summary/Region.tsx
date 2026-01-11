@@ -35,7 +35,10 @@ function Region(props: RegionProps) {
           {description}
         </td>
         {Array.from({ length: numDateCols }).map((_, i) => (
-          <td key={`region-cell-${region.name}-${i}`} className='region-date-cell' />
+          <td
+            key={`region-cell-${region.name}-${i}`}
+            className='region-date-cell'
+          />
         ))}
       </tr>
       {locations.map((loc) => (

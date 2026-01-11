@@ -92,20 +92,21 @@ function LocationDetail(props: LocationDetailProps) {
   return (
     <div className='location-details-page'>
       <div className='heading'>
+        <button
+          className='back-button'
+          type='button'
+          onClick={() => setForecastDetailsForLocation(null)}
+          aria-label='Back to forecast summary'
+        >
+          <span className='back-arrow'>←</span>
+          <span className='back-text'>Back</span>
+        </button>
+        <h1 className='location-name'>{description}</h1>
         <div className='wta-link'>
           <WtaLink
             wtaRegion={location.wtaRegionKey}
             wtaSubRegion={location.sub_region}
           />
-        </div>
-        <div>
-          <button
-            className='button-2'
-            type='button'
-            onClick={() => setForecastDetailsForLocation(null)}
-          >
-            {`${description.toUpperCase()}  `}
-          </button>
         </div>
       </div>
 

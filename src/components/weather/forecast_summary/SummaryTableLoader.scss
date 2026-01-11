@@ -80,7 +80,7 @@
 }
 
 // Dark mode support for table wrapper
-[data-theme="dark"] .table-wrapper {
+[data-theme='dark'] .table-wrapper {
   background:
     linear-gradient(90deg, var(--color-bg-primary, #1a1d26) 30%, transparent),
     linear-gradient(90deg, transparent, var(--color-bg-primary, #1a1d26) 70%)

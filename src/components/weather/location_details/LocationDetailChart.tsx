@@ -65,7 +65,7 @@ function precipLabel(d: any): string | null {
   if (precip === null || precip === undefined) {
     return null;
   }
-  return precip <= 0.5 ? null : `${precip}"`;
+  return precip <= 0.5 ? null : `${precip.toFixed(1)}"`;
 }
 
 function LocationDetailChart(props: LocationDetailChartProps) {
@@ -111,6 +111,7 @@ function LocationDetailChart(props: LocationDetailChartProps) {
             yAxisId='right'
             orientation='right'
             domain={[0, (p: number) => p + 0.2]}
+            tickFormatter={(value: number) => value.toFixed(1)}
             label={{
               value: 'Precip" / Cloud',
               angle: -90,
@@ -157,21 +158,36 @@ function LocationDetailChart(props: LocationDetailChartProps) {
           <ReferenceLine
             y={95}
             yAxisId='left'
-            label='95 °F'
+            label={{
+              value: '95°F',
+              position: 'insideTopLeft',
+              fill: '#d97869',
+              fontSize: 11,
+            }}
             stroke='#d97869'
             strokeDasharray='3 3'
           />
           <ReferenceLine
             y={32}
             yAxisId='left'
-            label='32 °F'
+            label={{
+              value: '32°F',
+              position: 'insideBottomLeft',
+              fill: '#7ba9d6',
+              fontSize: 11,
+            }}
             stroke='#7ba9d6'
             strokeDasharray='3 3'
           />
           <ReferenceLine
             y={1}
             yAxisId='right'
-            label='100% cloud cover'
+            label={{
+              value: '100%',
+              position: 'insideTopRight',
+              fill: '#9ba4ba',
+              fontSize: 10,
+            }}
             stroke='#9ba4ba'
           />
         </ComposedChart>

@@ -3,14 +3,66 @@
 
   .heading {
     display: flex;
-    justify-content: center;
-    align-items: flex-start;
-    padding-top: 5px;
-    padding-bottom: 10px;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+    padding: 10px 0 15px;
+
+    .back-button {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      padding: 8px 12px;
+      background: transparent;
+      border: none;
+      border-radius: 8px;
+      color: #6b9bd1;
+      font-size: 15px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.15s ease;
+      min-height: 44px;
+
+      .back-arrow {
+        font-size: 20px;
+        line-height: 1;
+        transition: transform 0.15s ease;
+      }
+
+      .back-text {
+        line-height: 1;
+      }
+
+      &:hover {
+        background: rgba(107, 155, 209, 0.12);
+        color: #8bb8e8;
+
+        .back-arrow {
+          transform: translateX(-3px);
+        }
+      }
+
+      &:active {
+        background: rgba(107, 155, 209, 0.2);
+      }
+    }
+
+    .location-name {
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      margin: 0;
+      font-size: 1.3rem;
+      font-weight: 600;
+      color: #d6d9e3;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      text-align: center;
+      pointer-events: none;
+    }
 
     .wta-link {
-      padding-top: 7px;
-      padding-right: 10px;
+      padding: 0;
     }
   }
 
@@ -123,7 +175,28 @@ table.location-details {
 // Light Theme Overrides
 // ============================================
 
-[data-theme="light"] {
+[data-theme='light'] {
+  .heading {
+    .back-button {
+      background: transparent;
+      border: none;
+      color: #0066cc;
+
+      &:hover {
+        background: rgba(0, 102, 204, 0.08);
+        color: #0052a3;
+      }
+
+      &:active {
+        background: rgba(0, 102, 204, 0.15);
+      }
+    }
+
+    .location-name {
+      color: #1a1a1a;
+    }
+  }
+
   .tabs .tab {
     color: #666;
 
