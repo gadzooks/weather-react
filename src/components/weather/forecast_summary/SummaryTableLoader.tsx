@@ -147,6 +147,8 @@ export function SummaryTableLoader() {
     forecastDetailsForLocation,
     setForecastDetailsForLocation,
     forecastDates,
+    alertsById: appState.forecast?.alertsById,
+    allAlertIds: appState.forecast?.allAlertIds,
   };
 
   const summaryTableArgs: SummaryTableProps = {

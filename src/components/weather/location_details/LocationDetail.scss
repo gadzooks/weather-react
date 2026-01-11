@@ -201,3 +201,67 @@ td.weekend {
 // }
 
 // }
+
+// ============================================
+// Alert Styles for Location Detail
+// ============================================
+
+.alerts-cell {
+  text-align: center;
+  white-space: nowrap;
+}
+
+.alert-icon {
+  margin-right: 4px;
+  font-weight: 700;
+  text-decoration: none;
+  transition: transform 150ms;
+  display: inline-block;
+  color: #ffc107;
+  text-shadow: 0 0 8px rgba(255, 193, 7, 0.5);
+
+  &:hover {
+    transform: scale(1.15);
+    color: #ffd54f;
+    text-shadow: 0 0 12px rgba(255, 193, 7, 0.7);
+  }
+
+  &:active {
+    transform: scale(0.95);
+  }
+}
+
+.alert-for-this-day {
+  border-bottom: 2px solid #ffc107;
+  animation: alertPulse 2s ease-in-out infinite;
+}
+
+@keyframes alertPulse {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.4;
+  }
+}
+
+// ============================================
+// Light Theme - Alert Overrides
+// ============================================
+
+[data-theme='light'] {
+  .alert-icon {
+    color: #e65100;
+    text-shadow: none;
+
+    &:hover {
+      color: #ff6d00;
+      text-shadow: none;
+    }
+  }
+
+  .alert-for-this-day {
+    border-bottom: 2px solid #e65100;
+  }
+}
