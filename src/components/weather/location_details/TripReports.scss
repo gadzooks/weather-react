@@ -216,3 +216,94 @@
   color: var(--text-secondary, #888);
   padding: 2rem 1rem;
 }
+
+// ============================================
+// Light Theme Overrides
+// ============================================
+
+[data-theme="light"] {
+  .trip-reports-header {
+    border-bottom-color: #ddd;
+
+    .total-count {
+      color: #666;
+    }
+  }
+
+  .trip-report-card {
+    background: #fff;
+    border-color: #ddd;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+
+    &:hover {
+      border-color: #0066cc;
+    }
+  }
+
+  .trip-report-title {
+    color: #222;
+  }
+
+  .trip-report-meta {
+    color: #666;
+
+    .trip-report-date {
+      color: #0066cc;
+    }
+  }
+
+  .condition-badge {
+    background: #fff3cd;
+    color: #856404;
+  }
+
+  .trip-report-stats {
+    color: #666;
+  }
+
+  .expand-icon {
+    color: #888;
+
+    &.expanded {
+      color: #0066cc;
+    }
+  }
+
+  .trip-report-body {
+    border-top-color: #eee;
+
+    p {
+      color: #333;
+    }
+
+    .view-on-wta {
+      color: #0066cc;
+    }
+  }
+
+  .loading-spinner {
+    color: #666;
+
+    .spinner {
+      border-color: #ddd;
+      border-top-color: #0066cc;
+    }
+  }
+
+  .error-message {
+    color: #dc3545;
+
+    .error-detail {
+      color: #666;
+    }
+
+    button {
+      background: #0066cc;
+    }
+  }
+
+  .no-region,
+  .no-reports {
+    color: #666;
+  }
+}
