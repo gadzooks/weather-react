@@ -1,0 +1,322 @@
+// TripReports.scss - Dark mode styles for WTA trip reports
+
+.trip-reports-container {
+  padding: 1rem;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.trip-reports-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid var(--border-color, #333);
+
+  .total-count {
+    color: var(--text-secondary, #aaa);
+    font-size: 0.875rem;
+  }
+}
+
+.trip-reports-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.trip-report-card {
+  background: var(--card-bg, #1a1a1a);
+  border: 1px solid var(--border-color, #333);
+  border-radius: 8px;
+  overflow: hidden;
+  transition: border-color 0.2s;
+
+  &:hover {
+    border-color: var(--accent-color, #4a9eff);
+  }
+}
+
+.trip-report-header {
+  display: flex;
+  gap: 0.75rem;
+  padding: 0.75rem;
+  cursor: pointer;
+  align-items: flex-start;
+}
+
+.trip-report-thumbnail {
+  width: 80px;
+  height: 60px;
+  object-fit: cover;
+  border-radius: 4px;
+  flex-shrink: 0;
+}
+
+.trip-report-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.trip-report-title {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--text-primary, #fff);
+  margin: 0 0 0.25rem 0;
+  line-height: 1.3;
+}
+
+.trip-report-meta {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  font-size: 0.8rem;
+  color: var(--text-secondary, #aaa);
+  margin-bottom: 0.5rem;
+
+  .trip-report-date {
+    color: var(--accent-color, #4a9eff);
+  }
+
+  .trip-report-author {
+    &::before {
+      content: '•';
+      margin-right: 0.5rem;
+    }
+  }
+}
+
+.trip-report-conditions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.25rem;
+  margin-bottom: 0.5rem;
+}
+
+.condition-badge {
+  background: var(--warning-bg, #3d2a00);
+  color: var(--warning-text, #ffa500);
+  padding: 0.125rem 0.5rem;
+  border-radius: 12px;
+  font-size: 0.7rem;
+  font-weight: 500;
+  text-transform: lowercase;
+}
+
+.trip-report-stats {
+  display: flex;
+  gap: 0.75rem;
+  font-size: 0.75rem;
+  color: var(--text-secondary, #888);
+
+  .photo-count::before {
+    content: '📷 ';
+  }
+
+  .helpful-count::before {
+    content: '👍 ';
+  }
+
+  .view-on-wta-link {
+    color: var(--accent-color, #4a9eff);
+    text-decoration: none;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}
+
+.expand-icon {
+  color: var(--text-secondary, #888);
+  font-size: 1.25rem;
+  font-weight: 300;
+  line-height: 1;
+  flex-shrink: 0;
+  transition: transform 0.2s;
+
+  &.expanded {
+    color: var(--accent-color, #4a9eff);
+  }
+}
+
+.trip-report-body {
+  padding: 0 0.75rem 0.75rem 0.75rem;
+  border-top: 1px solid var(--border-color, #333);
+  margin-top: 0.5rem;
+
+  p {
+    color: var(--text-primary, #ddd);
+    font-size: 0.875rem;
+    line-height: 1.6;
+    margin: 0.75rem 0;
+    white-space: pre-wrap;
+  }
+
+  .view-on-wta {
+    display: inline-block;
+    color: var(--accent-color, #4a9eff);
+    font-size: 0.875rem;
+    text-decoration: none;
+    margin-top: 0.5rem;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}
+
+// Loading states
+.loading-spinner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 3rem 1rem;
+  color: var(--text-secondary, #aaa);
+
+  .spinner {
+    width: 32px;
+    height: 32px;
+    border: 3px solid var(--border-color, #333);
+    border-top-color: var(--accent-color, #4a9eff);
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+    margin-bottom: 1rem;
+  }
+
+  @keyframes spin {
+    to {
+      transform: rotate(360deg);
+    }
+  }
+}
+
+.error-message {
+  text-align: center;
+  padding: 2rem 1rem;
+  color: var(--error-text, #ff6b6b);
+
+  .error-detail {
+    font-size: 0.875rem;
+    color: var(--text-secondary, #888);
+    margin: 0.5rem 0 1rem 0;
+  }
+
+  button {
+    background: var(--accent-color, #4a9eff);
+    color: white;
+    border: none;
+    padding: 0.5rem 1.5rem;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 0.875rem;
+
+    &:hover {
+      opacity: 0.9;
+    }
+  }
+}
+
+.no-region,
+.no-reports {
+  text-align: center;
+  color: var(--text-secondary, #888);
+  padding: 2rem 1rem;
+}
+
+// ============================================
+// Light Theme Overrides
+// ============================================
+
+[data-theme='light'] {
+  .trip-reports-header {
+    border-bottom-color: #ddd;
+
+    .total-count {
+      color: #666;
+    }
+  }
+
+  .trip-report-card {
+    background: #fff;
+    border-color: #ddd;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+
+    &:hover {
+      border-color: #0066cc;
+    }
+  }
+
+  .trip-report-title {
+    color: #222;
+  }
+
+  .trip-report-meta {
+    color: #666;
+
+    .trip-report-date {
+      color: #0066cc;
+    }
+  }
+
+  .condition-badge {
+    background: #fff3cd;
+    color: #856404;
+  }
+
+  .trip-report-stats {
+    color: #666;
+
+    .view-on-wta-link {
+      color: #0066cc;
+    }
+  }
+
+  .expand-icon {
+    color: #888;
+
+    &.expanded {
+      color: #0066cc;
+    }
+  }
+
+  .trip-report-body {
+    border-top-color: #eee;
+
+    p {
+      color: #333;
+    }
+
+    .view-on-wta {
+      color: #0066cc;
+    }
+  }
+
+  .loading-spinner {
+    color: #666;
+
+    .spinner {
+      border-color: #ddd;
+      border-top-color: #0066cc;
+    }
+  }
+
+  .error-message {
+    color: #dc3545;
+
+    .error-detail {
+      color: #666;
+    }
+
+    button {
+      background: #0066cc;
+    }
+  }
+
+  .no-region,
+  .no-reports {
+    color: #666;
+  }
+}

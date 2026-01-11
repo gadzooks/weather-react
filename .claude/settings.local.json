@@ -71,7 +71,8 @@
       "Bash(yarn prettier:fix:*)",
       "Bash(lsof:*)",
       "Bash(xargs kill -9)",
-      "WebFetch(domain:community.render.com)"
+      "WebFetch(domain:community.render.com)",
+      "Bash(grep:*)"
     ]
   }
 }

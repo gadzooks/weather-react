@@ -3,14 +3,104 @@
 
   .heading {
     display: flex;
-    justify-content: center;
-    align-items: flex-start;
-    padding-top: 5px;
-    padding-bottom: 20px;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+    padding: 10px 0 15px;
+
+    .back-button {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      padding: 8px 12px;
+      background: transparent;
+      border: none;
+      border-radius: 8px;
+      color: #6b9bd1;
+      font-size: 15px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.15s ease;
+      min-height: 44px;
+
+      .back-arrow {
+        font-size: 20px;
+        line-height: 1;
+        transition: transform 0.15s ease;
+      }
+
+      .back-text {
+        line-height: 1;
+      }
+
+      &:hover {
+        background: rgba(107, 155, 209, 0.12);
+        color: #8bb8e8;
+
+        .back-arrow {
+          transform: translateX(-3px);
+        }
+      }
+
+      &:active {
+        background: rgba(107, 155, 209, 0.2);
+      }
+    }
+
+    .location-name {
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      margin: 0;
+      font-size: 1.3rem;
+      font-weight: 600;
+      color: #d6d9e3;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      text-align: center;
+      pointer-events: none;
+    }
 
     .wta-link {
-      padding-top: 7px;
-      padding-right: 10px;
+      padding: 0;
+    }
+  }
+
+  .tabs {
+    display: flex;
+    justify-content: center;
+    gap: 0;
+    margin-bottom: 1rem;
+    border-bottom: 1px solid var(--color-border-subtle, #333);
+
+    .tab {
+      background: transparent;
+      border: none;
+      padding: 0.75rem 1.5rem;
+      font-size: 0.95rem;
+      font-weight: 500;
+      color: var(--color-text-secondary, #888);
+      cursor: pointer;
+      position: relative;
+      transition: color 0.2s;
+
+      &:hover {
+        color: var(--color-text-primary, #ddd);
+      }
+
+      &.active {
+        color: var(--color-accent, #4a9eff);
+
+        &::after {
+          content: '';
+          position: absolute;
+          bottom: -1px;
+          left: 0;
+          right: 0;
+          height: 2px;
+          background: var(--color-accent, #4a9eff);
+        }
+      }
     }
   }
 }
@@ -85,7 +175,44 @@ table.location-details {
 // Light Theme Overrides
 // ============================================
 
-[data-theme="light"] {
+[data-theme='light'] {
+  .heading {
+    .back-button {
+      background: transparent;
+      border: none;
+      color: #0066cc;
+
+      &:hover {
+        background: rgba(0, 102, 204, 0.08);
+        color: #0052a3;
+      }
+
+      &:active {
+        background: rgba(0, 102, 204, 0.15);
+      }
+    }
+
+    .location-name {
+      color: #1a1a1a;
+    }
+  }
+
+  .tabs .tab {
+    color: #666;
+
+    &:hover {
+      color: #333;
+    }
+
+    &.active {
+      color: #0066cc;
+
+      &::after {
+        background: #0066cc;
+      }
+    }
+  }
+
   table.location-details {
     background: #f9f9f9;
     color: #000000;
@@ -147,3 +274,67 @@ td.weekend {
 // }
 
 // }
+
+// ============================================
+// Alert Styles for Location Detail
+// ============================================
+
+.alerts-cell {
+  text-align: center;
+  white-space: nowrap;
+}
+
+.alert-icon {
+  margin-right: 4px;
+  font-weight: 700;
+  text-decoration: none;
+  transition: transform 150ms;
+  display: inline-block;
+  color: #ffc107;
+  text-shadow: 0 0 8px rgba(255, 193, 7, 0.5);
+
+  &:hover {
+    transform: scale(1.15);
+    color: #ffd54f;
+    text-shadow: 0 0 12px rgba(255, 193, 7, 0.7);
+  }
+
+  &:active {
+    transform: scale(0.95);
+  }
+}
+
+.alert-for-this-day {
+  border-bottom: 2px solid #ffc107;
+  animation: alertPulse 2s ease-in-out infinite;
+}
+
+@keyframes alertPulse {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.4;
+  }
+}
+
+// ============================================
+// Light Theme - Alert Overrides
+// ============================================
+
+[data-theme='light'] {
+  .alert-icon {
+    color: #e65100;
+    text-shadow: none;
+
+    &:hover {
+      color: #ff6d00;
+      text-shadow: none;
+    }
+  }
+
+  .alert-for-this-day {
+    border-bottom: 2px solid #e65100;
+  }
+}

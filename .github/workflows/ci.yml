@@ -113,3 +113,64 @@ jobs:
           name: build
           path: build/
           retention-days: 7
+
+  deploy-dev:
+    name: Deploy to Dev
+    runs-on: ubuntu-latest
+    needs: [build]
+    if: github.event_name == 'pull_request' && github.base_ref == 'master' && vars.ENABLE_DEV_DEPLOY == 'true'
+    environment:
+      name: dev
+      url: https://dev-weather-react.onrender.com
+    steps:
+      - name: Checkout PR code
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
+          fetch-depth: 0
+
+      - name: Force push to dev branch
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git push origin HEAD:dev --force
+
+      - name: Wait for Render auto-deploy
+        run: sleep 60
+
+      - name: Health check
+        run: curl -f https://dev-weather-react.onrender.com || exit 1
+
+  deploy-qa:
+    name: Deploy to QA
+    runs-on: ubuntu-latest
+    needs: [build]
+    if: github.event_name == 'push' && github.ref == 'refs/heads/master' && vars.ENABLE_QA_DEPLOY == 'true'
+    environment:
+      name: qa
+      url: https://qa-weather-react.onrender.com
+    steps:
+      - name: Checkout master branch
+        uses: actions/checkout@v4
+        with:
+          ref: master
+          fetch-depth: 0
+
+      - name: Force push to qa branch
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git push origin HEAD:qa --force
+
+      - name: Wait for Render auto-deploy
+        run: sleep 60
+
+      - name: Health check
+        run: |
+          echo "Checking QA health..."
+          curl -f https://qa-weather-react.onrender.com || exit 1
+
+      - name: Deployment successful
+        run: |
+          echo "✅ QA deployment completed successfully!"
+          echo "Site URL: https://qa-weather-react.onrender.com"

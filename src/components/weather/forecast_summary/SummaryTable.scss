@@ -72,7 +72,7 @@
 // Light Theme Color Overrides
 // ============================================
 
-[data-theme="light"] {
+[data-theme='light'] {
   // Backgrounds - Light and clean
   --color-bg-primary: #ffffff;
   --color-bg-surface: #ffffff;
@@ -108,14 +108,14 @@
 }
 
 // Weekend special case - subtle warm background for light mode
-[data-theme="light"] td.weekend {
+[data-theme='light'] td.weekend {
   background: var(--color-weekend) !important;
   box-shadow: none;
   border-left: none;
 }
 
 // Light theme header styling
-[data-theme="light"] .app-header {
+[data-theme='light'] .app-header {
   background: #f9d6a7;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
   border-bottom: 1px solid rgba(0, 0, 0, 0.1);
@@ -142,7 +142,7 @@ table.table {
 }
 
 // Restore original table properties for light mode
-[data-theme="light"] table.table {
+[data-theme='light'] table.table {
   border-collapse: collapse;
   font-size: 0.9em;
   min-width: 400px;
@@ -173,7 +173,7 @@ table.table {
   }
 
   // Override gradient for light mode - use solid tan color
-  [data-theme="light"] & thead tr {
+  [data-theme='light'] & thead tr {
     background: #f9d6a7 !important;
     backdrop-filter: none;
     -webkit-backdrop-filter: none;
@@ -262,7 +262,7 @@ table.table {
   }
 
   // Override sticky column gradients for light mode
-  [data-theme="light"] & {
+  [data-theme='light'] & {
     // Body location and alerts cells - white background
     td.location-name,
     td.alerts-cell,
@@ -293,7 +293,7 @@ table.table {
   cursor: pointer;
   display: inline-block;
   font-family:
-    -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial,
+    -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial,
     sans-serif;
   font-size: 13px;
   font-weight: 500;
@@ -352,7 +352,7 @@ table.table {
 }
 
 // Override button styling for light mode
-[data-theme="light"] .button-2 {
+[data-theme='light'] .button-2 {
   background: rgba(51, 51, 51, 0.08);
   border: 1px solid rgba(0, 0, 0, 0.12);
   color: #333333;
@@ -446,7 +446,7 @@ table.table {
 
       // Add subtle pulse for active weather
       &.active-weather::after {
-        content: "";
+        content: '';
         position: absolute;
         inset: 0;
         background: radial-gradient(
@@ -462,7 +462,7 @@ table.table {
 }
 
 // Override table body backgrounds for light mode
-[data-theme="light"] .styled-table tbody {
+[data-theme='light'] .styled-table tbody {
   tr {
     background: #ffffff;
 
@@ -545,6 +545,12 @@ td.weekend {
   border-radius: var(--radius-md);
   margin-top: var(--spacing-lg);
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
+}
+
+// Light mode override for alerts container
+[data-theme='light'] .all-alerts {
+  background: #ffffff;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
 .alert-for-this-day {
@@ -794,7 +800,7 @@ table.table {
 }
 
 // Remove scroll shadows for light mode - use simple background
-[data-theme="light"] table.table {
+[data-theme='light'] table.table {
   background: #ffffff !important;
   background-repeat: initial;
   background-size: initial;
