@@ -1,0 +1,94 @@
+/* HourlyMetricCharts.scss */
+/* Styling for the metric chart cards */
+
+.hourly-metric-charts {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1rem;
+  margin-top: 1.5rem;
+}
+
+.metric-card {
+  background: var(--color-bg-surface, #2a2f3a);
+  border: 1px solid var(--color-border-subtle, rgba(255, 255, 255, 0.08));
+  border-radius: 12px;
+  padding: 1.25rem;
+  transition: all 0.2s ease;
+
+  &:hover {
+    background: var(--color-bg-hover, #353b48);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+  }
+}
+
+.metric-card-title {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--color-text-secondary, #9fa5b8);
+  margin-bottom: 0.75rem;
+}
+
+.metric-chart-container {
+  margin-bottom: 0.75rem;
+}
+
+.metric-summary {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.metric-range {
+  font-size: 0.8rem;
+  color: var(--color-text-secondary, #9fa5b8);
+}
+
+.metric-average {
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: var(--color-text-primary, #d6d9e3);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .hourly-metric-charts {
+    grid-template-columns: 1fr;
+  }
+
+  .metric-card {
+    padding: 1rem;
+  }
+}
+
+/* Light Theme */
+[data-theme='light'] {
+  .metric-card {
+    background: #f5f5f5;
+    border-color: rgba(0, 0, 0, 0.08);
+
+    &:hover {
+      background: #e8e8e8;
+    }
+  }
+
+  .metric-card-title,
+  .metric-range {
+    color: #666;
+  }
+
+  .metric-average {
+    color: #1a1a1a;
+  }
+
+  /* Override Recharts colors in light mode */
+  .recharts-cartesian-grid line {
+    stroke: rgba(0, 0, 0, 0.08);
+  }
+
+  .recharts-xAxis .recharts-tick text,
+  .recharts-yAxis .recharts-tick text {
+    fill: #666;
+  }
+}

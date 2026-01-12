@@ -1,28 +1,18 @@
 // SummaryTableLoader.tsx
 
-import React, { useEffect, useState } from 'react';
-import { parse } from 'fecha';
+import { useEffect } from 'react';
 import type { DailyForecastFilter } from '../../../interfaces/DailyForecastFilter';
 import type { MatchedAreas } from '../../../interfaces/MatchedAreas';
 import findMatchedAreas from '../../../utils/filterMatchedAreas';
 import useLocalStorage from '../../../utils/localstorage';
 import { LS_DAILY_FORECAST_FILTER_KEY } from '../Constants';
-import LocationDetail, {
-  type LocationDetailProps,
-} from '../location_details/LocationDetail';
 import SummaryTable, { type SummaryTableProps } from './SummaryTable';
 import weatherLoadingError from '../../../images/little-rain-tornado-rainstorm.gif';
 import weatherLoading from '../../../images/weather-loading.gif';
 import { useAppDispatch, useAppSelector } from '../../../app/hooks';
 import { mergeForecast } from '../../../features/forecast/forecastSlice';
-import type {
-  ForecastDates,
-  ForecastResponseStatus,
-} from '../../../interfaces/ForecastResponseInterface';
-import { calculateWeekends } from '../../../utils/date';
+import type { ForecastResponseStatus } from '../../../interfaces/ForecastResponseInterface';
 import fetchWithRetries from '../../../api/retry';
-import { useTheme } from '../../../utils/useTheme';
-import { ThemeToggle } from '../theme/ThemeToggle';
 import './SummaryTableLoader.scss';
 
 // Allow override via env var, otherwise use 'real' by default
@@ -34,16 +24,10 @@ const url = `${WEATHER_API}/forecasts/${dataSource}`;
 console.log(`[SummaryTableLoader] Data source: ${dataSource}`);
 
 export function SummaryTableLoader() {
-  const [forecastDetailsForLocation, setForecastDetailsForLocation] =
-    useState<string>();
   const dispatch = useAppDispatch();
-  const { theme, toggleTheme } = useTheme();
 
   useEffect(() => {
     const fetchData = async () => {
-      // console.log(`[SummaryTableLoader] Fetching from: ${url}`);
-      // console.log(`[SummaryTableLoader] Using JWT token: ${WEATHER_JWT_TOKEN ? 'Yes' : 'No'}`);
-
       // get the data from the api with JWT authentication
       const response = await fetchWithRetries(`${url}`, {
         headers: {
@@ -52,8 +36,6 @@ export function SummaryTableLoader() {
         },
       });
 
-      // console.log(`[SummaryTableLoader] Response status: ${response.status}`,
-      //   `${response.statusText}`);
       console.log('[SummaryTableLoader] Response headers:', {
         contentType: response.headers.get('content-type'),
         contentLength: response.headers.get('content-length'),
@@ -109,11 +91,10 @@ export function SummaryTableLoader() {
       };
       dispatch(mergeForecast(errorAppState));
     });
-  }, []);
+  }, [dispatch]);
 
   const appState = useAppSelector((state) => state.forecast);
 
-  // const [searchText, setSearchText] = useLocalStorage(LS_SEARCH_KEY, '');
   const defaultDailyForecastFilter: DailyForecastFilter = {
     date: undefined,
     tempmax: undefined,
@@ -131,71 +112,39 @@ export function SummaryTableLoader() {
     matchedAreas = findMatchedAreas(null, appState.forecast.regions);
   }
 
-  const parsedDates = (appState.forecast?.dates || []).map((d: string) =>
-    parse(d, 'YYYY-MM-DD'),
-  );
-  const weekends = calculateWeekends(parsedDates);
-
-  const forecastDates: ForecastDates = {
-    dates: appState.forecast?.dates || [],
-    parsedDates,
-    weekends,
-  };
-
-  const locationDetailArgs: LocationDetailProps = {
-    appState,
-    forecastDetailsForLocation,
-    setForecastDetailsForLocation,
-    forecastDates,
-    alertsById: appState.forecast?.alertsById,
-    allAlertIds: appState.forecast?.allAlertIds,
-  };
-
   const summaryTableArgs: SummaryTableProps = {
     matchedAreas,
     dailyForecastFilter,
     setDailyForecastFilter,
-    setForecastDetailsForLocation,
     forecastResponse: appState.forecast,
   };
 
   return (
-    <div className='theme font-loader'>
-      <div className='app-header'>
-        <ThemeToggle theme={theme} onToggle={toggleTheme} />
-      </div>
-      <div className='container'>
-        {!appState.isLoaded && !appState.error && (
-          <>
-            <div className='loading'>
-              <h2>Weather loading...</h2>
-            </div>
-            <div className='loading'>
-              <img src={weatherLoading} alt='Loading...' />
-            </div>
-          </>
-        )}
-        {appState?.error && (
-          <div className='error'>
-            <h2>{appState.error?.message}</h2>
-            <div className='error-image'>
-              <img src={weatherLoadingError} alt='Error loading weather...' />
-            </div>
+    <>
+      {!appState.isLoaded && !appState.error && (
+        <>
+          <div className='loading'>
+            <h2>Weather loading...</h2>
           </div>
-        )}
-        {!forecastDetailsForLocation &&
-          matchedAreas.totalMatchedLocations > 0 && (
-            <div className='table-wrapper'>
-              <SummaryTable {...summaryTableArgs} />
-            </div>
-          )}
-        <div>
-          {forecastDetailsForLocation && (
-            <LocationDetail {...locationDetailArgs} />
-          )}
+          <div className='loading'>
+            <img src={weatherLoading} alt='Loading...' />
+          </div>
+        </>
+      )}
+      {appState?.error && (
+        <div className='error'>
+          <h2>{appState.error?.message}</h2>
+          <div className='error-image'>
+            <img src={weatherLoadingError} alt='Error loading weather...' />
+          </div>
         </div>
-      </div>
-    </div>
+      )}
+      {matchedAreas.totalMatchedLocations > 0 && (
+        <div className='table-wrapper'>
+          <SummaryTable {...summaryTableArgs} />
+        </div>
+      )}
+    </>
   );
 }
 

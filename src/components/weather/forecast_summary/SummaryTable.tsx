@@ -29,7 +29,6 @@ export interface SummaryTableProps {
   matchedAreas: MatchedAreas;
   dailyForecastFilter: DailyForecastFilter;
   setDailyForecastFilter: any;
-  setForecastDetailsForLocation: any;
 }
 
 function prevDateWithinRange(
@@ -62,7 +61,6 @@ function SummaryTable(props: SummaryTableProps) {
     dailyForecastFilter,
     forecastResponse,
     setDailyForecastFilter,
-    setForecastDetailsForLocation,
   } = props;
   const parsedDates = (forecastResponse?.dates || []).map((d: string) =>
     parse(d, 'YYYY-MM-DD'),
@@ -190,7 +188,6 @@ function SummaryTable(props: SummaryTableProps) {
                 dateSelectedIsWithinForecastRange={
                   dateSelectedIsWithinForecastRange
                 }
-                setForecastDetailsForLocation={setForecastDetailsForLocation}
                 alertProps={alertProps}
               />
             );

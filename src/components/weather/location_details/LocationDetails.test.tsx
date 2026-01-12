@@ -55,6 +55,8 @@ it('renders a snapshot', () => {
       '{"name":"seattle","description":"Cle Elum Area1","latitude":47.196943,"longitude":-120.939134,"sub_region":"767d751df8b6495999e96486d4d32d49","region":"snowqualmie_region","wtaRegionKey":"04d37e830680c65b61df474e7e655d64"}',
     setForecastDetailsForLocation: () => {},
     forecastDates,
+    alertsById: undefined,
+    allAlertIds: undefined,
   };
 
   const tree = renderer.create(<LocationDetail {...locDetailProps} />).toJSON();

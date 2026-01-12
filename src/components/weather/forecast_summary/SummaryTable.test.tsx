@@ -1,5 +1,6 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
+import { MemoryRouter } from 'react-router-dom';
 import mockWeatherForecastNormalized from '../../../api/mockData';
 import type { ForecastResponse } from '../../../interfaces/ForecastResponseInterface';
 import type { MatchedAreas } from '../../../interfaces/MatchedAreas';
@@ -16,8 +17,13 @@ it('renders a snapshot', () => {
     matchedAreas,
     forecastResponse: forecast,
     setDailyForecastFilter: () => {},
-    setForecastDetailsForLocation: () => {},
   };
-  const tree = renderer.create(<SummaryTable {...weatherPageArgs} />).toJSON();
+  const tree = renderer
+    .create(
+      <MemoryRouter>
+        <SummaryTable {...weatherPageArgs} />
+      </MemoryRouter>,
+    )
+    .toJSON();
   expect(tree).toMatchSnapshot();
 });
