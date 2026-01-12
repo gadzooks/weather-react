@@ -188,12 +188,6 @@ function LocationDetail(props: LocationDetailProps) {
             <table className='location-details table'>
               <thead className='table-heading'>
                 <tr className='secondary-heading'>
-                  <td className='center border-right score-col' title='Trail Score'>
-                    <i className='wi wi-stars' />
-                  </td>
-                  <td className='center border-right moon-col'>
-                    <i className='wi wi-moon-full' title='Moon Phase' />
-                  </td>
                   {locationHasAlerts && (
                     <td className='center border-right alerts-col'>
                       <i className='wi wi-lightning' title='Weather Alerts' />
@@ -207,6 +201,12 @@ function LocationDetail(props: LocationDetailProps) {
                   </td>
                   <td className='center cloud-col'>
                     <i className='wi wi-cloudy' title='Cloud Cover' />
+                  </td>
+                  <td className='center border-right score-col' title='Trail Score'>
+                    <i className='wi wi-stars' />
+                  </td>
+                  <td className='center border-right moon-col'>
+                    <i className='wi wi-moon-full' title='Moon Phase' />
                   </td>
                 </tr>
               </thead>
@@ -237,20 +237,6 @@ function LocationDetail(props: LocationDetailProps) {
                         key={row.datetime}
                         className={isBestDay ? 'best-day-row' : ''}
                       >
-                        <td
-                          className={`score-cell border-right ${weekendClassName} ${alertClassName}`}
-                          title={`Trail Score: ${dayScore}`}
-                        >
-                          <span className={`score-dot ${trailScoreColor(dayScore)}`}>
-                            {dayScore}
-                          </span>
-                        </td>
-                        <td
-                          className={`moon-cell border-right ${weekendClassName} ${alertClassName}`}
-                          title={`Moon phase: ${Math.round(row.moonphase * 100)}%`}
-                        >
-                          <i className={moonPhaseIcon(row.moonphase)} />
-                        </td>
                         {locationHasAlerts && (
                           <td
                             className={`alerts-cell border-right ${weekendClassName} ${alertClassName}`}
@@ -308,6 +294,20 @@ function LocationDetail(props: LocationDetailProps) {
                             style={{ opacity: 0.3 + (row.cloudcover / 100) * 0.7 }}
                           /> */}
                           <span className='cloud-pct'>{Math.round(row.cloudcover)}%</span>
+                        </td>
+                        <td
+                          className={`score-cell border-right ${weekendClassName} ${alertClassName}`}
+                          title={`Trail Score: ${dayScore}`}
+                        >
+                          <span className={`score-dot ${trailScoreColor(dayScore)}`}>
+                            {dayScore}
+                          </span>
+                        </td>
+                        <td
+                          className={`moon-cell border-right ${weekendClassName} ${alertClassName}`}
+                          title={`Moon phase: ${Math.round(row.moonphase * 100)}%`}
+                        >
+                          <i className={moonPhaseIcon(row.moonphase)} />
                         </td>
                       </tr>
                     );
