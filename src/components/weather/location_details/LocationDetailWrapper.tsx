@@ -83,7 +83,7 @@ function LocationDetailWrapper() {
 
   // Handler for navigating to hourly forecast page
   const handleDayClick = (clickedDate: string) => {
-    navigate(`/location/${toSlug(location.description)}/${clickedDate}/hourly`);
+    navigate(`/location/${toSlug(location.description)}/${clickedDate}`);
   };
 
   return (

@@ -25,7 +25,7 @@ const router = createBrowserRouter([
         element: <LocationDetailWrapper />,
       },
       {
-        path: 'location/:locationSlug/:date/hourly',
+        path: 'location/:locationSlug/:date',
         element: <HourlyForecastPage />,
       },
     ],
