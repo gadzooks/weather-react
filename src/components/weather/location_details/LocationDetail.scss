@@ -10,6 +10,7 @@
     align-items: center;
     position: relative;
     padding: 10px 0 15px;
+    gap: 8px;
 
     .back-button {
       display: flex;
@@ -858,6 +859,127 @@ tr.best-day-row {
     &.score-poor {
       background: rgba(198, 40, 40, 0.15);
       color: #c62828;
+    }
+  }
+}
+
+// ============================================
+// Pull-to-Refresh & Refresh Button
+// ============================================
+
+.pull-refresh-indicator {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(31, 34, 50, 0.95);
+  color: #6b9bd1;
+  font-size: 14px;
+  font-weight: 500;
+  z-index: 1000;
+  transition: opacity 0.2s ease;
+}
+
+.refresh-error {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 12px;
+  background: rgba(244, 67, 54, 0.15);
+  border: 1px solid rgba(244, 67, 54, 0.3);
+  border-radius: 8px;
+  margin: 0 8px 12px 8px;
+  color: #f48fb1;
+  font-size: 0.85rem;
+
+  .error-icon {
+    font-size: 1.2rem;
+  }
+
+  .error-text {
+    flex: 1;
+  }
+}
+
+.location-details-page .heading {
+  .refresh-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 44px;
+    height: 44px;
+    padding: 0;
+    background: transparent;
+    border: none;
+    border-radius: 8px;
+    color: #6b9bd1;
+    cursor: pointer;
+    transition: all 0.15s ease;
+
+    .refresh-icon {
+      font-size: 24px;
+      line-height: 1;
+      display: inline-block;
+      transition: transform 0.3s ease;
+    }
+
+    &:hover:not(:disabled) {
+      background: rgba(107, 155, 209, 0.12);
+      color: #8bb8e8;
+    }
+
+    &:active:not(:disabled) {
+      background: rgba(107, 155, 209, 0.2);
+    }
+
+    &:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+
+    .spinning {
+      animation: spin 1s linear infinite;
+    }
+  }
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+// Light theme overrides for refresh elements
+[data-theme='light'] {
+  .pull-refresh-indicator {
+    background: rgba(245, 245, 245, 0.95);
+    color: #1976d2;
+  }
+
+  .refresh-error {
+    background: rgba(211, 47, 47, 0.1);
+    border-color: rgba(211, 47, 47, 0.3);
+    color: #c62828;
+  }
+
+  .location-details-page .heading .refresh-button {
+    color: #1976d2;
+
+    &:hover:not(:disabled) {
+      background: rgba(25, 118, 210, 0.08);
+      color: #1565c0;
+    }
+
+    &:active:not(:disabled) {
+      background: rgba(25, 118, 210, 0.15);
     }
   }
 }

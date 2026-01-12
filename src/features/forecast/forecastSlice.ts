@@ -5,6 +5,7 @@ import {
   DefaultForecastResponseStatus,
   type ForecastResponseStatus,
 } from '../../interfaces/ForecastResponseInterface';
+import type { DailyForecastInterface } from '../../interfaces/DailyForecastInterface';
 
 const initialState: ForecastResponseStatus = DefaultForecastResponseStatus;
 
@@ -20,8 +21,21 @@ export const forecastSlice = createSlice({
         isLoaded: action.payload.isLoaded,
       };
     },
+    updateLocationForecast(
+      state,
+      action: PayloadAction<{
+        locationName: string;
+        forecast: DailyForecastInterface[];
+      }>,
+    ) {
+      // Only update if forecast exists
+      if (state.forecast?.forecasts?.byId) {
+        state.forecast.forecasts.byId[action.payload.locationName] =
+          action.payload.forecast;
+      }
+    },
   },
 });
 
-export const { mergeForecast } = forecastSlice.actions;
+export const { mergeForecast, updateLocationForecast } = forecastSlice.actions;
 export default forecastSlice.reducer;

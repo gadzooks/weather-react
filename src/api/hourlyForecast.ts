@@ -24,7 +24,12 @@ export const fetchHourlyForecast = async (
   const params = new URLSearchParams({ location: locationName });
   const url = `${WEATHER_API}/forecasts/hourly/real?${params.toString()}`;
 
-  console.log(`[fetchHourlyForecast] Fetching hourly data: ${url}`);
+  console.log('[fetchHourlyForecast] Fetching hourly data:', {
+    url,
+    locationName,
+    date,
+    WEATHER_API,
+  });
 
   const response = await fetchWithRetries(url, {
     timeout: 10000,

@@ -272,7 +272,15 @@ function HourlyForecastPage() {
 
   // Parse date for display
   const parsedDate = date ? new Date(`${date}T12:00:00`) : null;
-  const formattedDate = parsedDate
+
+  console.log('[HourlyForecastPage] Date parsing:', {
+    date,
+    parsedDate,
+    isValidDate: parsedDate && !isNaN(parsedDate.getTime()),
+    locationSlug,
+  });
+
+  const formattedDate = parsedDate && !isNaN(parsedDate.getTime())
     ? format(parsedDate, 'dddd, MMMM Do')
     : date || '';
 
