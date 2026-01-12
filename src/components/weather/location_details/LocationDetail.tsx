@@ -63,49 +63,49 @@ interface TrailScoreCardProps {
   parsedDates: (Date | null)[];
 }
 
-function TrailScoreCard({ forecast, parsedDates }: TrailScoreCardProps) {
-  // Calculate scores for all days and find the best one
-  const scores = forecast.map((day) =>
-    trailScore(day.tempmax, day.tempmin, day.precipprob),
-  );
-  const maxScore = Math.max(...scores);
-  const bestDayIndex = scores.indexOf(maxScore);
-  const bestDay = parsedDates[bestDayIndex] ?? null;
-  const bestDayLabel = bestDay ? format(bestDay, 'ddd Do') : '';
+// function TrailScoreCard({ forecast, parsedDates }: TrailScoreCardProps) {
+//   // Calculate scores for all days and find the best one
+//   const scores = forecast.map((day) =>
+//     trailScore(day.tempmax, day.tempmin, day.precipprob),
+//   );
+//   const maxScore = Math.max(...scores);
+//   const bestDayIndex = scores.indexOf(maxScore);
+//   const bestDay = parsedDates[bestDayIndex] ?? null;
+//   const bestDayLabel = bestDay ? format(bestDay, 'ddd Do') : '';
 
-  // Average score for overall assessment
-  const avgScore = Math.round(scores.reduce((a, b) => a + b, 0) / scores.length);
+//   // Average score for overall assessment
+//   const avgScore = Math.round(scores.reduce((a, b) => a + b, 0) / scores.length);
 
-  return (
-    <div className={`trail-score-card ${trailScoreColor(avgScore)}`}>
-      <div className='score-header'>
-        <span className='score-label'>TRAIL SCORE</span>
-        {bestDayLabel && (
-          <span className='best-day-badge'>
-            <i className='wi wi-day-sunny' /> Best: {bestDayLabel}
-          </span>
-        )}
-      </div>
-      <div className='score-display'>
-        <div className='score-bar'>
-          <div
-            className='score-fill'
-            style={{ width: `${avgScore}%` }}
-          />
-        </div>
-        <span className='score-value'>{avgScore}</span>
-      </div>
-      <div className='score-details'>
-        <span className='detail-item'>
-          <i className='wi wi-thermometer' /> 45-70°F ideal
-        </span>
-        <span className='detail-item'>
-          <i className='wi wi-raindrop' /> Low precip = better
-        </span>
-      </div>
-    </div>
-  );
-}
+//   return (
+//     <div className={`trail-score-card ${trailScoreColor(avgScore)}`}>
+//       <div className='score-header'>
+//         <span className='score-label'>TRAIL SCORE</span>
+//         {bestDayLabel && (
+//           <span className='best-day-badge'>
+//             <i className='wi wi-day-sunny' /> Best: {bestDayLabel}
+//           </span>
+//         )}
+//       </div>
+//       <div className='score-display'>
+//         <div className='score-bar'>
+//           <div
+//             className='score-fill'
+//             style={{ width: `${avgScore}%` }}
+//           />
+//         </div>
+//         <span className='score-value'>{avgScore}</span>
+//       </div>
+//       <div className='score-details'>
+//         <span className='detail-item'>
+//           <i className='wi wi-thermometer' /> 45-70°F ideal
+//         </span>
+//         <span className='detail-item'>
+//           <i className='wi wi-raindrop' /> Low precip = better
+//         </span>
+//       </div>
+//     </div>
+//   );
+// }
 
 function LocationDetail(props: LocationDetailProps) {
   const { forecastDetailsForLocation } = props;
@@ -182,7 +182,7 @@ function LocationDetail(props: LocationDetailProps) {
 
       {activeTab === 'forecast' && (
         <>
-          <TrailScoreCard forecast={forecast} parsedDates={parsedDates} />
+          {/* <TrailScoreCard forecast={forecast} parsedDates={parsedDates} /> */}
           <LocationDetailChart {...locProps} />
           <div id={location.name} className='location-details-div'>
             <table className='location-details table'>
@@ -195,22 +195,17 @@ function LocationDetail(props: LocationDetailProps) {
                     <i className='wi wi-moon-full' title='Moon Phase' />
                   </td>
                   {locationHasAlerts && (
-                    // <td className='center border-right'>ALERTS</td>
-                  <td className='center border-right'>
-                    <i className='wi wi-warn border-right' title='Cloud Cover' />
-                  </td>
+                    <td className='center border-right alerts-col'>
+                      <i className='wi wi-lightning' title='Weather Alerts' />
+                    </td>
                   )}
-                  <td colSpan={1} className='center border-right'>
-                    DATE
-                  </td>
-                  <td colSpan={1} className='center border-right'>
-                    DETAILS
-                  </td>
-                  <td className='border-right'>H/L</td>
-                  <td colSpan={2} className='center border-right'>
+                  <td className='center border-right date-col'>DATE</td>
+                  <td className='center border-right details-col'>DETAILS</td>
+                  <td className='center border-right hl-col'>H/L</td>
+                  <td colSpan={2} className='center border-right precip-col'>
                     PRECIP
                   </td>
-                  <td className='center'>
+                  <td className='center cloud-col'>
                     <i className='wi wi-cloudy' title='Cloud Cover' />
                   </td>
                 </tr>
@@ -276,40 +271,42 @@ function LocationDetail(props: LocationDetailProps) {
                           </td>
                         )}
                         <td
-                          className={`border-right ${weekendClassName} ${alertClassName}`}
+                          className={`date-cell border-right ${weekendClassName} ${alertClassName}`}
                         >
                           {format(d, 'ddd').toUpperCase()}
-                          {'  '}
+                          {' '}
                           {format(d, 'Do').toUpperCase()}
                         </td>
                         <td
-                          className={`border-right ${weekendClassName} ${alertClassName}`}
+                          className={`details-cell border-right ${weekendClassName} ${alertClassName}`}
                         >
                           <WeatherIcon {...row} key={row.datetime} />
-                          {` ${convertToSentence(row.icon).replace('day', '')}`}
+                          <span className='details-text'>
+                            {convertToSentence(row.icon).replace('day', '').trim()}
+                          </span>
                         </td>
                         <td
-                          className={`border-right ${weekendClassName} ${alertClassName}`}
+                          className={`hl-cell border-right ${weekendClassName} ${alertClassName}`}
                         >
-                          {`${Math.round(row.tempmax)} ${Math.round(row.tempmin)}`}
+                          {Math.round(row.tempmax)}/{Math.round(row.tempmin)}
                         </td>
                         <td
-                          className={`align-right ${weekendClassName} ${alertClassName}`}
+                          className={`precip-pct-cell ${weekendClassName} ${alertClassName}`}
                         >
-                          {`${Math.round(row.precipprob)}%`}
+                          {Math.round(row.precipprob)}%
                         </td>
                         <td
-                          className={`align-right border-right ${weekendClassName} ${alertClassName}`}
+                          className={`precip-amt-cell border-right ${weekendClassName} ${alertClassName}`}
                         >
-                          {`${row.precip.toFixed(2)}"`}
+                          {row.precip.toFixed(2)}"
                         </td>
                         <td
                           className={`cloud-cell center ${weekendClassName} ${alertClassName}`}
                         >
-                          <i
+                          {/* <i
                             className='wi wi-cloudy cloud-icon'
                             style={{ opacity: 0.3 + (row.cloudcover / 100) * 0.7 }}
-                          />
+                          /> */}
                           <span className='cloud-pct'>{Math.round(row.cloudcover)}%</span>
                         </td>
                       </tr>

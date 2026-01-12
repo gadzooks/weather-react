@@ -201,13 +201,24 @@ table.table {
     box-shadow: 2px 0 4px rgba(0, 0, 0, 0.12);
     min-width: 140px;
     width: 140px; // Fixed width for consistent layout
+    max-width: 140px; // Prevent expansion
     padding-left: var(--spacing-md);
     font-weight: 500;
     color: var(--color-text-primary);
-    overflow: visible; // Ensure content isn't clipped
+    overflow: hidden; // Prevent content from causing scroll
+    text-overflow: ellipsis;
 
     // Add subtle border on the right
     border-right: 1px solid var(--color-border-medium);
+
+    // Ensure background is opaque to prevent see-through on scroll
+    &::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: inherit;
+      z-index: -1;
+    }
   }
 
   // Alerts column in header (only when alerts are present)
@@ -641,8 +652,11 @@ a.freepik {
     thead tr td.location-header {
       min-width: 120px;
       width: 120px;
+      max-width: 120px;
       font-size: 0.85em;
       padding-left: var(--spacing-sm);
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
 
     thead tr td.alerts-header,

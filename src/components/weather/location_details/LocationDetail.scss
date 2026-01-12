@@ -1,5 +1,8 @@
+/* LocationDetail.scss */
+
 .location-details-page {
   max-width: 600px;
+  padding-left: 8px;
 
   .heading {
     display: flex;
@@ -106,16 +109,20 @@
 }
 
 div.location-details-div {
-  padding-top: 10px;
-  padding-left: 10px;
-  padding-bottom: 10px;
+  padding-top: 8px;
+  padding-left: 0;
+  padding-bottom: 8px;
+  padding-right: 0;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
 }
 
 table.location-details {
   border-collapse: collapse;
-  font-size: 1.2rem;
+  font-size: 0.9rem;
   background: var(--color-bg-surface, #242831);
   color: var(--color-text-primary, #d6d9e3);
+  width: auto;
 
   tbody {
     white-space: nowrap;
@@ -133,17 +140,21 @@ table.location-details {
   thead tr {
     background-color: #2d323d;
     text-align: center;
-    font-weight: bolder;
+    font-weight: 600;
+    font-size: 0.75rem;
     color: #d6d9e3;
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
 
     td {
-      padding: 10px;
+      padding: 8px 6px;
     }
   }
 
   tbody td {
-    padding: 6px 8px;
+    padding: 6px 6px;
     color: #d6d9e3;
+    font-size: 0.9rem;
   }
 
   tr.heading th {
@@ -160,6 +171,7 @@ table.location-details {
 
   td.align-right {
     text-align: right;
+    padding-right: 6px;
   }
 
   .center {
@@ -167,8 +179,130 @@ table.location-details {
   }
 }
 
+// ============================================
+// Column-specific styles
+// ============================================
+
+.date-col,
+.date-cell {
+  white-space: nowrap;
+  text-align: left;
+  padding-left: 8px !important;
+}
+
+.details-col,
+.details-cell {
+  white-space: nowrap;
+
+  .weather-icon,
+  i[class*='wi-'] {
+    display: inline-block;
+    width: 1.2em;
+    text-align: center;
+    vertical-align: middle;
+  }
+
+  .details-text {
+    vertical-align: middle;
+    margin-left: 8px;
+  }
+}
+
+.hl-col,
+.hl-cell {
+  text-align: center;
+  white-space: nowrap;
+  font-variant-numeric: tabular-nums;
+}
+
+.precip-col {
+  text-align: center;
+}
+
+.precip-pct-cell,
+.precip-amt-cell {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+  padding: 6px 4px !important;
+}
+
+.precip-pct-cell {
+  padding-right: 2px !important;
+}
+
+.precip-amt-cell {
+  padding-left: 4px !important;
+}
+
+.cloud-col {
+  text-align: center;
+}
+
 .border-right {
   border-right: 1px solid #656b7e;
+}
+
+// ============================================
+// Mobile Responsive Styles
+// ============================================
+
+@media (max-width: 480px) {
+  .location-details-page {
+    max-width: 100%;
+    padding-left: 8px;
+
+    .heading {
+      padding: 8px 0 12px;
+
+      .location-name {
+        font-size: 1.1rem;
+      }
+    }
+  }
+
+  table.location-details {
+    font-size: 0.8rem;
+
+    thead tr {
+      font-size: 0.65rem;
+
+      td {
+        padding: 6px 3px;
+      }
+    }
+
+    tbody td {
+      padding: 5px 3px;
+      font-size: 0.8rem;
+    }
+  }
+
+  .score-dot {
+    width: 22px;
+    height: 18px;
+    font-size: 0.65rem;
+  }
+
+  .details-cell {
+    .weather-icon,
+    i[class*='wi-'] {
+      font-size: 0.9rem;
+    }
+
+    .details-text {
+      font-size: 0.75rem;
+    }
+  }
+
+  .cloud-cell {
+    .cloud-icon {
+      font-size: 0.85rem;
+    }
+
+    .cloud-pct {
+      font-size: 0.75rem;
+    }
+  }
 }
 
 // ============================================
@@ -279,8 +413,18 @@ td.weekend {
 // Alert Styles for Location Detail
 // ============================================
 
+.alerts-col,
 .alerts-cell {
   text-align: center;
+  padding: 6px 4px !important;
+}
+
+.alerts-col .wi {
+  font-size: 1rem;
+  color: #ffc107;
+}
+
+.alerts-cell {
   white-space: nowrap;
 }
 
@@ -474,14 +618,12 @@ td.weekend {
 
 .moon-col,
 .moon-cell {
-  width: 36px;
-  min-width: 36px;
-  max-width: 36px;
   text-align: center;
+  padding: 6px 4px !important;
 }
 
 .moon-cell .wi {
-  font-size: 1.1rem;
+  font-size: 1rem;
   color: #e8e8e8;
   filter: drop-shadow(0 0 3px rgba(255, 255, 255, 0.3));
 }
@@ -495,24 +637,28 @@ thead .moon-col .wi {
 // Cloud Coverage Cell
 // ============================================
 
+.cloud-col,
 .cloud-cell {
   white-space: nowrap;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 4px;
+  text-align: center;
+  vertical-align: middle;
+  padding: 6px 6px !important;
 }
 
-.cloud-icon {
-  font-size: 1rem;
-  color: #9ba4ba;
-  filter: drop-shadow(0 0 2px rgba(155, 164, 186, 0.3));
-}
+.cloud-cell {
+  .cloud-icon {
+    font-size: 1rem;
+    color: #9ba4ba;
+    filter: drop-shadow(0 0 2px rgba(155, 164, 186, 0.3));
+    vertical-align: middle;
+    margin-right: 3px;
+  }
 
-.cloud-pct {
-  font-size: 0.85rem;
-  min-width: 28px;
-  text-align: right;
+  .cloud-pct {
+    font-size: 0.85rem;
+    vertical-align: middle;
+    font-variant-numeric: tabular-nums;
+  }
 }
 
 thead .wi-cloudy {
@@ -526,10 +672,8 @@ thead .wi-cloudy {
 
 .score-col,
 .score-cell {
-  width: 40px;
-  min-width: 40px;
-  max-width: 40px;
   text-align: center;
+  padding: 6px 4px !important;
 }
 
 thead .score-col .wi {
@@ -538,13 +682,17 @@ thead .score-col .wi {
 }
 
 .score-dot {
-  display: inline-block;
-  min-width: 28px;
-  padding: 2px 4px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 26px;
+  height: 20px;
+  padding: 0;
   border-radius: 4px;
   font-size: 0.75rem;
   font-weight: 600;
   text-align: center;
+  font-variant-numeric: tabular-nums;
 
   &.score-excellent {
     background: rgba(76, 175, 80, 0.2);
