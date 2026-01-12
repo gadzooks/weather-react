@@ -52,7 +52,12 @@ export const fetchHourlyForecast = async (
 
   return {
     location: apiResponse.location.name,
+    locationDescription: apiResponse.location.description,
     date,
+    sunrise: dayData?.sunrise,
+    sunriseEpoch: dayData?.sunriseEpoch,
+    sunset: dayData?.sunset,
+    sunsetEpoch: dayData?.sunsetEpoch,
     hours: dayData?.hours || [],
   };
 };

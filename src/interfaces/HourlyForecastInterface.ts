@@ -31,6 +31,10 @@ export interface HourlyForecastInterface {
 
 export interface DayWithHours {
   datetime: string;
+  sunrise?: string;
+  sunriseEpoch?: number;
+  sunset?: string;
+  sunsetEpoch?: number;
   hours: HourlyForecastInterface[];
 }
 
@@ -46,7 +50,12 @@ export interface HourlyForecastApiResponse {
 
 export interface HourlyForecastResponse {
   location: string;
+  locationDescription: string;
   date: string;
+  sunrise?: string;
+  sunriseEpoch?: number;
+  sunset?: string;
+  sunsetEpoch?: number;
   hours: HourlyForecastInterface[];
 }
 

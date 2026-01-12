@@ -12,6 +12,7 @@ A 0-100 score optimized for hiking/backpacking trip planning.
 | Precipitation | 0-50 | 0% probability |
 
 **Temperature Scoring:**
+
 - Perfect (45-70°F avg): 50 pts
 - Cool (35-45°F): 25-50 pts (linear scale)
 - Warm (70-80°F): 25-50 pts (linear scale)
@@ -19,6 +20,7 @@ A 0-100 score optimized for hiking/backpacking trip planning.
 - Hot (>80°F): 0-25 pts
 
 **Precipitation Scoring:**
+
 - Linear: `50 * (1 - precipProb / 100)`
 
 ### Score Colors
