@@ -338,3 +338,347 @@ td.weekend {
     border-bottom: 2px solid #e65100;
   }
 }
+
+// ============================================
+// Trail Score Card
+// ============================================
+
+.trail-score-card {
+  background: var(--color-bg-surface, #2a2f3a);
+  border-radius: 12px;
+  padding: 12px 16px;
+  margin-bottom: 16px;
+  border-left: 4px solid #6b9bd1;
+
+  &.score-excellent {
+    border-left-color: #4caf50;
+    .score-fill {
+      background: linear-gradient(90deg, #4caf50, #81c784);
+    }
+    .score-value {
+      color: #81c784;
+    }
+  }
+
+  &.score-good {
+    border-left-color: #ffca28;
+    .score-fill {
+      background: linear-gradient(90deg, #ffca28, #ffd54f);
+    }
+    .score-value {
+      color: #ffd54f;
+    }
+  }
+
+  &.score-fair {
+    border-left-color: #ff9800;
+    .score-fill {
+      background: linear-gradient(90deg, #ff9800, #ffb74d);
+    }
+    .score-value {
+      color: #ffb74d;
+    }
+  }
+
+  &.score-poor {
+    border-left-color: #f44336;
+    .score-fill {
+      background: linear-gradient(90deg, #f44336, #e57373);
+    }
+    .score-value {
+      color: #e57373;
+    }
+  }
+
+  .score-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 8px;
+  }
+
+  .score-label {
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: var(--color-text-secondary, #9fa5b8);
+    letter-spacing: 0.5px;
+  }
+
+  .best-day-badge {
+    font-size: 0.7rem;
+    color: #81c784;
+    background: rgba(76, 175, 80, 0.15);
+    padding: 3px 8px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+
+    .wi {
+      font-size: 0.85rem;
+      color: #ffd54f;
+    }
+  }
+
+  .score-display {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 10px;
+  }
+
+  .score-bar {
+    flex: 1;
+    height: 8px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 4px;
+    overflow: hidden;
+  }
+
+  .score-fill {
+    height: 100%;
+    border-radius: 4px;
+    transition: width 0.3s ease;
+  }
+
+  .score-value {
+    font-size: 1.5rem;
+    font-weight: 700;
+    min-width: 36px;
+    text-align: right;
+  }
+
+  .score-details {
+    display: flex;
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+
+  .detail-item {
+    font-size: 0.7rem;
+    color: var(--color-text-secondary, #9fa5b8);
+    display: flex;
+    align-items: center;
+    gap: 4px;
+
+    .wi {
+      font-size: 0.85rem;
+      opacity: 0.7;
+    }
+  }
+}
+
+// ============================================
+// Moon Phase Column
+// ============================================
+
+.moon-col,
+.moon-cell {
+  width: 36px;
+  min-width: 36px;
+  max-width: 36px;
+  text-align: center;
+}
+
+.moon-cell .wi {
+  font-size: 1.1rem;
+  color: #e8e8e8;
+  filter: drop-shadow(0 0 3px rgba(255, 255, 255, 0.3));
+}
+
+thead .moon-col .wi {
+  font-size: 1rem;
+  color: #9fa5b8;
+}
+
+// ============================================
+// Cloud Coverage Cell
+// ============================================
+
+.cloud-cell {
+  white-space: nowrap;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+}
+
+.cloud-icon {
+  font-size: 1rem;
+  color: #9ba4ba;
+  filter: drop-shadow(0 0 2px rgba(155, 164, 186, 0.3));
+}
+
+.cloud-pct {
+  font-size: 0.85rem;
+  min-width: 28px;
+  text-align: right;
+}
+
+thead .wi-cloudy {
+  font-size: 1rem;
+  color: #9fa5b8;
+}
+
+// ============================================
+// Trail Score Column (per-day)
+// ============================================
+
+.score-col,
+.score-cell {
+  width: 40px;
+  min-width: 40px;
+  max-width: 40px;
+  text-align: center;
+}
+
+thead .score-col .wi {
+  font-size: 1rem;
+  color: #9fa5b8;
+}
+
+.score-dot {
+  display: inline-block;
+  min-width: 28px;
+  padding: 2px 4px;
+  border-radius: 4px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-align: center;
+
+  &.score-excellent {
+    background: rgba(76, 175, 80, 0.2);
+    color: #81c784;
+  }
+
+  &.score-good {
+    background: rgba(255, 202, 40, 0.2);
+    color: #ffd54f;
+  }
+
+  &.score-fair {
+    background: rgba(255, 152, 0, 0.2);
+    color: #ffb74d;
+  }
+
+  &.score-poor {
+    background: rgba(244, 67, 54, 0.2);
+    color: #e57373;
+  }
+}
+
+// ============================================
+// Best Day Row Highlight
+// ============================================
+
+tr.best-day-row {
+  background: rgba(76, 175, 80, 0.08) !important;
+
+  td:first-child {
+    border-left: 3px solid #4caf50;
+    box-shadow: inset 3px 0 8px rgba(76, 175, 80, 0.2);
+  }
+}
+
+// ============================================
+// Light Theme - New Element Overrides
+// ============================================
+
+[data-theme='light'] {
+  .trail-score-card {
+    background: #f5f5f5;
+    border-color: #1976d2;
+
+    .score-bar {
+      background: rgba(0, 0, 0, 0.1);
+    }
+
+    .score-label,
+    .detail-item {
+      color: #666;
+    }
+
+    &.score-excellent {
+      border-left-color: #2e7d32;
+      .score-value {
+        color: #2e7d32;
+      }
+    }
+
+    &.score-good {
+      border-left-color: #f9a825;
+      .score-value {
+        color: #f57f17;
+      }
+    }
+
+    &.score-fair {
+      border-left-color: #ef6c00;
+      .score-value {
+        color: #e65100;
+      }
+    }
+
+    &.score-poor {
+      border-left-color: #c62828;
+      .score-value {
+        color: #c62828;
+      }
+    }
+
+    .best-day-badge {
+      background: rgba(46, 125, 50, 0.1);
+      color: #2e7d32;
+    }
+  }
+
+  .moon-cell .wi {
+    color: #444;
+    filter: none;
+  }
+
+  thead .moon-col .wi,
+  thead .wi-cloudy {
+    color: #666;
+  }
+
+  .cloud-icon {
+    color: #666;
+    filter: none;
+  }
+
+  tr.best-day-row {
+    background: rgba(46, 125, 50, 0.08) !important;
+
+    td:first-child {
+      border-left-color: #2e7d32;
+      box-shadow: inset 3px 0 8px rgba(46, 125, 50, 0.15);
+    }
+  }
+
+  thead .score-col .wi {
+    color: #666;
+  }
+
+  .score-dot {
+    &.score-excellent {
+      background: rgba(46, 125, 50, 0.15);
+      color: #2e7d32;
+    }
+
+    &.score-good {
+      background: rgba(249, 168, 37, 0.15);
+      color: #f57f17;
+    }
+
+    &.score-fair {
+      background: rgba(239, 108, 0, 0.15);
+      color: #e65100;
+    }
+
+    &.score-poor {
+      background: rgba(198, 40, 40, 0.15);
+      color: #c62828;
+    }
+  }
+}
