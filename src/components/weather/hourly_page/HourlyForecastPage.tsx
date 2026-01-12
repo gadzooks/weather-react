@@ -1,6 +1,6 @@
 // HourlyForecastPage.tsx
 // Standalone hourly forecast page with detailed metrics and charts
-import { useEffect, useState, useMemo } from 'react';
+import React, { useEffect, useState, useMemo } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { format } from 'fecha';
 import './HourlyForecastPage.scss';
