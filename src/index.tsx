@@ -8,6 +8,7 @@ import { Provider } from 'react-redux';
 import { App } from './App';
 import SummaryTableLoader from './components/weather/forecast_summary/SummaryTableLoader';
 import LocationDetailWrapper from './components/weather/location_details/LocationDetailWrapper';
+import HourlyForecastPage from './components/weather/hourly_page/HourlyForecastPage';
 import { store } from './app/store';
 
 const router = createBrowserRouter([
@@ -25,7 +26,7 @@ const router = createBrowserRouter([
       },
       {
         path: 'location/:locationSlug/:date/hourly',
-        element: <LocationDetailWrapper />,
+        element: <HourlyForecastPage />,
       },
     ],
   },

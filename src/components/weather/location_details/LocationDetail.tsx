@@ -28,7 +28,6 @@ import {
   trailScore,
   trailScoreColor,
 } from '../../../utils/icon';
-import HourlyStrip from './HourlyStrip';
 
 type TabType = 'forecast' | 'tripreports';
 
@@ -39,7 +38,6 @@ export interface LocationDetailProps {
   forecastDates: ForecastDates;
   alertsById: AlertsById | undefined;
   allAlertIds: string[] | undefined;
-  expandedDate?: string;
   onDayClick?: (date: string) => void;
 }
 
@@ -111,7 +109,7 @@ function maxAlertDays(
 // }
 
 function LocationDetail(props: LocationDetailProps) {
-  const { forecastDetailsForLocation, expandedDate, onDayClick } = props;
+  const { forecastDetailsForLocation, onDayClick } = props;
   const [activeTab, setActiveTab] = useState<TabType>('forecast');
 
   if (!forecastDetailsForLocation) return null;
@@ -126,17 +124,10 @@ function LocationDetail(props: LocationDetailProps) {
     alertsById,
   } = props;
 
-  // Handler for day row clicks - uses URL navigation if available, otherwise no-op
+  // Handler for day row clicks - navigates to hourly page
   const handleDayClick = (date: string) => {
     if (onDayClick) {
       onDayClick(date);
-    }
-  };
-
-  // Handler for closing hourly view
-  const handleHourlyClose = () => {
-    if (onDayClick && expandedDate) {
-      onDayClick(expandedDate); // Toggle off by clicking same date
     }
   };
 
@@ -250,17 +241,12 @@ function LocationDetail(props: LocationDetailProps) {
                           trailScore(f.tempmax, f.tempmin, f.precipprob),
                         ),
                       );
-                    const isExpanded = expandedDate === dateStr;
                     const rowClasses = [
                       isBestDay ? 'best-day-row' : '',
-                      isExpanded ? 'expanded-row' : '',
                       onDayClick ? 'clickable-row' : '',
                     ]
                       .filter(Boolean)
                       .join(' ');
-
-                    // Calculate total columns for hourly row span
-                    const totalCols = locationHasAlerts ? 9 : 8;
 
                     return (
                       <React.Fragment key={row.datetime}>
@@ -295,10 +281,7 @@ function LocationDetail(props: LocationDetailProps) {
                             {format(d, 'ddd').toUpperCase()}
                             {' '}
                             {format(d, 'Do').toUpperCase()}
-                            {isExpanded && (
-                              <span className='expand-indicator'> ▼</span>
-                            )}
-                            {!isExpanded && onDayClick && (
+                            {onDayClick && (
                               <span className='expand-indicator'> ▶</span>
                             )}
                           </td>
@@ -345,17 +328,6 @@ function LocationDetail(props: LocationDetailProps) {
                             <i className={moonPhaseIcon(row.moonphase)} />
                           </td>
                         </tr>
-                        {isExpanded && (
-                          <tr className='hourly-row'>
-                            <td colSpan={totalCols}>
-                              <HourlyStrip
-                                locationName={location.name}
-                                date={dateStr}
-                                onClose={handleHourlyClose}
-                              />
-                            </td>
-                          </tr>
-                        )}
                       </React.Fragment>
                     );
                   }

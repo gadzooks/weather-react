@@ -12,10 +12,7 @@ import LocationDetail from './LocationDetail';
 import weatherLoading from '../../../images/weather-loading.gif';
 
 function LocationDetailWrapper() {
-  const { locationSlug, date } = useParams<{
-    locationSlug: string;
-    date?: string;
-  }>();
+  const { locationSlug } = useParams<{ locationSlug: string }>();
   const navigate = useNavigate();
 
   const appState = useAppSelector((state) => state.forecast);
@@ -84,15 +81,9 @@ function LocationDetailWrapper() {
     // since navigation to other locations happens via Location.tsx
   };
 
-  // Handler for expanding/collapsing hourly view
+  // Handler for navigating to hourly forecast page
   const handleDayClick = (clickedDate: string) => {
-    if (date === clickedDate) {
-      // Collapse - go back to location detail without date
-      navigate(`/location/${toSlug(location.description)}`);
-    } else {
-      // Expand - go to hourly view for this date
-      navigate(`/location/${toSlug(location.description)}/${clickedDate}/hourly`);
-    }
+    navigate(`/location/${toSlug(location.description)}/${clickedDate}/hourly`);
   };
 
   return (
@@ -103,7 +94,6 @@ function LocationDetailWrapper() {
       forecastDates={forecastDates}
       alertsById={appState.forecast.alertsById}
       allAlertIds={appState.forecast.allAlertIds}
-      expandedDate={date}
       onDayClick={handleDayClick}
     />
   );
