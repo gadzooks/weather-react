@@ -6,19 +6,26 @@ import './index.css';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import { App } from './App';
-import Counter from './features/counter/Counter';
+import SummaryTableLoader from './components/weather/forecast_summary/SummaryTableLoader';
+import LocationDetailWrapper from './components/weather/location_details/LocationDetailWrapper';
 import { store } from './app/store';
 
 const router = createBrowserRouter([
   {
     path: '/',
     element: <App />,
-    // loader: rootLoader,
     children: [
       {
-        path: 'team',
-        element: <Counter />,
-        // loader: teamLoader,
+        index: true,
+        element: <SummaryTableLoader />,
+      },
+      {
+        path: 'location/:locationSlug',
+        element: <LocationDetailWrapper />,
+      },
+      {
+        path: 'location/:locationSlug/:date/hourly',
+        element: <LocationDetailWrapper />,
       },
     ],
   },

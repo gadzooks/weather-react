@@ -15,7 +15,6 @@ export interface RegionProps {
   locations: LocationInterface[];
   dailyForecastFilter: DailyForecastFilter;
   dateSelectedIsWithinForecastRange: boolean;
-  setForecastDetailsForLocation: any;
   alertProps: AlertProps;
 }
 

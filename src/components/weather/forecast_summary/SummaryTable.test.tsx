@@ -16,7 +16,6 @@ it('renders a snapshot', () => {
     matchedAreas,
     forecastResponse: forecast,
     setDailyForecastFilter: () => {},
-    setForecastDetailsForLocation: () => {},
   };
   const tree = renderer.create(<SummaryTable {...weatherPageArgs} />).toJSON();
   expect(tree).toMatchSnapshot();

@@ -1,11 +1,25 @@
 // App.tsx
 
+import { Outlet } from 'react-router-dom';
 import './reset.css';
 import './App.scss';
-import SummaryTableLoader from './components/weather/forecast_summary/SummaryTableLoader';
+import { useTheme } from './utils/useTheme';
+import { ThemeToggle } from './components/weather/theme/ThemeToggle';
+import './components/weather/forecast_summary/SummaryTableLoader.scss';
 
 export function App() {
-  return <SummaryTableLoader />;
+  const { theme, toggleTheme } = useTheme();
+
+  return (
+    <div className='theme font-loader'>
+      <div className='app-header'>
+        <ThemeToggle theme={theme} onToggle={toggleTheme} />
+      </div>
+      <div className='container'>
+        <Outlet />
+      </div>
+    </div>
+  );
 }
 
 export default {

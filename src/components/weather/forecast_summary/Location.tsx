@@ -1,10 +1,8 @@
 // Location.tsx
 
+import { useNavigate } from 'react-router-dom';
 import './Location.scss';
-import {
-  type LocationInterface,
-  serializeLocationData,
-} from '../../../interfaces/LocationInterface';
+import type { LocationInterface } from '../../../interfaces/LocationInterface';
 import type { ForecastsById } from '../../../interfaces/ForecastResponseInterface';
 import WeatherIcon from '../main_page/WeatherIcon';
 import {
@@ -14,6 +12,7 @@ import {
 import type { AlertProps } from '../../../interfaces/AlertProps';
 import { getAlertIconFromAlerts } from '../../../model/alert';
 import { dateDifferenceInDays } from '../../../utils/date';
+import { toSlug } from '../../../utils/slug';
 
 interface LocationProps {
   isWeekend: boolean[];
@@ -21,7 +20,6 @@ interface LocationProps {
   forecastsById: ForecastsById;
   dailyForecastFilter: DailyForecastFilter;
   atleastOneDateMatches: boolean;
-  setForecastDetailsForLocation: any;
   wtaRegionKey: string | undefined;
   alertProps: AlertProps;
   alertIds: string[] | undefined;
@@ -58,11 +56,10 @@ function Location(props: LocationProps) {
     forecastsById,
     dailyForecastFilter,
     atleastOneDateMatches,
-    setForecastDetailsForLocation,
-    wtaRegionKey,
     alertProps,
     alertIds,
   } = props;
+  const navigate = useNavigate();
   const forecasts = forecastsById.byId[location.name] || [];
   const locationHasAlerts = alertIds && alertIds?.length > 0;
   const maxDaysWithAlerts = maxAlertDays(alertProps, alertIds);
@@ -82,11 +79,7 @@ function Location(props: LocationProps) {
         <button
           type='button'
           className='forecast-button'
-          onClick={() =>
-            setForecastDetailsForLocation(
-              serializeLocationData(location, wtaRegionKey),
-            )
-          }
+          onClick={() => navigate(`/location/${toSlug(location.description)}`)}
         >
           {location.description.toLocaleUpperCase()}
         </button>

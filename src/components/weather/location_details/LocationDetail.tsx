@@ -1,6 +1,6 @@
 // LocationDetail.tsx
 
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { format } from 'fecha';
 import '../../../css/weather-icons.css';
 import './LocationDetail.scss';
@@ -28,6 +28,7 @@ import {
   trailScore,
   trailScoreColor,
 } from '../../../utils/icon';
+import HourlyStrip from './HourlyStrip';
 
 type TabType = 'forecast' | 'tripreports';
 
@@ -38,6 +39,8 @@ export interface LocationDetailProps {
   forecastDates: ForecastDates;
   alertsById: AlertsById | undefined;
   allAlertIds: string[] | undefined;
+  expandedDate?: string;
+  onDayClick?: (date: string) => void;
 }
 
 function maxAlertDays(
@@ -58,10 +61,10 @@ function maxAlertDays(
   );
 }
 
-interface TrailScoreCardProps {
-  forecast: import('../../../interfaces/DailyForecastInterface').DailyForecastInterface[];
-  parsedDates: (Date | null)[];
-}
+// interface TrailScoreCardProps {
+//   forecast: import('../../../interfaces/DailyForecastInterface').DailyForecastInterface[];
+//   parsedDates: (Date | null)[];
+// }
 
 // function TrailScoreCard({ forecast, parsedDates }: TrailScoreCardProps) {
 //   // Calculate scores for all days and find the best one
@@ -108,7 +111,7 @@ interface TrailScoreCardProps {
 // }
 
 function LocationDetail(props: LocationDetailProps) {
-  const { forecastDetailsForLocation } = props;
+  const { forecastDetailsForLocation, expandedDate, onDayClick } = props;
   const [activeTab, setActiveTab] = useState<TabType>('forecast');
 
   if (!forecastDetailsForLocation) return null;
@@ -122,6 +125,20 @@ function LocationDetail(props: LocationDetailProps) {
     forecastDates,
     alertsById,
   } = props;
+
+  // Handler for day row clicks - uses URL navigation if available, otherwise no-op
+  const handleDayClick = (date: string) => {
+    if (onDayClick) {
+      onDayClick(date);
+    }
+  };
+
+  // Handler for closing hourly view
+  const handleHourlyClose = () => {
+    if (onDayClick && expandedDate) {
+      onDayClick(expandedDate); // Toggle off by clicking same date
+    }
+  };
 
   const { description, alertIds } = location;
   const forecastsByLocation = appState.forecast?.forecasts.byId || {};
@@ -214,6 +231,7 @@ function LocationDetail(props: LocationDetailProps) {
                 {forecast.map((row, id) => {
                   const d = parsedDates[id];
                   if (d) {
+                    const dateStr = format(d, 'YYYY-MM-DD');
                     const weekendClassName = weekends[id] ? 'weekend' : '';
                     const hasAlertForDate =
                       locationHasAlerts && id <= maxDaysWithAlerts;
@@ -232,84 +250,113 @@ function LocationDetail(props: LocationDetailProps) {
                           trailScore(f.tempmax, f.tempmin, f.precipprob),
                         ),
                       );
+                    const isExpanded = expandedDate === dateStr;
+                    const rowClasses = [
+                      isBestDay ? 'best-day-row' : '',
+                      isExpanded ? 'expanded-row' : '',
+                      onDayClick ? 'clickable-row' : '',
+                    ]
+                      .filter(Boolean)
+                      .join(' ');
+
+                    // Calculate total columns for hourly row span
+                    const totalCols = locationHasAlerts ? 9 : 8;
+
                     return (
-                      <tr
-                        key={row.datetime}
-                        className={isBestDay ? 'best-day-row' : ''}
-                      >
-                        {locationHasAlerts && (
+                      <React.Fragment key={row.datetime}>
+                        <tr
+                          className={rowClasses}
+                          onClick={() => handleDayClick(dateStr)}
+                          style={{ cursor: onDayClick ? 'pointer' : 'default' }}
+                        >
+                          {locationHasAlerts && (
+                            <td
+                              className={`alerts-cell border-right ${weekendClassName} ${alertClassName}`}
+                            >
+                              {hasAlertForDate &&
+                                locationAlertIds.map((alertId) => (
+                                  <a
+                                    href={`#${alertId}`}
+                                    className='alert-icon'
+                                    key={alertId}
+                                    onClick={(e) => e.stopPropagation()}
+                                  >
+                                    {getAlertIconFromAllAlerts(
+                                      locationAlertIds,
+                                      alertId,
+                                    )}
+                                  </a>
+                                ))}
+                            </td>
+                          )}
                           <td
-                            className={`alerts-cell border-right ${weekendClassName} ${alertClassName}`}
+                            className={`date-cell border-right ${weekendClassName} ${alertClassName}`}
                           >
-                            {hasAlertForDate &&
-                              locationAlertIds.map((alertId) => (
-                                <a
-                                  href={`#${alertId}`}
-                                  className='alert-icon'
-                                  key={alertId}
-                                >
-                                  {getAlertIconFromAllAlerts(
-                                    locationAlertIds,
-                                    alertId,
-                                  )}
-                                </a>
-                              ))}
+                            {format(d, 'ddd').toUpperCase()}
+                            {' '}
+                            {format(d, 'Do').toUpperCase()}
+                            {isExpanded && (
+                              <span className='expand-indicator'> ▼</span>
+                            )}
+                            {!isExpanded && onDayClick && (
+                              <span className='expand-indicator'> ▶</span>
+                            )}
                           </td>
+                          <td
+                            className={`details-cell border-right ${weekendClassName} ${alertClassName}`}
+                          >
+                            <WeatherIcon {...row} key={row.datetime} />
+                            <span className='details-text'>
+                              {convertToSentence(row.icon).replace('day', '').trim()}
+                            </span>
+                          </td>
+                          <td
+                            className={`hl-cell border-right ${weekendClassName} ${alertClassName}`}
+                          >
+                            {Math.round(row.tempmax)}/{Math.round(row.tempmin)}
+                          </td>
+                          <td
+                            className={`precip-pct-cell ${weekendClassName} ${alertClassName}`}
+                          >
+                            {Math.round(row.precipprob)}%
+                          </td>
+                          <td
+                            className={`precip-amt-cell border-right ${weekendClassName} ${alertClassName}`}
+                          >
+                            {row.precip.toFixed(2)}"
+                          </td>
+                          <td
+                            className={`cloud-cell center ${weekendClassName} ${alertClassName}`}
+                          >
+                            <span className='cloud-pct'>{Math.round(row.cloudcover)}%</span>
+                          </td>
+                          <td
+                            className={`score-cell border-right ${weekendClassName} ${alertClassName}`}
+                            title={`Trail Score: ${dayScore}`}
+                          >
+                            <span className={`score-dot ${trailScoreColor(dayScore)}`}>
+                              {dayScore}
+                            </span>
+                          </td>
+                          <td
+                            className={`moon-cell border-right ${weekendClassName} ${alertClassName}`}
+                            title={`Moon phase: ${Math.round(row.moonphase * 100)}%`}
+                          >
+                            <i className={moonPhaseIcon(row.moonphase)} />
+                          </td>
+                        </tr>
+                        {isExpanded && (
+                          <tr className='hourly-row'>
+                            <td colSpan={totalCols}>
+                              <HourlyStrip
+                                locationName={location.name}
+                                date={dateStr}
+                                onClose={handleHourlyClose}
+                              />
+                            </td>
+                          </tr>
                         )}
-                        <td
-                          className={`date-cell border-right ${weekendClassName} ${alertClassName}`}
-                        >
-                          {format(d, 'ddd').toUpperCase()}
-                          {' '}
-                          {format(d, 'Do').toUpperCase()}
-                        </td>
-                        <td
-                          className={`details-cell border-right ${weekendClassName} ${alertClassName}`}
-                        >
-                          <WeatherIcon {...row} key={row.datetime} />
-                          <span className='details-text'>
-                            {convertToSentence(row.icon).replace('day', '').trim()}
-                          </span>
-                        </td>
-                        <td
-                          className={`hl-cell border-right ${weekendClassName} ${alertClassName}`}
-                        >
-                          {Math.round(row.tempmax)}/{Math.round(row.tempmin)}
-                        </td>
-                        <td
-                          className={`precip-pct-cell ${weekendClassName} ${alertClassName}`}
-                        >
-                          {Math.round(row.precipprob)}%
-                        </td>
-                        <td
-                          className={`precip-amt-cell border-right ${weekendClassName} ${alertClassName}`}
-                        >
-                          {row.precip.toFixed(2)}"
-                        </td>
-                        <td
-                          className={`cloud-cell center ${weekendClassName} ${alertClassName}`}
-                        >
-                          {/* <i
-                            className='wi wi-cloudy cloud-icon'
-                            style={{ opacity: 0.3 + (row.cloudcover / 100) * 0.7 }}
-                          /> */}
-                          <span className='cloud-pct'>{Math.round(row.cloudcover)}%</span>
-                        </td>
-                        <td
-                          className={`score-cell border-right ${weekendClassName} ${alertClassName}`}
-                          title={`Trail Score: ${dayScore}`}
-                        >
-                          <span className={`score-dot ${trailScoreColor(dayScore)}`}>
-                            {dayScore}
-                          </span>
-                        </td>
-                        <td
-                          className={`moon-cell border-right ${weekendClassName} ${alertClassName}`}
-                          title={`Moon phase: ${Math.round(row.moonphase * 100)}%`}
-                        >
-                          <i className={moonPhaseIcon(row.moonphase)} />
-                        </td>
-                      </tr>
+                      </React.Fragment>
                     );
                   }
                   return null;

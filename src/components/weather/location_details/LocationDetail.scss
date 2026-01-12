@@ -716,6 +716,37 @@ thead .score-col .wi {
 }
 
 // ============================================
+// Expand Indicator
+// ============================================
+
+.expand-indicator {
+  font-size: 0.6rem;
+  color: var(--color-text-secondary, #9fa5b8);
+  margin-left: 4px;
+  opacity: 0.6;
+  transition: opacity 0.15s ease;
+}
+
+tr.clickable-row:hover .expand-indicator {
+  opacity: 1;
+}
+
+tr.expanded-row .expand-indicator {
+  opacity: 1;
+  color: #6b9bd1;
+}
+
+[data-theme='light'] {
+  .expand-indicator {
+    color: #666;
+  }
+
+  tr.expanded-row .expand-indicator {
+    color: #1976d2;
+  }
+}
+
+// ============================================
 // Best Day Row Highlight
 // ============================================
 
