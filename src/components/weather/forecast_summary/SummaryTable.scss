@@ -751,16 +751,16 @@ a.freepik {
   }
 }
 
-// Tablet and larger (landscape, iPad)
-@media (min-width: 769px) {
+// Tablet (landscape, iPad)
+@media (min-width: 769px) and (max-width: 1023px) {
   table.table {
-    font-size: 0.95rem;
+    font-size: 0.9rem;
   }
 
   .styled-table {
     th,
     td {
-      padding: 10px 14px;
+      padding: 8px 10px;
     }
 
     td.location-name {
@@ -770,12 +770,82 @@ a.freepik {
   }
 
   .weather-icon {
-    font-size: 1.8em;
+    font-size: 1.5em;
   }
 
   .button-2 {
-    padding: 8px 14px;
-    font-size: 14px;
+    padding: 6px 10px;
+    font-size: 13px;
+  }
+}
+
+// Desktop - Compact view with column borders
+@media (min-width: 1024px) {
+  table.table {
+    font-size: 0.8rem;
+  }
+
+  .styled-table {
+    th,
+    td {
+      padding: 6px 8px;
+      // Vertical borders between columns
+      border-left: 1px solid var(--color-border-subtle);
+
+      &:first-child {
+        border-left: none;
+      }
+    }
+
+    // Header row styling
+    thead td {
+      padding: 8px;
+      font-size: 0.85em;
+    }
+
+    // Location columns - compact
+    td.location-name,
+    thead tr td.location-header {
+      min-width: 130px;
+      width: 130px;
+      max-width: 150px;
+      padding: 6px 10px;
+      border-left: none;
+      border-right: 1px solid var(--color-border-medium);
+    }
+
+    // Alerts columns - compact
+    thead tr td.alerts-header,
+    td.alerts-cell {
+      width: 50px;
+      min-width: 50px;
+      padding: 4px 6px;
+      border-left: none;
+      border-right: 1px solid var(--color-border-medium);
+    }
+
+    // Adjust location offset for desktop alerts column width
+    thead tr td.alerts-header ~ td.location-header,
+    &[data-has-alerts] td.location-name {
+      left: 50px;
+    }
+  }
+
+  .weather-icon {
+    font-size: 1.3em;
+  }
+
+  .button-2 {
+    padding: 4px 8px;
+    font-size: 12px;
+    min-height: 28px;
+    min-width: 28px;
+
+    &.left-arrow,
+    &.right-arrow {
+      padding: 4px;
+      min-width: 24px;
+    }
   }
 }
 
