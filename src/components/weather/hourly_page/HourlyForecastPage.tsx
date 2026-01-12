@@ -16,6 +16,8 @@ import {
 import { fetchHourlyForecast } from '../../../api/hourlyForecast';
 import iconClass from '../../../utils/icon';
 import HourlyMetricCharts from './HourlyMetricCharts';
+import { useAppSelector } from '../../../app/hooks';
+import { fromSlugById } from '../../../utils/slug';
 
 interface DayStats {
   tempMax: number;
@@ -206,6 +208,7 @@ function HourlyForecastPage() {
     date: string;
   }>();
   const navigate = useNavigate();
+  const appState = useAppSelector((state) => state.forecast);
 
   const [hours, setHours] = useState<HourlyForecastInterface[]>([]);
   const [loading, setLoading] = useState(true);
@@ -219,13 +222,15 @@ function HourlyForecastPage() {
   const [sunrise, setSunrise] = useState<string | null>(null);
   const [sunset, setSunset] = useState<string | null>(null);
 
+  // Look up the location from Redux store using the slug
+  const location = locationSlug && appState.forecast?.locations.byId
+    ? fromSlugById(locationSlug, appState.forecast.locations.byId)
+    : undefined;
+
   // Memoize computed values
   const dayStats = useMemo(() => calculateDayStats(hours), [hours]);
   const sunTimes = useMemo(() => {
     const times = extractSunTimes(hours, sunrise, sunset);
-    console.log('[DEBUG] Sun times:', times);
-    console.log('[DEBUG] Sunrise from day:', sunrise);
-    console.log('[DEBUG] Sunset from day:', sunset);
     return times;
   }, [hours, sunrise, sunset]);
   
@@ -273,15 +278,14 @@ function HourlyForecastPage() {
 
   useEffect(() => {
     const loadHourlyData = async () => {
-      if (!locationSlug || !date) return;
+      if (!location || !date) return;
 
       setLoading(true);
       setError(null);
 
       try {
-        // Use the slug as the location name (convert from slug format)
-        const locationNameFromSlug = locationSlug.replace(/-/g, ' ');
-        const response = await fetchHourlyForecast(locationNameFromSlug, date);
+        // Use the actual location.name (e.g., "mt_baker") for the API call
+        const response = await fetchHourlyForecast(location.name, date);
         setHours(response.hours || []);
         setLocationName(response.location);
         setLocationDescription(response.locationDescription);
@@ -299,17 +303,16 @@ function HourlyForecastPage() {
     };
 
     loadHourlyData();
-  }, [locationSlug, date]);
+  }, [location, date]);
 
   const handleRefresh = async () => {
-    if (!locationSlug || !date) return;
+    if (!location || !date) return;
 
     setRefreshing(true);
     setError(null);
 
     try {
-      const locationNameFromSlug = locationSlug.replace(/-/g, ' ');
-      const response = await fetchHourlyForecast(locationNameFromSlug, date);
+      const response = await fetchHourlyForecast(location.name, date);
       setHours(response.hours || []);
       setLocationName(response.location);
       setLocationDescription(response.locationDescription);
@@ -358,6 +361,19 @@ function HourlyForecastPage() {
       navigate('/');
     }
   };
+
+  // If location not found, show error
+  if (!location && appState.isLoaded) {
+    return (
+      <div className='hourly-forecast-page error'>
+        <button type='button' className='back-button' onClick={handleBack}>
+          <span className='back-arrow'>&larr;</span>
+          <span className='back-text'>Back</span>
+        </button>
+        <div className='error-message'>Location not found: {locationSlug}</div>
+      </div>
+    );
+  }
 
   if (loading && hours.length === 0) {
     return (
