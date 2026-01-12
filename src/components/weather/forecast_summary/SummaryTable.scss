@@ -157,33 +157,32 @@ table.table {
 .styled-table {
   thead {
     position: sticky;
-    top: 0; // Sticky at top of table-wrapper scroll container
-    z-index: calc(var(--z-sticky) + 5); // Higher than body sticky cells
+    top: 0;
+    z-index: calc(var(--z-sticky) + 5);
 
     tr {
-      background: linear-gradient(
-        135deg,
-        var(--color-bg-elevated) 0%,
-        var(--color-bg-surface) 100%
-      );
-      backdrop-filter: blur(10px);
-      -webkit-backdrop-filter: blur(10px);
-      box-shadow: 0 2px 12px rgba(0, 0, 0, 0.3);
+      background: #2d323d;
+      box-shadow: 0 1px 0 var(--color-border-medium);
+    }
+
+    // Date column headers - cleaner styling
+    td:not(.alerts-header):not(.location-header) {
+      font-weight: 500;
+      color: var(--color-text-secondary);
+      padding: 14px 12px;
     }
   }
 
-  // Override gradient for light mode - use solid tan color
+  // Override for light mode
   [data-theme='light'] & thead tr {
     background: #f9d6a7 !important;
-    backdrop-filter: none;
-    -webkit-backdrop-filter: none;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-    color: black;
+    box-shadow: 0 1px 0 rgba(0, 0, 0, 0.1);
+    color: #5a5040;
   }
 
   th,
   td {
-    padding: 8px 6px;
+    padding: 12px 8px;
     text-align: center;
     color: var(--color-text-primary);
     border-bottom: 1px solid var(--color-border-subtle);
@@ -195,81 +194,76 @@ table.table {
   th:first-child {
     position: sticky;
     left: 0;
-    background: var(--color-bg-surface, #242831);
+    background: #242831;
     text-align: left;
     z-index: calc(var(--z-sticky) + 1);
-    box-shadow: 2px 0 4px rgba(0, 0, 0, 0.12);
-    min-width: 140px;
-    width: 140px; // Fixed width for consistent layout
-    max-width: 140px; // Prevent expansion
-    padding-left: var(--spacing-md);
+    box-shadow: 4px 0 12px rgba(0, 0, 0, 0.15);
+    min-width: 160px;
+    width: 160px;
+    max-width: 180px;
+    padding-left: var(--spacing-lg);
+    padding-right: var(--spacing-md);
     font-weight: 500;
     color: var(--color-text-primary);
-    overflow: hidden; // Prevent content from causing scroll
+    overflow: hidden;
     text-overflow: ellipsis;
-
-    // Add subtle border on the right
-    border-right: 1px solid var(--color-border-medium);
-
-    // Ensure background is opaque to prevent see-through on scroll
-    &::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background: inherit;
-      z-index: -1;
-    }
+    white-space: nowrap;
   }
 
   // Alerts column in header (only when alerts are present)
   thead tr td.alerts-header {
     position: sticky;
     left: 0;
-    background: var(--color-bg-elevated, #2d323d);
-    z-index: calc(var(--z-sticky) + 7); // Higher than body sticky cells
-    width: 50px; // Fixed width for consistent offset calculation
-    min-width: 50px;
-    padding: var(--spacing-xs);
-    border-right: 1px solid var(--color-border-medium);
-    box-shadow: 2px 0 4px rgba(0, 0, 0, 0.12);
+    background: #2d323d;
+    z-index: calc(var(--z-sticky) + 7);
+    width: 60px;
+    min-width: 60px;
+    padding: var(--spacing-sm);
+    box-shadow: 4px 0 12px rgba(0, 0, 0, 0.15);
+    font-size: 0.75em;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: var(--color-text-secondary);
   }
 
   // Location header column - default position (no alerts)
   thead tr td.location-header {
     position: sticky;
-    left: 0; // Default: no offset when alerts not present
-    background: var(--color-bg-elevated, #2d323d);
-    z-index: calc(var(--z-sticky) + 6); // Higher than body sticky cells
-    box-shadow: 2px 0 4px rgba(0, 0, 0, 0.12);
+    left: 0;
+    background: #2d323d;
+    z-index: calc(var(--z-sticky) + 6);
+    box-shadow: 4px 0 12px rgba(0, 0, 0, 0.15);
     text-align: left;
-    min-width: 140px;
-    width: 140px; // Fixed width to match body location column
-    padding-left: var(--spacing-md);
-    font-weight: 500;
-    border-right: 1px solid var(--color-border-medium);
+    min-width: 160px;
+    width: 160px;
+    padding-left: var(--spacing-lg);
+    font-weight: 600;
+    font-size: 0.85em;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: var(--color-text-secondary);
   }
 
   // Location header offset when alerts column is present (sibling selector)
   thead tr td.alerts-header ~ td.location-header {
-    left: 50px; // Offset by alerts column width
+    left: 60px; // Offset by alerts column width
   }
 
   // Body alerts column - sticky when alerts are present
   td.alerts-cell {
     position: sticky;
     left: 0;
-    background: var(--color-bg-surface, #242831);
-    z-index: calc(var(--z-sticky) + 2); // Higher than location column
-    width: 50px;
-    min-width: 50px;
-    padding: var(--spacing-xs);
-    border-right: 1px solid var(--color-border-medium);
-    box-shadow: 2px 0 4px rgba(0, 0, 0, 0.12);
+    background: #242831;
+    z-index: calc(var(--z-sticky) + 2);
+    width: 60px;
+    min-width: 60px;
+    padding: var(--spacing-sm);
+    box-shadow: 4px 0 12px rgba(0, 0, 0, 0.15);
   }
 
   // Body location column offset when alerts are present (via data attribute)
   &[data-has-alerts] td.location-name {
-    left: 50px; // Offset by alerts column width
+    left: 60px; // Offset by alerts column width
   }
 
   // Override sticky column gradients for light mode
@@ -279,15 +273,15 @@ table.table {
     td.alerts-cell,
     th:first-child {
       background: #ffffff !important;
-      box-shadow: 2px 0 4px rgba(0, 0, 0, 0.08);
+      box-shadow: 4px 0 12px rgba(0, 0, 0, 0.06);
     }
 
     // Header cells - tan background with black text
     thead tr td.alerts-header,
     thead tr td.location-header {
       background: #f9d6a7 !important;
-      box-shadow: 2px 0 4px rgba(0, 0, 0, 0.08);
-      color: #000000;
+      box-shadow: 4px 0 12px rgba(0, 0, 0, 0.06);
+      color: #5a5040;
     }
   }
 }
@@ -424,21 +418,39 @@ table.table {
 
     &:hover {
       background: var(--color-bg-hover);
+
+      td.location-name {
+        background: var(--color-bg-hover);
+      }
+    }
+
+    // Alternating rows for better readability
+    &:nth-child(even):not(.region-header) {
+      background: rgba(255, 255, 255, 0.02);
+
+      td.location-name {
+        background: #272b35;
+      }
     }
 
     // Regional sections
     &.region-header {
-      background: rgba(107, 155, 209, 0.06);
+      background: transparent;
       font-weight: 600;
       color: var(--color-accent-primary);
       text-transform: uppercase;
-      font-size: 0.75em;
-      letter-spacing: 0.4px;
+      font-size: 0.7em;
+      letter-spacing: 0.8px;
 
       td {
-        padding: var(--spacing-sm);
-        border-top: 1px solid var(--color-border-strong);
-        border-bottom: 1px solid var(--color-border-medium);
+        padding: var(--spacing-md) var(--spacing-sm);
+        border-top: none;
+        border-bottom: 1px solid var(--color-border-subtle);
+      }
+
+      td.location-name {
+        background: transparent;
+        box-shadow: none;
       }
     }
   }
@@ -446,27 +458,13 @@ table.table {
   td {
     border-bottom: 1px solid var(--color-border-subtle);
 
-    // Weather cells -ClickableTouch feedback
+    // Weather cells - touch feedback
     &.weather-cell {
       cursor: pointer;
       position: relative;
 
       &:active {
         background: rgba(107, 155, 209, 0.08);
-      }
-
-      // Add subtle pulse for active weather
-      &.active-weather::after {
-        content: '';
-        position: absolute;
-        inset: 0;
-        background: radial-gradient(
-          circle,
-          var(--color-accent-glow) 0%,
-          transparent 70%
-        );
-        pointer-events: none;
-        animation: pulse 2s ease-in-out infinite;
       }
     }
   }
@@ -478,24 +476,35 @@ table.table {
     background: #ffffff;
 
     &:hover td:not(.weekend) {
-      background: #f9f9f9;
+      background: #f5f5f5;
     }
 
-    // Override region header - soft warm gray
+    &:nth-child(even):not(.region-header) {
+      background: #fafafa;
+
+      td.location-name {
+        background: #fafafa;
+      }
+    }
+
+    // Override region header - subtle
     &.region-header {
-      background: #f0e6d3 !important;
-      color: #5a5a5a;
+      background: transparent !important;
+      color: #888;
 
       td {
-        border-top: 1px solid #d0d0d0;
-        border-bottom: 1px solid #d0d0d0;
+        border-top: none;
+        border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+      }
+
+      td.location-name {
+        background: transparent;
       }
     }
   }
 
-  // Ensure non-weekend cells have white background
   td:not(.weekend) {
-    background: #ffffff;
+    background: inherit;
   }
 }
 
@@ -648,27 +657,51 @@ a.freepik {
       padding: 6px 4px;
     }
 
-    td.location-name,
-    thead tr td.location-header {
-      min-width: 120px;
-      width: 120px;
-      max-width: 120px;
+    td.location-name {
+      min-width: 130px;
+      width: 130px;
+      max-width: 140px;
       font-size: 0.85em;
-      padding-left: var(--spacing-sm);
+      padding-left: var(--spacing-md);
       overflow: hidden;
       text-overflow: ellipsis;
+      position: sticky;
+      left: 0;
+      z-index: calc(var(--z-sticky) + 1);
+      background: #242831;
+      box-shadow: 4px 0 12px rgba(0, 0, 0, 0.15);
+    }
+
+    thead tr td.location-header {
+      min-width: 130px;
+      width: 130px;
+      max-width: 140px;
+      font-size: 0.75em;
+      padding-left: var(--spacing-md);
+      overflow: hidden;
+      text-overflow: ellipsis;
+      position: sticky;
+      left: 0;
+      z-index: calc(var(--z-sticky) + 6);
+      background: #2d323d;
+      box-shadow: 4px 0 12px rgba(0, 0, 0, 0.15);
     }
 
     thead tr td.alerts-header,
     td.alerts-cell {
-      min-width: 40px;
-      width: 40px;
+      min-width: 50px;
+      width: 50px;
+      background: #242831;
+    }
+
+    thead tr td.alerts-header {
+      background: #2d323d;
     }
 
     // Adjust location offset for mobile alerts column width
     thead tr td.alerts-header ~ td.location-header,
     &[data-has-alerts] td.location-name {
-      left: 40px;
+      left: 50px;
     }
   }
 
@@ -793,30 +826,3 @@ a.freepik {
   }
 }
 
-// ============================================
-// Scroll Shadows (Visual Hint for Scrollable Content)
-// ============================================
-
-table.table {
-  background:
-    linear-gradient(90deg, var(--color-bg-primary) 30%, transparent),
-    linear-gradient(90deg, transparent, var(--color-bg-primary) 70%) 100% 0,
-    radial-gradient(farthest-side at 0 50%, rgba(0, 0, 0, 0.3), transparent),
-    radial-gradient(farthest-side at 100% 50%, rgba(0, 0, 0, 0.3), transparent)
-      100% 0;
-  background-repeat: no-repeat;
-  background-size:
-    40px 100%,
-    40px 100%,
-    14px 100%,
-    14px 100%;
-  background-attachment: local, local, scroll, scroll;
-}
-
-// Remove scroll shadows for light mode - use simple background
-[data-theme='light'] table.table {
-  background: #ffffff !important;
-  background-repeat: initial;
-  background-size: initial;
-  background-attachment: initial;
-}
