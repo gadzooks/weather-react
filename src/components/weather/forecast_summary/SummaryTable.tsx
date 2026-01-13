@@ -119,7 +119,11 @@ function SummaryTable(props: SummaryTableProps) {
         </tr> */}
 
           <tr>
-            {foundAlerts && <td className='alerts-header'>Alerts</td>}
+            {foundAlerts && (
+              <td className='alerts-header'>
+                <i className='wi wi-lightning' title='Weather Alerts' />
+              </td>
+            )}
             <td className='location-header'>Location</td>
             {parsedDates.map((date, index) => {
               const txt = date === null ? '' : format(date, 'DD').toUpperCase();

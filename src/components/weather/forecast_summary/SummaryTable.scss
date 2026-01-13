@@ -216,14 +216,13 @@ table.table {
     left: 0;
     background: #2d323d;
     z-index: calc(var(--z-sticky) + 7);
-    width: 60px;
-    min-width: 60px;
-    padding: var(--spacing-sm);
+    width: 35px;
+    min-width: 35px;
+    padding: 2px;
     box-shadow: 4px 0 12px rgba(0, 0, 0, 0.15);
-    font-size: 0.75em;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-    color: var(--color-text-secondary);
+    font-size: 1.5em;
+    color: red;
+    // color: var(--color-text-secondary);
   }
 
   // Location header column - default position (no alerts)
@@ -246,7 +245,7 @@ table.table {
 
   // Location header offset when alerts column is present (sibling selector)
   thead tr td.alerts-header ~ td.location-header {
-    left: 60px; // Offset by alerts column width
+    left: 35px; // Offset by alerts column width
   }
 
   // Body alerts column - sticky when alerts are present
@@ -255,15 +254,15 @@ table.table {
     left: 0;
     background: #242831;
     z-index: calc(var(--z-sticky) + 2);
-    width: 60px;
-    min-width: 60px;
-    padding: var(--spacing-sm);
+    width: 35px;
+    min-width: 35px;
+    padding: 2px;
     box-shadow: 4px 0 12px rgba(0, 0, 0, 0.15);
   }
 
   // Body location column offset when alerts are present (via data attribute)
   &[data-has-alerts] td.location-name {
-    left: 60px; // Offset by alerts column width
+    left: 35px; // Offset by alerts column width
   }
 
   // Override sticky column gradients for light mode
@@ -663,6 +662,7 @@ a.freepik {
       max-width: 140px;
       font-size: 0.85em;
       padding-left: var(--spacing-md);
+      padding-right: 2px;
       overflow: hidden;
       text-overflow: ellipsis;
       position: sticky;
@@ -689,8 +689,9 @@ a.freepik {
 
     thead tr td.alerts-header,
     td.alerts-cell {
-      min-width: 50px;
-      width: 50px;
+      min-width: 32px;
+      width: 32px;
+      padding: 2px;
       background: #242831;
     }
 
@@ -701,7 +702,7 @@ a.freepik {
     // Adjust location offset for mobile alerts column width
     thead tr td.alerts-header ~ td.location-header,
     &[data-has-alerts] td.location-name {
-      left: 50px;
+      left: 32px;
     }
   }
 
@@ -741,6 +742,7 @@ a.freepik {
       min-width: 90px;
       max-width: 110px;
       font-size: 0.8em;
+      padding-right: 2px;
     }
   }
 
@@ -817,9 +819,9 @@ a.freepik {
     // Alerts columns - compact
     thead tr td.alerts-header,
     td.alerts-cell {
-      width: 50px;
-      min-width: 50px;
-      padding: 4px 6px;
+      width: 35px;
+      min-width: 35px;
+      padding: 2px;
       border-left: none;
       border-right: 1px solid var(--color-border-medium);
     }
@@ -827,7 +829,7 @@ a.freepik {
     // Adjust location offset for desktop alerts column width
     thead tr td.alerts-header ~ td.location-header,
     &[data-has-alerts] td.location-name {
-      left: 50px;
+      left: 35px;
     }
   }
 
