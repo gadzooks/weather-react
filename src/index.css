@@ -5,6 +5,7 @@
    ============================================ */
 
 html {
+  /* Font size is set dynamically via JavaScript (useFontSize hook) */
   /* Allow horizontal scrolling when needed */
   overflow-x: auto;
   /* Better text rendering on OLED screens */
@@ -20,6 +21,8 @@ body {
   font-family:
     -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu',
     'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+  /* Inherit font size from html (set by settings) */
+  font-size: inherit;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 

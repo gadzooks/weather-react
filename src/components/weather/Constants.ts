@@ -9,3 +9,9 @@ export const LS_THEME_KEY = 'themePreference';
 // Theme constants
 export const THEME_LIGHT = 'light';
 export const THEME_DARK = 'dark';
+
+// Font size constants
+export const LS_FONT_SIZE_KEY = 'fontSizePreference';
+export const FONT_SIZE_MIN = 12;
+export const FONT_SIZE_MAX = 20;
+export const FONT_SIZE_DEFAULT = 14;
