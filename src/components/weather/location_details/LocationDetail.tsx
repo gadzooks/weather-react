@@ -28,6 +28,7 @@ import {
   trailScore,
   trailScoreColor,
 } from '../../../utils/icon';
+import { useSwipeNavigation } from '../../../utils/useSwipeNavigation';
 
 type TabType = 'forecast' | 'tripreports';
 
@@ -117,12 +118,8 @@ function LocationDetail(props: LocationDetailProps) {
   const location: LocationDetailData = deserializeLocationData(
     forecastDetailsForLocation,
   );
-  const {
-    appState,
-    setForecastDetailsForLocation,
-    forecastDates,
-    alertsById,
-  } = props;
+  const { appState, setForecastDetailsForLocation, forecastDates, alertsById } =
+    props;
 
   // Handler for day row clicks - navigates to hourly page
   const handleDayClick = (date: string) => {
@@ -150,8 +147,22 @@ function LocationDetail(props: LocationDetailProps) {
     forecastDates,
   };
 
+  // Swipe navigation for going back to main page
+  const swipeHandlers = useSwipeNavigation({
+    onSwipeLeft: () => {
+      setForecastDetailsForLocation(null);
+    },
+    disabled: false,
+    minSwipeDistance: 100,
+  });
+
   return (
-    <div className='location-details-page'>
+    <div
+      className={`location-details-page ${swipeHandlers.isSwipping ? 'swiping' : ''} ${swipeHandlers.swipeDirection ? `swipe-${swipeHandlers.swipeDirection}` : ''}`}
+      onTouchStart={swipeHandlers.onTouchStart}
+      onTouchMove={swipeHandlers.onTouchMove}
+      onTouchEnd={swipeHandlers.onTouchEnd}
+    >
       <div className='heading'>
         <button
           className='back-button'
@@ -210,7 +221,10 @@ function LocationDetail(props: LocationDetailProps) {
                   <td className='center cloud-col'>
                     <i className='wi wi-cloudy' title='Cloud Cover' />
                   </td>
-                  <td className='center border-right score-col' title='Trail Score'>
+                  <td
+                    className='center border-right score-col'
+                    title='Trail Score'
+                  >
                     <i className='wi wi-stars' />
                   </td>
                   <td className='center border-right moon-col'>
@@ -278,8 +292,7 @@ function LocationDetail(props: LocationDetailProps) {
                           <td
                             className={`date-cell border-right ${weekendClassName} ${alertClassName}`}
                           >
-                            {format(d, 'ddd').toUpperCase()}
-                            {' '}
+                            {format(d, 'ddd').toUpperCase()}{' '}
                             {format(d, 'Do').toUpperCase()}
                             {onDayClick && (
                               <span className='expand-indicator'> ▶</span>
@@ -290,7 +303,9 @@ function LocationDetail(props: LocationDetailProps) {
                           >
                             <WeatherIcon {...row} key={row.datetime} />
                             <span className='details-text'>
-                              {convertToSentence(row.icon).replace('day', '').trim()}
+                              {convertToSentence(row.icon)
+                                .replace('day', '')
+                                .trim()}
                             </span>
                           </td>
                           <td
@@ -311,13 +326,17 @@ function LocationDetail(props: LocationDetailProps) {
                           <td
                             className={`cloud-cell center ${weekendClassName} ${alertClassName}`}
                           >
-                            <span className='cloud-pct'>{Math.round(row.cloudcover)}%</span>
+                            <span className='cloud-pct'>
+                              {Math.round(row.cloudcover)}%
+                            </span>
                           </td>
                           <td
                             className={`score-cell border-right ${weekendClassName} ${alertClassName}`}
                             title={`Trail Score: ${dayScore}`}
                           >
-                            <span className={`score-dot ${trailScoreColor(dayScore)}`}>
+                            <span
+                              className={`score-dot ${trailScoreColor(dayScore)}`}
+                            >
                               {dayScore}
                             </span>
                           </td>

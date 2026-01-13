@@ -27,6 +27,6 @@ export const FloatingActionButton: React.FC<FloatingActionButtonProps> = ({
         <span />
       </div>
     </button>,
-    document.body
+    document.body,
   );
 };

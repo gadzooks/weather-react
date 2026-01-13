@@ -166,7 +166,10 @@ export const findRainWindows = (
 
   // Handle case where rain continues to end of day
   if (currentStart !== null) {
-    const lastHour = parseInt(hours[hours.length - 1].datetime.split(':')[0], 10);
+    const lastHour = parseInt(
+      hours[hours.length - 1].datetime.split(':')[0],
+      10,
+    );
     windows.push({
       startHour: currentStart,
       endHour: lastHour,

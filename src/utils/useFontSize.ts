@@ -8,7 +8,7 @@ import {
 export const useFontSize = () => {
   const [fontSize, setFontSize] = useLocalStorage(
     LS_FONT_SIZE_KEY,
-    FONT_SIZE_DEFAULT
+    FONT_SIZE_DEFAULT,
   );
 
   // Apply font size to document element whenever it changes

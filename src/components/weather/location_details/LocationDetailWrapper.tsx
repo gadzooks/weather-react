@@ -51,7 +51,9 @@ function LocationDetailWrapper() {
         });
 
         if (!response.ok) {
-          throw new Error(`HTTP ${response.status}: Failed to fetch forecast data`);
+          throw new Error(
+            `HTTP ${response.status}: Failed to fetch forecast data`,
+          );
         }
 
         const contentType = response.headers.get('content-type');
@@ -78,7 +80,8 @@ function LocationDetailWrapper() {
           mergeForecast({
             isLoaded: true,
             forecast: null,
-            error: err instanceof Error ? err : new Error('Failed to load forecast'),
+            error:
+              err instanceof Error ? err : new Error('Failed to load forecast'),
           }),
         );
       } finally {
