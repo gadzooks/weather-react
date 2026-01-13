@@ -731,7 +731,7 @@ function HourlyForecastPage() {
       </section>
 
       {/* Detailed Metric Charts */}
-      <HourlyMetricCharts hours={hours} dayStats={dayStats} />
+      <HourlyMetricCharts hours={hours} dayStats={dayStats} sunrise={sunrise} sunset={sunset} />
     </div>
   );
 }

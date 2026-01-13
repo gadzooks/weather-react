@@ -33,6 +33,8 @@ interface DayStats {
 interface HourlyMetricChartsProps {
   hours: HourlyForecastInterface[];
   dayStats: DayStats;
+  sunrise?: string | null;
+  sunset?: string | null;
 }
 
 function formatHour(datetime: string): string {
@@ -79,15 +81,21 @@ function prepareChartData(hours: HourlyForecastInterface[]): ChartDataPoint[] {
   }));
 }
 
-// Custom tooltip styles
-const tooltipStyle = {
-  backgroundColor: 'var(--color-bg-surface, #2a2f3a)',
-  border: '1px solid var(--color-border-subtle, rgba(255, 255, 255, 0.1))',
-  borderRadius: '8px',
-  padding: '10px 12px',
-  fontSize: '0.8rem',
-  color: 'var(--color-text-primary, #d6d9e3)',
-};
+// Custom tooltip styles - theme aware
+function getTooltipStyle() {
+  const isDarkMode = !document.documentElement.hasAttribute('data-theme') ||
+                     document.documentElement.getAttribute('data-theme') === 'dark';
+
+  return {
+    backgroundColor: isDarkMode ? '#2a2f3a' : '#ffffff',
+    border: isDarkMode ? '1px solid rgba(255, 255, 255, 0.1)' : '1px solid rgba(0, 0, 0, 0.15)',
+    borderRadius: '8px',
+    padding: '10px 12px',
+    fontSize: '0.8rem',
+    color: isDarkMode ? '#d6d9e3' : '#1a1a1a',
+    boxShadow: isDarkMode ? 'none' : '0 2px 8px rgba(0, 0, 0, 0.1)',
+  };
+}
 
 interface CustomTooltipProps {
   active?: boolean;
@@ -105,7 +113,7 @@ function TempTooltip({ active, payload }: CustomTooltipProps) {
   if (!active || !payload?.length) return null;
   const { payload: data } = payload[0];
   return (
-    <div style={tooltipStyle}>
+    <div style={getTooltipStyle()}>
       <div style={{ fontWeight: 600, marginBottom: 4 }}>
         {formatHourFull(`${data.hour.toString().padStart(2, '0')}:00:00`)}
       </div>
@@ -119,7 +127,7 @@ function WindTooltip({ active, payload }: CustomTooltipProps) {
   if (!active || !payload?.length) return null;
   const { payload: data } = payload[0];
   return (
-    <div style={tooltipStyle}>
+    <div style={getTooltipStyle()}>
       <div style={{ fontWeight: 600, marginBottom: 4 }}>
         {formatHourFull(`${data.hour.toString().padStart(2, '0')}:00:00`)}
       </div>
@@ -133,7 +141,7 @@ function PrecipTooltip({ active, payload }: CustomTooltipProps) {
   if (!active || !payload?.length) return null;
   const { payload: data } = payload[0];
   return (
-    <div style={tooltipStyle}>
+    <div style={getTooltipStyle()}>
       <div style={{ fontWeight: 600, marginBottom: 4 }}>
         {formatHourFull(`${data.hour.toString().padStart(2, '0')}:00:00`)}
       </div>
@@ -147,7 +155,7 @@ function VisibilityTooltip({ active, payload }: CustomTooltipProps) {
   if (!active || !payload?.length) return null;
   const { payload: data } = payload[0];
   return (
-    <div style={tooltipStyle}>
+    <div style={getTooltipStyle()}>
       <div style={{ fontWeight: 600, marginBottom: 4 }}>
         {formatHourFull(`${data.hour.toString().padStart(2, '0')}:00:00`)}
       </div>
@@ -157,12 +165,16 @@ function VisibilityTooltip({ active, payload }: CustomTooltipProps) {
   );
 }
 
-function HourlyMetricCharts({ hours, dayStats }: HourlyMetricChartsProps) {
+function HourlyMetricCharts({ hours, dayStats, sunrise, sunset }: HourlyMetricChartsProps) {
   const chartData = prepareChartData(hours);
 
   const visibilities = hours.map((h) => h.visibility);
   const minVis = Math.min(...visibilities);
   const maxVis = Math.max(...visibilities);
+
+  // Extract sunrise/sunset hours for vertical reference lines
+  const sunriseHour = sunrise ? parseInt(sunrise.split(':')[0], 10) : null;
+  const sunsetHour = sunset ? parseInt(sunset.split(':')[0], 10) : null;
 
   return (
     <div className='hourly-metric-charts'>
@@ -216,6 +228,34 @@ function HourlyMetricCharts({ hours, dayStats }: HourlyMetricChartsProps) {
                   fontSize: 10,
                 }}
               />
+              {sunriseHour !== null && (
+                <ReferenceLine
+                  x={sunriseHour}
+                  stroke='#ffa726'
+                  strokeWidth={2}
+                  strokeDasharray='5 5'
+                  label={{
+                    value: '☀ Sunrise',
+                    position: 'top',
+                    fill: '#ffa726',
+                    fontSize: 9,
+                  }}
+                />
+              )}
+              {sunsetHour !== null && (
+                <ReferenceLine
+                  x={sunsetHour}
+                  stroke='#7e57c2'
+                  strokeWidth={2}
+                  strokeDasharray='5 5'
+                  label={{
+                    value: '🌙 Sunset',
+                    position: 'top',
+                    fill: '#7e57c2',
+                    fontSize: 9,
+                  }}
+                />
+              )}
             </AreaChart>
           </ResponsiveContainer>
         </div>
@@ -292,6 +332,34 @@ function HourlyMetricCharts({ hours, dayStats }: HourlyMetricChartsProps) {
                   fontSize: 10,
                 }}
               />
+              {sunriseHour !== null && (
+                <ReferenceLine
+                  x={sunriseHour}
+                  stroke='#ffa726'
+                  strokeWidth={2}
+                  strokeDasharray='5 5'
+                  label={{
+                    value: '☀',
+                    position: 'top',
+                    fill: '#ffa726',
+                    fontSize: 9,
+                  }}
+                />
+              )}
+              {sunsetHour !== null && (
+                <ReferenceLine
+                  x={sunsetHour}
+                  stroke='#7e57c2'
+                  strokeWidth={2}
+                  strokeDasharray='5 5'
+                  label={{
+                    value: '🌙',
+                    position: 'top',
+                    fill: '#7e57c2',
+                    fontSize: 9,
+                  }}
+                />
+              )}
             </AreaChart>
           </ResponsiveContainer>
         </div>
@@ -344,6 +412,34 @@ function HourlyMetricCharts({ hours, dayStats }: HourlyMetricChartsProps) {
                   fontSize: 10,
                 }}
               />
+              {sunriseHour !== null && (
+                <ReferenceLine
+                  x={sunriseHour}
+                  stroke='#ffa726'
+                  strokeWidth={2}
+                  strokeDasharray='5 5'
+                  label={{
+                    value: '☀',
+                    position: 'top',
+                    fill: '#ffa726',
+                    fontSize: 9,
+                  }}
+                />
+              )}
+              {sunsetHour !== null && (
+                <ReferenceLine
+                  x={sunsetHour}
+                  stroke='#7e57c2'
+                  strokeWidth={2}
+                  strokeDasharray='5 5'
+                  label={{
+                    value: '🌙',
+                    position: 'top',
+                    fill: '#7e57c2',
+                    fontSize: 9,
+                  }}
+                />
+              )}
             </BarChart>
           </ResponsiveContainer>
         </div>
@@ -407,6 +503,34 @@ function HourlyMetricCharts({ hours, dayStats }: HourlyMetricChartsProps) {
                   fontSize: 10,
                 }}
               />
+              {sunriseHour !== null && (
+                <ReferenceLine
+                  x={sunriseHour}
+                  stroke='#ffa726'
+                  strokeWidth={2}
+                  strokeDasharray='5 5'
+                  label={{
+                    value: '☀',
+                    position: 'top',
+                    fill: '#ffa726',
+                    fontSize: 9,
+                  }}
+                />
+              )}
+              {sunsetHour !== null && (
+                <ReferenceLine
+                  x={sunsetHour}
+                  stroke='#7e57c2'
+                  strokeWidth={2}
+                  strokeDasharray='5 5'
+                  label={{
+                    value: '🌙',
+                    position: 'top',
+                    fill: '#7e57c2',
+                    fontSize: 9,
+                  }}
+                />
+              )}
             </AreaChart>
           </ResponsiveContainer>
         </div>
