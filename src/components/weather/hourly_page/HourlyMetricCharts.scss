@@ -34,10 +34,29 @@
   margin-bottom: 0.75rem;
 }
 
+.metric-hover-display {
+  min-height: 1.5rem;
+  padding: 0.5rem 0;
+  font-size: 0.8rem;
+  color: var(--color-text-primary, #d6d9e3);
+  text-align: center;
+  border-bottom: 1px solid var(--color-border-subtle, rgba(255, 255, 255, 0.08));
+
+  .hover-hint {
+    color: var(--color-text-secondary, #9fa5b8);
+    font-style: italic;
+  }
+
+  strong {
+    color: var(--color-text-primary, #d6d9e3);
+  }
+}
+
 .metric-summary {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  margin-top: 0.5rem;
 }
 
 .metric-range {
@@ -80,6 +99,19 @@
 
   .metric-average {
     color: #1a1a1a;
+  }
+
+  .metric-hover-display {
+    color: #1a1a1a;
+    border-bottom-color: rgba(0, 0, 0, 0.1);
+
+    .hover-hint {
+      color: #666;
+    }
+
+    strong {
+      color: #1a1a1a;
+    }
   }
 
   /* Override Recharts colors in light mode */
