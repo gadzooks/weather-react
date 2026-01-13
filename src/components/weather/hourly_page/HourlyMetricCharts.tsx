@@ -89,7 +89,12 @@ interface HoverCaptureTooltipProps {
   onHover: (data: ChartDataPoint | null) => void;
 }
 
-function HoverCaptureTooltip({ active, payload, currentHour, onHover }: HoverCaptureTooltipProps) {
+function HoverCaptureTooltip({
+  active,
+  payload,
+  currentHour,
+  onHover,
+}: HoverCaptureTooltipProps) {
   const data = active && payload?.[0]?.payload ? payload[0].payload : null;
   const newHour = data?.hour ?? null;
 
@@ -102,7 +107,12 @@ function HoverCaptureTooltip({ active, payload, currentHour, onHover }: HoverCap
   return null;
 }
 
-function HourlyMetricCharts({ hours, dayStats, sunrise, sunset }: HourlyMetricChartsProps) {
+function HourlyMetricCharts({
+  hours,
+  dayStats,
+  sunrise,
+  sunset,
+}: HourlyMetricChartsProps) {
   const chartData = prepareChartData(hours);
 
   // State for tracking hovered data points for each chart
@@ -112,10 +122,22 @@ function HourlyMetricCharts({ hours, dayStats, sunrise, sunset }: HourlyMetricCh
   const [visHover, setVisHover] = useState<ChartDataPoint | null>(null);
 
   // Memoize callbacks to prevent re-renders
-  const handleTempHover = useCallback((data: ChartDataPoint | null) => setTempHover(data), []);
-  const handleWindHover = useCallback((data: ChartDataPoint | null) => setWindHover(data), []);
-  const handlePrecipHover = useCallback((data: ChartDataPoint | null) => setPrecipHover(data), []);
-  const handleVisHover = useCallback((data: ChartDataPoint | null) => setVisHover(data), []);
+  const handleTempHover = useCallback(
+    (data: ChartDataPoint | null) => setTempHover(data),
+    [],
+  );
+  const handleWindHover = useCallback(
+    (data: ChartDataPoint | null) => setWindHover(data),
+    [],
+  );
+  const handlePrecipHover = useCallback(
+    (data: ChartDataPoint | null) => setPrecipHover(data),
+    [],
+  );
+  const handleVisHover = useCallback(
+    (data: ChartDataPoint | null) => setVisHover(data),
+    [],
+  );
 
   const visibilities = hours.map((h) => h.visibility);
   const minVis = Math.min(...visibilities);
@@ -165,7 +187,11 @@ function HourlyMetricCharts({ hours, dayStats, sunrise, sunset }: HourlyMetricCh
                     onHover={handleTempHover}
                   />
                 }
-                cursor={{ stroke: '#d4b87a', strokeWidth: 1, strokeDasharray: '3 3' }}
+                cursor={{
+                  stroke: '#d4b87a',
+                  strokeWidth: 1,
+                  strokeDasharray: '3 3',
+                }}
               />
               <Area
                 type='monotone'
@@ -173,7 +199,12 @@ function HourlyMetricCharts({ hours, dayStats, sunrise, sunset }: HourlyMetricCh
                 stroke='#d4b87a'
                 strokeWidth={2}
                 fill='url(#tempGradient)'
-                activeDot={{ r: 6, stroke: '#d4b87a', strokeWidth: 2, fill: '#1a1f2c' }}
+                activeDot={{
+                  r: 6,
+                  stroke: '#d4b87a',
+                  strokeWidth: 2,
+                  fill: '#1a1f2c',
+                }}
               />
               <ReferenceLine
                 y={32}
@@ -225,7 +256,8 @@ function HourlyMetricCharts({ hours, dayStats, sunrise, sunset }: HourlyMetricCh
         <div className='metric-hover-display'>
           {tempHover ? (
             <span>
-              <strong>{formatHourFull(tempHover.hour)}</strong>: {tempHover.temp}°F (feels {tempHover.feelslike}°F)
+              <strong>{formatHourFull(tempHover.hour)}</strong>:{' '}
+              {tempHover.temp}°F (feels {tempHover.feelslike}°F)
             </span>
           ) : (
             <span className='hover-hint'>Hover for details</span>
@@ -284,7 +316,11 @@ function HourlyMetricCharts({ hours, dayStats, sunrise, sunset }: HourlyMetricCh
                     onHover={handleWindHover}
                   />
                 }
-                cursor={{ stroke: '#81c784', strokeWidth: 1, strokeDasharray: '3 3' }}
+                cursor={{
+                  stroke: '#81c784',
+                  strokeWidth: 1,
+                  strokeDasharray: '3 3',
+                }}
               />
               <Area
                 type='monotone'
@@ -293,7 +329,12 @@ function HourlyMetricCharts({ hours, dayStats, sunrise, sunset }: HourlyMetricCh
                 strokeWidth={1}
                 fill='url(#gustGradient)'
                 strokeDasharray='3 3'
-                activeDot={{ r: 4, stroke: '#ef5350', strokeWidth: 2, fill: '#1a1f2c' }}
+                activeDot={{
+                  r: 4,
+                  stroke: '#ef5350',
+                  strokeWidth: 2,
+                  fill: '#1a1f2c',
+                }}
               />
               <Area
                 type='monotone'
@@ -301,7 +342,12 @@ function HourlyMetricCharts({ hours, dayStats, sunrise, sunset }: HourlyMetricCh
                 stroke='#81c784'
                 strokeWidth={2}
                 fill='url(#windGradient)'
-                activeDot={{ r: 6, stroke: '#81c784', strokeWidth: 2, fill: '#1a1f2c' }}
+                activeDot={{
+                  r: 6,
+                  stroke: '#81c784',
+                  strokeWidth: 2,
+                  fill: '#1a1f2c',
+                }}
               />
               <ReferenceLine
                 y={20}
@@ -353,7 +399,8 @@ function HourlyMetricCharts({ hours, dayStats, sunrise, sunset }: HourlyMetricCh
         <div className='metric-hover-display'>
           {windHover ? (
             <span>
-              <strong>{formatHourFull(windHover.hour)}</strong>: {windHover.windspeed} mph (gusts {windHover.windgust})
+              <strong>{formatHourFull(windHover.hour)}</strong>:{' '}
+              {windHover.windspeed} mph (gusts {windHover.windgust})
             </span>
           ) : (
             <span className='hover-hint'>Hover for details</span>
@@ -408,7 +455,11 @@ function HourlyMetricCharts({ hours, dayStats, sunrise, sunset }: HourlyMetricCh
                 dataKey='precipprob'
                 fill='#64b5f6'
                 radius={[2, 2, 0, 0]}
-                activeBar={{ fill: '#90caf9', stroke: '#64b5f6', strokeWidth: 2 }}
+                activeBar={{
+                  fill: '#90caf9',
+                  stroke: '#64b5f6',
+                  strokeWidth: 2,
+                }}
               />
               <ReferenceLine
                 y={50}
@@ -460,7 +511,8 @@ function HourlyMetricCharts({ hours, dayStats, sunrise, sunset }: HourlyMetricCh
         <div className='metric-hover-display'>
           {precipHover ? (
             <span>
-              <strong>{formatHourFull(precipHover.hour)}</strong>: {precipHover.precipprob}% ({precipHover.precip.toFixed(2)}&quot;)
+              <strong>{formatHourFull(precipHover.hour)}</strong>:{' '}
+              {precipHover.precipprob}% ({precipHover.precip.toFixed(2)}&quot;)
             </span>
           ) : (
             <span className='hover-hint'>Hover for details</span>
@@ -514,7 +566,11 @@ function HourlyMetricCharts({ hours, dayStats, sunrise, sunset }: HourlyMetricCh
                     onHover={handleVisHover}
                   />
                 }
-                cursor={{ stroke: '#9fa5b8', strokeWidth: 1, strokeDasharray: '3 3' }}
+                cursor={{
+                  stroke: '#9fa5b8',
+                  strokeWidth: 1,
+                  strokeDasharray: '3 3',
+                }}
               />
               <Area
                 type='monotone'
@@ -522,7 +578,12 @@ function HourlyMetricCharts({ hours, dayStats, sunrise, sunset }: HourlyMetricCh
                 stroke='#9fa5b8'
                 strokeWidth={2}
                 fill='url(#visGradient)'
-                activeDot={{ r: 6, stroke: '#9fa5b8', strokeWidth: 2, fill: '#1a1f2c' }}
+                activeDot={{
+                  r: 6,
+                  stroke: '#9fa5b8',
+                  strokeWidth: 2,
+                  fill: '#1a1f2c',
+                }}
               />
               <ReferenceLine
                 y={5}
@@ -574,7 +635,9 @@ function HourlyMetricCharts({ hours, dayStats, sunrise, sunset }: HourlyMetricCh
         <div className='metric-hover-display'>
           {visHover ? (
             <span>
-              <strong>{formatHourFull(visHover.hour)}</strong>: {visHover.visibility.toFixed(1)} mi ({visHover.humidity}% humidity)
+              <strong>{formatHourFull(visHover.hour)}</strong>:{' '}
+              {visHover.visibility.toFixed(1)} mi ({visHover.humidity}%
+              humidity)
             </span>
           ) : (
             <span className='hover-hint'>Hover for details</span>

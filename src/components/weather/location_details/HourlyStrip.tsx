@@ -8,7 +8,10 @@ import type {
   ActivityWindow,
   RainWindow,
 } from '../../../interfaces/HourlyForecastInterface';
-import { findBestWindow, findRainWindows } from '../../../interfaces/HourlyForecastInterface';
+import {
+  findBestWindow,
+  findRainWindows,
+} from '../../../interfaces/HourlyForecastInterface';
 import { fetchHourlyForecast } from '../../../api/hourlyForecast';
 import iconClass from '../../../utils/icon';
 
@@ -44,7 +47,9 @@ function HourlyStrip({ locationName, date, onClose }: HourlyStripProps) {
         setRainWindows(findRainWindows(hourlyData));
       } catch (err) {
         console.error('[HourlyStrip] Failed to fetch hourly data:', err);
-        setError(err instanceof Error ? err.message : 'Failed to load hourly data');
+        setError(
+          err instanceof Error ? err.message : 'Failed to load hourly data',
+        );
       } finally {
         setLoading(false);
       }
@@ -109,12 +114,19 @@ function HourlyStrip({ locationName, date, onClose }: HourlyStripProps) {
                 <div className='hour-time'>{formatHour(hour.datetime)}</div>
                 <div className='hour-icon'>
                   <i
-                    className={iconClass(hour.icon, hour.precip, hour.cloudcover, hour.temp)}
+                    className={iconClass(
+                      hour.icon,
+                      hour.precip,
+                      hour.cloudcover,
+                      hour.temp,
+                    )}
                     title={hour.conditions}
                   />
                 </div>
                 <div className='hour-temp'>{Math.round(hour.temp)}°</div>
-                <div className={`hour-precip ${hour.precipprob >= 50 ? 'high' : ''}`}>
+                <div
+                  className={`hour-precip ${hour.precipprob >= 50 ? 'high' : ''}`}
+                >
                   {Math.round(hour.precipprob)}%
                 </div>
               </div>
@@ -126,7 +138,8 @@ function HourlyStrip({ locationName, date, onClose }: HourlyStripProps) {
       <div className='hourly-summary'>
         {rainWindows.length > 0 && (
           <span className='rain-window'>
-            <i className='wi wi-rain' /> Rain: {rainWindows.map((w) => w.label).join(', ')}
+            <i className='wi wi-rain' /> Rain:{' '}
+            {rainWindows.map((w) => w.label).join(', ')}
           </span>
         )}
         {bestWindow && (

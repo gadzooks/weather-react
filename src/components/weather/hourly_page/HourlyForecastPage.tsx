@@ -21,6 +21,7 @@ import { fromSlugById } from '../../../utils/slug';
 import { mergeForecast } from '../../../features/forecast/forecastSlice';
 import fetchWithRetries from '../../../api/retry';
 import type { ForecastResponseStatus } from '../../../interfaces/ForecastResponseInterface';
+import { useSwipeNavigation } from '../../../utils/useSwipeNavigation';
 
 const WEATHER_API = import.meta.env.VITE_WEATHER_API;
 const WEATHER_JWT_TOKEN = import.meta.env.VITE_WEATHER_JWT_TOKEN;
@@ -103,7 +104,7 @@ function calculateDayStats(hours: HourlyForecastInterface[]): DayStats {
 function extractSunTimes(
   hours: HourlyForecastInterface[],
   sunriseTime: string | null,
-  sunsetTime: string | null
+  sunsetTime: string | null,
 ): SunTimes {
   // Find sunrise and sunset times from the day-level data
   let sunriseIndex = -1;
@@ -138,7 +139,7 @@ function getFilteredHours(
   hours: HourlyForecastInterface[],
   sunriseIndex: number,
   sunsetIndex: number,
-  showAll: boolean
+  showAll: boolean,
 ): HourlyForecastInterface[] {
   if (showAll) {
     return hours;
@@ -209,6 +210,31 @@ const iconEmoji: Record<string, string> = {
   wind: '💨',
 };
 
+/**
+ * Get the index of current date in the dates array
+ */
+function getCurrentDateIndex(dates: string[], currentDate: string): number {
+  return dates.findIndex((d) => d === currentDate);
+}
+
+/**
+ * Get previous/next date from dates array
+ */
+function getAdjacentDate(
+  dates: string[],
+  currentDate: string,
+  direction: 'prev' | 'next',
+): string | null {
+  const currentIndex = getCurrentDateIndex(dates, currentDate);
+  if (currentIndex === -1) return null;
+
+  const targetIndex =
+    direction === 'prev' ? currentIndex - 1 : currentIndex + 1;
+  if (targetIndex < 0 || targetIndex >= dates.length) return null;
+
+  return dates[targetIndex];
+}
+
 function HourlyForecastPage() {
   const { locationSlug, date } = useParams<{
     locationSlug: string;
@@ -232,9 +258,41 @@ function HourlyForecastPage() {
   const [isLoadingForecast, setIsLoadingForecast] = useState(false);
 
   // Look up the location from Redux store using the slug
-  const location = locationSlug && appState.forecast?.locations.byId
-    ? fromSlugById(locationSlug, appState.forecast.locations.byId)
-    : undefined;
+  const location =
+    locationSlug && appState.forecast?.locations.byId
+      ? fromSlugById(locationSlug, appState.forecast.locations.byId)
+      : undefined;
+
+  // Date navigation state and swipe handlers
+  const forecastDates = appState.forecast?.dates || [];
+  const currentDateIndex = getCurrentDateIndex(forecastDates, date || '');
+  const prevDate = getAdjacentDate(forecastDates, date || '', 'prev');
+  const nextDate = getAdjacentDate(forecastDates, date || '', 'next');
+  const isFirstDay = currentDateIndex === 0;
+
+  const swipeHandlers = useSwipeNavigation({
+    onSwipeRight: () => {
+      // Swipe right = next day
+      if (isFirstDay && locationSlug) {
+        // Special case: on first day, swipe right goes back to location detail
+        navigate(`/location/${locationSlug}`);
+      } else if (nextDate && locationSlug) {
+        // Normal case: go to next day if available
+        navigate(`/location/${locationSlug}/${nextDate}`);
+      }
+      // If last day (no nextDate), do nothing
+    },
+    onSwipeLeft: () => {
+      // Swipe left = previous day
+      if (prevDate && locationSlug) {
+        // Go to previous day if available
+        navigate(`/location/${locationSlug}/${prevDate}`);
+      }
+      // If first day (no prevDate), do nothing
+    },
+    disabled: refreshing || loading || isLoadingForecast,
+    minSwipeDistance: 75,
+  });
 
   // Memoize computed values
   const dayStats = useMemo(() => calculateDayStats(hours), [hours]);
@@ -242,12 +300,12 @@ function HourlyForecastPage() {
     const times = extractSunTimes(hours, sunrise, sunset);
     return times;
   }, [hours, sunrise, sunset]);
-  
+
   const bestWindow = useMemo<ActivityWindow | null>(
     () => findBestWindow(hours),
     [hours],
   );
-  
+
   const rainWindows = useMemo<RainWindow[]>(
     () => findRainWindows(hours),
     [hours],
@@ -255,8 +313,14 @@ function HourlyForecastPage() {
 
   // Filter hours based on sunrise to sunset window
   const displayedHours = useMemo(
-    () => getFilteredHours(hours, sunTimes.sunriseIndex, sunTimes.sunsetIndex, showFullForecast),
-    [hours, sunTimes.sunriseIndex, sunTimes.sunsetIndex, showFullForecast]
+    () =>
+      getFilteredHours(
+        hours,
+        sunTimes.sunriseIndex,
+        sunTimes.sunsetIndex,
+        showFullForecast,
+      ),
+    [hours, sunTimes.sunriseIndex, sunTimes.sunsetIndex, showFullForecast],
   );
 
   // Determine the most common condition for the day
@@ -289,9 +353,10 @@ function HourlyForecastPage() {
     locationSlug,
   });
 
-  const formattedDate = parsedDate && !isNaN(parsedDate.getTime())
-    ? format(parsedDate, 'dddd, MMMM Do')
-    : date || '';
+  const formattedDate =
+    parsedDate && !isNaN(parsedDate.getTime())
+      ? format(parsedDate, 'dddd, MMMM Do')
+      : date || '';
 
   // Fetch full forecast data if Redux store is empty (e.g., on direct navigation)
   useEffect(() => {
@@ -315,7 +380,9 @@ function HourlyForecastPage() {
         });
 
         if (!response.ok) {
-          throw new Error(`HTTP ${response.status}: Failed to fetch forecast data`);
+          throw new Error(
+            `HTTP ${response.status}: Failed to fetch forecast data`,
+          );
         }
 
         const contentType = response.headers.get('content-type');
@@ -345,7 +412,8 @@ function HourlyForecastPage() {
           mergeForecast({
             isLoaded: true,
             forecast: null,
-            error: err instanceof Error ? err : new Error('Failed to load forecast'),
+            error:
+              err instanceof Error ? err : new Error('Failed to load forecast'),
           }),
         );
       } finally {
@@ -413,7 +481,10 @@ function HourlyForecastPage() {
 
   // Pull-to-refresh handlers
   const handleTouchStart = (e: React.TouchEvent) => {
-    if (window.scrollY === 0) {
+    // Only enable pull-to-refresh when at the top of the page
+    // and not interacting with buttons (which have their own touch handling)
+    const target = e.target as HTMLElement;
+    if (window.scrollY === 0 && !target.closest('button')) {
       setTouchStart(e.touches[0].clientY);
     }
   };
@@ -433,8 +504,9 @@ function HourlyForecastPage() {
     if (pullDistance > 60) {
       await handleRefresh();
     }
-    setTouchStart(0);
-    setPullDistance(0);
+    // Only update state if values are non-zero to avoid unnecessary re-renders
+    if (touchStart !== 0) setTouchStart(0);
+    if (pullDistance !== 0) setPullDistance(0);
   };
 
   const handleBack = () => {
@@ -501,10 +573,19 @@ function HourlyForecastPage() {
 
   return (
     <div
-      className='hourly-forecast-page'
-      onTouchStart={handleTouchStart}
-      onTouchMove={handleTouchMove}
-      onTouchEnd={handleTouchEnd}
+      className={`hourly-forecast-page ${swipeHandlers.isSwipping ? 'swiping' : ''} ${swipeHandlers.swipeDirection ? `swipe-${swipeHandlers.swipeDirection}` : ''}`}
+      onTouchStart={(e) => {
+        handleTouchStart(e);
+        swipeHandlers.onTouchStart(e);
+      }}
+      onTouchMove={(e) => {
+        handleTouchMove(e);
+        swipeHandlers.onTouchMove(e);
+      }}
+      onTouchEnd={(e) => {
+        handleTouchEnd();
+        swipeHandlers.onTouchEnd(e);
+      }}
     >
       {/* Pull-to-refresh indicator */}
       {pullDistance > 0 && (
@@ -512,7 +593,7 @@ function HourlyForecastPage() {
           className='pull-refresh-indicator'
           style={{
             opacity: Math.min(pullDistance / 60, 1),
-            transform: `translateY(${pullDistance}px)`
+            transform: `translateY(${pullDistance}px)`,
           }}
         >
           {pullDistance > 60 ? '↻ Release to refresh' : '↓ Pull to refresh'}
@@ -525,7 +606,9 @@ function HourlyForecastPage() {
           <button type='button' className='back-button' onClick={handleBack}>
             <span className='back-arrow'>&larr;</span>
           </button>
-          <span className='location'>{locationDescription || locationName}</span>
+          <span className='location'>
+            {locationDescription || locationName}
+          </span>
           <div className='header-spacer' />
           <button
             type='button'
@@ -534,7 +617,9 @@ function HourlyForecastPage() {
             disabled={refreshing}
             title='Refresh data'
           >
-            <span className={`refresh-icon ${refreshing ? 'spinning' : ''}`}>↻</span>
+            <span className={`refresh-icon ${refreshing ? 'spinning' : ''}`}>
+              ↻
+            </span>
           </button>
         </div>
         <div className='header-subrow'>
@@ -564,50 +649,134 @@ function HourlyForecastPage() {
         </div>
       </header>
 
+      {/* Day Navigation */}
+      {forecastDates.length > 1 && (
+        <div className='day-navigation'>
+          <button
+            type='button'
+            className='nav-button prev'
+            onClick={() =>
+              prevDate &&
+              locationSlug &&
+              navigate(`/location/${locationSlug}/${prevDate}`)
+            }
+            disabled={!prevDate}
+            aria-label={
+              prevDate
+                ? `Previous day: ${format(new Date(`${prevDate}T12:00:00`), 'ddd MMM Do')}`
+                : 'No previous day'
+            }
+          >
+            {prevDate ? (
+              <>
+                <span className='nav-arrow'>←</span>
+                <span className='nav-label'>
+                  {format(new Date(`${prevDate}T12:00:00`), 'ddd MMM Do')}
+                </span>
+              </>
+            ) : (
+              <span className='nav-disabled'>←</span>
+            )}
+          </button>
+
+          <button
+            type='button'
+            className='nav-button next'
+            onClick={() =>
+              nextDate &&
+              locationSlug &&
+              navigate(`/location/${locationSlug}/${nextDate}`)
+            }
+            disabled={!nextDate}
+            aria-label={
+              nextDate
+                ? `Next day: ${format(new Date(`${nextDate}T12:00:00`), 'ddd MMM Do')}`
+                : 'No next day'
+            }
+          >
+            {nextDate ? (
+              <>
+                <span className='nav-label'>
+                  {format(new Date(`${nextDate}T12:00:00`), 'ddd MMM Do')}
+                </span>
+                <span className='nav-arrow'>→</span>
+              </>
+            ) : (
+              <span className='nav-disabled'>→</span>
+            )}
+          </button>
+        </div>
+      )}
+
       {/* Day Statistics */}
       <div className='day-stats'>
         <div className='stat-card'>
           <div className='stat-label'>Temperature</div>
           <div className='stat-row'>
-            <span className='stat-value'>{Math.round(dayStats.tempMin)}&deg;-{Math.round(dayStats.tempMax)}&deg;</span>
-            <span className='stat-subvalue'>[avg {Math.round(dayStats.avgTemp)}&deg;]</span>
+            <span className='stat-value'>
+              {Math.round(dayStats.tempMin)}&deg;-{Math.round(dayStats.tempMax)}
+              &deg;
+            </span>
+            <span className='stat-subvalue'>
+              [avg {Math.round(dayStats.avgTemp)}&deg;]
+            </span>
           </div>
         </div>
 
         <div className='stat-card'>
           <div className='stat-label'>Precipitation</div>
           <div className='stat-row'>
-            <span className='stat-value'>{dayStats.precipTotal.toFixed(2)}&quot;</span>
-            <span className='stat-subvalue'>[{Math.round(dayStats.maxPrecipProb)}% max]</span>
+            <span className='stat-value'>
+              {dayStats.precipTotal.toFixed(2)}&quot;
+            </span>
+            <span className='stat-subvalue'>
+              [{Math.round(dayStats.maxPrecipProb)}% max]
+            </span>
           </div>
         </div>
 
         <div className='stat-card'>
           <div className='stat-label'>Wind</div>
           <div className='stat-row'>
-            <span className='stat-value'>{Math.round(dayStats.avgWindSpeed)} mph</span>
-            <span className='stat-subvalue'>[gusts {Math.round(dayStats.maxWindGust)}]</span>
+            <span className='stat-value'>
+              {Math.round(dayStats.avgWindSpeed)} mph
+            </span>
+            <span className='stat-subvalue'>
+              [gusts {Math.round(dayStats.maxWindGust)}]
+            </span>
           </div>
         </div>
 
         <div className='stat-card'>
           <div className='stat-label'>Visibility</div>
           <div className='stat-row'>
-            <span className='stat-value'>{dayStats.avgVisibility.toFixed(1)} mi</span>
-            <span className='stat-subvalue'>[{Math.round(dayStats.avgCloudCover)}% cloud cov]</span>
+            <span className='stat-value'>
+              {dayStats.avgVisibility.toFixed(1)} mi
+            </span>
+            <span className='stat-subvalue'>
+              [{Math.round(dayStats.avgCloudCover)}% cloud cov]
+            </span>
           </div>
         </div>
 
         <div
           className='stat-card uv-card'
-          style={{ '--uv-color': getUvColor(dayStats.maxUvIndex) } as React.CSSProperties}
+          style={
+            {
+              '--uv-color': getUvColor(dayStats.maxUvIndex),
+            } as React.CSSProperties
+          }
         >
           <div className='stat-label'>UV Index</div>
           <div className='stat-row'>
             <span className='stat-value'>{dayStats.maxUvIndex}</span>
-            <span className='stat-subvalue uv-level'>{getUvLabel(dayStats.maxUvIndex)}</span>
+            <span className='stat-subvalue uv-level'>
+              {getUvLabel(dayStats.maxUvIndex)}
+            </span>
           </div>
-          <div className='uv-recommendation'>{getUvRecommendation(dayStats.maxUvIndex)}</div>
+          <div className='uv-recommendation'>
+            {getUvRecommendation(dayStats.maxUvIndex)}
+          </div>
         </div>
       </div>
 
@@ -632,7 +801,9 @@ function HourlyForecastPage() {
       <section className='timeline-section'>
         <div className='section-header'>
           <h2 className='section-title'>
-            {showFullForecast ? '24-Hour Forecast' : 'Daylight Window (Sunrise-Sunset)'}
+            {showFullForecast
+              ? '24-Hour Forecast'
+              : 'Daylight Window (Sunrise-Sunset)'}
           </h2>
           <label className='forecast-toggle'>
             <input
@@ -645,7 +816,12 @@ function HourlyForecastPage() {
         </div>
 
         <div className='hourly-timeline'>
-          <div className='timeline-grid' style={{ gridTemplateColumns: `repeat(${displayedHours.length}, 1fr)` }}>
+          <div
+            className='timeline-grid'
+            style={{
+              gridTemplateColumns: `repeat(${displayedHours.length}, 1fr)`,
+            }}
+          >
             {displayedHours.map((hour) => {
               const isRainy = hour.precipprob >= 40;
               const originalIndex = hours.indexOf(hour);
@@ -659,7 +835,7 @@ function HourlyForecastPage() {
                   isSunrise,
                   isSunset,
                   sunriseIndex: sunTimes.sunriseIndex,
-                  sunsetIndex: sunTimes.sunsetIndex
+                  sunsetIndex: sunTimes.sunsetIndex,
                 });
               }
 
@@ -671,13 +847,17 @@ function HourlyForecastPage() {
                   {/* Sun marker */}
                   {(isSunrise || isSunset) && (
                     <div className='sun-marker'>
-                      <i className={`wi ${isSunrise ? 'wi-sunrise' : 'wi-sunset'}`} />
+                      <i
+                        className={`wi ${isSunrise ? 'wi-sunrise' : 'wi-sunset'}`}
+                      />
                       <span>{isSunrise ? 'Sunrise' : 'Sunset'}</span>
                     </div>
                   )}
 
-                  <div className='hour-time'>{formatHourShort(hour.datetime)}</div>
-                  
+                  <div className='hour-time'>
+                    {formatHourShort(hour.datetime)}
+                  </div>
+
                   <div className='hour-icon'>
                     <i
                       className={iconClass(
@@ -700,14 +880,18 @@ function HourlyForecastPage() {
                     {hour.precipprob > 0 && (
                       <div className='metric precip'>
                         <i className='wi wi-raindrop' />
-                        <span className='metric-value'>{Math.round(hour.precipprob)}%</span>
+                        <span className='metric-value'>
+                          {Math.round(hour.precipprob)}%
+                        </span>
                       </div>
                     )}
-                    
+
                     {hour.windspeed > 10 && (
                       <div className='metric wind'>
                         <i className='wi wi-strong-wind' />
-                        <span className='metric-value'>{Math.round(hour.windspeed)} mph</span>
+                        <span className='metric-value'>
+                          {Math.round(hour.windspeed)} mph
+                        </span>
                       </div>
                     )}
 
@@ -726,7 +910,12 @@ function HourlyForecastPage() {
       </section>
 
       {/* Detailed Metric Charts */}
-      <HourlyMetricCharts hours={hours} dayStats={dayStats} sunrise={sunrise} sunset={sunset} />
+      <HourlyMetricCharts
+        hours={hours}
+        dayStats={dayStats}
+        sunrise={sunrise}
+        sunset={sunset}
+      />
     </div>
   );
 }

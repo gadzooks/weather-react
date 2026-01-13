@@ -99,7 +99,9 @@ function Location(props: LocationProps) {
             key={d.datetime}
             className={`weather-cell center ${weekendClassName} ${alertClassName}`}
             onClick={() =>
-              navigate(`/location/${toSlug(location.description)}/${d.datetime}`)
+              navigate(
+                `/location/${toSlug(location.description)}/${d.datetime}`,
+              )
             }
             style={{ cursor: 'pointer' }}
           >

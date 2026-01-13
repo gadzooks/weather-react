@@ -24,12 +24,14 @@ function Region(props: RegionProps) {
   const { search_key: searchKey } = region;
   const { locations } = props;
   const { alertProps, isWeekend, dateSelectedIsWithinForecastRange } = props;
-  const numDateCols = dateSelectedIsWithinForecastRange ? 1 : isWeekend.length;
+  const numDateCols = dateSelectedIsWithinForecastRange
+    ? 0
+    : isWeekend.length - 1;
   return (
     <tbody>
       <tr className='region-details'>
         {alertProps.foundAlerts && <td className='region-alerts-cell' />}
-        <td className='region-name-cell'>
+        <td className='region-name-cell' colSpan={2}>
           <WtaLink wtaRegion={searchKey} className='wta-link' />
           {description}
         </td>

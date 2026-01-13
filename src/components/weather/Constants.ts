@@ -12,6 +12,6 @@ export const THEME_DARK = 'dark';
 
 // Font size constants
 export const LS_FONT_SIZE_KEY = 'fontSizePreference';
-export const FONT_SIZE_MIN = 12;
-export const FONT_SIZE_MAX = 20;
-export const FONT_SIZE_DEFAULT = 14;
+export const FONT_SIZE_MIN = 15;
+export const FONT_SIZE_MAX = 28;
+export const FONT_SIZE_DEFAULT = 18;

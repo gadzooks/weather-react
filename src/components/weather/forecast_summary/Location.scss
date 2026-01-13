@@ -87,7 +87,8 @@
   text-decoration: none;
   transition: transform var(--transition-fast, 150ms);
   display: inline-block;
-  color: #ffc107; // Bright amber/gold - high contrast against dark background
+  // color: #ffc107; // Bright amber/gold - high contrast against dark background
+  color: red;
   text-shadow: 0 0 8px rgba(255, 193, 7, 0.5);
 
   &:hover {

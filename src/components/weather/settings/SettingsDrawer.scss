@@ -8,7 +8,8 @@
   z-index: var(--z-modal, 30);
   opacity: 0;
   visibility: hidden;
-  transition: opacity var(--transition-normal, 250ms ease-out),
+  transition:
+    opacity var(--transition-normal, 250ms ease-out),
     visibility var(--transition-normal, 250ms ease-out);
 
   &.open {
@@ -63,7 +64,8 @@
     align-items: center;
     justify-content: center;
     border-radius: var(--radius-sm, 6px);
-    transition: background var(--transition-fast, 150ms ease-out),
+    transition:
+      background var(--transition-fast, 150ms ease-out),
       color var(--transition-fast, 150ms ease-out);
 
     &:hover {
