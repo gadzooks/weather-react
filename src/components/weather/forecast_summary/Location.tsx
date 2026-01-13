@@ -98,6 +98,10 @@ function Location(props: LocationProps) {
           <td
             key={d.datetime}
             className={`weather-cell center ${weekendClassName} ${alertClassName}`}
+            onClick={() =>
+              navigate(`/location/${toSlug(location.description)}/${d.datetime}`)
+            }
+            style={{ cursor: 'pointer' }}
           >
             <WeatherIcon {...d} />
           </td>
