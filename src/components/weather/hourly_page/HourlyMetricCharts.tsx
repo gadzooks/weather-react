@@ -131,10 +131,10 @@ function HourlyMetricCharts({ hours, dayStats, sunrise, sunset }: HourlyMetricCh
       <div className='metric-card'>
         <div className='metric-card-title'>Temperature Trend</div>
         <div className='metric-chart-container'>
-          <ResponsiveContainer width='100%' height={160}>
+          <ResponsiveContainer width='100%' height={110}>
             <AreaChart
               data={chartData}
-              margin={{ top: 15, right: 10, left: -20, bottom: 0 }}
+              margin={{ top: 18, right: 5, left: -25, bottom: 0 }}
             >
               <defs>
                 <linearGradient id='tempGradient' x1='0' y1='0' x2='0' y2='1'>
@@ -183,7 +183,8 @@ function HourlyMetricCharts({ hours, dayStats, sunrise, sunset }: HourlyMetricCh
                   value: '32°F',
                   position: 'insideBottomLeft',
                   fill: '#7ba9d6',
-                  fontSize: 10,
+                  fontSize: 11,
+                  fontWeight: 600,
                 }}
               />
               {sunriseHour !== null && (
@@ -196,7 +197,9 @@ function HourlyMetricCharts({ hours, dayStats, sunrise, sunset }: HourlyMetricCh
                     value: '☀ Sunrise',
                     position: 'top',
                     fill: '#ffa726',
-                    fontSize: 11,
+                    fontSize: 9,
+                    fontWeight: 600,
+                    offset: 12,
                   }}
                 />
               )}
@@ -210,7 +213,9 @@ function HourlyMetricCharts({ hours, dayStats, sunrise, sunset }: HourlyMetricCh
                     value: '🌙 Sunset',
                     position: 'top',
                     fill: '#7e57c2',
-                    fontSize: 11,
+                    fontSize: 9,
+                    fontWeight: 600,
+                    offset: 12,
                   }}
                 />
               )}
@@ -223,7 +228,7 @@ function HourlyMetricCharts({ hours, dayStats, sunrise, sunset }: HourlyMetricCh
               <strong>{formatHourFull(tempHover.hour)}</strong>: {tempHover.temp}°F (feels {tempHover.feelslike}°F)
             </span>
           ) : (
-            <span className='hover-hint'>Hover over chart for details</span>
+            <span className='hover-hint'>Hover for details</span>
           )}
         </div>
         <div className='metric-summary'>
@@ -241,10 +246,10 @@ function HourlyMetricCharts({ hours, dayStats, sunrise, sunset }: HourlyMetricCh
       <div className='metric-card'>
         <div className='metric-card-title'>Wind Speed</div>
         <div className='metric-chart-container'>
-          <ResponsiveContainer width='100%' height={160}>
+          <ResponsiveContainer width='100%' height={110}>
             <AreaChart
               data={chartData}
-              margin={{ top: 15, right: 10, left: -20, bottom: 0 }}
+              margin={{ top: 18, right: 5, left: -25, bottom: 0 }}
             >
               <defs>
                 <linearGradient id='windGradient' x1='0' y1='0' x2='0' y2='1'>
@@ -306,7 +311,8 @@ function HourlyMetricCharts({ hours, dayStats, sunrise, sunset }: HourlyMetricCh
                   value: '20 mph',
                   position: 'insideTopRight',
                   fill: '#ffca28',
-                  fontSize: 10,
+                  fontSize: 11,
+                  fontWeight: 600,
                 }}
               />
               {sunriseHour !== null && (
@@ -319,7 +325,9 @@ function HourlyMetricCharts({ hours, dayStats, sunrise, sunset }: HourlyMetricCh
                     value: '☀ Sunrise',
                     position: 'top',
                     fill: '#ffa726',
-                    fontSize: 11,
+                    fontSize: 9,
+                    fontWeight: 600,
+                    offset: 12,
                   }}
                 />
               )}
@@ -333,7 +341,9 @@ function HourlyMetricCharts({ hours, dayStats, sunrise, sunset }: HourlyMetricCh
                     value: '🌙 Sunset',
                     position: 'top',
                     fill: '#7e57c2',
-                    fontSize: 11,
+                    fontSize: 9,
+                    fontWeight: 600,
+                    offset: 12,
                   }}
                 />
               )}
@@ -343,10 +353,10 @@ function HourlyMetricCharts({ hours, dayStats, sunrise, sunset }: HourlyMetricCh
         <div className='metric-hover-display'>
           {windHover ? (
             <span>
-              <strong>{formatHourFull(windHover.hour)}</strong>: {windHover.windspeed} mph (gusts {windHover.windgust} mph)
+              <strong>{formatHourFull(windHover.hour)}</strong>: {windHover.windspeed} mph (gusts {windHover.windgust})
             </span>
           ) : (
-            <span className='hover-hint'>Hover over chart for details</span>
+            <span className='hover-hint'>Hover for details</span>
           )}
         </div>
         <div className='metric-summary'>
@@ -363,10 +373,10 @@ function HourlyMetricCharts({ hours, dayStats, sunrise, sunset }: HourlyMetricCh
       <div className='metric-card'>
         <div className='metric-card-title'>Precipitation Probability</div>
         <div className='metric-chart-container'>
-          <ResponsiveContainer width='100%' height={160}>
+          <ResponsiveContainer width='100%' height={110}>
             <BarChart
               data={chartData}
-              margin={{ top: 15, right: 10, left: -20, bottom: 0 }}
+              margin={{ top: 18, right: 5, left: -25, bottom: 0 }}
             >
               <CartesianGrid
                 strokeDasharray='3 3'
@@ -408,7 +418,8 @@ function HourlyMetricCharts({ hours, dayStats, sunrise, sunset }: HourlyMetricCh
                   value: '50%',
                   position: 'insideTopRight',
                   fill: '#ffca28',
-                  fontSize: 10,
+                  fontSize: 11,
+                  fontWeight: 600,
                 }}
               />
               {sunriseHour !== null && (
@@ -421,7 +432,9 @@ function HourlyMetricCharts({ hours, dayStats, sunrise, sunset }: HourlyMetricCh
                     value: '☀ Sunrise',
                     position: 'top',
                     fill: '#ffa726',
-                    fontSize: 11,
+                    fontSize: 9,
+                    fontWeight: 600,
+                    offset: 12,
                   }}
                 />
               )}
@@ -435,7 +448,9 @@ function HourlyMetricCharts({ hours, dayStats, sunrise, sunset }: HourlyMetricCh
                     value: '🌙 Sunset',
                     position: 'top',
                     fill: '#7e57c2',
-                    fontSize: 11,
+                    fontSize: 9,
+                    fontWeight: 600,
+                    offset: 12,
                   }}
                 />
               )}
@@ -445,10 +460,10 @@ function HourlyMetricCharts({ hours, dayStats, sunrise, sunset }: HourlyMetricCh
         <div className='metric-hover-display'>
           {precipHover ? (
             <span>
-              <strong>{formatHourFull(precipHover.hour)}</strong>: {precipHover.precipprob}% chance ({precipHover.precip.toFixed(2)}&quot;)
+              <strong>{formatHourFull(precipHover.hour)}</strong>: {precipHover.precipprob}% ({precipHover.precip.toFixed(2)}&quot;)
             </span>
           ) : (
-            <span className='hover-hint'>Hover over chart for details</span>
+            <span className='hover-hint'>Hover for details</span>
           )}
         </div>
         <div className='metric-summary'>
@@ -465,10 +480,10 @@ function HourlyMetricCharts({ hours, dayStats, sunrise, sunset }: HourlyMetricCh
       <div className='metric-card'>
         <div className='metric-card-title'>Visibility</div>
         <div className='metric-chart-container'>
-          <ResponsiveContainer width='100%' height={160}>
+          <ResponsiveContainer width='100%' height={110}>
             <AreaChart
               data={chartData}
-              margin={{ top: 15, right: 10, left: -20, bottom: 0 }}
+              margin={{ top: 18, right: 5, left: -25, bottom: 0 }}
             >
               <defs>
                 <linearGradient id='visGradient' x1='0' y1='0' x2='0' y2='1'>
@@ -517,7 +532,8 @@ function HourlyMetricCharts({ hours, dayStats, sunrise, sunset }: HourlyMetricCh
                   value: '5 mi',
                   position: 'insideBottomLeft',
                   fill: '#ef5350',
-                  fontSize: 10,
+                  fontSize: 11,
+                  fontWeight: 600,
                 }}
               />
               {sunriseHour !== null && (
@@ -530,7 +546,9 @@ function HourlyMetricCharts({ hours, dayStats, sunrise, sunset }: HourlyMetricCh
                     value: '☀ Sunrise',
                     position: 'top',
                     fill: '#ffa726',
-                    fontSize: 11,
+                    fontSize: 9,
+                    fontWeight: 600,
+                    offset: 12,
                   }}
                 />
               )}
@@ -544,7 +562,9 @@ function HourlyMetricCharts({ hours, dayStats, sunrise, sunset }: HourlyMetricCh
                     value: '🌙 Sunset',
                     position: 'top',
                     fill: '#7e57c2',
-                    fontSize: 11,
+                    fontSize: 9,
+                    fontWeight: 600,
+                    offset: 12,
                   }}
                 />
               )}
@@ -557,7 +577,7 @@ function HourlyMetricCharts({ hours, dayStats, sunrise, sunset }: HourlyMetricCh
               <strong>{formatHourFull(visHover.hour)}</strong>: {visHover.visibility.toFixed(1)} mi ({visHover.humidity}% humidity)
             </span>
           ) : (
-            <span className='hover-hint'>Hover over chart for details</span>
+            <span className='hover-hint'>Hover for details</span>
           )}
         </div>
         <div className='metric-summary'>

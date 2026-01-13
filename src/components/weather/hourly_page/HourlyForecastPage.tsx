@@ -180,14 +180,6 @@ function getUvLabel(uvIndex: number): string {
   return 'Extreme';
 }
 
-function getUvRecommendation(uvIndex: number): string {
-  if (uvIndex <= 2) return 'Basic sun protection (SPF 15+)';
-  if (uvIndex <= 5) return 'Wear hat & shade • SPF 30+';
-  if (uvIndex <= 7) return 'SPF 30+ & cover up • Seek shade';
-  if (uvIndex <= 10) return 'SPF 50+ & protective clothing';
-  return 'Minimize exposure • SPF 50+';
-}
-
 function getUvColor(uvIndex: number): string {
   if (uvIndex <= 2) return '#4caf50';
   if (uvIndex <= 5) return '#ffeb3b';
@@ -519,13 +511,14 @@ function HourlyForecastPage() {
         </div>
       )}
 
-      {/* Header */}
+      {/* Header - Compact layout */}
       <header className='header'>
-        <div className='header-actions'>
+        <div className='header-row'>
           <button type='button' className='back-button' onClick={handleBack}>
             <span className='back-arrow'>&larr;</span>
-            <span className='back-text'>Back</span>
           </button>
+          <span className='location'>{locationDescription || locationName}</span>
+          <div className='header-spacer' />
           <button
             type='button'
             className='refresh-button'
@@ -536,83 +529,76 @@ function HourlyForecastPage() {
             <span className={`refresh-icon ${refreshing ? 'spinning' : ''}`}>↻</span>
           </button>
         </div>
-        <div className='location'>{locationDescription || locationName}</div>
-        <h1 className='date-title'>{formattedDate}</h1>
-        <div className='conditions-summary'>
-          <span className='conditions-icon'>
-            {iconEmoji[predominantCondition.icon] || '☁️'}
+        <div className='header-subrow'>
+          <span className='date-title'>{formattedDate}</span>
+          {(sunTimes.sunrise || sunTimes.sunset) && (
+            <span className='sun-compact'>
+              {sunTimes.sunrise && (
+                <span className='sun-item sunrise'>
+                  <i className='wi wi-sunrise' />
+                  {formatTime(sunTimes.sunrise)}
+                </span>
+              )}
+              {sunTimes.sunset && (
+                <span className='sun-item sunset'>
+                  <i className='wi wi-sunset' />
+                  {formatTime(sunTimes.sunset)}
+                </span>
+              )}
+            </span>
+          )}
+          <span className='conditions-summary'>
+            <span className='conditions-icon'>
+              {iconEmoji[predominantCondition.icon] || '☁️'}
+            </span>
+            <span>{predominantCondition.conditions}</span>
           </span>
-          <span>{predominantCondition.conditions}</span>
         </div>
-
-        {/* Sunrise/Sunset Info */}
-        {(sunTimes.sunrise || sunTimes.sunset) && (
-          <div className='sun-times'>
-            {sunTimes.sunrise && (
-              <div className='sun-time sunrise'>
-                <i className='wi wi-sunrise' />
-                <span className='sun-label'>Sunrise</span>
-                <span className='sun-value'>{formatTime(sunTimes.sunrise)}</span>
-              </div>
-            )}
-            {sunTimes.sunset && (
-              <div className='sun-time sunset'>
-                <i className='wi wi-sunset' />
-                <span className='sun-label'>Sunset</span>
-                <span className='sun-value'>{formatTime(sunTimes.sunset)}</span>
-              </div>
-            )}
-          </div>
-        )}
       </header>
 
       {/* Day Statistics */}
       <div className='day-stats'>
         <div className='stat-card'>
           <div className='stat-label'>Temperature</div>
-          <div className='stat-value'>
-            {Math.round(dayStats.tempMin)}&deg; - {Math.round(dayStats.tempMax)}
-            &deg;
+          <div className='stat-row'>
+            <span className='stat-value'>{Math.round(dayStats.tempMin)}&deg;-{Math.round(dayStats.tempMax)}&deg;</span>
+            <span className='stat-subvalue'>avg {Math.round(dayStats.avgTemp)}&deg;</span>
           </div>
-          <div className='stat-subvalue'>Avg {Math.round(dayStats.avgTemp)}&deg;</div>
         </div>
 
         <div className='stat-card'>
           <div className='stat-label'>Precipitation</div>
-          <div className='stat-value'>{dayStats.precipTotal.toFixed(2)}&quot;</div>
-          <div className='stat-subvalue'>
-            {Math.round(dayStats.maxPrecipProb)}% max chance
+          <div className='stat-row'>
+            <span className='stat-value'>{dayStats.precipTotal.toFixed(2)}&quot;</span>
+            <span className='stat-subvalue'>{Math.round(dayStats.maxPrecipProb)}% max</span>
           </div>
         </div>
 
         <div className='stat-card'>
           <div className='stat-label'>Wind</div>
-          <div className='stat-value'>
-            {Math.round(dayStats.avgWindSpeed)} mph
-          </div>
-          <div className='stat-subvalue'>
-            Gusts to {Math.round(dayStats.maxWindGust)} mph
+          <div className='stat-row'>
+            <span className='stat-value'>{Math.round(dayStats.avgWindSpeed)} mph</span>
+            <span className='stat-subvalue'>gusts {Math.round(dayStats.maxWindGust)}</span>
           </div>
         </div>
 
         <div className='stat-card'>
           <div className='stat-label'>Visibility</div>
-          <div className='stat-value'>
-            {dayStats.avgVisibility.toFixed(1)} mi
-          </div>
-          <div className='stat-subvalue'>
-            {Math.round(dayStats.avgCloudCover)}% clouds
+          <div className='stat-row'>
+            <span className='stat-value'>{dayStats.avgVisibility.toFixed(1)} mi</span>
+            <span className='stat-subvalue'>{Math.round(dayStats.avgCloudCover)}% clouds</span>
           </div>
         </div>
 
-        <div 
-          className='stat-card uv-card' 
+        <div
+          className='stat-card uv-card'
           style={{ '--uv-color': getUvColor(dayStats.maxUvIndex) } as React.CSSProperties}
         >
           <div className='stat-label'>UV Index</div>
-          <div className='stat-value'>{dayStats.maxUvIndex}</div>
-          <div className='stat-subvalue uv-level'>{getUvLabel(dayStats.maxUvIndex)}</div>
-          <div className='stat-recommendation'>{getUvRecommendation(dayStats.maxUvIndex)}</div>
+          <div className='stat-row'>
+            <span className='stat-value'>{dayStats.maxUvIndex}</span>
+            <span className='stat-subvalue uv-level'>{getUvLabel(dayStats.maxUvIndex)}</span>
+          </div>
         </div>
       </div>
 
