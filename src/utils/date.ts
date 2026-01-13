@@ -35,7 +35,7 @@ export function dateDifferenceInDays(epochSeconds: number) {
   const today = new Date();
 
   const diff = (date.getTime() - today.getTime()) / (1000 * 3600 * 24);
-  return Math.floor(diff + 1);
+  return Math.floor(diff);
 }
 
 export function nth(d: number) {
