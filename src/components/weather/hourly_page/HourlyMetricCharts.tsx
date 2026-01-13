@@ -1,6 +1,7 @@
 // HourlyMetricCharts.tsx
 // Recharts-based metric visualizations for the hourly forecast page
 
+import { useState, useCallback } from 'react';
 import {
   AreaChart,
   Area,
@@ -33,6 +34,8 @@ interface DayStats {
 interface HourlyMetricChartsProps {
   hours: HourlyForecastInterface[];
   dayStats: DayStats;
+  sunrise?: string | null;
+  sunset?: string | null;
 }
 
 function formatHour(datetime: string): string {
@@ -44,8 +47,7 @@ function formatHour(datetime: string): string {
   return '';
 }
 
-function formatHourFull(datetime: string): string {
-  const hour = parseInt(datetime.split(':')[0], 10);
+function formatHourFull(hour: number): string {
   if (hour === 0) return '12 AM';
   if (hour === 12) return '12 PM';
   return hour < 12 ? `${hour} AM` : `${hour - 12} PM`;
@@ -79,90 +81,49 @@ function prepareChartData(hours: HourlyForecastInterface[]): ChartDataPoint[] {
   }));
 }
 
-// Custom tooltip styles
-const tooltipStyle = {
-  backgroundColor: 'var(--color-bg-surface, #2a2f3a)',
-  border: '1px solid var(--color-border-subtle, rgba(255, 255, 255, 0.1))',
-  borderRadius: '8px',
-  padding: '10px 12px',
-  fontSize: '0.8rem',
-  color: 'var(--color-text-primary, #d6d9e3)',
-};
-
-interface CustomTooltipProps {
+// Custom tooltip that captures hover data - simpler approach without useEffect
+interface HoverCaptureTooltipProps {
   active?: boolean;
-  payload?: Array<{
-    name: string;
-    value: number;
-    color: string;
-    dataKey: string;
-    payload: ChartDataPoint;
-  }>;
-  label?: string;
+  payload?: Array<{ payload: ChartDataPoint }>;
+  currentHour: number | null;
+  onHover: (data: ChartDataPoint | null) => void;
 }
 
-function TempTooltip({ active, payload }: CustomTooltipProps) {
-  if (!active || !payload?.length) return null;
-  const { payload: data } = payload[0];
-  return (
-    <div style={tooltipStyle}>
-      <div style={{ fontWeight: 600, marginBottom: 4 }}>
-        {formatHourFull(`${data.hour.toString().padStart(2, '0')}:00:00`)}
-      </div>
-      <div>Temperature: {data.temp}&deg;F</div>
-      <div>Feels like: {data.feelslike}&deg;F</div>
-    </div>
-  );
+function HoverCaptureTooltip({ active, payload, currentHour, onHover }: HoverCaptureTooltipProps) {
+  const data = active && payload?.[0]?.payload ? payload[0].payload : null;
+  const newHour = data?.hour ?? null;
+
+  // Only update if the hour changed to prevent infinite loops
+  if (newHour !== currentHour) {
+    // Use setTimeout to avoid calling setState during render
+    setTimeout(() => onHover(data), 0);
+  }
+
+  return null;
 }
 
-function WindTooltip({ active, payload }: CustomTooltipProps) {
-  if (!active || !payload?.length) return null;
-  const { payload: data } = payload[0];
-  return (
-    <div style={tooltipStyle}>
-      <div style={{ fontWeight: 600, marginBottom: 4 }}>
-        {formatHourFull(`${data.hour.toString().padStart(2, '0')}:00:00`)}
-      </div>
-      <div>Wind: {data.windspeed} mph</div>
-      <div>Gusts: {data.windgust} mph</div>
-    </div>
-  );
-}
-
-function PrecipTooltip({ active, payload }: CustomTooltipProps) {
-  if (!active || !payload?.length) return null;
-  const { payload: data } = payload[0];
-  return (
-    <div style={tooltipStyle}>
-      <div style={{ fontWeight: 600, marginBottom: 4 }}>
-        {formatHourFull(`${data.hour.toString().padStart(2, '0')}:00:00`)}
-      </div>
-      <div>Probability: {data.precipprob}%</div>
-      <div>Amount: {data.precip.toFixed(2)}&quot;</div>
-    </div>
-  );
-}
-
-function VisibilityTooltip({ active, payload }: CustomTooltipProps) {
-  if (!active || !payload?.length) return null;
-  const { payload: data } = payload[0];
-  return (
-    <div style={tooltipStyle}>
-      <div style={{ fontWeight: 600, marginBottom: 4 }}>
-        {formatHourFull(`${data.hour.toString().padStart(2, '0')}:00:00`)}
-      </div>
-      <div>Visibility: {data.visibility.toFixed(1)} mi</div>
-      <div>Humidity: {data.humidity}%</div>
-    </div>
-  );
-}
-
-function HourlyMetricCharts({ hours, dayStats }: HourlyMetricChartsProps) {
+function HourlyMetricCharts({ hours, dayStats, sunrise, sunset }: HourlyMetricChartsProps) {
   const chartData = prepareChartData(hours);
+
+  // State for tracking hovered data points for each chart
+  const [tempHover, setTempHover] = useState<ChartDataPoint | null>(null);
+  const [windHover, setWindHover] = useState<ChartDataPoint | null>(null);
+  const [precipHover, setPrecipHover] = useState<ChartDataPoint | null>(null);
+  const [visHover, setVisHover] = useState<ChartDataPoint | null>(null);
+
+  // Memoize callbacks to prevent re-renders
+  const handleTempHover = useCallback((data: ChartDataPoint | null) => setTempHover(data), []);
+  const handleWindHover = useCallback((data: ChartDataPoint | null) => setWindHover(data), []);
+  const handlePrecipHover = useCallback((data: ChartDataPoint | null) => setPrecipHover(data), []);
+  const handleVisHover = useCallback((data: ChartDataPoint | null) => setVisHover(data), []);
 
   const visibilities = hours.map((h) => h.visibility);
   const minVis = Math.min(...visibilities);
   const maxVis = Math.max(...visibilities);
+
+  // Extract sunrise/sunset hours for vertical reference lines
+  const sunriseHour = sunrise ? parseInt(sunrise.split(':')[0], 10) : null;
+  const sunsetHour = sunset ? parseInt(sunset.split(':')[0], 10) : null;
 
   return (
     <div className='hourly-metric-charts'>
@@ -170,10 +131,10 @@ function HourlyMetricCharts({ hours, dayStats }: HourlyMetricChartsProps) {
       <div className='metric-card'>
         <div className='metric-card-title'>Temperature Trend</div>
         <div className='metric-chart-container'>
-          <ResponsiveContainer width='100%' height={120}>
+          <ResponsiveContainer width='100%' height={110}>
             <AreaChart
               data={chartData}
-              margin={{ top: 10, right: 10, left: -20, bottom: 0 }}
+              margin={{ top: 18, right: 5, left: -25, bottom: 0 }}
             >
               <defs>
                 <linearGradient id='tempGradient' x1='0' y1='0' x2='0' y2='1'>
@@ -197,13 +158,22 @@ function HourlyMetricCharts({ hours, dayStats }: HourlyMetricChartsProps) {
                 tickLine={false}
                 domain={['dataMin - 5', 'dataMax + 5']}
               />
-              <Tooltip content={<TempTooltip />} />
+              <Tooltip
+                content={
+                  <HoverCaptureTooltip
+                    currentHour={tempHover?.hour ?? null}
+                    onHover={handleTempHover}
+                  />
+                }
+                cursor={{ stroke: '#d4b87a', strokeWidth: 1, strokeDasharray: '3 3' }}
+              />
               <Area
                 type='monotone'
                 dataKey='temp'
                 stroke='#d4b87a'
                 strokeWidth={2}
                 fill='url(#tempGradient)'
+                activeDot={{ r: 6, stroke: '#d4b87a', strokeWidth: 2, fill: '#1a1f2c' }}
               />
               <ReferenceLine
                 y={32}
@@ -213,11 +183,53 @@ function HourlyMetricCharts({ hours, dayStats }: HourlyMetricChartsProps) {
                   value: '32°F',
                   position: 'insideBottomLeft',
                   fill: '#7ba9d6',
-                  fontSize: 10,
+                  fontSize: 11,
+                  fontWeight: 600,
                 }}
               />
+              {sunriseHour !== null && (
+                <ReferenceLine
+                  x={sunriseHour}
+                  stroke='#ffa726'
+                  strokeWidth={2}
+                  strokeDasharray='5 5'
+                  label={{
+                    value: '☀ Sunrise',
+                    position: 'top',
+                    fill: '#ffa726',
+                    fontSize: 9,
+                    fontWeight: 600,
+                    offset: 12,
+                  }}
+                />
+              )}
+              {sunsetHour !== null && (
+                <ReferenceLine
+                  x={sunsetHour}
+                  stroke='#7e57c2'
+                  strokeWidth={2}
+                  strokeDasharray='5 5'
+                  label={{
+                    value: '🌙 Sunset',
+                    position: 'top',
+                    fill: '#7e57c2',
+                    fontSize: 9,
+                    fontWeight: 600,
+                    offset: 12,
+                  }}
+                />
+              )}
             </AreaChart>
           </ResponsiveContainer>
+        </div>
+        <div className='metric-hover-display'>
+          {tempHover ? (
+            <span>
+              <strong>{formatHourFull(tempHover.hour)}</strong>: {tempHover.temp}°F (feels {tempHover.feelslike}°F)
+            </span>
+          ) : (
+            <span className='hover-hint'>Hover for details</span>
+          )}
         </div>
         <div className='metric-summary'>
           <span className='metric-range'>
@@ -225,7 +237,7 @@ function HourlyMetricCharts({ hours, dayStats }: HourlyMetricChartsProps) {
             {Math.round(dayStats.tempMax)}&deg;
           </span>
           <span className='metric-average'>
-            {Math.round(dayStats.avgTemp)}&deg;
+            Avg: {Math.round(dayStats.avgTemp)}&deg;
           </span>
         </div>
       </div>
@@ -234,10 +246,10 @@ function HourlyMetricCharts({ hours, dayStats }: HourlyMetricChartsProps) {
       <div className='metric-card'>
         <div className='metric-card-title'>Wind Speed</div>
         <div className='metric-chart-container'>
-          <ResponsiveContainer width='100%' height={120}>
+          <ResponsiveContainer width='100%' height={110}>
             <AreaChart
               data={chartData}
-              margin={{ top: 10, right: 10, left: -20, bottom: 0 }}
+              margin={{ top: 18, right: 5, left: -25, bottom: 0 }}
             >
               <defs>
                 <linearGradient id='windGradient' x1='0' y1='0' x2='0' y2='1'>
@@ -265,7 +277,15 @@ function HourlyMetricCharts({ hours, dayStats }: HourlyMetricChartsProps) {
                 tickLine={false}
                 domain={[0, 'dataMax + 10']}
               />
-              <Tooltip content={<WindTooltip />} />
+              <Tooltip
+                content={
+                  <HoverCaptureTooltip
+                    currentHour={windHover?.hour ?? null}
+                    onHover={handleWindHover}
+                  />
+                }
+                cursor={{ stroke: '#81c784', strokeWidth: 1, strokeDasharray: '3 3' }}
+              />
               <Area
                 type='monotone'
                 dataKey='windgust'
@@ -273,6 +293,7 @@ function HourlyMetricCharts({ hours, dayStats }: HourlyMetricChartsProps) {
                 strokeWidth={1}
                 fill='url(#gustGradient)'
                 strokeDasharray='3 3'
+                activeDot={{ r: 4, stroke: '#ef5350', strokeWidth: 2, fill: '#1a1f2c' }}
               />
               <Area
                 type='monotone'
@@ -280,6 +301,7 @@ function HourlyMetricCharts({ hours, dayStats }: HourlyMetricChartsProps) {
                 stroke='#81c784'
                 strokeWidth={2}
                 fill='url(#windGradient)'
+                activeDot={{ r: 6, stroke: '#81c784', strokeWidth: 2, fill: '#1a1f2c' }}
               />
               <ReferenceLine
                 y={20}
@@ -289,18 +311,60 @@ function HourlyMetricCharts({ hours, dayStats }: HourlyMetricChartsProps) {
                   value: '20 mph',
                   position: 'insideTopRight',
                   fill: '#ffca28',
-                  fontSize: 10,
+                  fontSize: 11,
+                  fontWeight: 600,
                 }}
               />
+              {sunriseHour !== null && (
+                <ReferenceLine
+                  x={sunriseHour}
+                  stroke='#ffa726'
+                  strokeWidth={2}
+                  strokeDasharray='5 5'
+                  label={{
+                    value: '☀ Sunrise',
+                    position: 'top',
+                    fill: '#ffa726',
+                    fontSize: 9,
+                    fontWeight: 600,
+                    offset: 12,
+                  }}
+                />
+              )}
+              {sunsetHour !== null && (
+                <ReferenceLine
+                  x={sunsetHour}
+                  stroke='#7e57c2'
+                  strokeWidth={2}
+                  strokeDasharray='5 5'
+                  label={{
+                    value: '🌙 Sunset',
+                    position: 'top',
+                    fill: '#7e57c2',
+                    fontSize: 9,
+                    fontWeight: 600,
+                    offset: 12,
+                  }}
+                />
+              )}
             </AreaChart>
           </ResponsiveContainer>
+        </div>
+        <div className='metric-hover-display'>
+          {windHover ? (
+            <span>
+              <strong>{formatHourFull(windHover.hour)}</strong>: {windHover.windspeed} mph (gusts {windHover.windgust})
+            </span>
+          ) : (
+            <span className='hover-hint'>Hover for details</span>
+          )}
         </div>
         <div className='metric-summary'>
           <span className='metric-range'>
             Max gust: {Math.round(dayStats.maxWindGust)} mph
           </span>
           <span className='metric-average'>
-            {Math.round(dayStats.avgWindSpeed)} mph
+            Avg: {Math.round(dayStats.avgWindSpeed)} mph
           </span>
         </div>
       </div>
@@ -309,10 +373,10 @@ function HourlyMetricCharts({ hours, dayStats }: HourlyMetricChartsProps) {
       <div className='metric-card'>
         <div className='metric-card-title'>Precipitation Probability</div>
         <div className='metric-chart-container'>
-          <ResponsiveContainer width='100%' height={120}>
+          <ResponsiveContainer width='100%' height={110}>
             <BarChart
               data={chartData}
-              margin={{ top: 10, right: 10, left: -20, bottom: 0 }}
+              margin={{ top: 18, right: 5, left: -25, bottom: 0 }}
             >
               <CartesianGrid
                 strokeDasharray='3 3'
@@ -331,8 +395,21 @@ function HourlyMetricCharts({ hours, dayStats }: HourlyMetricChartsProps) {
                 domain={[0, 100]}
                 ticks={[0, 25, 50, 75, 100]}
               />
-              <Tooltip content={<PrecipTooltip />} />
-              <Bar dataKey='precipprob' fill='#64b5f6' radius={[2, 2, 0, 0]} />
+              <Tooltip
+                content={
+                  <HoverCaptureTooltip
+                    currentHour={precipHover?.hour ?? null}
+                    onHover={handlePrecipHover}
+                  />
+                }
+                cursor={{ fill: 'rgba(100, 181, 246, 0.2)' }}
+              />
+              <Bar
+                dataKey='precipprob'
+                fill='#64b5f6'
+                radius={[2, 2, 0, 0]}
+                activeBar={{ fill: '#90caf9', stroke: '#64b5f6', strokeWidth: 2 }}
+              />
               <ReferenceLine
                 y={50}
                 stroke='#ffca28'
@@ -341,18 +418,60 @@ function HourlyMetricCharts({ hours, dayStats }: HourlyMetricChartsProps) {
                   value: '50%',
                   position: 'insideTopRight',
                   fill: '#ffca28',
-                  fontSize: 10,
+                  fontSize: 11,
+                  fontWeight: 600,
                 }}
               />
+              {sunriseHour !== null && (
+                <ReferenceLine
+                  x={sunriseHour}
+                  stroke='#ffa726'
+                  strokeWidth={2}
+                  strokeDasharray='5 5'
+                  label={{
+                    value: '☀ Sunrise',
+                    position: 'top',
+                    fill: '#ffa726',
+                    fontSize: 9,
+                    fontWeight: 600,
+                    offset: 12,
+                  }}
+                />
+              )}
+              {sunsetHour !== null && (
+                <ReferenceLine
+                  x={sunsetHour}
+                  stroke='#7e57c2'
+                  strokeWidth={2}
+                  strokeDasharray='5 5'
+                  label={{
+                    value: '🌙 Sunset',
+                    position: 'top',
+                    fill: '#7e57c2',
+                    fontSize: 9,
+                    fontWeight: 600,
+                    offset: 12,
+                  }}
+                />
+              )}
             </BarChart>
           </ResponsiveContainer>
+        </div>
+        <div className='metric-hover-display'>
+          {precipHover ? (
+            <span>
+              <strong>{formatHourFull(precipHover.hour)}</strong>: {precipHover.precipprob}% ({precipHover.precip.toFixed(2)}&quot;)
+            </span>
+          ) : (
+            <span className='hover-hint'>Hover for details</span>
+          )}
         </div>
         <div className='metric-summary'>
           <span className='metric-range'>
             Total: {dayStats.precipTotal.toFixed(2)}&quot;
           </span>
           <span className='metric-average'>
-            {Math.round(dayStats.maxPrecipProb)}% max
+            Max: {Math.round(dayStats.maxPrecipProb)}% max
           </span>
         </div>
       </div>
@@ -361,10 +480,10 @@ function HourlyMetricCharts({ hours, dayStats }: HourlyMetricChartsProps) {
       <div className='metric-card'>
         <div className='metric-card-title'>Visibility</div>
         <div className='metric-chart-container'>
-          <ResponsiveContainer width='100%' height={120}>
+          <ResponsiveContainer width='100%' height={110}>
             <AreaChart
               data={chartData}
-              margin={{ top: 10, right: 10, left: -20, bottom: 0 }}
+              margin={{ top: 18, right: 5, left: -25, bottom: 0 }}
             >
               <defs>
                 <linearGradient id='visGradient' x1='0' y1='0' x2='0' y2='1'>
@@ -388,13 +507,22 @@ function HourlyMetricCharts({ hours, dayStats }: HourlyMetricChartsProps) {
                 tickLine={false}
                 domain={[0, 'dataMax + 2']}
               />
-              <Tooltip content={<VisibilityTooltip />} />
+              <Tooltip
+                content={
+                  <HoverCaptureTooltip
+                    currentHour={visHover?.hour ?? null}
+                    onHover={handleVisHover}
+                  />
+                }
+                cursor={{ stroke: '#9fa5b8', strokeWidth: 1, strokeDasharray: '3 3' }}
+              />
               <Area
                 type='monotone'
                 dataKey='visibility'
                 stroke='#9fa5b8'
                 strokeWidth={2}
                 fill='url(#visGradient)'
+                activeDot={{ r: 6, stroke: '#9fa5b8', strokeWidth: 2, fill: '#1a1f2c' }}
               />
               <ReferenceLine
                 y={5}
@@ -404,18 +532,60 @@ function HourlyMetricCharts({ hours, dayStats }: HourlyMetricChartsProps) {
                   value: '5 mi',
                   position: 'insideBottomLeft',
                   fill: '#ef5350',
-                  fontSize: 10,
+                  fontSize: 11,
+                  fontWeight: 600,
                 }}
               />
+              {sunriseHour !== null && (
+                <ReferenceLine
+                  x={sunriseHour}
+                  stroke='#ffa726'
+                  strokeWidth={2}
+                  strokeDasharray='5 5'
+                  label={{
+                    value: '☀ Sunrise',
+                    position: 'top',
+                    fill: '#ffa726',
+                    fontSize: 9,
+                    fontWeight: 600,
+                    offset: 12,
+                  }}
+                />
+              )}
+              {sunsetHour !== null && (
+                <ReferenceLine
+                  x={sunsetHour}
+                  stroke='#7e57c2'
+                  strokeWidth={2}
+                  strokeDasharray='5 5'
+                  label={{
+                    value: '🌙 Sunset',
+                    position: 'top',
+                    fill: '#7e57c2',
+                    fontSize: 9,
+                    fontWeight: 600,
+                    offset: 12,
+                  }}
+                />
+              )}
             </AreaChart>
           </ResponsiveContainer>
+        </div>
+        <div className='metric-hover-display'>
+          {visHover ? (
+            <span>
+              <strong>{formatHourFull(visHover.hour)}</strong>: {visHover.visibility.toFixed(1)} mi ({visHover.humidity}% humidity)
+            </span>
+          ) : (
+            <span className='hover-hint'>Hover for details</span>
+          )}
         </div>
         <div className='metric-summary'>
           <span className='metric-range'>
             Range: {minVis.toFixed(1)} - {maxVis.toFixed(1)} mi
           </span>
           <span className='metric-average'>
-            {dayStats.avgVisibility.toFixed(1)} mi
+            Avg: {dayStats.avgVisibility.toFixed(1)} mi
           </span>
         </div>
       </div>
