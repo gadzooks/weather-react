@@ -12,7 +12,7 @@
   background: var(--color-bg-surface, #2a2f3a);
   border: 1px solid var(--color-border-subtle, rgba(255, 255, 255, 0.08));
   border-radius: 12px;
-  padding: 1.25rem;
+  padding: 0.75rem;
   transition: all 0.2s ease;
 
   &:hover {
@@ -23,21 +23,21 @@
 
 .metric-card-title {
   font-family: 'DM Mono', monospace;
-  font-size: 0.7rem;
+  font-size: 0.6rem;
   text-transform: uppercase;
-  letter-spacing: 0.1em;
+  letter-spacing: 0.08em;
   color: var(--color-text-secondary, #9fa5b8);
-  margin-bottom: 0.75rem;
+  margin-bottom: 0.25rem;
 }
 
 .metric-chart-container {
-  margin-bottom: 0.75rem;
+  margin-bottom: 0;
 }
 
 .metric-hover-display {
-  min-height: 1.5rem;
-  padding: 0.5rem 0;
-  font-size: 0.8rem;
+  min-height: 1.2rem;
+  padding: 0.25rem 0;
+  font-size: 0.7rem;
   color: var(--color-text-primary, #d6d9e3);
   text-align: center;
   border-bottom: 1px solid var(--color-border-subtle, rgba(255, 255, 255, 0.08));
@@ -56,16 +56,16 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-top: 0.5rem;
+  margin-top: 0.25rem;
 }
 
 .metric-range {
-  font-size: 0.8rem;
+  font-size: 0.65rem;
   color: var(--color-text-secondary, #9fa5b8);
 }
 
 .metric-average {
-  font-size: 1.2rem;
+  font-size: 0.9rem;
   font-weight: 700;
   color: var(--color-text-primary, #d6d9e3);
 }
