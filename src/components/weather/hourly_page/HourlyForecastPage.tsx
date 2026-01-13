@@ -16,8 +16,15 @@ import {
 import { fetchHourlyForecast } from '../../../api/hourlyForecast';
 import iconClass from '../../../utils/icon';
 import HourlyMetricCharts from './HourlyMetricCharts';
-import { useAppSelector } from '../../../app/hooks';
+import { useAppSelector, useAppDispatch } from '../../../app/hooks';
 import { fromSlugById } from '../../../utils/slug';
+import { mergeForecast } from '../../../features/forecast/forecastSlice';
+import fetchWithRetries from '../../../api/retry';
+import type { ForecastResponseStatus } from '../../../interfaces/ForecastResponseInterface';
+
+const WEATHER_API = import.meta.env.VITE_WEATHER_API;
+const WEATHER_JWT_TOKEN = import.meta.env.VITE_WEATHER_JWT_TOKEN;
+const DATA_SOURCE = import.meta.env.VITE_DATA_SOURCE || 'real';
 
 interface DayStats {
   tempMax: number;
@@ -208,6 +215,7 @@ function HourlyForecastPage() {
     date: string;
   }>();
   const navigate = useNavigate();
+  const dispatch = useAppDispatch();
   const appState = useAppSelector((state) => state.forecast);
 
   const [hours, setHours] = useState<HourlyForecastInterface[]>([]);
@@ -221,6 +229,7 @@ function HourlyForecastPage() {
   const [locationDescription, setLocationDescription] = useState<string>('');
   const [sunrise, setSunrise] = useState<string | null>(null);
   const [sunset, setSunset] = useState<string | null>(null);
+  const [isLoadingForecast, setIsLoadingForecast] = useState(false);
 
   // Look up the location from Redux store using the slug
   const location = locationSlug && appState.forecast?.locations.byId
@@ -283,6 +292,72 @@ function HourlyForecastPage() {
   const formattedDate = parsedDate && !isNaN(parsedDate.getTime())
     ? format(parsedDate, 'dddd, MMMM Do')
     : date || '';
+
+  // Fetch full forecast data if Redux store is empty (e.g., on direct navigation)
+  useEffect(() => {
+    const fetchFullForecast = async () => {
+      setIsLoadingForecast(true);
+
+      try {
+        const url = `${WEATHER_API}/forecasts/${DATA_SOURCE}`;
+        console.log('[HourlyForecastPage] Fetching forecast data:', {
+          url,
+          WEATHER_API,
+          DATA_SOURCE,
+          locationSlug,
+        });
+
+        const response = await fetchWithRetries(url, {
+          headers: {
+            Authorization: `Bearer ${WEATHER_JWT_TOKEN}`,
+            'Content-Type': 'application/json',
+          },
+        });
+
+        if (!response.ok) {
+          throw new Error(`HTTP ${response.status}: Failed to fetch forecast data`);
+        }
+
+        const contentType = response.headers.get('content-type');
+        if (!contentType || !contentType.includes('application/json')) {
+          throw new Error(`Expected JSON response, got ${contentType}`);
+        }
+
+        const json = await response.json();
+        console.log('[HourlyForecastPage] Forecast data received:', {
+          hasData: !!json.data,
+          datesCount: json.data?.dates?.length,
+          locationsCount: json.data?.locations?.allIds?.length,
+        });
+
+        const newAppState: ForecastResponseStatus = {
+          isLoaded: true,
+          forecast: json.data,
+          error: null,
+        };
+        dispatch(mergeForecast(newAppState));
+      } catch (err) {
+        console.error('[HourlyForecastPage] Failed to fetch forecast:', err);
+        setError(
+          err instanceof Error ? err.message : 'Failed to load forecast data',
+        );
+        dispatch(
+          mergeForecast({
+            isLoaded: true,
+            forecast: null,
+            error: err instanceof Error ? err : new Error('Failed to load forecast'),
+          }),
+        );
+      } finally {
+        setIsLoadingForecast(false);
+      }
+    };
+
+    // Only fetch if Redux store doesn't have data
+    if (!appState.isLoaded || !appState.forecast) {
+      fetchFullForecast();
+    }
+  }, [appState.isLoaded, appState.forecast, dispatch, locationSlug]);
 
   useEffect(() => {
     const loadHourlyData = async () => {
@@ -369,6 +444,15 @@ function HourlyForecastPage() {
       navigate('/');
     }
   };
+
+  // Show loading while fetching forecast data
+  if (isLoadingForecast || !appState.isLoaded || !appState.forecast) {
+    return (
+      <div className='hourly-forecast-page loading'>
+        <div className='loading-spinner'>Loading forecast data...</div>
+      </div>
+    );
+  }
 
   // If location not found, show error
   if (!location && appState.isLoaded) {
