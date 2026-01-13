@@ -188,6 +188,14 @@ function getUvColor(uvIndex: number): string {
   return '#9c27b0';
 }
 
+function getUvRecommendation(uvIndex: number): string {
+  if (uvIndex <= 2) return 'Basic sun protection (SPF 15+)';
+  if (uvIndex <= 5) return 'Wear hat & shade • SPF 30+';
+  if (uvIndex <= 7) return 'SPF 30+ & cover up • Seek shade';
+  if (uvIndex <= 10) return 'SPF 50+ & protective clothing';
+  return 'Minimize exposure • SPF 50+';
+}
+
 // Weather icon mapping to emoji (for header only)
 const iconEmoji: Record<string, string> = {
   rain: '🌧️',
@@ -562,7 +570,7 @@ function HourlyForecastPage() {
           <div className='stat-label'>Temperature</div>
           <div className='stat-row'>
             <span className='stat-value'>{Math.round(dayStats.tempMin)}&deg;-{Math.round(dayStats.tempMax)}&deg;</span>
-            <span className='stat-subvalue'>avg {Math.round(dayStats.avgTemp)}&deg;</span>
+            <span className='stat-subvalue'>[avg {Math.round(dayStats.avgTemp)}&deg;]</span>
           </div>
         </div>
 
@@ -570,7 +578,7 @@ function HourlyForecastPage() {
           <div className='stat-label'>Precipitation</div>
           <div className='stat-row'>
             <span className='stat-value'>{dayStats.precipTotal.toFixed(2)}&quot;</span>
-            <span className='stat-subvalue'>{Math.round(dayStats.maxPrecipProb)}% max</span>
+            <span className='stat-subvalue'>[{Math.round(dayStats.maxPrecipProb)}% max]</span>
           </div>
         </div>
 
@@ -578,7 +586,7 @@ function HourlyForecastPage() {
           <div className='stat-label'>Wind</div>
           <div className='stat-row'>
             <span className='stat-value'>{Math.round(dayStats.avgWindSpeed)} mph</span>
-            <span className='stat-subvalue'>gusts {Math.round(dayStats.maxWindGust)}</span>
+            <span className='stat-subvalue'>[gusts {Math.round(dayStats.maxWindGust)}]</span>
           </div>
         </div>
 
@@ -586,7 +594,7 @@ function HourlyForecastPage() {
           <div className='stat-label'>Visibility</div>
           <div className='stat-row'>
             <span className='stat-value'>{dayStats.avgVisibility.toFixed(1)} mi</span>
-            <span className='stat-subvalue'>{Math.round(dayStats.avgCloudCover)}% clouds</span>
+            <span className='stat-subvalue'>[{Math.round(dayStats.avgCloudCover)}% cloud cov]</span>
           </div>
         </div>
 
@@ -599,6 +607,7 @@ function HourlyForecastPage() {
             <span className='stat-value'>{dayStats.maxUvIndex}</span>
             <span className='stat-subvalue uv-level'>{getUvLabel(dayStats.maxUvIndex)}</span>
           </div>
+          <div className='uv-recommendation'>{getUvRecommendation(dayStats.maxUvIndex)}</div>
         </div>
       </div>
 

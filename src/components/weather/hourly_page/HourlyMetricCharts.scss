@@ -22,6 +22,8 @@
   letter-spacing: 0.05em;
   color: var(--color-text-secondary, #9fa5b8);
   margin-bottom: 0.15rem;
+  font-weight: 900;
+  text-align: center;
 }
 
 .metric-chart-container {
@@ -57,7 +59,7 @@
 }
 
 .metric-range {
-  font-size: 0.55rem;
+  font-size: 0.75rem;
   font-weight: 500;
   color: var(--color-text-secondary, #9fa5b8);
 }

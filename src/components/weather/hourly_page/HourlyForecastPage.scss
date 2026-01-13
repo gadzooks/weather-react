@@ -248,8 +248,15 @@
   }
 
   .stat-subvalue {
-    font-size: 0.6rem;
+    font-size: 0.8rem;
     color: var(--color-text-secondary, #9fa5b8);
+  }
+
+  .uv-recommendation {
+    font-size: 0.75rem;
+    color: var(--color-text-secondary, #9fa5b8);
+    margin-top: 0.2rem;
+    line-height: 1.0;
   }
 
   /* Optimal Hiking Window - Compact */
@@ -420,11 +427,13 @@
 
   .hour-time {
     font-family: 'DM Mono', monospace;
-    font-size: 0.6rem;
+    font-size: 0.75rem;
     font-weight: 600;
     color: var(--color-text-secondary, #9fa5b8);
     margin-bottom: 0.2rem;
     text-align: center;
+    padding-bottom: 5px;
+    border-bottom: 0.8px solid;
   }
 
   .hour-icon {
@@ -444,10 +453,12 @@
     text-align: center;
     color: var(--color-text-primary, #d6d9e3);
     line-height: 1;
+    padding-bottom: 5px;
   }
 
   .hour-feels {
-    font-size: 0.5rem;
+    font-size: 0.75rem;
+    padding-top: 5px;
     text-align: center;
     color: var(--color-text-secondary, #9fa5b8);
     margin-bottom: 0.2rem;
@@ -471,11 +482,12 @@
     font-size: 0.55rem;
 
     i {
-      font-size: 0.6rem;
+      font-size: 1rem;
       opacity: 0.8;
     }
 
     &.precip {
+      font-size: 0.78em;
       color: #64b5f6;
     }
 

@@ -237,7 +237,7 @@ function HourlyMetricCharts({ hours, dayStats, sunrise, sunset }: HourlyMetricCh
             {Math.round(dayStats.tempMax)}&deg;
           </span>
           <span className='metric-average'>
-            {Math.round(dayStats.avgTemp)}&deg;
+            Avg: {Math.round(dayStats.avgTemp)}&deg;
           </span>
         </div>
       </div>
@@ -364,7 +364,7 @@ function HourlyMetricCharts({ hours, dayStats, sunrise, sunset }: HourlyMetricCh
             Max gust: {Math.round(dayStats.maxWindGust)} mph
           </span>
           <span className='metric-average'>
-            {Math.round(dayStats.avgWindSpeed)} mph
+            Avg: {Math.round(dayStats.avgWindSpeed)} mph
           </span>
         </div>
       </div>
@@ -471,7 +471,7 @@ function HourlyMetricCharts({ hours, dayStats, sunrise, sunset }: HourlyMetricCh
             Total: {dayStats.precipTotal.toFixed(2)}&quot;
           </span>
           <span className='metric-average'>
-            {Math.round(dayStats.maxPrecipProb)}% max
+            Max: {Math.round(dayStats.maxPrecipProb)}% max
           </span>
         </div>
       </div>
@@ -585,7 +585,7 @@ function HourlyMetricCharts({ hours, dayStats, sunrise, sunset }: HourlyMetricCh
             Range: {minVis.toFixed(1)} - {maxVis.toFixed(1)} mi
           </span>
           <span className='metric-average'>
-            {dayStats.avgVisibility.toFixed(1)} mi
+            Avg: {dayStats.avgVisibility.toFixed(1)} mi
           </span>
         </div>
       </div>
