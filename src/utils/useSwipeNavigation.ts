@@ -1,4 +1,4 @@
-import { useState, useCallback } from 'react';
+import React, { useState, useCallback } from 'react';
 
 interface SwipeNavigationConfig {
   onSwipeLeft?: () => void;
@@ -103,7 +103,7 @@ export function useSwipeNavigation(
   );
 
   const onTouchEnd = useCallback(
-    (e: React.TouchEvent) => {
+    (_e: React.TouchEvent) => {
       if (!touchStart || !currentTouch || disabled) {
         resetState();
         return;
