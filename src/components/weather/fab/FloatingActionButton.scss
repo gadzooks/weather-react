@@ -1,0 +1,120 @@
+.fab {
+  position: fixed;
+  bottom: calc(20px + env(safe-area-inset-bottom, 0px));
+  right: calc(20px + env(safe-area-inset-right, 0px));
+  z-index: 9999;
+
+  // Size - exceeds iOS 44px minimum
+  width: 56px;
+  height: 56px;
+  min-width: 56px;
+  min-height: 56px;
+
+  // Circular button
+  border-radius: 50%;
+  border: none;
+  cursor: pointer;
+
+  // Visual styling - dark mode default
+  background: var(--color-accent-primary, #6b9bd1);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+
+  // Center the icon
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  // Animation
+  transition: transform var(--transition-fast, 150ms) ease-out,
+    box-shadow var(--transition-fast, 150ms) ease-out,
+    background var(--transition-fast, 150ms) ease-out;
+
+  // Prevent touch delay on mobile
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+
+  &:hover {
+    transform: scale(1.05);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.4);
+  }
+
+  &:active {
+    transform: scale(0.95);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--color-text-primary, #d6d9e3);
+    outline-offset: 2px;
+  }
+
+  // Open state - subtle visual feedback
+  &.open {
+    background: var(--color-bg-elevated, #2d323d);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+  }
+}
+
+// Hamburger icon container
+.hamburger-icon {
+  width: 24px;
+  height: 18px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  position: relative;
+
+  span {
+    display: block;
+    width: 100%;
+    height: 2px;
+    background: #ffffff;
+    border-radius: 1px;
+    transition: all var(--transition-normal, 250ms) ease-out;
+    transform-origin: center;
+  }
+}
+
+// Animate hamburger to X when open
+.fab.open .hamburger-icon {
+  span:nth-child(1) {
+    transform: translateY(8px) rotate(45deg);
+  }
+
+  span:nth-child(2) {
+    opacity: 0;
+    transform: scaleX(0);
+  }
+
+  span:nth-child(3) {
+    transform: translateY(-8px) rotate(-45deg);
+  }
+}
+
+// Light theme overrides
+[data-theme='light'] {
+  .fab {
+    background: #1976d2;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+
+    &:hover {
+      box-shadow: 0 6px 16px rgba(0, 0, 0, 0.25);
+    }
+
+    &.open {
+      background: #f5f5f5;
+
+      .hamburger-icon span {
+        background: #333333;
+      }
+    }
+  }
+}
+
+// Reduced motion support
+@media (prefers-reduced-motion: reduce) {
+  .fab,
+  .hamburger-icon span {
+    transition: none;
+  }
+}

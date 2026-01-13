@@ -1,35 +1,4 @@
 // ============================================
-// Summary Table Loader Header Styles
-// ============================================
-
-.app-header {
-  position: sticky;
-  top: 0;
-  z-index: calc(var(--z-sticky) + 6); // Higher than thead (z-sticky + 5)
-  background: var(--color-bg-elevated);
-  height: var(--app-header-height);
-  padding: 0 var(--spacing-sm);
-  display: flex;
-  justify-content: flex-end;
-  align-items: center;
-  border-bottom: 1px solid var(--color-border-medium);
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
-  box-sizing: border-box;
-
-  // Mobile responsiveness
-  @media (max-width: 768px) {
-    padding: 0 10px;
-  }
-
-  // Desktop: Match container max-width
-  @media (min-width: 1024px) {
-    max-width: 1400px;
-    margin: 0 auto;
-    padding: 0 var(--spacing-lg);
-  }
-}
-
-// ============================================
 // Container with responsive max-width constraint
 // ============================================
 
@@ -56,8 +25,8 @@
   overflow-y: auto;
   -webkit-overflow-scrolling: touch;
   margin: 0;
-  max-height: calc(100vh - var(--app-header-height));
-  height: calc(100vh - var(--app-header-height));
+  max-height: 100vh;
+  height: 100vh;
   background: var(--color-bg-primary);
 
   // Desktop: rounded corners and subtle border
@@ -67,7 +36,7 @@
     border-radius: var(--radius-lg);
     margin-top: var(--spacing-md);
     box-shadow: 0 4px 24px rgba(0, 0, 0, 0.12);
-    max-height: calc(100vh - var(--app-header-height) - var(--spacing-md));
+    max-height: calc(100vh - var(--spacing-md));
     height: auto;
   }
 }
