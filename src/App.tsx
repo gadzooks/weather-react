@@ -6,7 +6,7 @@ import './reset.css';
 import './App.scss';
 import { useTheme } from './utils/useTheme';
 import { useFontSize } from './utils/useFontSize';
-import { SettingsToggle } from './components/weather/settings/SettingsToggle';
+import { FloatingActionButton } from './components/weather/fab/FloatingActionButton';
 import { SettingsDrawer } from './components/weather/settings/SettingsDrawer';
 import './components/weather/forecast_summary/SummaryTableLoader.scss';
 
@@ -17,12 +17,13 @@ export function App() {
 
   return (
     <div className='theme font-loader'>
-      <div className='app-header'>
-        <SettingsToggle onClick={() => setIsSettingsOpen(true)} />
-      </div>
       <div className='container'>
         <Outlet />
       </div>
+      <FloatingActionButton
+        isOpen={isSettingsOpen}
+        onClick={() => setIsSettingsOpen(!isSettingsOpen)}
+      />
       <SettingsDrawer
         isOpen={isSettingsOpen}
         onClose={() => setIsSettingsOpen(false)}

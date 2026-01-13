@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import {
   THEME_DARK,
   THEME_LIGHT,
@@ -33,6 +33,18 @@ export const SettingsDrawer: React.FC<SettingsDrawerProps> = ({
   const handleSliderChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     onFontSizeChange(Number(e.target.value));
   };
+
+  // Handle Escape key to close drawer
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape' && isOpen) {
+        onClose();
+      }
+    };
+
+    document.addEventListener('keydown', handleKeyDown);
+    return () => document.removeEventListener('keydown', handleKeyDown);
+  }, [isOpen, onClose]);
 
   return (
     <div
