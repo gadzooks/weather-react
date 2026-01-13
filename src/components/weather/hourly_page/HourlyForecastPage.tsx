@@ -413,7 +413,10 @@ function HourlyForecastPage() {
 
   // Pull-to-refresh handlers
   const handleTouchStart = (e: React.TouchEvent) => {
-    if (window.scrollY === 0) {
+    // Only enable pull-to-refresh when at the top of the page
+    // and not interacting with buttons (which have their own touch handling)
+    const target = e.target as HTMLElement;
+    if (window.scrollY === 0 && !target.closest('button')) {
       setTouchStart(e.touches[0].clientY);
     }
   };
@@ -433,8 +436,9 @@ function HourlyForecastPage() {
     if (pullDistance > 60) {
       await handleRefresh();
     }
-    setTouchStart(0);
-    setPullDistance(0);
+    // Only update state if values are non-zero to avoid unnecessary re-renders
+    if (touchStart !== 0) setTouchStart(0);
+    if (pullDistance !== 0) setPullDistance(0);
   };
 
   const handleBack = () => {
