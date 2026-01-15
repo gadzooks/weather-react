@@ -1,0 +1,277 @@
+@import '../../styles/design-system.scss';
+
+// ============================================
+// BUTTON COMPONENT
+// Unified button styles for consistent UX
+// All variants meet 44px minimum touch target
+// ============================================
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  border: none;
+  border-radius: var(--radius-md);
+  font-family: var(--font-sans);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+  line-height: var(--line-height-normal);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  user-select: none;
+  white-space: nowrap;
+  text-decoration: none;
+  position: relative;
+
+  // Prevent text selection on double-click
+  -webkit-user-select: none;
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    pointer-events: none;
+  }
+
+  &:focus-visible {
+    outline: 3px solid var(--color-primary);
+    outline-offset: 2px;
+    box-shadow: 0 0 0 6px var(--color-primary-glow);
+  }
+
+  // Loading state
+  &.btn-loading {
+    color: transparent;
+    pointer-events: none;
+
+    .btn-text {
+      visibility: hidden;
+    }
+
+    .btn-spinner {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 16px;
+      height: 16px;
+      border: 2px solid currentColor;
+      border-radius: 50%;
+      border-top-color: transparent;
+      animation: spin 0.6s linear infinite;
+
+      // Make spinner visible
+      opacity: 1;
+      color: inherit;
+    }
+  }
+}
+
+// ============================================
+// BUTTON SIZES
+// All meet 44px minimum touch target
+// ============================================
+
+.btn-sm {
+  min-height: 44px;
+  padding: var(--space-2) var(--space-3);
+  font-size: var(--font-size-xs);
+
+  &.btn-icon-only {
+    width: 44px;
+    height: 44px;
+    padding: 0;
+  }
+}
+
+.btn-md {
+  min-height: 44px;
+  padding: var(--space-3) var(--space-4);
+
+  &.btn-icon-only {
+    width: 48px;
+    height: 48px;
+    padding: 0;
+  }
+}
+
+.btn-lg {
+  min-height: 52px;
+  padding: var(--space-4) var(--space-6);
+  font-size: var(--font-size-base);
+
+  &.btn-icon-only {
+    width: 52px;
+    height: 52px;
+    padding: 0;
+  }
+}
+
+// ============================================
+// BUTTON VARIANTS
+// ============================================
+
+// Primary - Main actions
+.btn-primary {
+  background: var(--color-primary);
+  color: white;
+
+  &:hover:not(:disabled) {
+    background: var(--color-primary-hover);
+    transform: translateY(-1px);
+    box-shadow: var(--shadow-md);
+  }
+
+  &:active:not(:disabled) {
+    transform: translateY(0);
+    background: var(--color-primary-active);
+  }
+
+  .btn-spinner {
+    border-color: white;
+    border-top-color: transparent;
+  }
+}
+
+// Secondary - Less emphasis
+.btn-secondary {
+  background: var(--color-bg-elevated);
+  color: var(--color-text-primary);
+  border: 1px solid var(--color-border-medium);
+
+  &:hover:not(:disabled) {
+    background: var(--color-bg-hover);
+    border-color: var(--color-primary);
+  }
+
+  &:active:not(:disabled) {
+    background: var(--color-bg-elevated);
+  }
+}
+
+// Ghost - Minimal style
+.btn-ghost {
+  background: transparent;
+  color: var(--color-primary);
+
+  &:hover:not(:disabled) {
+    background: var(--color-accent-glow);
+  }
+
+  &:active:not(:disabled) {
+    background: rgba(107, 155, 209, 0.08);
+  }
+}
+
+// Danger - Destructive actions
+.btn-danger {
+  background: var(--color-error);
+  color: white;
+
+  &:hover:not(:disabled) {
+    background: #d32f2f;
+    box-shadow: var(--shadow-md);
+  }
+
+  &:active:not(:disabled) {
+    background: #c62828;
+  }
+
+  .btn-spinner {
+    border-color: white;
+    border-top-color: transparent;
+  }
+}
+
+// ============================================
+// BUTTON MODIFIERS
+// ============================================
+
+// Full width
+.btn-full-width {
+  width: 100%;
+}
+
+// Icon-only (circular)
+.btn-icon-only {
+  border-radius: var(--radius-pill);
+  aspect-ratio: 1;
+
+  .btn-icon {
+    margin: 0;
+  }
+}
+
+// ============================================
+// ANIMATIONS
+// ============================================
+
+@keyframes spin {
+  to {
+    transform: translate(-50%, -50%) rotate(360deg);
+  }
+}
+
+// ============================================
+// LIGHT THEME OVERRIDES
+// ============================================
+
+[data-theme='light'] {
+  .btn-primary {
+    background: #1976d2;
+
+    &:hover:not(:disabled) {
+      background: #1565c0;
+    }
+
+    &:active:not(:disabled) {
+      background: #0d47a1;
+    }
+  }
+
+  .btn-secondary {
+    background: #f5f5f5;
+    color: #333333;
+    border-color: #cccccc;
+
+    &:hover:not(:disabled) {
+      background: #e0e0e0;
+      border-color: #1976d2;
+    }
+  }
+
+  .btn-ghost {
+    color: #1976d2;
+
+    &:hover:not(:disabled) {
+      background: rgba(25, 118, 210, 0.1);
+    }
+  }
+}
+
+// ============================================
+// RESPONSIVE
+// ============================================
+
+// Increase touch targets slightly on very small screens
+@media (max-width: 390px) {
+  .btn-sm {
+    min-height: 48px;
+
+    &.btn-icon-only {
+      width: 48px;
+      height: 48px;
+    }
+  }
+
+  .btn-md {
+    min-height: 48px;
+
+    &.btn-icon-only {
+      width: 52px;
+      height: 52px;
+    }
+  }
+}
