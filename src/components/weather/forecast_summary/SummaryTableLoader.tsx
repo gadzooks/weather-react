@@ -56,6 +56,8 @@ export function SummaryTableLoader() {
     if (cached) {
       console.log(
         '[SummaryTableLoader] Displaying cached data while fetching fresh data',
+        'timestamp:', cached.timestamp,
+        'age:', new Date(cached.timestamp).toISOString(),
       );
       dispatch(
         loadCachedForecast({
@@ -112,16 +114,17 @@ export function SummaryTableLoader() {
       // convert the data to json
       const json = await response.json();
 
-      // STEP 3: Save to cache on success
+      // STEP 3: Save to cache on success and get the timestamp
+      const cacheTimestamp = Date.now();
       saveForecastToCache(json.data, dataSource);
 
-      // STEP 4: Update state with fresh data
+      // STEP 4: Update state with fresh data (use same timestamp as cache)
       const newAppState: ForecastResponseStatus = {
         isLoaded: true,
         forecast: json.data,
         error: null,
         isFromCache: false,
-        cacheTimestamp: Date.now(),
+        cacheTimestamp,
         dataSource,
       };
       dispatch(mergeForecast(newAppState));

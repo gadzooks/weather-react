@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { getCacheAge, isCacheStale } from '../../../utils/forecastCache';
 import './OfflineStatusBanner.scss';
 
@@ -16,6 +16,15 @@ export function OfflineStatusBanner({
   onRefresh,
 }: OfflineStatusBannerProps) {
   const [isDismissed, setIsDismissed] = useState(false);
+  const [, setTick] = useState(0);
+
+  // Update age display every minute
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setTick((t) => t + 1);
+    }, 60000);
+    return () => clearInterval(interval);
+  }, []);
 
   // Don't show if dismissed by user
   if (isDismissed) return null;
