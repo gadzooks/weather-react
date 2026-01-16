@@ -228,8 +228,115 @@ yarn build
 aws s3 sync dist s3://weather-react-static-site
 ```
 
+## PWA & Offline Support
+
+This app is a Progressive Web App (PWA) with full offline support using `vite-plugin-pwa`.
+
+### How It Works
+
+```
+┌─────────────────────────────────────────────────────────────────┐
+│                        ONLINE MODE                               │
+│  User loads app → SW precaches all assets → API fetches data    │
+│                  → Data saved to localStorage                    │
+└─────────────────────────────────────────────────────────────────┘
+                              ↓
+┌─────────────────────────────────────────────────────────────────┐
+│                       OFFLINE MODE                               │
+│  User refreshes → SW serves cached assets → App loads cached    │
+│                   data from localStorage → Shows offline banner │
+└─────────────────────────────────────────────────────────────────┘
+```
+
+### Key Files
+
+| File | Purpose |
+|------|---------|
+| `vite.config.ts` | VitePWA plugin configuration |
+| `src/utils/serviceWorkerRegistration.ts` | SW registration using `virtual:pwa-register` |
+| `src/utils/forecastCache.ts` | localStorage caching for forecast data |
+| `src/components/.../OfflineStatusBanner.tsx` | UI banner showing offline/cached status |
+
+### vite-plugin-pwa Configuration
+
+Located in `vite.config.ts`:
+
+```typescript
+VitePWA({
+  registerType: 'autoUpdate',  // Auto-update SW when new version available
+  includeAssets: [...],        // Additional assets to precache
+  manifest: {...},             // Web app manifest (name, icons, theme)
+  workbox: {
+    globPatterns: [...],       // File patterns to precache
+    runtimeCaching: [...]      // Runtime caching strategies
+  }
+})
+```
+
+### Caching Strategies
+
+| Resource | Strategy | Reason |
+|----------|----------|--------|
+| Static assets (JS, CSS, HTML) | **Precache** | Cached at SW install time |
+| Images, fonts | **Precache** | Part of app shell |
+| Google Fonts | **CacheFirst** | Rarely changes, cache for 1 year |
+| API `/forecasts/*` | **NetworkOnly** | App handles via localStorage |
+
+### Workbox Strategies Explained
+
+- **Precache**: Assets are fetched and cached during service worker installation. Guaranteed to be available offline.
+- **CacheFirst**: Check cache first, fall back to network. Best for assets that rarely change.
+- **NetworkFirst**: Try network first, fall back to cache. Best for dynamic content.
+- **NetworkOnly**: Never cache, always fetch from network. Used for API calls we handle ourselves.
+- **StaleWhileRevalidate**: Serve from cache immediately, update cache in background.
+
+### Offline Data Flow
+
+1. **Online load**: App fetches from API → saves to localStorage via `saveForecastToCache()`
+2. **Offline load**: App tries API → fails → loads from localStorage via `loadForecastFromCache()`
+3. **Banner display**: `OfflineStatusBanner` shows when `!navigator.onLine` or `isFromCache`
+
+### Testing Offline Mode
+
+```bash
+# Build production version (SW only works in production)
+yarn build
+
+# Serve locally
+yarn preview
+
+# Then in Chrome DevTools:
+# 1. Load page (online) - SW installs and precaches
+# 2. Application tab → Service Workers → verify "activated"
+# 3. Network tab → check "Offline"
+# 4. Refresh page - should work with offline banner
+```
+
+### Debugging Service Worker
+
+In Chrome DevTools:
+- **Application → Service Workers**: See SW status, force update, unregister
+- **Application → Cache Storage**: Inspect cached assets (`workbox-precache-*`)
+- **Console**: Look for `[SW]` prefixed logs
+
+### Common Issues
+
+| Issue | Solution |
+|-------|----------|
+| SW not updating | Hard refresh (Cmd+Shift+R) or "Update on reload" in DevTools |
+| Assets not cached | Check `globPatterns` in vite.config.ts |
+| Blank page offline | Check Console for missing assets, verify precache list |
+| Old version stuck | Unregister SW in DevTools, clear cache, reload |
+
+### References
+
+- [vite-plugin-pwa docs](https://vite-pwa-org.netlify.app/)
+- [Workbox docs](https://developer.chrome.com/docs/workbox/)
+- [Service Worker API](https://developer.mozilla.org/en-US/docs/Web/API/Service_Worker_API)
+
 ## Recent Development Focus
 
+- PWA offline support with vite-plugin-pwa
 - Area charts for cloud cover visualization with 100% reference line
 - Chart legend refinements
 - Mobile-first dark mode redesign
