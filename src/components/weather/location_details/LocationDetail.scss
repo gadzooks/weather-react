@@ -996,18 +996,18 @@ tr.best-day-row {
     transition: none;
   }
 
-  &.swipe-left {
-    animation: swipeLeftToMain 0.3s ease-out;
+  &.swipe-right {
+    animation: swipeRightToMain 0.3s ease-out;
   }
 }
 
-@keyframes swipeLeftToMain {
+@keyframes swipeRightToMain {
   0% {
     transform: translateX(0);
     opacity: 1;
   }
   50% {
-    transform: translateX(-30px);
+    transform: translateX(30px);
     opacity: 0.7;
   }
   100% {

@@ -149,7 +149,8 @@ function LocationDetail(props: LocationDetailProps) {
 
   // Swipe navigation for going back to main page
   const swipeHandlers = useSwipeNavigation({
-    onSwipeLeft: () => {
+    onSwipeRight: () => {
+      // Swipe right = back to main page (consistent with "back" gesture)
       setForecastDetailsForLocation(null);
     },
     disabled: false,

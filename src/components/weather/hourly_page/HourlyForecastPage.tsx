@@ -271,24 +271,21 @@ function HourlyForecastPage() {
   const isFirstDay = currentDateIndex === 0;
 
   const swipeHandlers = useSwipeNavigation({
-    onSwipeRight: () => {
-      // Swipe right = next day
-      if (isFirstDay && locationSlug) {
-        // Special case: on first day, swipe right goes back to location detail
-        navigate(`/location/${locationSlug}`);
-      } else if (nextDate && locationSlug) {
-        // Normal case: go to next day if available
+    onSwipeLeft: () => {
+      // Swipe left = next day (forward in time, like turning a page)
+      if (nextDate && locationSlug) {
         navigate(`/location/${locationSlug}/${nextDate}`);
       }
       // If last day (no nextDate), do nothing
     },
-    onSwipeLeft: () => {
-      // Swipe left = previous day
-      if (prevDate && locationSlug) {
-        // Go to previous day if available
+    onSwipeRight: () => {
+      // Swipe right = previous day (back in time)
+      if (isFirstDay && locationSlug) {
+        // On first day, go back to location detail
+        navigate(`/location/${locationSlug}`);
+      } else if (prevDate && locationSlug) {
         navigate(`/location/${locationSlug}/${prevDate}`);
       }
-      // If first day (no prevDate), do nothing
     },
     disabled: refreshing || loading || isLoadingForecast,
     minSwipeDistance: 75,
