@@ -1,7 +1,7 @@
 // Service Worker for Weather Forecast App
 // Enables full offline support including page refreshes
 
-const CACHE_VERSION = 'v2';
+const CACHE_VERSION = 'v3';
 const STATIC_CACHE = `weather-static-${CACHE_VERSION}`;
 const DYNAMIC_CACHE = `weather-dynamic-${CACHE_VERSION}`;
 
@@ -13,16 +13,52 @@ const STATIC_ASSETS = [
   '/favicon.png',
 ];
 
-// Install event - cache static assets
+// Install event - cache static assets and discover app bundles
 self.addEventListener('install', (event) => {
   console.log('[SW] Installing service worker...');
   event.waitUntil(
-    caches.open(STATIC_CACHE).then((cache) => {
+    caches.open(STATIC_CACHE).then(async (cache) => {
       console.log('[SW] Caching static assets');
-      return cache.addAll(STATIC_ASSETS).catch((err) => {
+
+      // Cache known static assets
+      await cache.addAll(STATIC_ASSETS).catch((err) => {
         console.error('[SW] Failed to cache some static assets:', err);
-        // Don't fail installation if some assets fail
       });
+
+      // Fetch index.html and discover JS/CSS bundles to cache
+      try {
+        const response = await fetch('/index.html');
+        const html = await response.text();
+
+        // Find all JS and CSS files referenced in index.html
+        const assetUrls = [];
+
+        // Match script src attributes
+        const scriptMatches = html.matchAll(/src="([^"]+\.js)"/g);
+        for (const match of scriptMatches) {
+          assetUrls.push(match[1]);
+        }
+
+        // Match link href for CSS
+        const cssMatches = html.matchAll(/href="([^"]+\.css)"/g);
+        for (const match of cssMatches) {
+          assetUrls.push(match[1]);
+        }
+
+        console.log('[SW] Discovered assets to cache:', assetUrls);
+
+        // Cache discovered assets
+        for (const url of assetUrls) {
+          try {
+            await cache.add(url);
+            console.log('[SW] Cached:', url);
+          } catch (err) {
+            console.error('[SW] Failed to cache:', url, err);
+          }
+        }
+      } catch (err) {
+        console.error('[SW] Failed to discover assets:', err);
+      }
     })
   );
   // Force the waiting service worker to become the active service worker
@@ -123,6 +159,16 @@ self.addEventListener('fetch', (event) => {
             return new Response('', {
               status: 200,
               headers: { 'Content-Type': 'text/css' },
+            });
+          }
+
+          // For scripts, try to return cached index.html to trigger app reload
+          if (request.destination === 'script') {
+            console.error('[SW] Script not cached, app may not work offline:', url.pathname);
+            // Return empty script to prevent hard failure
+            return new Response('console.error("Script not available offline");', {
+              status: 200,
+              headers: { 'Content-Type': 'application/javascript' },
             });
           }
 
