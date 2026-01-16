@@ -92,6 +92,7 @@
     "prettier": "^3.0.0",
     "react-test-renderer": "^19.0.0",
     "sass": "^1.97.0",
+    "vite-plugin-pwa": "^1.2.0",
     "vitest": "^4.0.0"
   }
 }

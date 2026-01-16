@@ -1,119 +1,37 @@
 // Service Worker Registration Utility
-// Handles registration, updates, and unregistration
+// Uses vite-plugin-pwa for automatic service worker management
+
+import { registerSW } from 'virtual:pwa-register';
 
 type Config = {
-  onSuccess?: (registration: ServiceWorkerRegistration) => void;
-  onUpdate?: (registration: ServiceWorkerRegistration) => void;
+  onSuccess?: () => void;
+  onUpdate?: () => void;
 };
 
-const isLocalhost = Boolean(
-  window.location.hostname === 'localhost' ||
-    window.location.hostname === '[::1]' ||
-    window.location.hostname.match(
-      /^127(?:\.(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)){3}$/,
-    ),
-);
-
 export function register(config?: Config) {
-  if ('serviceWorker' in navigator) {
-    // The URL constructor is available in all browsers that support SW.
-    const publicUrl = new URL(window.location.href);
-    if (publicUrl.origin !== window.location.origin) {
-      // Our service worker won't work if PUBLIC_URL is on a different origin
-      return;
-    }
-
-    window.addEventListener('load', () => {
-      const swUrl = '/sw.js';
-
-      if (isLocalhost) {
-        // This is running on localhost. Let's check if a service worker still exists or not.
-        checkValidServiceWorker(swUrl, config);
-
-        // Add some additional logging to localhost, pointing developers to docs
-        navigator.serviceWorker.ready.then(() => {
-          console.log(
-            '[SW] This web app is being served cache-first by a service worker.',
-          );
-        });
-      } else {
-        // Is not localhost. Just register service worker
-        registerValidSW(swUrl, config);
-      }
-    });
-  }
-}
-
-function registerValidSW(swUrl: string, config?: Config) {
-  navigator.serviceWorker
-    .register(swUrl)
-    .then((registration) => {
+  const updateSW = registerSW({
+    onRegistered(registration) {
       console.log('[SW] Service Worker registered:', registration);
-
-      registration.onupdatefound = () => {
-        const installingWorker = registration.installing;
-        if (installingWorker == null) {
-          return;
-        }
-        installingWorker.onstatechange = () => {
-          if (installingWorker.state === 'installed') {
-            if (navigator.serviceWorker.controller) {
-              // At this point, the updated precached content has been fetched,
-              // but the previous service worker will still serve the older
-              // content until all client tabs are closed.
-              console.log(
-                '[SW] New content is available; please refresh to update.',
-              );
-
-              // Execute callback
-              if (config && config.onUpdate) {
-                config.onUpdate(registration);
-              }
-            } else {
-              // At this point, everything has been precached.
-              // It's the perfect time to display a "Content is cached for offline use." message.
-              console.log('[SW] Content is cached for offline use.');
-
-              // Execute callback
-              if (config && config.onSuccess) {
-                config.onSuccess(registration);
-              }
-            }
-          }
-        };
-      };
-    })
-    .catch((error) => {
-      console.error('[SW] Error during service worker registration:', error);
-    });
-}
-
-function checkValidServiceWorker(swUrl: string, config?: Config) {
-  // Check if the service worker can be found. If it can't reload the page.
-  fetch(swUrl, {
-    headers: { 'Service-Worker': 'script' },
-  })
-    .then((response) => {
-      // Ensure service worker exists, and that we really are getting a JS file.
-      const contentType = response.headers.get('content-type');
-      if (
-        response.status === 404 ||
-        (contentType != null && contentType.indexOf('javascript') === -1)
-      ) {
-        // No service worker found. Probably a different app. Reload the page.
-        navigator.serviceWorker.ready.then((registration) => {
-          registration.unregister().then(() => {
-            window.location.reload();
-          });
-        });
-      } else {
-        // Service worker found. Proceed as normal.
-        registerValidSW(swUrl, config);
+    },
+    onRegisterError(error) {
+      console.error('[SW] Service Worker registration error:', error);
+    },
+    onNeedRefresh() {
+      console.log('[SW] New content available, please refresh.');
+      if (config?.onUpdate) {
+        config.onUpdate();
       }
-    })
-    .catch(() => {
-      console.log('[SW] No internet connection found. App is running in offline mode.');
-    });
+    },
+    onOfflineReady() {
+      console.log('[SW] App is ready to work offline.');
+      if (config?.onSuccess) {
+        config.onSuccess();
+      }
+    },
+  });
+
+  // Return the update function in case it's needed
+  return updateSW;
 }
 
 export function unregister() {
