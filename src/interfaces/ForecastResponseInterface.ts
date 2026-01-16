@@ -58,6 +58,9 @@ export interface ForecastResponseStatus {
   isLoaded?: boolean;
   error: Error | null;
   forecast: ForecastResponse | null;
+  isFromCache?: boolean;
+  cacheTimestamp?: number;
+  dataSource?: string;
 }
 
 export const DefaultForecastResponseStatus: ForecastResponseStatus = {

@@ -10,6 +10,7 @@ import SummaryTableLoader from './components/weather/forecast_summary/SummaryTab
 import LocationDetailWrapper from './components/weather/location_details/LocationDetailWrapper';
 import HourlyForecastPage from './components/weather/hourly_page/HourlyForecastPage';
 import { store } from './app/store';
+import * as serviceWorkerRegistration from './utils/serviceWorkerRegistration';
 
 const router = createBrowserRouter([
   {
@@ -40,3 +41,13 @@ root.render(
     </Provider>
   </React.StrictMode>,
 );
+
+// Register service worker for offline support
+serviceWorkerRegistration.register({
+  onSuccess: () => {
+    console.log('[App] Service Worker registered successfully - app is ready for offline use');
+  },
+  onUpdate: () => {
+    console.log('[App] New version available - please refresh to update');
+  },
+});
