@@ -1,0 +1,102 @@
+@import '../../styles/design-system.scss';
+
+// ============================================
+// ERROR STATE COMPONENT
+// ============================================
+
+.error-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-8);
+  text-align: center;
+  min-height: 300px;
+  background: var(--color-bg-surface);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--color-border-subtle);
+}
+
+.error-icon {
+  font-size: 4rem;
+  color: var(--color-alert-warning);
+  margin-bottom: var(--space-4);
+  animation: shake 0.5s ease-in-out;
+
+  i {
+    display: block;
+    filter: drop-shadow(0 4px 8px rgba(217, 120, 105, 0.3));
+  }
+}
+
+.error-title {
+  font-size: var(--font-size-xl);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-text-primary);
+  margin: 0 0 var(--space-2) 0;
+}
+
+.error-message {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-secondary);
+  max-width: 400px;
+  margin: 0 0 var(--space-5) 0;
+  line-height: var(--line-height-relaxed);
+}
+
+// Shake animation for error icon
+@keyframes shake {
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+  25% {
+    transform: translateX(-10px);
+  }
+  50% {
+    transform: translateX(10px);
+  }
+  75% {
+    transform: translateX(-10px);
+  }
+}
+
+// Light theme overrides
+[data-theme='light'] {
+  .error-state {
+    background: #ffffff;
+    border-color: #e0e0e0;
+  }
+
+  .error-icon {
+    color: #d32f2f;
+    filter: none;
+  }
+}
+
+// Responsive
+@media (max-width: 768px) {
+  .error-state {
+    padding: var(--space-6);
+    min-height: 250px;
+  }
+
+  .error-icon {
+    font-size: 3rem;
+  }
+
+  .error-title {
+    font-size: var(--font-size-lg);
+  }
+
+  .error-message {
+    font-size: var(--font-size-xs);
+  }
+}
+
+// Respect reduced motion
+@media (prefers-reduced-motion: reduce) {
+  .error-icon {
+    animation: none;
+  }
+}

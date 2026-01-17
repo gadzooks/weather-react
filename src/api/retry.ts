@@ -31,7 +31,7 @@ const fetchWithRetries = async (
 ): Promise<Response> => {
   // split out the maxRetries option from the remaining
   // options (with a default of 3 retries)
-  const { maxRetries = 9, ...remainingOptions } = options;
+  const { maxRetries = 3, ...remainingOptions } = options;
   try {
     console.log(
       `[fetchWithRetries] Attempt ${retryCount + 1}/${maxRetries + 1} for ${url}`,

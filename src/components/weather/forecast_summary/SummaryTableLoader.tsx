@@ -1,6 +1,6 @@
 // SummaryTableLoader.tsx
 
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import type { DailyForecastFilter } from '../../../interfaces/DailyForecastFilter';
 import type { MatchedAreas } from '../../../interfaces/MatchedAreas';
 import findMatchedAreas from '../../../utils/filterMatchedAreas';
@@ -10,9 +10,18 @@ import SummaryTable, { type SummaryTableProps } from './SummaryTable';
 import weatherLoadingError from '../../../images/little-rain-tornado-rainstorm.gif';
 import weatherLoading from '../../../images/weather-loading.gif';
 import { useAppDispatch, useAppSelector } from '../../../app/hooks';
-import { mergeForecast } from '../../../features/forecast/forecastSlice';
+import {
+  mergeForecast,
+  loadCachedForecast,
+} from '../../../features/forecast/forecastSlice';
 import type { ForecastResponseStatus } from '../../../interfaces/ForecastResponseInterface';
 import fetchWithRetries from '../../../api/retry';
+import {
+  loadForecastFromCache,
+  saveForecastToCache,
+  clearForecastCache,
+} from '../../../utils/forecastCache';
+import OfflineStatusBanner from './OfflineStatusBanner';
 import './SummaryTableLoader.scss';
 
 // Allow override via env var, otherwise use 'real' by default
@@ -25,8 +34,41 @@ console.log(`[SummaryTableLoader] Data source: ${dataSource}`);
 
 export function SummaryTableLoader() {
   const dispatch = useAppDispatch();
+  const [isOnline, setIsOnline] = useState(navigator.onLine);
+
+  // Listen for online/offline events
+  useEffect(() => {
+    const handleOnline = () => setIsOnline(true);
+    const handleOffline = () => setIsOnline(false);
+
+    window.addEventListener('online', handleOnline);
+    window.addEventListener('offline', handleOffline);
+
+    return () => {
+      window.removeEventListener('online', handleOnline);
+      window.removeEventListener('offline', handleOffline);
+    };
+  }, []);
 
   useEffect(() => {
+    // STEP 1: Load cached data immediately for instant display
+    const cached = loadForecastFromCache();
+    if (cached) {
+      console.log(
+        '[SummaryTableLoader] Displaying cached data while fetching fresh data',
+        'timestamp:', cached.timestamp,
+        'age:', new Date(cached.timestamp).toISOString(),
+      );
+      dispatch(
+        loadCachedForecast({
+          forecast: cached.forecast,
+          cacheTimestamp: cached.timestamp,
+          dataSource: cached.dataSource,
+        }),
+      );
+    }
+
+    // STEP 2: Attempt fresh data fetch
     const fetchData = async () => {
       // get the data from the api with JWT authentication
       const response = await fetchWithRetries(`${url}`, {
@@ -72,11 +114,18 @@ export function SummaryTableLoader() {
       // convert the data to json
       const json = await response.json();
 
-      // set state with the result
+      // STEP 3: Save to cache on success and get the timestamp
+      const cacheTimestamp = Date.now();
+      saveForecastToCache(json.data, dataSource);
+
+      // STEP 4: Update state with fresh data (use same timestamp as cache)
       const newAppState: ForecastResponseStatus = {
         isLoaded: true,
         forecast: json.data,
         error: null,
+        isFromCache: false,
+        cacheTimestamp,
+        dataSource,
       };
       dispatch(mergeForecast(newAppState));
     };
@@ -84,12 +133,31 @@ export function SummaryTableLoader() {
     fetchData().catch((err) => {
       console.error('[SummaryTableLoader] Caught error:', err);
       console.error('[SummaryTableLoader] Error stack:', err.stack);
-      const errorAppState: ForecastResponseStatus = {
-        isLoaded: false,
-        error: err,
-        forecast: null,
-      };
-      dispatch(mergeForecast(errorAppState));
+
+      // STEP 5: On error, keep cached data if available
+      if (cached) {
+        console.log(
+          '[SummaryTableLoader] Fetch failed, keeping cached data with offline indicator',
+        );
+        const offlineState: ForecastResponseStatus = {
+          isLoaded: true,
+          forecast: cached.forecast,
+          error: err,
+          isFromCache: true,
+          cacheTimestamp: cached.timestamp,
+          dataSource: cached.dataSource,
+        };
+        dispatch(mergeForecast(offlineState));
+      } else {
+        // No cache - show error
+        console.log('[SummaryTableLoader] Fetch failed with no cached data');
+        const errorAppState: ForecastResponseStatus = {
+          isLoaded: false,
+          error: err,
+          forecast: null,
+        };
+        dispatch(mergeForecast(errorAppState));
+      }
     });
   }, [dispatch]);
 
@@ -119,9 +187,22 @@ export function SummaryTableLoader() {
     forecastResponse: appState.forecast,
   };
 
+  const handleManualRefresh = () => {
+    clearForecastCache();
+    window.location.reload();
+  };
+
   return (
     <>
-      {!appState.isLoaded && !appState.error && (
+      {(!isOnline || appState.isFromCache) && appState.forecast && (
+        <OfflineStatusBanner
+          isFromCache={appState.isFromCache || false}
+          cacheTimestamp={appState.cacheTimestamp}
+          isOnline={isOnline}
+          onRefresh={handleManualRefresh}
+        />
+      )}
+      {!appState.isLoaded && !appState.error && !appState.isFromCache && (
         <>
           <div className='loading'>
             <h2>Weather loading...</h2>
@@ -131,12 +212,15 @@ export function SummaryTableLoader() {
           </div>
         </>
       )}
-      {appState?.error && (
+      {appState?.error && !appState.isFromCache && (
         <div className='error'>
           <h2>{appState.error?.message}</h2>
           <div className='error-image'>
             <img src={weatherLoadingError} alt='Error loading weather...' />
           </div>
+          <button onClick={handleManualRefresh} className='error-retry-button'>
+            Retry
+          </button>
         </div>
       )}
       {matchedAreas.totalMatchedLocations > 0 && (

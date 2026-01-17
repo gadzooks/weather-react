@@ -196,7 +196,7 @@ table.table {
     left: 0;
     background: #242831;
     text-align: left;
-    z-index: calc(var(--z-sticky) + 1);
+    z-index: calc(var(--z-sticky) + 3); // FIXED: Higher than alerts-cell to prevent overlap
     box-shadow: 4px 0 12px rgba(0, 0, 0, 0.15);
     min-width: 160px;
     width: 160px;
@@ -667,7 +667,7 @@ a.freepik {
       text-overflow: ellipsis;
       position: sticky;
       left: 0;
-      z-index: calc(var(--z-sticky) + 1);
+      z-index: calc(var(--z-sticky) + 3); // FIXED: Match desktop, higher than alerts
       background: #242831;
       box-shadow: 4px 0 12px rgba(0, 0, 0, 0.15);
     }
