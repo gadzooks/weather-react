@@ -14,6 +14,7 @@ import {
   findRainWindows,
 } from '../../../interfaces/HourlyForecastInterface';
 import { fetchHourlyForecast } from '../../../api/hourlyForecast';
+import { loadHourlyFromCache } from '../../../utils/hourlyForecastCache';
 import iconClass from '../../../utils/icon';
 import HourlyMetricCharts from './HourlyMetricCharts';
 import { useAppSelector, useAppDispatch } from '../../../app/hooks';
@@ -428,9 +429,25 @@ function HourlyForecastPage() {
     const loadHourlyData = async () => {
       if (!location || !date) return;
 
-      setLoading(true);
+      // STEP 1: Load cached data immediately for instant display
+      const cached = loadHourlyFromCache(location.name, date);
+      if (cached) {
+        console.log('[HourlyForecastPage] Displaying cached data while fetching fresh data');
+        setHours(cached.hours || []);
+        setLocationName(cached.location);
+        setLocationDescription(cached.locationDescription);
+        setSunrise(cached.sunrise || null);
+        setSunset(cached.sunset || null);
+        // Don't show loading spinner if we have cached data
+        setLoading(false);
+      } else {
+        // Only show loading if no cached data
+        setLoading(true);
+      }
+
       setError(null);
 
+      // STEP 2: Try to fetch fresh data
       try {
         // Use the actual location.name (e.g., "mt_baker") for the API call
         const response = await fetchHourlyForecast(location.name, date);
@@ -439,11 +456,17 @@ function HourlyForecastPage() {
         setLocationDescription(response.locationDescription);
         setSunrise(response.sunrise || null);
         setSunset(response.sunset || null);
+        console.log('[HourlyForecastPage] Updated with fresh data');
       } catch (err) {
         console.error('[HourlyForecastPage] Failed to fetch hourly data:', err);
-        setError(
-          err instanceof Error ? err.message : 'Failed to load hourly data',
-        );
+        // Only show error if we don't have cached data to display
+        if (!cached) {
+          setError(
+            err instanceof Error ? err.message : 'Failed to load hourly data',
+          );
+        } else {
+          console.log('[HourlyForecastPage] Fetch failed, continuing to show cached data');
+        }
       } finally {
         setLoading(false);
         setRefreshing(false);
@@ -468,9 +491,12 @@ function HourlyForecastPage() {
       setSunset(response.sunset || null);
     } catch (err) {
       console.error('[HourlyForecastPage] Failed to refresh hourly data:', err);
-      setError(
-        err instanceof Error ? err.message : 'Failed to load hourly data',
-      );
+      // Don't show error if we already have data displayed - just keep showing it
+      if (hours.length === 0) {
+        setError(
+          err instanceof Error ? err.message : 'Failed to load hourly data',
+        );
+      }
     } finally {
       setRefreshing(false);
     }
