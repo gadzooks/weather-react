@@ -74,7 +74,8 @@
       "WebFetch(domain:community.render.com)",
       "Bash(grep:*)",
       "Bash(wc:*)",
-      "Bash(yarn dev)"
+      "Bash(yarn dev)",
+      "Bash(yarn preview)"
     ]
   }
 }

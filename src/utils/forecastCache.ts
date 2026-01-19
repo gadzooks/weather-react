@@ -24,8 +24,22 @@ export function saveForecastToCache(
       dataSource,
       version: CACHE_VERSION,
     };
-    localStorage.setItem(LS_FORECAST_CACHE_KEY, JSON.stringify(cached));
-    console.log('[ForecastCache] Successfully cached forecast data');
+    const jsonString = JSON.stringify(cached);
+    console.log(
+      '[ForecastCache] Attempting to save forecast data',
+      `(${(jsonString.length / 1024).toFixed(1)} KB)`,
+    );
+
+    localStorage.setItem(LS_FORECAST_CACHE_KEY, jsonString);
+
+    // Verify the save was successful by reading it back
+    const verification = localStorage.getItem(LS_FORECAST_CACHE_KEY);
+    if (!verification) {
+      console.error('[ForecastCache] Save verification failed - data not found after save');
+      return false;
+    }
+
+    console.log('[ForecastCache] Successfully cached forecast data and verified');
     return true;
   } catch (error) {
     if (error instanceof DOMException && error.name === 'QuotaExceededError') {
@@ -43,11 +57,23 @@ export function saveForecastToCache(
  */
 export function loadForecastFromCache(): CachedForecast | null {
   try {
+    console.log('[ForecastCache] Attempting to load from localStorage...');
+    console.log('[ForecastCache] localStorage available:', typeof localStorage !== 'undefined');
+    console.log('[ForecastCache] localStorage length:', localStorage.length);
+
     const cached = localStorage.getItem(LS_FORECAST_CACHE_KEY);
     if (!cached) {
-      console.log('[ForecastCache] No cached data found');
+      console.log('[ForecastCache] No cached data found for key:', LS_FORECAST_CACHE_KEY);
+      // Log all keys in localStorage for debugging
+      const keys: string[] = [];
+      for (let i = 0; i < localStorage.length; i++) {
+        const key = localStorage.key(i);
+        if (key) keys.push(key);
+      }
+      console.log('[ForecastCache] All localStorage keys:', keys);
       return null;
     }
+    console.log('[ForecastCache] Found cached data, size:', (cached.length / 1024).toFixed(1), 'KB');
 
     const parsed: CachedForecast = JSON.parse(cached);
 

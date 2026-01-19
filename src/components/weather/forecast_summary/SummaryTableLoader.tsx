@@ -36,10 +36,11 @@ export function SummaryTableLoader() {
 
   useEffect(() => {
     // STEP 1: Load cached data immediately for instant display
+    console.log('[SummaryTableLoader] Checking for cached forecast data...');
     const cached = loadForecastFromCache();
     if (cached) {
       console.log(
-        '[SummaryTableLoader] Displaying cached data while fetching fresh data',
+        '[SummaryTableLoader] Found cached data!',
         'timestamp:', cached.timestamp,
         'age:', new Date(cached.timestamp).toISOString(),
       );
@@ -50,6 +51,8 @@ export function SummaryTableLoader() {
           dataSource: cached.dataSource,
         }),
       );
+    } else {
+      console.log('[SummaryTableLoader] No cached data found in localStorage');
     }
 
     // STEP 2: Attempt fresh data fetch
@@ -100,7 +103,8 @@ export function SummaryTableLoader() {
 
       // STEP 3: Save to cache on success and get the timestamp
       const cacheTimestamp = Date.now();
-      saveForecastToCache(json.data, dataSource);
+      const saveSuccess = saveForecastToCache(json.data, dataSource);
+      console.log('[SummaryTableLoader] Cache save result:', saveSuccess ? 'SUCCESS' : 'FAILED');
 
       // STEP 4: Update state with fresh data (use same timestamp as cache)
       const newAppState: ForecastResponseStatus = {
