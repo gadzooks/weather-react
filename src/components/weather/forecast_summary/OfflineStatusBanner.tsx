@@ -1,5 +1,6 @@
-import { useState, useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { getCacheAge, isCacheStale } from '../../../utils/forecastCache';
+import { useBannerDismissal } from '../../../utils/useBannerDismissal';
 import './OfflineStatusBanner.scss';
 
 interface OfflineStatusBannerProps {
@@ -15,7 +16,8 @@ export function OfflineStatusBanner({
   isOnline,
   onRefresh,
 }: OfflineStatusBannerProps) {
-  const [isDismissed, setIsDismissed] = useState(false);
+  // Use persistent dismissal hook tied to cache timestamp
+  const { isDismissed, dismissBanner } = useBannerDismissal(cacheTimestamp);
   const [, setTick] = useState(0);
 
   // Update age display every minute
@@ -37,7 +39,7 @@ export function OfflineStatusBanner({
   const isOffline = !isOnline;
 
   const handleClose = () => {
-    setIsDismissed(true);
+    dismissBanner();
   };
 
   // Determine banner style: offline (orange) > stale (orange) > cached (blue)

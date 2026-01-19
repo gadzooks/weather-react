@@ -111,11 +111,11 @@ export function getCacheAge(timestamp: number): string {
 /**
  * Check if cache is stale (older than threshold)
  * @param timestamp Cache timestamp
- * @param staleThresholdMs Threshold in milliseconds (default: 24 hours)
+ * @param staleThresholdMs Threshold in milliseconds (default: 5 minutes)
  */
 export function isCacheStale(
   timestamp: number,
-  staleThresholdMs: number = 24 * 60 * 60 * 1000,
+  staleThresholdMs: number = 5 * 60 * 1000,
 ): boolean {
   return Date.now() - timestamp > staleThresholdMs;
 }

@@ -1,6 +1,6 @@
 // SummaryTableLoader.tsx
 
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import type { DailyForecastFilter } from '../../../interfaces/DailyForecastFilter';
 import type { MatchedAreas } from '../../../interfaces/MatchedAreas';
 import findMatchedAreas from '../../../utils/filterMatchedAreas';
@@ -21,7 +21,6 @@ import {
   saveForecastToCache,
   clearForecastCache,
 } from '../../../utils/forecastCache';
-import OfflineStatusBanner from './OfflineStatusBanner';
 import './SummaryTableLoader.scss';
 
 // Allow override via env var, otherwise use 'real' by default
@@ -34,21 +33,6 @@ console.log(`[SummaryTableLoader] Data source: ${dataSource}`);
 
 export function SummaryTableLoader() {
   const dispatch = useAppDispatch();
-  const [isOnline, setIsOnline] = useState(navigator.onLine);
-
-  // Listen for online/offline events
-  useEffect(() => {
-    const handleOnline = () => setIsOnline(true);
-    const handleOffline = () => setIsOnline(false);
-
-    window.addEventListener('online', handleOnline);
-    window.addEventListener('offline', handleOffline);
-
-    return () => {
-      window.removeEventListener('online', handleOnline);
-      window.removeEventListener('offline', handleOffline);
-    };
-  }, []);
 
   useEffect(() => {
     // STEP 1: Load cached data immediately for instant display
@@ -194,14 +178,6 @@ export function SummaryTableLoader() {
 
   return (
     <>
-      {(!isOnline || appState.isFromCache) && appState.forecast && (
-        <OfflineStatusBanner
-          isFromCache={appState.isFromCache || false}
-          cacheTimestamp={appState.cacheTimestamp}
-          isOnline={isOnline}
-          onRefresh={handleManualRefresh}
-        />
-      )}
       {!appState.isLoaded && !appState.error && !appState.isFromCache && (
         <>
           <div className='loading'>
