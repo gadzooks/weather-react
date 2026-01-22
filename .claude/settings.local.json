@@ -75,7 +75,8 @@
       "Bash(grep:*)",
       "Bash(wc:*)",
       "Bash(yarn dev)",
-      "Bash(yarn preview)"
+      "Bash(yarn preview)",
+      "Bash(yarn test:coverage:*)"
     ]
   }
 }
