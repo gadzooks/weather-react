@@ -61,12 +61,17 @@ export interface ForecastResponseStatus {
   isFromCache?: boolean;
   cacheTimestamp?: number;
   dataSource?: string;
+  isRefreshing?: boolean;
+  lastUpdateTime?: number;
+  refreshError?: Error | null;
 }
 
 export const DefaultForecastResponseStatus: ForecastResponseStatus = {
   isLoaded: false,
   error: null,
   forecast: null,
+  isRefreshing: false,
+  refreshError: null,
 };
 
 // dates: [
