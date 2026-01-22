@@ -21,7 +21,6 @@ import fetchWithRetries from '../../../api/retry';
 import {
   loadForecastFromCache,
   saveForecastToCache,
-  clearForecastCache,
 } from '../../../utils/forecastCache';
 import { RefreshErrorBanner } from './RefreshErrorBanner';
 import './SummaryTableLoader.scss';
