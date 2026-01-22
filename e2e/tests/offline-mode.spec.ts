@@ -61,7 +61,7 @@ test.describe('Offline Mode', () => {
       await offlineBanner.waitForBanner();
 
       const subtitle = await offlineBanner.getSubtitle();
-      expect(subtitle).toContain('minute');
+      expect(subtitle).toContain('min'); // "3 mins ago"
     });
   });
 

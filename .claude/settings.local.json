@@ -79,7 +79,8 @@
       "Bash(yarn test:coverage:*)",
       "Bash(yarn e2e:*)",
       "Bash(npx husky install)",
-      "Bash(npx husky init)"
+      "Bash(npx husky init)",
+      "Bash(yarn test:e2e:*)"
     ]
   }
 }

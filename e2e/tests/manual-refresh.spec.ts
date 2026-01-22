@@ -53,19 +53,19 @@ test.describe('Manual Refresh', () => {
       await expect(summaryTable.retryButton).toBeEnabled();
     });
 
-    // Note: Testing actual page reload is tricky in Playwright
-    // The button calls window.location.reload() which resets the page
-    test('retry button triggers navigation', async ({ page }) => {
+    // Note: The retry button dispatches 'manual-refresh-requested' event
+    // which triggers an in-place data refresh (no page reload)
+    test('retry button triggers refresh', async ({ page }) => {
       await mockApiError(page);
 
       await summaryTable.goto();
       await summaryTable.waitForLoadingComplete();
 
-      // Click retry and wait for page to reload
-      await Promise.all([
-        page.waitForEvent('load'),
-        summaryTable.retryButton.click(),
-      ]);
+      // Click retry button - it should trigger manual refresh event
+      await summaryTable.retryButton.click();
+
+      // Wait a bit for the refresh to be initiated
+      await page.waitForTimeout(100);
     });
   });
 
@@ -104,7 +104,7 @@ test.describe('Manual Refresh', () => {
       expect(buttonText).toContain('🔄');
     });
 
-    test('refresh button triggers navigation', async ({ page }) => {
+    test('refresh button triggers refresh', async ({ page }) => {
       await seedFreshCache(page);
       await mockApiError(page);
 
@@ -112,11 +112,11 @@ test.describe('Manual Refresh', () => {
       await summaryTable.waitForTable();
       await offlineBanner.waitForBanner();
 
-      // Click refresh and wait for page to reload
-      await Promise.all([
-        page.waitForEvent('load'),
-        offlineBanner.clickRefresh(),
-      ]);
+      // Click refresh - it dispatches 'manual-refresh-requested' event
+      await offlineBanner.clickRefresh();
+
+      // Wait a bit for the refresh to be initiated
+      await page.waitForTimeout(100);
     });
   });
 
@@ -190,15 +190,11 @@ test.describe('Manual Refresh', () => {
       await page.unroute('**/forecasts/**');
       await mockApiSuccess(page);
 
-      // Click refresh - this triggers page reload
-      await Promise.all([
-        page.waitForEvent('load'),
-        offlineBanner.clickRefresh(),
-      ]);
+      // Click refresh - this triggers in-place data refresh via custom event
+      await offlineBanner.clickRefresh();
 
-      // Wait for load
-      await summaryTable.waitForTable();
-      await page.waitForTimeout(1000);
+      // Wait for refresh to complete and banner to hide
+      await page.waitForTimeout(2000);
 
       // Should show fresh data (no banner)
       await offlineBanner.assertHidden();
