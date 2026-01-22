@@ -55,7 +55,8 @@
     "e2e:headed": "playwright test --headed",
     "e2e:ui": "playwright test --ui",
     "e2e:debug": "playwright test --debug",
-    "e2e:report": "playwright show-report"
+    "e2e:report": "playwright show-report",
+    "prepare": "husky"
   },
   "resolutions": {
     "@types/react": "^18.0.12"
