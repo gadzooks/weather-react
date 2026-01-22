@@ -41,7 +41,7 @@ jobs:
         run: yarn lint
 
   test:
-    name: Test
+    name: Unit Tests
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
@@ -114,6 +114,56 @@ jobs:
           path: build/
           retention-days: 7
 
+  e2e-tests:
+    name: E2E Tests
+    runs-on: ubuntu-latest
+    needs: [build]
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '24.x'
+
+      - name: Enable Corepack
+        run: corepack enable
+
+      - name: Get yarn cache directory
+        id: yarn-cache-dir
+        run: echo "dir=$(yarn config get cacheFolder)" >> $GITHUB_OUTPUT
+
+      - name: Cache yarn dependencies
+        uses: actions/cache@v4
+        with:
+          path: ${{ steps.yarn-cache-dir.outputs.dir }}
+          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-yarn-
+
+      - name: Install dependencies
+        run: yarn install --immutable
+
+      - name: Install Playwright browsers
+        run: yarn playwright install --with-deps chromium
+
+      - name: Build application
+        run: yarn build
+
+      - name: Run E2E tests
+        run: yarn e2e --project=chromium
+        env:
+          CI: true
+
+      - name: Upload Playwright report
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: playwright-report
+          path: playwright-report/
+          retention-days: 7
+
   deploy-dev:
     name: Deploy to Dev
     runs-on: ubuntu-latest
@@ -174,3 +224,88 @@ jobs:
         run: |
           echo "✅ QA deployment completed successfully!"
           echo "Site URL: https://qa-weather-react.onrender.com"
+
+  deploy-production:
+    name: Deploy to Production
+    runs-on: ubuntu-latest
+    # Run after E2E tests pass, OR skip E2E if SKIP_E2E_FOR_DEPLOY is true
+    needs: [build, e2e-tests]
+    if: |
+      github.event_name == 'push' &&
+      github.ref == 'refs/heads/master' &&
+      vars.ENABLE_PROD_DEPLOY == 'true'
+    environment:
+      name: production
+      url: https://weather-react.onrender.com
+    steps:
+      - name: Checkout master branch
+        uses: actions/checkout@v4
+        with:
+          ref: master
+          fetch-depth: 0
+
+      - name: Deploy to production
+        run: |
+          echo "🚀 Deploying to production..."
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          # Trigger Render deploy via branch push or deploy hook
+          echo "Production deployment triggered"
+
+      - name: Wait for Render auto-deploy
+        run: sleep 90
+
+      - name: Health check
+        run: |
+          echo "Checking production health..."
+          curl -f https://weather-react.onrender.com || exit 1
+
+      - name: Deployment successful
+        run: |
+          echo "✅ Production deployment completed successfully!"
+          echo "Site URL: https://weather-react.onrender.com"
+
+  # Alternative: Deploy to production skipping E2E tests (emergency deploys)
+  deploy-production-skip-e2e:
+    name: Deploy to Production (Skip E2E)
+    runs-on: ubuntu-latest
+    needs: [build]
+    if: |
+      github.event_name == 'push' &&
+      github.ref == 'refs/heads/master' &&
+      vars.ENABLE_PROD_DEPLOY == 'true' &&
+      vars.SKIP_E2E_FOR_DEPLOY == 'true'
+    environment:
+      name: production
+      url: https://weather-react.onrender.com
+    steps:
+      - name: Warning - Skipping E2E tests
+        run: |
+          echo "⚠️ WARNING: Deploying to production WITHOUT E2E tests!"
+          echo "SKIP_E2E_FOR_DEPLOY is set to true"
+
+      - name: Checkout master branch
+        uses: actions/checkout@v4
+        with:
+          ref: master
+          fetch-depth: 0
+
+      - name: Deploy to production
+        run: |
+          echo "🚀 Deploying to production (E2E skipped)..."
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          echo "Production deployment triggered"
+
+      - name: Wait for Render auto-deploy
+        run: sleep 90
+
+      - name: Health check
+        run: |
+          echo "Checking production health..."
+          curl -f https://weather-react.onrender.com || exit 1
+
+      - name: Deployment successful
+        run: |
+          echo "✅ Production deployment completed (E2E was skipped)!"
+          echo "Site URL: https://weather-react.onrender.com"

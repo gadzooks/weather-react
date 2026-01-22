@@ -112,8 +112,9 @@ The `master` branch requires:
 
 **Jobs:**
 1. **Lint**: ESLint and Prettier checks
-2. **Test**: Vitest test suite
+2. **Unit Tests**: Vitest test suite
 3. **Build**: Vite production build
+4. **E2E Tests**: Playwright end-to-end tests (runs after build)
 
 ### Deploy Workflow
 
@@ -138,9 +139,24 @@ The `master` branch requires:
 
 ## GitHub Configuration Required
 
+### Repository Variables
+
+Navigate to GitHub → Settings → Secrets and variables → Actions → Variables tab
+
+Add the following variables to control deployment behavior:
+
+| Variable | Values | Description |
+|----------|--------|-------------|
+| `ENABLE_DEV_DEPLOY` | `true` / `false` | Enable automatic deployment to dev environment on PRs to master |
+| `ENABLE_QA_DEPLOY` | `true` / `false` | Enable automatic deployment to QA environment on push to master |
+| `ENABLE_PROD_DEPLOY` | `true` / `false` | Enable production deployment after E2E tests pass |
+| `SKIP_E2E_FOR_DEPLOY` | `true` / `false` | **Emergency only:** Skip E2E tests and deploy directly to production |
+
+**Important:** `SKIP_E2E_FOR_DEPLOY` should only be set to `true` for emergency deployments. When enabled, production deploys will skip E2E test validation.
+
 ### Repository Secrets
 
-Navigate to GitHub → Settings → Secrets and variables → Actions
+Navigate to GitHub → Settings → Secrets and variables → Actions → Secrets tab
 
 Add the following secrets:
 
@@ -339,12 +355,18 @@ The recommended workflow:
 
 4. **Production Release:**
    - Create PR from `qa` to `master`
-   - CI checks must pass
+   - CI checks must pass (lint, unit tests, build, E2E tests)
    - Get required approvals
    - Merge to `master`
-   - **Manually trigger production deploy workflow**
-   - Approve deployment in GitHub
+   - E2E tests run automatically
+   - If E2E passes and `ENABLE_PROD_DEPLOY=true`, production deploys automatically
    - Monitor production
+
+**Emergency Deployment (Skip E2E):**
+   - Set `SKIP_E2E_FOR_DEPLOY=true` in GitHub repository variables
+   - Merge to master - production will deploy without waiting for E2E tests
+   - **Warning:** Only use for critical hotfixes
+   - Remember to set `SKIP_E2E_FOR_DEPLOY=false` after emergency is resolved
 
 ## Best Practices
 
