@@ -39,6 +39,9 @@ export default defineConfig({
       workbox: {
         // Cache all static assets
         globPatterns: ['**/*.{js,css,html,ico,png,svg,gif,woff,woff2,ttf,eot}'],
+        // Serve index.html for all navigation requests when offline
+        navigateFallback: 'index.html',
+        navigateFallbackDenylist: [/^\/api\//],
         // Runtime caching for API and external resources
         runtimeCaching: [
           {

@@ -6,8 +6,12 @@ import './reset.css';
 import './App.scss';
 import { useTheme } from './utils/useTheme';
 import { useFontSize } from './utils/useFontSize';
+import { useOfflineStatus } from './utils/useOfflineStatus';
+import { useAppSelector } from './app/hooks';
+import { clearForecastCache } from './utils/forecastCache';
 import { FloatingActionButton } from './components/weather/fab/FloatingActionButton';
 import { SettingsDrawer } from './components/weather/settings/SettingsDrawer';
+import { OfflineStatusBanner } from './components/weather/forecast_summary/OfflineStatusBanner';
 import './components/weather/forecast_summary/SummaryTableLoader.scss';
 
 export function App() {
@@ -15,9 +19,31 @@ export function App() {
   const { fontSize, setFontSize } = useFontSize();
   const [isSettingsOpen, setIsSettingsOpen] = useState(false);
 
+  // Global online/offline status
+  const isOnline = useOfflineStatus();
+
+  // Access Redux forecast state for cache status
+  const appState = useAppSelector((state) => state.forecast);
+
+  // Handle manual refresh from banner
+  const handleManualRefresh = () => {
+    clearForecastCache();
+    window.location.reload();
+  };
+
   return (
     <div className='theme font-loader'>
       <div className='container'>
+        {/* Global offline/cached data banner - shows on all pages */}
+        {(!isOnline || appState.isFromCache) && appState.forecast && (
+          <OfflineStatusBanner
+            isFromCache={appState.isFromCache || false}
+            cacheTimestamp={appState.cacheTimestamp}
+            isOnline={isOnline}
+            onRefresh={handleManualRefresh}
+          />
+        )}
+
         <Outlet />
       </div>
       <FloatingActionButton
