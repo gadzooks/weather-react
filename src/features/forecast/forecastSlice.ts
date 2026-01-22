@@ -23,6 +23,9 @@ export const forecastSlice = createSlice({
         isFromCache: action.payload.isFromCache,
         cacheTimestamp: action.payload.cacheTimestamp,
         dataSource: action.payload.dataSource,
+        isRefreshing: false,
+        lastUpdateTime: action.payload.lastUpdateTime || Date.now(),
+        refreshError: null,
       };
     },
     loadCachedForecast(
@@ -56,9 +59,24 @@ export const forecastSlice = createSlice({
           action.payload.forecast;
       }
     },
+    setRefreshing(state, action: PayloadAction<boolean>) {
+      state.isRefreshing = action.payload;
+      if (action.payload === true) {
+        state.refreshError = null;
+      }
+    },
+    setRefreshError(state, action: PayloadAction<Error>) {
+      state.refreshError = action.payload;
+      state.isRefreshing = false;
+    },
   },
 });
 
-export const { mergeForecast, loadCachedForecast, updateLocationForecast } =
-  forecastSlice.actions;
+export const {
+  mergeForecast,
+  loadCachedForecast,
+  updateLocationForecast,
+  setRefreshing,
+  setRefreshError,
+} = forecastSlice.actions;
 export default forecastSlice.reducer;

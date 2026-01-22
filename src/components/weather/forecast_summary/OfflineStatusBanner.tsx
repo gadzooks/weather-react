@@ -7,14 +7,12 @@ interface OfflineStatusBannerProps {
   isFromCache: boolean;
   cacheTimestamp?: number;
   isOnline: boolean;
-  onRefresh: () => void;
 }
 
 export function OfflineStatusBanner({
   isFromCache,
   cacheTimestamp,
   isOnline,
-  onRefresh,
 }: OfflineStatusBannerProps) {
   // Use persistent dismissal hook tied to cache timestamp
   const { isDismissed, dismissBanner } = useBannerDismissal(cacheTimestamp);
@@ -55,7 +53,7 @@ export function OfflineStatusBanner({
           {isOffline ? (
             <>
               <strong>Offline Mode</strong>
-              <span>Data from {cacheAge}</span>
+              <span>Last updated {cacheAge}</span>
             </>
           ) : (
             <>
@@ -67,7 +65,9 @@ export function OfflineStatusBanner({
         </div>
         <button
           className='offline-banner__refresh'
-          onClick={onRefresh}
+          onClick={() => {
+            window.dispatchEvent(new CustomEvent('manual-refresh-requested'));
+          }}
           aria-label='Refresh forecast data'
         >
           🔄 Refresh

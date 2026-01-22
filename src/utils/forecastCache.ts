@@ -119,7 +119,7 @@ export function clearForecastCache(): void {
 }
 
 /**
- * Calculate cache age for display (e.g., "2 hours ago")
+ * Calculate cache age for display (e.g., "2 hours ago", "5 mins ago")
  */
 export function getCacheAge(timestamp: number): string {
   const ageMs = Date.now() - timestamp;
@@ -129,9 +129,11 @@ export function getCacheAge(timestamp: number): string {
 
   if (ageDays > 0) return `${ageDays} day${ageDays > 1 ? 's' : ''} ago`;
   if (ageHours > 0) return `${ageHours} hour${ageHours > 1 ? 's' : ''} ago`;
-  if (ageMinutes > 0)
-    return `${ageMinutes} minute${ageMinutes > 1 ? 's' : ''} ago`;
-  return 'just now';
+  if (ageMinutes > 0) {
+    // Use "min" for shorter display when singular, "mins" for plural
+    return ageMinutes === 1 ? '1 min ago' : `${ageMinutes} mins ago`;
+  }
+  return 'less than a minute ago';
 }
 
 /**

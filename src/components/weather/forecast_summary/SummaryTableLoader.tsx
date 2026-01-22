@@ -1,6 +1,6 @@
 // SummaryTableLoader.tsx
 
-import { useEffect } from 'react';
+import { useEffect, useState, useCallback } from 'react';
 import type { DailyForecastFilter } from '../../../interfaces/DailyForecastFilter';
 import type { MatchedAreas } from '../../../interfaces/MatchedAreas';
 import findMatchedAreas from '../../../utils/filterMatchedAreas';
@@ -13,14 +13,16 @@ import { useAppDispatch, useAppSelector } from '../../../app/hooks';
 import {
   mergeForecast,
   loadCachedForecast,
+  setRefreshing,
+  setRefreshError,
 } from '../../../features/forecast/forecastSlice';
 import type { ForecastResponseStatus } from '../../../interfaces/ForecastResponseInterface';
 import fetchWithRetries from '../../../api/retry';
 import {
   loadForecastFromCache,
   saveForecastToCache,
-  clearForecastCache,
 } from '../../../utils/forecastCache';
+import { RefreshErrorBanner } from './RefreshErrorBanner';
 import './SummaryTableLoader.scss';
 
 // Allow override via env var, otherwise use 'real' by default
@@ -33,6 +35,7 @@ console.log(`[SummaryTableLoader] Data source: ${dataSource}`);
 
 export function SummaryTableLoader() {
   const dispatch = useAppDispatch();
+  const [isRefreshErrorDismissed, setIsRefreshErrorDismissed] = useState(false);
 
   useEffect(() => {
     // STEP 1: Load cached data immediately for instant display
@@ -151,6 +154,113 @@ export function SummaryTableLoader() {
 
   const appState = useAppSelector((state) => state.forecast);
 
+  const handleManualRefresh = useCallback(async () => {
+    console.log('[SummaryTableLoader] Manual refresh initiated');
+
+    // Prevent duplicate requests
+    if (appState.isRefreshing) {
+      console.log('[SummaryTableLoader] Refresh already in progress, ignoring');
+      return;
+    }
+
+    // Store scroll position
+    const scrollY = window.scrollY;
+
+    // Set refreshing state
+    dispatch(setRefreshing(true));
+
+    try {
+      // Fetch fresh data (same logic as useEffect)
+      const response = await fetchWithRetries(`${url}`, {
+        headers: {
+          Authorization: `Bearer ${WEATHER_JWT_TOKEN}`,
+          'Content-Type': 'application/json',
+        },
+      });
+
+      console.log('[SummaryTableLoader] Manual refresh response:', {
+        contentType: response.headers.get('content-type'),
+        status: response.status,
+      });
+
+      // Check if response is ok
+      if (!response.ok) {
+        const text = await response.text();
+        throw new Error(
+          `HTTP ${response.status}: ${response.statusText}. Body: ${text.substring(0, 200)}`,
+        );
+      }
+
+      // Check content type
+      const contentType = response.headers.get('content-type');
+      if (!contentType || !contentType.includes('application/json')) {
+        const text = await response.text();
+        throw new Error(
+          `Expected JSON but got ${contentType}. Body: ${text.substring(0, 200)}`,
+        );
+      }
+
+      // Parse response
+      const json = await response.json();
+
+      // Save to cache
+      const cacheTimestamp = Date.now();
+      saveForecastToCache(json.data, dataSource);
+
+      // Update Redux state
+      const newAppState: ForecastResponseStatus = {
+        isLoaded: true,
+        forecast: json.data,
+        error: null,
+        isFromCache: false,
+        cacheTimestamp,
+        dataSource,
+        lastUpdateTime: cacheTimestamp,
+      };
+      dispatch(mergeForecast(newAppState));
+
+      // Restore scroll position
+      window.scrollTo(0, scrollY);
+
+      // Reset error dismissal state
+      setIsRefreshErrorDismissed(false);
+
+      console.log('[SummaryTableLoader] Manual refresh successful');
+
+      // Trigger success toast
+      window.dispatchEvent(
+        new CustomEvent('forecast-updated', {
+          detail: { timestamp: cacheTimestamp },
+        }),
+      );
+    } catch (err) {
+      console.error('[SummaryTableLoader] Manual refresh failed:', err);
+
+      // Set error state, keep old data visible
+      dispatch(setRefreshError(err as Error));
+
+      // Restore scroll position
+      window.scrollTo(0, scrollY);
+    }
+  }, [dispatch, appState.isRefreshing, setIsRefreshErrorDismissed]);
+
+  // Listen for manual refresh events from App or other components
+  useEffect(() => {
+    const handleManualRefreshRequest = () => {
+      handleManualRefresh();
+    };
+
+    window.addEventListener(
+      'manual-refresh-requested',
+      handleManualRefreshRequest,
+    );
+    return () =>
+      window.removeEventListener(
+        'manual-refresh-requested',
+        handleManualRefreshRequest,
+      );
+  }, [handleManualRefresh]);
+
   const defaultDailyForecastFilter: DailyForecastFilter = {
     date: undefined,
     tempmax: undefined,
@@ -175,13 +285,16 @@ export function SummaryTableLoader() {
     forecastResponse: appState.forecast,
   };
 
-  const handleManualRefresh = () => {
-    clearForecastCache();
-    window.location.reload();
-  };
-
   return (
     <>
+      {!isRefreshErrorDismissed && (
+        <RefreshErrorBanner
+          onRetry={handleManualRefresh}
+          onDismiss={() => {
+            setIsRefreshErrorDismissed(true);
+          }}
+        />
+      )}
       {!appState.isLoaded && !appState.error && !appState.isFromCache && (
         <>
           <div className='loading'>
