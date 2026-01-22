@@ -277,7 +277,7 @@ describe('forecastCache', () => {
       const fiveMinutesAgo = Date.now() - 5 * 60000;
 
       expect(getCacheAge(oneMinuteAgo)).toBe('1 min ago');
-      expect(getCacheAge(fiveMinutesAgo)).toBe('5 minutes ago');
+      expect(getCacheAge(fiveMinutesAgo)).toBe('5 min ago');
     });
 
     it('should return "X hour(s) ago" for hour-old cache', () => {
