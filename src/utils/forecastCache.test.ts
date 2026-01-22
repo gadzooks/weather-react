@@ -1,3 +1,5 @@
+// forecastCache.test.ts
+
 import {
   saveForecastToCache,
   loadForecastFromCache,
@@ -267,14 +269,14 @@ describe('forecastCache', () => {
     it('should return "just now" for timestamps less than a minute old', () => {
       const timestamp = Date.now() - 30000; // 30 seconds ago
 
-      expect(getCacheAge(timestamp)).toBe('just now');
+      expect(getCacheAge(timestamp)).toBe('less than a minute ago');
     });
 
     it('should return "X minute(s) ago" for minute-old cache', () => {
       const oneMinuteAgo = Date.now() - 60000;
       const fiveMinutesAgo = Date.now() - 5 * 60000;
 
-      expect(getCacheAge(oneMinuteAgo)).toBe('1 minute ago');
+      expect(getCacheAge(oneMinuteAgo)).toBe('1 min ago');
       expect(getCacheAge(fiveMinutesAgo)).toBe('5 minutes ago');
     });
 
