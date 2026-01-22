@@ -50,7 +50,12 @@
     "heroku-prebuild": "npm config set ignore-scripts true",
     "lint": "eslint ./src --fix",
     "prettier": "npx prettier src --check",
-    "prettier:fix": "npx prettier src --write"
+    "prettier:fix": "npx prettier src --write",
+    "e2e": "playwright test",
+    "e2e:headed": "playwright test --headed",
+    "e2e:ui": "playwright test --ui",
+    "e2e:debug": "playwright test --debug",
+    "e2e:report": "playwright show-report"
   },
   "resolutions": {
     "@types/react": "^18.0.12"
@@ -74,6 +79,7 @@
     ]
   },
   "devDependencies": {
+    "@playwright/test": "^1.57.0",
     "@types/node": "^25.0.0",
     "@types/react-is": "^19",
     "@types/react-test-renderer": "^19.0.0",
