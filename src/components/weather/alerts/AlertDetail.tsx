@@ -28,6 +28,10 @@ function AlertDetail(props: AlertDetailProps) {
     <div className='alert-details alert-warning'>
       {allAlertIds.map((id) => {
         const alert = alertsById[id];
+        // Skip if alert doesn't exist in alertsById
+        if (!alert) {
+          return null;
+        }
         const lines = (alert.description || '').toLocaleLowerCase().split('\n');
         const sentences = lines.map((line) => convertToSentence(line));
         const endsAt = dateDifferenceInDays(alert.endsEpoch);
