@@ -1,0 +1,72 @@
+/* Breadcrumbs.scss */
+/* Shared breadcrumb navigation styles for dark and light modes */
+
+.breadcrumbs {
+  margin-bottom: 0.5rem;
+  padding: 0 0.25rem;
+
+  ol {
+    display: flex;
+    align-items: center;
+    gap: 0;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    flex-wrap: wrap;
+  }
+
+  li {
+    display: flex;
+    align-items: center;
+    font-size: 0.7rem;
+    color: var(--color-text-secondary, #9fa5b8);
+
+    &:not(:last-child)::after {
+      content: '/';
+      margin: 0 0.4rem;
+      color: var(--color-text-secondary, #9fa5b8);
+      opacity: 0.5;
+    }
+
+    &[aria-current='page'] {
+      color: var(--color-text-primary, #d6d9e3);
+      font-weight: 500;
+    }
+  }
+
+  a {
+    color: #6b9bd1;
+    text-decoration: none;
+    transition: color 0.15s ease;
+
+    &:hover {
+      color: #8bb8e8;
+      text-decoration: underline;
+    }
+  }
+}
+
+/* Light Theme Overrides */
+[data-theme='light'] {
+  .breadcrumbs {
+    li {
+      color: #666;
+
+      &:not(:last-child)::after {
+        color: #999;
+      }
+
+      &[aria-current='page'] {
+        color: #1a1a1a;
+      }
+    }
+
+    a {
+      color: #1976d2;
+
+      &:hover {
+        color: #1565c0;
+      }
+    }
+  }
+}

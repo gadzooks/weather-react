@@ -187,6 +187,7 @@ function LocationDetailWrapper() {
       alertsById={appState.forecast.alertsById}
       allAlertIds={appState.forecast.allAlertIds}
       onDayClick={handleDayClick}
+      locationSlug={locationSlug}
     />
   );
 }

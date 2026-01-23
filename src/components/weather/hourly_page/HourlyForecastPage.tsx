@@ -4,6 +4,7 @@ import React, { useEffect, useState, useMemo } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { format } from 'fecha';
 import './HourlyForecastPage.scss';
+import Breadcrumbs from '../common/Breadcrumbs';
 import type {
   HourlyForecastInterface,
   ActivityWindow,
@@ -623,54 +624,17 @@ function HourlyForecastPage() {
         </div>
       )}
 
-      {/* Header - Compact layout */}
-      <header className='header'>
-        <div className='header-row'>
-          <button type='button' className='back-button' onClick={handleBack}>
-            <span className='back-arrow'>&larr;</span>
-          </button>
-          <span className='location'>
-            {locationDescription || locationName}
-          </span>
-          <div className='header-spacer' />
-          <button
-            type='button'
-            className='refresh-button'
-            onClick={handleRefresh}
-            disabled={refreshing}
-            title='Refresh data'
-          >
-            <span className={`refresh-icon ${refreshing ? 'spinning' : ''}`}>
-              ↻
-            </span>
-          </button>
-        </div>
-        <div className='header-subrow'>
-          <span className='date-title'>{formattedDate}</span>
-          {(sunTimes.sunrise || sunTimes.sunset) && (
-            <span className='sun-compact'>
-              {sunTimes.sunrise && (
-                <span className='sun-item sunrise'>
-                  <i className='wi wi-sunrise' />
-                  {formatTime(sunTimes.sunrise)}
-                </span>
-              )}
-              {sunTimes.sunset && (
-                <span className='sun-item sunset'>
-                  <i className='wi wi-sunset' />
-                  {formatTime(sunTimes.sunset)}
-                </span>
-              )}
-            </span>
-          )}
-          <span className='conditions-summary'>
-            <span className='conditions-icon'>
-              {iconEmoji[predominantCondition.icon] || '☁️'}
-            </span>
-            <span>{predominantCondition.conditions}</span>
-          </span>
-        </div>
-      </header>
+      {/* Breadcrumbs */}
+      <Breadcrumbs
+        items={[
+          { label: 'Home', to: '/' },
+          {
+            label: locationDescription || locationName || locationSlug || '',
+            to: `/location/${locationSlug}`,
+          },
+          { label: formattedDate },
+        ]}
+      />
 
       {/* Day Navigation */}
       {forecastDates.length > 1 && (
@@ -730,6 +694,36 @@ function HourlyForecastPage() {
           </button>
         </div>
       )}
+
+      {/* Header - Compact layout */}
+      <header className='header'>
+        <div className='header-subrow'>
+          {(sunTimes.sunrise || sunTimes.sunset) && (
+            <span className='sun-compact'>
+              {sunTimes.sunrise && (
+                <span className='sun-item sunrise'>
+                  <i className='wi wi-sunrise' />
+                  {formatTime(sunTimes.sunrise)}
+                </span>
+              )}
+              {sunTimes.sunset && (
+                <span className='sun-item sunset'>
+                  <i className='wi wi-sunset' />
+                  {formatTime(sunTimes.sunset)}
+                </span>
+              )}
+            </span>
+          )}
+          <span className='conditions-summary'>
+            <span className='conditions-icon'>
+              {iconEmoji[predominantCondition.icon] || '☁️'}
+            </span>
+            <span>{predominantCondition.conditions}</span>
+          </span>
+        </div>
+      </header>
+
+
 
       {/* Day Statistics */}
       <div className='day-stats'>

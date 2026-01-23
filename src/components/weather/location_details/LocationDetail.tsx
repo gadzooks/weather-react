@@ -4,12 +4,12 @@ import React, { useState } from 'react';
 import { format } from 'fecha';
 import '../../../css/weather-icons.css';
 import './LocationDetail.scss';
+import Breadcrumbs from '../common/Breadcrumbs';
 import convertToSentence from '../../../utils/string';
 import {
   deserializeLocationData,
   type LocationDetailData,
 } from '../../../interfaces/LocationInterface';
-import WtaLink from './WtaLink';
 import WeatherIcon from '../main_page/WeatherIcon';
 import type {
   AlertsById,
@@ -40,6 +40,7 @@ export interface LocationDetailProps {
   alertsById: AlertsById | undefined;
   allAlertIds: string[] | undefined;
   onDayClick?: (date: string) => void;
+  locationSlug?: string;
 }
 
 function maxAlertDays(
@@ -164,24 +165,13 @@ function LocationDetail(props: LocationDetailProps) {
       onTouchMove={swipeHandlers.onTouchMove}
       onTouchEnd={swipeHandlers.onTouchEnd}
     >
-      <div className='heading'>
-        <button
-          className='back-button'
-          type='button'
-          onClick={() => setForecastDetailsForLocation(null)}
-          aria-label='Back to forecast summary'
-        >
-          <span className='back-arrow'>←</span>
-          <span className='back-text'>Back</span>
-        </button>
-        <h1 className='location-name'>{description}</h1>
-        <div className='wta-link'>
-          <WtaLink
-            wtaRegion={location.wtaRegionKey}
-            wtaSubRegion={location.sub_region}
-          />
-        </div>
-      </div>
+      {/* Breadcrumbs */}
+      <Breadcrumbs
+        items={[
+          { label: 'Home', to: '/' },
+          { label: description },
+        ]}
+      />
 
       <div className='tabs'>
         <button

@@ -1,6 +1,7 @@
+// SummaryTable.tsx
+
 import './SummaryTable.scss';
 import { format, parse } from 'fecha';
-import React from 'react';
 import type { LocationInterface } from '../../../interfaces/LocationInterface';
 import type { ForecastResponse } from '../../../interfaces/ForecastResponseInterface';
 import Region from './Region';
@@ -99,25 +100,6 @@ function SummaryTable(props: SummaryTableProps) {
         data-has-alerts={foundAlerts || undefined}
       >
         <thead className='table-heading'>
-          {/* <tr>
-          <td rowSpan={2}>Location</td>
-          {parsedDates.map((date) => {
-            const txt = date === null ? '' : format(date, 'ddd').toUpperCase();
-            const dateMatches = matchesSelecteDate(
-              date,
-              dailyForecastFilter.date,
-            );
-
-            return (
-              (!dateSelectedIsWithinForecastRange || dateMatches) && (
-              <td key={txt} align='center'>
-                {txt}
-              </td>
-              )
-            );
-          })}
-        </tr> */}
-
           <tr>
             {foundAlerts && (
               <td className='alerts-header'>
@@ -126,7 +108,11 @@ function SummaryTable(props: SummaryTableProps) {
             )}
             <td className='location-header'>Location</td>
             {parsedDates.map((date, index) => {
+              const isWeekendDate = weekends[index];
+              const weekendClass = isWeekendDate ? 'weekend-header' : '';
               const txt = date === null ? '' : format(date, 'DD').toUpperCase();
+              const dayOfWeekText =
+                date === null ? '' : format(date, 'ddd').toUpperCase();
               const dateKey =
                 date === null ? '' : format(date, 'YYYY-MM-DD').toUpperCase();
               const dateMatches = matchesSelecteDate(
@@ -137,11 +123,12 @@ function SummaryTable(props: SummaryTableProps) {
               const nextDateKey = nextDateWithinRange(date, index, parsedDates);
               return (
                 (!dateSelectedIsWithinForecastRange || dateMatches) && (
-                  <td key={txt} align='center'>
+                  <td key={txt} align='center' className={weekendClass}>
+                    <div className='day-of-week'>{dayOfWeekText}</div>
                     {dateSelectedIsWithinForecastRange && (
                       <>
                         <button
-                          className='button-2 left-arrow'
+                          className={`button-2 left-arrow${isWeekendDate ? ' weekend' : ''}`}
                           type='button'
                           onClick={() => selectDate(prevDateKey || '')}
                         >
@@ -149,13 +136,13 @@ function SummaryTable(props: SummaryTableProps) {
                         </button>
                         <button
                           type='button'
-                          className='button-2 forecast-date'
+                          className={`button-2 forecast-date${isWeekendDate ? ' weekend' : ''}`}
                           onClick={() => selectDate(dateKey)}
                         >
                           {txt}
                         </button>
                         <button
-                          className='button-2 right-arrow'
+                          className={`button-2 right-arrow${isWeekendDate ? ' weekend' : ''}`}
                           type='button'
                           onClick={() => selectDate(nextDateKey || '')}
                         >
@@ -166,7 +153,7 @@ function SummaryTable(props: SummaryTableProps) {
                     {!dateSelectedIsWithinForecastRange && (
                       <button
                         type='button'
-                        className='button-2'
+                        className={`button-2${isWeekendDate ? ' weekend' : ''}`}
                         onClick={() => selectDate(dateKey)}
                       >
                         {txt}
