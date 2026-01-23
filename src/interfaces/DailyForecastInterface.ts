@@ -1,3 +1,5 @@
+import type { HourlyForecastInterface } from './HourlyForecastInterface';
+
 export interface DailyForecastInterface {
   datetime: string;
   tempmax: number;
@@ -8,11 +10,14 @@ export interface DailyForecastInterface {
   cloudcover: number;
   sunrise: string;
   sunset: string;
+  sunriseEpoch?: number;
+  sunsetEpoch?: number;
   moonphase: number;
   conditions: string;
   description: string;
   icon: string;
-  [key: string]: string | number | undefined;
+  hours?: HourlyForecastInterface[]; // Hourly forecast data from API
+  [key: string]: string | number | undefined | HourlyForecastInterface[];
 }
 
 export function forecastProperty(
