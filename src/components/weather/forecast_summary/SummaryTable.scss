@@ -66,6 +66,24 @@
 
   // App header height for sticky thead offset
   --app-header-height: 44px;
+  
+  // ============================================
+  // NEW: Detailed View Color Tokens
+  // ============================================
+  --color-temp-high: #fbbf24;
+  --color-temp-low: #60a5fa;
+  --color-precip: #60a5fa;
+  --color-wind-low: #9ca3af;
+  --color-wind-med: #fbbf24;
+  --color-wind-high: #f59e0b;
+  --color-uv-low: #22c55e;
+  --color-uv-moderate: #eab308;
+  --color-uv-high: #f59e0b;
+  --color-uv-extreme: #ef4444;
+  --color-hike-great: #22c55e;
+  --color-hike-fair: #eab308;
+  --color-hike-poor: #ef4444;
+  --font-mono: 'JetBrains Mono', 'SF Mono', 'Fira Code', 'Consolas', monospace;
 }
 
 // ============================================
@@ -105,6 +123,10 @@
   --color-alert-advisory: #17bcff;
   --color-alert-watch: #ffd52e;
   --color-alert-warning: #ff4227;
+  
+  // Detailed view light mode overrides
+  --color-temp-high: #d97706;
+  --color-temp-low: #2563eb;
 }
 
 // Weekend special case - orange tint for light mode
@@ -175,7 +197,7 @@ table.table {
     }
 
     // Date column headers - cleaner styling
-    td:not(.alerts-header):not(.location-header) {
+    td:not(.alerts-header):not(.location-header):not(.detail-header) {
       font-weight: 500;
       color: var(--color-text-secondary);
       padding: 14px 12px;
@@ -335,6 +357,12 @@ table.table {
 
   &:active {
     transform: translateY(0);
+  }
+  
+  &:disabled {
+    opacity: 0.3;
+    cursor: not-allowed;
+    transform: none;
   }
 
   // Weekend buttons - orange theme
@@ -1307,5 +1335,530 @@ a.freepik {
 
   .mr-cell {
     font-size: 16px;
+  }
+}
+
+
+// ============================================
+// ============================================
+// DETAILED SINGLE-DAY VIEW STYLES
+// ============================================
+// ============================================
+
+// ============================================
+// Detailed Mode Table Adjustments
+// ============================================
+
+.styled-table.detailed-mode {
+  font-family: var(--font-mono);
+  
+  thead {
+    .detail-header {
+      font-size: 9px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: var(--color-text-secondary);
+      padding: 10px 6px;
+      white-space: nowrap;
+      vertical-align: bottom;
+    }
+    
+    .date-nav-cell {
+      min-width: 110px;
+      
+      .date-nav-buttons {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 2px;
+      }
+    }
+  }
+  
+  // Detail cells - consistent sizing
+  .detail-cell {
+    padding: 6px 6px;
+    vertical-align: middle;
+    white-space: nowrap;
+  }
+}
+
+// ============================================
+// Day Context (Prev/Next Day Previews)
+// ============================================
+
+.day-context {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.mini-day-preview {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1px;
+  opacity: 0.5;
+  min-width: 32px;
+  transition: opacity var(--transition-fast);
+  
+  &:hover {
+    opacity: 0.8;
+  }
+  
+  &--empty {
+    min-width: 32px;
+  }
+  
+  &__label {
+    font-size: 8px;
+    font-weight: 600;
+    color: var(--color-text-dimmed);
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
+  }
+  
+  &__temp {
+    font-size: 9px;
+    color: var(--color-text-secondary);
+    font-weight: 500;
+  }
+  
+  .wi {
+    font-size: 12px;
+    color: var(--color-text-secondary);
+  }
+}
+
+// ============================================
+// Weather Icon (Large for single day)
+// ============================================
+
+.weather-icon-large {
+  font-size: 24px;
+  line-height: 1;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
+}
+
+.icon-cell {
+  text-align: center;
+  min-width: 45px;
+}
+
+// ============================================
+// Temperature Range
+// ============================================
+
+.temp-range {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  font-size: 11px;
+  font-weight: 600;
+  
+  &__high {
+    color: var(--color-temp-high);
+  }
+  
+  &__separator {
+    color: var(--color-text-dimmed);
+    font-weight: 400;
+  }
+  
+  &__low {
+    color: var(--color-temp-low);
+    font-weight: 500;
+  }
+}
+
+.temp-cell {
+  min-width: 55px;
+}
+
+// ============================================
+// Sparkline
+// ============================================
+
+.sparkline-cell {
+  min-width: 75px;
+  
+  .sparkline {
+    display: block;
+  }
+  
+  .no-data {
+    color: var(--color-text-dimmed);
+    font-size: 10px;
+  }
+}
+
+// ============================================
+// Precipitation
+// ============================================
+
+.precip-cell {
+  min-width: 90px;
+}
+
+.precip-content {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.precip-value {
+  font-size: 10px;
+  font-weight: 600;
+  color: var(--color-precip);
+  min-width: 26px;
+}
+
+.precip-bars {
+  display: block;
+}
+
+// ============================================
+// Wind Indicator
+// ============================================
+
+.wind-cell {
+  min-width: 48px;
+}
+
+.wind-indicator {
+  display: flex;
+  align-items: center;
+  gap: 3px;
+  
+  svg {
+    transition: transform var(--transition-fast);
+  }
+  
+  .wind-speed {
+    font-size: 10px;
+    font-weight: 600;
+    
+    &.wind-low { color: var(--color-wind-low); }
+    &.wind-med { color: var(--color-wind-med); }
+    &.wind-high { color: var(--color-wind-high); }
+  }
+}
+
+// ============================================
+// UV Badge
+// ============================================
+
+.uv-cell {
+  min-width: 36px;
+  text-align: center;
+}
+
+.uv-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 22px;
+  height: 22px;
+  border-radius: 5px;
+  font-size: 10px;
+  font-weight: 700;
+  
+  &--low {
+    background: rgba(34, 197, 94, 0.15);
+    color: var(--color-uv-low);
+  }
+  
+  &--moderate {
+    background: rgba(234, 179, 8, 0.15);
+    color: var(--color-uv-moderate);
+  }
+  
+  &--high {
+    background: rgba(245, 158, 11, 0.15);
+    color: var(--color-uv-high);
+  }
+  
+  &--extreme {
+    background: rgba(239, 68, 68, 0.15);
+    color: var(--color-uv-extreme);
+  }
+}
+
+// ============================================
+// Visibility
+// ============================================
+
+.vis-cell {
+  min-width: 38px;
+}
+
+.visibility-display {
+  font-size: 10px;
+  color: var(--color-text-secondary);
+  font-weight: 500;
+}
+
+// ============================================
+// Hike Score
+// ============================================
+
+.hike-cell {
+  min-width: 52px;
+}
+
+.hike-score {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 2px 6px;
+  border-radius: 5px;
+  font-size: 9px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+  
+  &__dot {
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+  }
+  
+  &--great {
+    background: rgba(34, 197, 94, 0.15);
+    border: 1px solid rgba(34, 197, 94, 0.3);
+    
+    .hike-score__dot { background: var(--color-hike-great); }
+    .hike-score__label { color: var(--color-hike-great); }
+  }
+  
+  &--fair {
+    background: rgba(234, 179, 8, 0.15);
+    border: 1px solid rgba(234, 179, 8, 0.3);
+    
+    .hike-score__dot { background: var(--color-hike-fair); }
+    .hike-score__label { color: var(--color-hike-fair); }
+  }
+  
+  &--poor {
+    background: rgba(239, 68, 68, 0.15);
+    border: 1px solid rgba(239, 68, 68, 0.3);
+    
+    .hike-score__dot { background: var(--color-hike-poor); }
+    .hike-score__label { color: var(--color-hike-poor); }
+  }
+}
+
+// ============================================
+// Light Mode Overrides for Detailed View
+// ============================================
+
+[data-theme='light'] {
+  .mini-day-preview {
+    &__label { color: #888888; }
+    &__temp { color: #666666; }
+    .wi { color: #666666; }
+  }
+  
+  .precip-value {
+    color: #2563eb;
+  }
+  
+  .visibility-display {
+    color: #666666;
+  }
+  
+  .uv-badge {
+    &--low { background: rgba(34, 197, 94, 0.12); }
+    &--moderate { background: rgba(234, 179, 8, 0.12); }
+    &--high { background: rgba(245, 158, 11, 0.12); }
+    &--extreme { background: rgba(239, 68, 68, 0.12); }
+  }
+  
+  .hike-score {
+    &--great {
+      background: rgba(34, 197, 94, 0.1);
+      border-color: rgba(34, 197, 94, 0.25);
+    }
+    &--fair {
+      background: rgba(234, 179, 8, 0.1);
+      border-color: rgba(234, 179, 8, 0.25);
+    }
+    &--poor {
+      background: rgba(239, 68, 68, 0.1);
+      border-color: rgba(239, 68, 68, 0.25);
+    }
+  }
+}
+
+// ============================================
+// Mobile Responsive for Detailed View
+// ============================================
+
+@media (max-width: 768px) {
+  .styled-table.detailed-mode {
+    font-size: 0.75rem;
+    
+    .detail-header {
+      font-size: 8px;
+      padding: 8px 4px;
+    }
+    
+    .detail-cell {
+      padding: 5px 4px;
+    }
+    
+    .date-nav-cell {
+      min-width: 95px;
+    }
+  }
+  
+  .mini-day-preview {
+    min-width: 28px;
+    
+    &__label { font-size: 7px; }
+    &__temp { font-size: 8px; }
+    .wi { font-size: 10px; }
+  }
+  
+  .weather-icon-large {
+    font-size: 20px;
+  }
+  
+  .temp-range {
+    font-size: 10px;
+    gap: 1px;
+  }
+  
+  .temp-cell { min-width: 48px; }
+  
+  .sparkline-cell {
+    min-width: 60px;
+    
+    .sparkline {
+      width: 50px !important;
+    }
+  }
+  
+  .precip-cell { min-width: 70px; }
+  .precip-content { gap: 3px; }
+  .precip-value {
+    font-size: 9px;
+    min-width: 22px;
+  }
+  
+  .wind-cell { min-width: 42px; }
+  .wind-indicator {
+    gap: 2px;
+    
+    svg {
+      width: 12px;
+      height: 12px;
+    }
+    
+    .wind-speed { font-size: 9px; }
+  }
+  
+  .uv-cell { min-width: 32px; }
+  .uv-badge {
+    width: 20px;
+    height: 20px;
+    font-size: 9px;
+  }
+  
+  .vis-cell { min-width: 34px; }
+  .visibility-display { font-size: 9px; }
+  
+  .hike-cell { min-width: 46px; }
+  .hike-score {
+    padding: 2px 4px;
+    font-size: 8px;
+    
+    &__dot {
+      width: 4px;
+      height: 4px;
+    }
+  }
+}
+
+// Extra small devices
+@media (max-width: 390px) {
+  .styled-table.detailed-mode {
+    font-size: 0.7rem;
+    
+    .detail-header {
+      font-size: 7px;
+      padding: 6px 3px;
+    }
+    
+    .detail-cell {
+      padding: 4px 3px;
+    }
+  }
+  
+  .day-context { gap: 3px; }
+  
+  .mini-day-preview {
+    min-width: 24px;
+    .wi { font-size: 9px; }
+  }
+  
+  .weather-icon-large { font-size: 16px; }
+  .temp-range { font-size: 9px; }
+  
+  .sparkline-cell {
+    min-width: 50px;
+    .sparkline { width: 40px !important; }
+  }
+  
+  .precip-cell { min-width: 55px; }
+  
+  // Hide label on very small screens, just show dot
+  .hike-score {
+    padding: 2px 4px;
+    
+    &__label { display: none; }
+    &__dot {
+      width: 7px;
+      height: 7px;
+    }
+  }
+}
+
+// ============================================
+// Desktop Enhancements for Detailed View
+// ============================================
+
+@media (min-width: 1024px) {
+  .styled-table.detailed-mode {
+    .detail-header {
+      font-size: 10px;
+      padding: 10px 10px;
+    }
+    
+    .detail-cell {
+      padding: 8px 10px;
+    }
+  }
+  
+  .sparkline-cell {
+    min-width: 90px;
+    
+    .sparkline { width: 75px !important; }
+  }
+  
+  .precip-cell { min-width: 105px; }
+  
+  // Hover effects on desktop
+  .mini-day-preview:hover {
+    opacity: 1;
+    transform: scale(1.05);
+  }
+  
+  .hike-score {
+    cursor: help;
+    transition: transform var(--transition-fast);
+    
+    &:hover { transform: scale(1.05); }
   }
 }

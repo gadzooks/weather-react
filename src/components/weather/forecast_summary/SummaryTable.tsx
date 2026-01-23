@@ -81,6 +81,11 @@ function SummaryTable(props: SummaryTableProps) {
     dailyForecastFilter.date,
   );
 
+  // Find index of selected date for context (prev/next day)
+  const selectedDateIndex = (forecastResponse?.dates || []).findIndex(
+    (d) => d === dailyForecastFilter.date
+  );
+
   const selectDate = (date: string) => {
     const dFF = { ...dailyForecastFilter } as DailyForecastFilter;
     if (date === dFF.date) {
@@ -91,13 +96,15 @@ function SummaryTable(props: SummaryTableProps) {
     setDailyForecastFilter(dFF);
   };
 
-  // console.log(JSON.stringify(alertsById));
+  // Determine if we're in detailed single-day mode
+  const isDetailedMode = dateSelectedIsWithinForecastRange;
 
   return (
     <>
       <table
-        className='table styled-table'
+        className={`table styled-table ${isDetailedMode ? 'detailed-mode' : ''}`}
         data-has-alerts={foundAlerts || undefined}
+        data-detailed-mode={isDetailedMode || undefined}
       >
         <thead className='table-heading'>
           <tr>
@@ -107,6 +114,23 @@ function SummaryTable(props: SummaryTableProps) {
               </td>
             )}
             <td className='location-header'>Location</td>
+            
+            {/* DETAILED MODE: Show additional column headers */}
+            {isDetailedMode && (
+              <>
+                <td className='detail-header context-header'>Context</td>
+                <td className='detail-header icon-header'>Today</td>
+                <td className='detail-header temp-header'>Hi/Lo</td>
+                <td className='detail-header sparkline-header'>Temp</td>
+                <td className='detail-header precip-header'>Precip</td>
+                <td className='detail-header wind-header'>Wind</td>
+                <td className='detail-header uv-header'>UV</td>
+                <td className='detail-header vis-header'>Vis</td>
+                <td className='detail-header hike-header'>Hike</td>
+              </>
+            )}
+            
+            {/* Date column(s) */}
             {parsedDates.map((date, index) => {
               const isWeekendDate = weekends[index];
               const weekendClass = isWeekendDate ? 'weekend-header' : '';
@@ -121,18 +145,20 @@ function SummaryTable(props: SummaryTableProps) {
               );
               const prevDateKey = prevDateWithinRange(date, index, parsedDates);
               const nextDateKey = nextDateWithinRange(date, index, parsedDates);
+              
               return (
                 (!dateSelectedIsWithinForecastRange || dateMatches) && (
-                  <td key={txt} align='center' className={weekendClass}>
+                  <td key={txt} align='center' className={`${weekendClass} ${isDetailedMode ? 'date-nav-cell' : ''}`}>
                     <div className='day-of-week'>{dayOfWeekText}</div>
                     {dateSelectedIsWithinForecastRange && (
-                      <>
+                      <div className='date-nav-buttons'>
                         <button
                           className={`button-2 left-arrow${isWeekendDate ? ' weekend' : ''}`}
                           type='button'
                           onClick={() => selectDate(prevDateKey || '')}
+                          disabled={!prevDateKey}
                         >
-                          &larr;
+                          ←
                         </button>
                         <button
                           type='button'
@@ -145,10 +171,11 @@ function SummaryTable(props: SummaryTableProps) {
                           className={`button-2 right-arrow${isWeekendDate ? ' weekend' : ''}`}
                           type='button'
                           onClick={() => selectDate(nextDateKey || '')}
+                          disabled={!nextDateKey}
                         >
-                          &rarr;
+                          →
                         </button>
-                      </>
+                      </div>
                     )}
                     {!dateSelectedIsWithinForecastRange && (
                       <button
@@ -176,10 +203,12 @@ function SummaryTable(props: SummaryTableProps) {
                 forecastsById={forecastResponse?.forecasts}
                 locations={locations}
                 dailyForecastFilter={dailyForecastFilter}
-                dateSelectedIsWithinForecastRange={
-                  dateSelectedIsWithinForecastRange
-                }
+                dateSelectedIsWithinForecastRange={dateSelectedIsWithinForecastRange}
                 alertProps={alertProps}
+                // NEW: Pass these props for detailed mode
+                isDetailedMode={isDetailedMode}
+                selectedDateIndex={selectedDateIndex}
+                allDates={forecastResponse?.dates || []}
               />
             );
           }
