@@ -22,16 +22,16 @@
   --color-text-secondary: #9fa5b8;
   --color-text-dimmed: #656b7e;
 
-  // Accents - Soft desaturated blue
-  --color-accent-primary: #6b9bd1;
-  --color-accent-glow: rgba(107, 155, 209, 0.18);
+  // Accents - Warm orange for weekends
+  --color-accent-primary: #ff9800;
+  --color-accent-glow: rgba(255, 152, 0, 0.6);
 
   // Weather-specific colors - Desaturated
   --color-rain-heavy: #6d9ed9;
   --color-rain-light: #9baed9;
   --color-clouds: #9ba4ba;
   --color-sun: #dac589;
-  --color-weekend: rgba(107, 155, 209, 0.12);
+  --color-weekend: rgba(255, 152, 0, 0.55);
 
   // Alert colors - Muted but clear
   --color-alert-advisory: #7ba9d6;
@@ -107,11 +107,20 @@
   --color-alert-warning: #ff4227;
 }
 
-// Weekend special case - subtle warm background for light mode
+// Weekend special case - orange tint for light mode
+[data-theme='light'] {
+  --color-weekend: rgba(255, 152, 0, 0.22);
+}
+
 [data-theme='light'] td.weekend {
   background: var(--color-weekend) !important;
   box-shadow: none;
   border-left: none;
+}
+
+[data-theme='light'] thead td.weekend-header {
+  color: #e65100;
+  border-bottom: 2px solid #ff6f00;
 }
 
 // Light theme header styling
@@ -328,6 +337,19 @@ table.table {
     transform: translateY(0);
   }
 
+  // Weekend buttons - orange theme
+  &.weekend {
+    color: #ffa726;
+    border-color: rgba(255, 152, 0, 0.4);
+
+    &:hover,
+    &:focus {
+      background: rgba(255, 152, 0, 0.12);
+      border-color: #ff9800;
+      color: #ffa726;
+    }
+  }
+
   // Date buttons - compact style
   &.forecast-date {
     background: rgba(107, 155, 209, 0.06);
@@ -338,6 +360,18 @@ table.table {
 
     &:hover {
       box-shadow: 0 0 12px var(--color-accent-glow);
+    }
+
+    // Weekend selected dates - orange border and glow
+    &.weekend {
+      background: rgba(255, 152, 0, 0.06);
+      border: 1px solid #ff9800;
+      box-shadow: 0 0 8px rgba(255, 152, 0, 0.6);
+      color: #ffa726;
+
+      &:hover {
+        box-shadow: 0 0 12px rgba(255, 152, 0, 0.7);
+      }
     }
   }
 
@@ -351,6 +385,18 @@ table.table {
 
     &:hover {
       background: rgba(107, 155, 209, 0.15);
+    }
+
+    // Weekend arrow buttons - orange theme
+    &.weekend {
+      color: #ffa726;
+      border-color: rgba(255, 152, 0, 0.4);
+
+      &:hover {
+        background: rgba(255, 152, 0, 0.15);
+        border-color: #ff9800;
+        color: #ffa726;
+      }
     }
   }
 }
@@ -368,6 +414,19 @@ table.table {
     color: #1976d2;
   }
 
+  // Weekend buttons - orange theme for light mode
+  &.weekend {
+    color: #e65100;
+    border-color: rgba(255, 111, 0, 0.3);
+
+    &:hover,
+    &:focus {
+      background: rgba(255, 152, 0, 0.12);
+      border-color: #ff6f00;
+      color: #e65100;
+    }
+  }
+
   &.forecast-date {
     background: rgba(25, 118, 210, 0.08);
     border: 1px solid #1976d2;
@@ -377,6 +436,18 @@ table.table {
     &:hover {
       background: rgba(25, 118, 210, 0.12);
     }
+
+    // Weekend selected dates - orange theme for light mode
+    &.weekend {
+      background: rgba(255, 152, 0, 0.12);
+      border: 1px solid #ff6f00;
+      box-shadow: none;
+      color: #e65100;
+
+      &:hover {
+        background: rgba(255, 152, 0, 0.18);
+      }
+    }
   }
 
   &.left-arrow,
@@ -385,6 +456,18 @@ table.table {
 
     &:hover {
       background: rgba(25, 118, 210, 0.12);
+    }
+
+    // Weekend arrow buttons - orange theme for light mode
+    &.weekend {
+      color: #e65100;
+      border-color: rgba(255, 111, 0, 0.3);
+
+      &:hover {
+        background: rgba(255, 152, 0, 0.12);
+        border-color: #ff6f00;
+        color: #e65100;
+      }
     }
   }
 }
@@ -508,7 +591,7 @@ table.table {
 }
 
 // ============================================
-// Weekend Highlighting - Subtle Glow
+// Weekend Highlighting - Orange Glow
 // ============================================
 
 // Apply weekend background to all cells in the row
@@ -521,8 +604,23 @@ td.weekend {
     box-shadow: inset 3px 0 6px var(--color-accent-glow);
   }
 
-  // Subtle box-shadow on all weekend cells for extra differentiation
-  box-shadow: inset 0 0 20px rgba(107, 155, 209, 0.03);
+  // Enhanced box-shadow on all weekend cells for extra differentiation
+  box-shadow: inset 0 0 50px rgba(255, 152, 0, 0.45);
+}
+
+// Weekend header styling - orange text and underline
+thead td.weekend-header {
+  color: #ffa726; // Lighter orange for better contrast (WCAG AA)
+  border-bottom: 2px solid #ff9800;
+
+  .day-of-week {
+    font-size: 0.75em;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 4px;
+    color: inherit;
+  }
 }
 
 // ============================================
@@ -895,5 +993,319 @@ a.freepik {
   .all-alerts {
     padding-left: calc(var(--spacing-md) + env(safe-area-inset-left));
     padding-right: calc(var(--spacing-md) + env(safe-area-inset-right));
+  }
+}
+
+// ============================================
+// DESIGN 7: Minimal Grid Layout
+// ============================================
+
+.minimal-grid {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  background: var(--color-bg-primary);
+  border-radius: 16px;
+  overflow: hidden;
+}
+
+// Minimal Header
+.minimal-header {
+  display: flex;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--color-border-medium);
+  background: var(--color-bg-elevated);
+  position: sticky;
+  top: 0;
+  z-index: var(--z-sticky);
+}
+
+.mh-location {
+  width: 160px;
+  min-width: 160px;
+  font-size: 12px;
+  font-weight: 600;
+  opacity: 0.5;
+  text-transform: uppercase;
+  padding: 12px var(--spacing-lg);
+  display: flex;
+  align-items: center;
+}
+
+.mh-days {
+  flex: 1;
+  display: flex;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+.mh-day {
+  flex: 1;
+  min-width: 60px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  padding: 8px 4px;
+  gap: 4px;
+}
+
+.mhd-letter {
+  font-size: 11px;
+  font-weight: 600;
+  opacity: 0.5;
+  color: var(--color-text-secondary);
+}
+
+.mh-day.weekend .mhd-letter {
+  opacity: 1;
+  color: #f59e0b;
+}
+
+.mhd-num {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--color-text-primary);
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 4px 8px;
+  border-radius: var(--radius-sm);
+  transition: all var(--transition-fast);
+
+  &:hover {
+    background: rgba(107, 155, 209, 0.12);
+    color: var(--color-accent-primary);
+  }
+}
+
+.mh-day.weekend .mhd-num {
+  color: #f59e0b;
+}
+
+.weekend-bar {
+  position: absolute;
+  bottom: 0;
+  left: 10%;
+  right: 10%;
+  height: 3px;
+  background: #f59e0b;
+  border-radius: 2px;
+}
+
+// Region Group
+.region-group {
+  margin-top: 16px;
+  border-bottom: 1px solid var(--color-border-subtle);
+
+  &:last-child {
+    border-bottom: none;
+  }
+}
+
+.region-title {
+  font-size: 13px;
+  font-weight: 600;
+  opacity: 0.7;
+  color: var(--color-accent-primary);
+  margin-bottom: 8px;
+  padding: 8px var(--spacing-lg);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+// Minimal Row
+.minimal-row {
+  display: flex;
+  align-items: center;
+  padding: 10px 0;
+  border-bottom: 1px solid var(--color-border-subtle);
+  transition: background-color var(--transition-fast);
+
+  &:hover {
+    background: var(--color-bg-hover);
+  }
+
+  &:last-child {
+    border-bottom: none;
+  }
+}
+
+.mr-location {
+  width: 160px;
+  min-width: 160px;
+  font-size: 14px;
+  font-weight: 500;
+  padding: 0 var(--spacing-lg);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--color-text-primary);
+
+  .forecast-button {
+    background: none;
+    border: none;
+    padding: 0;
+    color: var(--color-text-primary);
+    text-decoration: underline;
+    text-decoration-color: var(--color-accent-primary);
+    text-decoration-thickness: 1px;
+    text-underline-offset: 2px;
+    cursor: pointer;
+    font-weight: 500;
+    font-size: inherit;
+    transition: color var(--transition-fast);
+    text-align: left;
+
+    &:hover {
+      color: var(--color-accent-primary);
+      text-decoration-thickness: 2px;
+    }
+  }
+
+  .location-alert-indicator {
+    color: var(--color-alert-warning);
+    font-size: 0.9em;
+  }
+}
+
+.mr-weather {
+  flex: 1;
+  display: flex;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+.mr-cell {
+  flex: 1;
+  min-width: 60px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 20px;
+  padding: 8px 4px;
+  transition: all var(--transition-fast);
+
+  &:hover {
+    background: rgba(107, 155, 209, 0.08);
+    transform: scale(1.05);
+  }
+
+  &.weekend {
+    background: rgba(245, 158, 11, 0.1);
+    border-radius: 8px;
+    margin: 0 2px;
+  }
+}
+
+// Light mode overrides for minimal design
+[data-theme='light'] {
+  .minimal-grid {
+    background: #ffffff;
+  }
+
+  .minimal-header {
+    background: #f9d6a7;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  }
+
+  .mh-location {
+    color: #5a5040;
+  }
+
+  .mhd-letter {
+    color: #666666;
+  }
+
+  .mhd-num {
+    color: #000000;
+
+    &:hover {
+      background: rgba(25, 118, 210, 0.12);
+      color: #1976d2;
+    }
+  }
+
+  .region-title {
+    color: #1976d2;
+  }
+
+  .minimal-row {
+    &:hover {
+      background: #f5f5f5;
+    }
+  }
+
+  .mr-location {
+    color: #000000;
+
+    .forecast-button {
+      color: #000000;
+      text-decoration-color: #1976d2;
+
+      &:hover {
+        color: #1976d2;
+      }
+    }
+  }
+
+  .mr-cell {
+    &:hover {
+      background: rgba(25, 118, 210, 0.08);
+    }
+
+    &.weekend {
+      background: rgba(255, 200, 120, 0.18);
+    }
+  }
+}
+
+// Mobile optimizations for minimal design
+@media (max-width: 768px) {
+  .mh-location,
+  .mr-location {
+    width: 130px;
+    min-width: 130px;
+    font-size: 13px;
+    padding: 0 var(--spacing-md);
+  }
+
+  .mh-day,
+  .mr-cell {
+    min-width: 50px;
+  }
+
+  .mhd-num {
+    font-size: 14px;
+  }
+
+  .mr-cell {
+    font-size: 18px;
+  }
+
+  .region-title {
+    font-size: 12px;
+    padding: 6px var(--spacing-md);
+  }
+}
+
+// Extra small devices
+@media (max-width: 390px) {
+  .mh-location,
+  .mr-location {
+    width: 100px;
+    min-width: 100px;
+    font-size: 12px;
+  }
+
+  .mh-day,
+  .mr-cell {
+    min-width: 45px;
+  }
+
+  .mhd-num {
+    font-size: 13px;
+  }
+
+  .mr-cell {
+    font-size: 16px;
   }
 }

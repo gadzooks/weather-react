@@ -1,62 +1,62 @@
 /* Location.scss */
 
 // ============================================
-// Weather Icon Colors - Soft & Calming Palette
-// All colors desaturated by 30-40% for better dark mode comfort
+// Weather Icon Colors - Enhanced Vibrant Palette
+// Colors enhanced by 20-30% with stronger glow effects
 // ============================================
 
-// Weather conditions with softer glow effects
+// Weather conditions with enhanced glow effects
 .fog {
-  color: #b5b3b5;
-  filter: drop-shadow(0 0 3px rgba(181, 179, 181, 0.25));
+  color: #c8c6c8; // Brighter gray (was #b5b3b5)
+  filter: drop-shadow(0 0 4px rgba(200, 198, 200, 0.3)); // Stronger glow
 }
 
 .snow {
-  color: #6d9ed9;
-  filter: drop-shadow(0 0 5px rgba(109, 158, 217, 0.35));
+  color: #7db4f5; // Brighter icy blue (was #6d9ed9)
+  filter: drop-shadow(0 0 7px rgba(125, 180, 245, 0.45)); // Stronger glow
 }
 
 .cloudy {
-  color: #9ba4ba;
-  filter: drop-shadow(0 0 3px rgba(155, 164, 186, 0.2));
+  color: #b0bcd6; // Brighter gray-blue (was #9ba4ba)
+  filter: drop-shadow(0 0 4px rgba(176, 188, 214, 0.3)); // Stronger glow
 }
 
 .rain {
-  color: #6d9ed9;
-  filter: drop-shadow(0 0 6px rgba(109, 158, 217, 0.4));
+  color: #7db4f5; // Brighter blue (was #6d9ed9)
+  filter: drop-shadow(0 0 8px rgba(125, 180, 245, 0.5)); // Stronger glow
 }
 
-// Sunshine levels with soft warm glow
+// Sunshine levels with vibrant warm glow
 .sunshine-10 {
-  color: #d4b87a;
-  filter: drop-shadow(0 0 5px rgba(212, 184, 122, 0.25));
+  color: #e8c87a; // Warmer gold (was #d4b87a)
+  filter: drop-shadow(0 0 6px rgba(232, 200, 122, 0.4)); // Stronger glow
 }
 
 .sunshine-50 {
-  color: #dac589;
-  filter: drop-shadow(0 0 6px rgba(218, 197, 137, 0.3));
+  color: #f0d589; // Brighter gold (was #dac589)
+  filter: drop-shadow(0 0 7px rgba(240, 213, 137, 0.45)); // Stronger glow
 }
 
 .sunshine-100 {
-  color: #6b9bd1;
-  filter: drop-shadow(0 0 5px rgba(107, 155, 209, 0.3));
+  color: #7db4f5; // Brighter blue (was #6b9bd1)
+  filter: drop-shadow(0 0 6px rgba(125, 180, 245, 0.4)); // Stronger glow
 }
 
 .day-sunny {
-  color: #dac589;
-  filter: drop-shadow(0 0 7px rgba(218, 197, 137, 0.4));
+  color: #ffd966; // Vibrant yellow-gold (was #dac589)
+  filter: drop-shadow(0 0 9px rgba(255, 217, 102, 0.5)); // Stronger glow
   animation: subtlePulse 3s ease-in-out infinite;
 }
 
-// Temperature indicators - muted but clear
+// Temperature indicators - vibrant and hot
 .high-temp-wi-hotter {
-  color: #d98969;
-  filter: drop-shadow(0 0 6px rgba(217, 137, 105, 0.35));
+  color: #ff7f50; // Coral-orange (was #d98969)
+  filter: drop-shadow(0 0 8px rgba(255, 127, 80, 0.5)); // Stronger glow
 }
 
 .high-temp-wi-hot {
-  color: #d4b87a;
-  filter: drop-shadow(0 0 5px rgba(212, 184, 122, 0.3));
+  color: #ffb347; // Warm orange (was #d4b87a)
+  filter: drop-shadow(0 0 7px rgba(255, 179, 71, 0.45)); // Stronger glow
 }
 
 // Location name styling
