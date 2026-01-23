@@ -16,10 +16,6 @@ export interface RegionProps {
   dailyForecastFilter: DailyForecastFilter;
   dateSelectedIsWithinForecastRange: boolean;
   alertProps: AlertProps;
-  // NEW: Props for detailed mode
-  isDetailedMode?: boolean;
-  selectedDateIndex?: number;
-  allDates?: string[];
 }
 
 function Region(props: RegionProps) {
@@ -27,35 +23,26 @@ function Region(props: RegionProps) {
   const { description } = region;
   const { search_key: searchKey } = region;
   const { locations } = props;
-  const { 
-    alertProps, 
-    isWeekend, 
+  const {
+    alertProps,
+    isWeekend,
     dateSelectedIsWithinForecastRange,
-    // NEW: Destructure new props
-    isDetailedMode = false,
-    selectedDateIndex = -1,
-    allDates = [],
   } = props;
-  
+
   // Calculate colspan for region header
-  // In detailed mode: 3 day columns (Yesterday/Today/Tomorrow) + 6 detail columns = 9 columns after location
-  // In normal mode: number of date columns
   const numDateCols = dateSelectedIsWithinForecastRange
     ? 0
     : isWeekend.length - 1;
 
-  // In detailed mode, we need more colspan to cover all the detail columns
-  const regionNameColSpan = isDetailedMode ? 10 : 2;
-  
   return (
     <tbody>
       <tr className='region-details'>
         {alertProps.foundAlerts && <td className='region-alerts-cell' />}
-        <td className='region-name-cell' colSpan={regionNameColSpan}>
+        <td className='region-name-cell' colSpan={2}>
           <WtaLink wtaRegion={searchKey} className='wta-link' />
           {description}
         </td>
-        {!isDetailedMode && Array.from({ length: numDateCols }).map((_, i) => (
+        {Array.from({ length: numDateCols }).map((_, i) => (
           <td
             key={`region-cell-${region.name}-${i}`}
             className='region-date-cell'
@@ -69,10 +56,6 @@ function Region(props: RegionProps) {
           key={loc.name}
           atleastOneDateMatches={dateSelectedIsWithinForecastRange}
           alertIds={loc.alertIds}
-          // NEW: Pass detailed mode props
-          isDetailedMode={isDetailedMode}
-          selectedDateIndex={selectedDateIndex}
-          allDates={allDates}
           {...props}
         />
       ))}
