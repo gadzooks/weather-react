@@ -1,9 +1,8 @@
 // LocationDetails.test.tsx
 
 import { parse } from 'fecha';
-import React from 'react';
 import renderer from 'react-test-renderer';
-// import { vi } from 'vitest';
+import { MemoryRouter } from 'react-router-dom';
 import mockWeatherForecastNormalized from '../../../api/mockData';
 import type {
   ForecastDates,
@@ -12,24 +11,6 @@ import type {
 } from '../../../interfaces/ForecastResponseInterface';
 import { calculateWeekends } from '../../../utils/date';
 import LocationDetail, { type LocationDetailProps } from './LocationDetail';
-
-// const { ResizeObserver } = window;
-
-// // from https://github.com/maslianok/react-resize-detector/issues/145#issuecomment-953569721
-// beforeEach(() => {
-//   // @ts-ignore
-//   delete window.ResizeObserver;
-//   window.ResizeObserver = vi.fn().mockImplementation(() => ({
-//     observe: vi.fn(),
-//     unobserve: vi.fn(),
-//     disconnect: vi.fn(),
-//   }));
-// });
-
-// afterEach(() => {
-//   window.ResizeObserver = ResizeObserver;
-//   vi.restoreAllMocks();
-// });
 
 it('renders a snapshot', () => {
   const forecast = mockWeatherForecastNormalized()
@@ -57,9 +38,16 @@ it('renders a snapshot', () => {
     forecastDates,
     alertsById: undefined,
     allAlertIds: undefined,
+    locationSlug: 'cle-elum-area1',
   };
 
-  const tree = renderer.create(<LocationDetail {...locDetailProps} />).toJSON();
+  const tree = renderer
+    .create(
+      <MemoryRouter>
+        <LocationDetail {...locDetailProps} />
+      </MemoryRouter>,
+    )
+    .toJSON();
 
   expect(tree).toMatchSnapshot();
 });
