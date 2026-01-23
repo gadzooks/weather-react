@@ -21,9 +21,14 @@ const WEATHER_JWT_TOKEN = import.meta.env.VITE_WEATHER_JWT_TOKEN;
  *
  * This eliminates the duplicate hourly cache that was causing quota exceeded errors.
  *
+ * NOTE: If the requested date is not available (e.g., it's in the past and no longer
+ * in the forecast), this function will throw an error. The calling component should
+ * handle this by redirecting the user to the location page without a date.
+ *
  * @param locationName - The location name (e.g., "san juan islands")
  * @param date - The date in YYYY-MM-DD format to get hours for
  * @returns Promise with hourly forecast response
+ * @throws Error if date is not available in cache or from API
  */
 export const fetchHourlyForecast = async (
   locationName: string,

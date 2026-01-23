@@ -429,6 +429,21 @@ function HourlyForecastPage() {
     const loadHourlyData = async () => {
       if (!location || !date) return;
 
+      // Check if the requested date is in the available forecast dates
+      // This handles cases where the user navigates to an old/expired date
+      if (appState.forecast?.dates && appState.forecast.dates.length > 0) {
+        if (!appState.forecast.dates.includes(date)) {
+          console.warn(
+            `[HourlyForecastPage] Date ${date} not in available forecast dates, redirecting to location page`,
+          );
+          console.log('[HourlyForecastPage] Available dates:', appState.forecast.dates);
+
+          // Redirect to location detail page with query param to show notification
+          navigate(`/location/${locationSlug}?outdated_date=${date}`);
+          return;
+        }
+      }
+
       setLoading(true);
       setError(null);
 
@@ -443,6 +458,14 @@ function HourlyForecastPage() {
         console.log('[HourlyForecastPage] Loaded hourly data');
       } catch (err) {
         console.error('[HourlyForecastPage] Failed to load hourly data:', err);
+
+        // If we failed to load hourly data and date is invalid, redirect to location page
+        if (appState.forecast?.dates && !appState.forecast.dates.includes(date)) {
+          console.log('[HourlyForecastPage] Date not available, redirecting to location page');
+          navigate(`/location/${locationSlug}?outdated_date=${date}`);
+          return;
+        }
+
         setError(
           err instanceof Error ? err.message : 'Failed to load hourly data',
         );
@@ -453,10 +476,21 @@ function HourlyForecastPage() {
     };
 
     loadHourlyData();
-  }, [location, date]);
+  }, [location, date, appState.forecast?.dates, locationSlug, navigate]);
 
   const handleRefresh = async () => {
     if (!location || !date) return;
+
+    // Check if the date is still valid before refreshing
+    if (appState.forecast?.dates && appState.forecast.dates.length > 0) {
+      if (!appState.forecast.dates.includes(date)) {
+        console.warn(
+          `[HourlyForecastPage] Refresh requested for outdated date ${date}, redirecting to location page`,
+        );
+        navigate(`/location/${locationSlug}?outdated_date=${date}`);
+        return;
+      }
+    }
 
     setRefreshing(true);
     setError(null);
@@ -470,6 +504,14 @@ function HourlyForecastPage() {
       setSunset(response.sunset || null);
     } catch (err) {
       console.error('[HourlyForecastPage] Failed to refresh hourly data:', err);
+
+      // If refresh fails and date is no longer available, redirect to location page
+      if (appState.forecast?.dates && !appState.forecast.dates.includes(date)) {
+        console.log('[HourlyForecastPage] Date not available after refresh, redirecting');
+        navigate(`/location/${locationSlug}?outdated_date=${date}`);
+        return;
+      }
+
       // Don't show error if we already have data displayed - just keep showing it
       if (hours.length === 0) {
         setError(

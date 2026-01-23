@@ -54,8 +54,9 @@ export function extractHourlyFromMainCache(
     // Find the specific day
     const dayForecast = dailyForecasts.find((day) => day.datetime === date);
     if (!dayForecast) {
-      console.log('[extractHourlyFromCache] Date not found in forecasts:', date);
+      console.warn('[extractHourlyFromCache] Date not found in forecasts:', date);
       console.log('[extractHourlyFromCache] Available dates:', dailyForecasts.map((d) => d.datetime));
+      console.log('[extractHourlyFromCache] This may be an outdated/past date. User should be redirected to current forecast.');
       return null;
     }
 

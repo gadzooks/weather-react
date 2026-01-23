@@ -13,6 +13,7 @@ import { mergeForecast } from '../../../features/forecast/forecastSlice';
 import fetchWithRetries from '../../../api/retry';
 import type { ForecastResponseStatus } from '../../../interfaces/ForecastResponseInterface';
 import LocationDetail from './LocationDetail';
+import OutdatedDateBanner from './OutdatedDateBanner';
 import weatherLoading from '../../../images/weather-loading.gif';
 
 const WEATHER_API = import.meta.env.VITE_WEATHER_API;
@@ -179,16 +180,19 @@ function LocationDetailWrapper() {
   };
 
   return (
-    <LocationDetail
-      appState={appState}
-      forecastDetailsForLocation={forecastDetailsForLocation}
-      setForecastDetailsForLocation={setForecastDetailsForLocation}
-      forecastDates={forecastDates}
-      alertsById={appState.forecast.alertsById}
-      allAlertIds={appState.forecast.allAlertIds}
-      onDayClick={handleDayClick}
-      locationSlug={locationSlug}
-    />
+    <>
+      <OutdatedDateBanner />
+      <LocationDetail
+        appState={appState}
+        forecastDetailsForLocation={forecastDetailsForLocation}
+        setForecastDetailsForLocation={setForecastDetailsForLocation}
+        forecastDates={forecastDates}
+        alertsById={appState.forecast.alertsById}
+        allAlertIds={appState.forecast.allAlertIds}
+        onDayClick={handleDayClick}
+        locationSlug={locationSlug}
+      />
+    </>
   );
 }
 
