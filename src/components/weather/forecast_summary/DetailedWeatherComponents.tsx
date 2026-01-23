@@ -15,12 +15,12 @@ interface SparklineProps {
   showArea?: boolean;
 }
 
-export function Sparkline({ 
-  data, 
-  color, 
-  height = 20, 
-  width = 70, 
-  showArea = false 
+export function Sparkline({
+  data,
+  color,
+  height = 20,
+  width = 70,
+  showArea = false
 }: SparklineProps) {
   if (!data || data.length === 0) return <span className='no-data'>—</span>;
   
@@ -95,7 +95,7 @@ interface WindIndicatorProps {
 export function WindIndicator({ speed, direction }: WindIndicatorProps) {
   const intensity = speed > 20 ? 'high' : speed > 10 ? 'med' : 'low';
   const color = intensity === 'high' ? '#f59e0b' : intensity === 'med' ? '#fbbf24' : '#9ca3af';
-  
+
   return (
     <div className='wind-indicator'>
       <svg width='14' height='14' style={{ transform: `rotate(${direction}deg)` }}>
@@ -119,22 +119,65 @@ interface HikeScoreProps {
 
 export function HikeScore({ precip, wind, visibility, uv }: HikeScoreProps) {
   let score = 100;
-  if (precip > 50) score -= 35;
-  else if (precip > 30) score -= 25;
-  else if (precip > 10) score -= 10;
-  if (wind > 25) score -= 30;
-  else if (wind > 15) score -= 15;
-  else if (wind > 10) score -= 5;
-  if (visibility < 3) score -= 25;
-  else if (visibility < 6) score -= 10;
-  if (uv > 10) score -= 15;
-  else if (uv > 7) score -= 5;
-  
+  const penalties: string[] = [];
+
+  // Calculate penalties and build explanation
+  if (precip > 50) {
+    score -= 35;
+    penalties.push(`High precipitation (${Math.round(precip)}%): -35 pts`);
+  } else if (precip > 30) {
+    score -= 25;
+    penalties.push(`Moderate precipitation (${Math.round(precip)}%): -25 pts`);
+  } else if (precip > 10) {
+    score -= 10;
+    penalties.push(`Light precipitation (${Math.round(precip)}%): -10 pts`);
+  }
+
+  if (wind > 25) {
+    score -= 30;
+    penalties.push(`Strong winds (${Math.round(wind)} mph): -30 pts`);
+  } else if (wind > 15) {
+    score -= 15;
+    penalties.push(`Moderate winds (${Math.round(wind)} mph): -15 pts`);
+  } else if (wind > 10) {
+    score -= 5;
+    penalties.push(`Breezy (${Math.round(wind)} mph): -5 pts`);
+  }
+
+  if (visibility < 3) {
+    score -= 25;
+    penalties.push(`Poor visibility (${visibility} mi): -25 pts`);
+  } else if (visibility < 6) {
+    score -= 10;
+    penalties.push(`Reduced visibility (${visibility} mi): -10 pts`);
+  }
+
+  if (uv > 10) {
+    score -= 15;
+    penalties.push(`Extreme UV index (${Math.round(uv)}): -15 pts`);
+  } else if (uv > 7) {
+    score -= 5;
+    penalties.push(`High UV index (${Math.round(uv)}): -5 pts`);
+  }
+
   const rating = score >= 75 ? 'great' : score >= 50 ? 'fair' : 'poor';
   const label = rating.charAt(0).toUpperCase() + rating.slice(1);
-  
+
+  // Build tooltip text
+  const tooltipLines = [
+    `Hiking Conditions: ${label} (Score: ${score}/100)`,
+    '',
+    penalties.length > 0 ? 'Factors affecting score:' : 'Perfect conditions - no penalties!',
+    ...penalties,
+  ];
+
+  const tooltip = tooltipLines.join('\n');
+
   return (
-    <div className={`hike-score hike-score--${rating}`}>
+    <div
+      className={`hike-score hike-score--${rating}`}
+      title={tooltip}
+    >
       <div className='hike-score__dot' />
       <span className='hike-score__label'>{label}</span>
     </div>
@@ -151,12 +194,13 @@ interface MiniDayPreviewProps {
   label: string;
 }
 
-export function MiniDayPreview({ icon, high, label }: MiniDayPreviewProps) {
+export function MiniDayPreview({ icon, high }: MiniDayPreviewProps) {
   return (
     <div className='mini-day-preview'>
-      <span className='mini-day-preview__label'>{label}</span>
-      <i className={`wi wi-${getWeatherIconClass(icon)}`} />
-      <span className='mini-day-preview__temp'>{Math.round(high)}°</span>
+      <div className='mini-day-preview__content'>
+        <i className={`wi wi-${getWeatherIconClass(icon)}`} />
+        <span className='mini-day-preview__temp'>{Math.round(high)}°</span>
+      </div>
     </div>
   );
 }

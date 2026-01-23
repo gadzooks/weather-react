@@ -10,12 +10,12 @@ import type { MatchedAreas } from '../../../interfaces/MatchedAreas';
 import {
   type DailyForecastFilter,
   dateSelectedMatchesForecastDates,
-  matchesSelecteDate,
 } from '../../../interfaces/DailyForecastFilter';
 import alertsFound from '../../../utils/count';
 import AlertDetail from '../alerts/AlertDetail';
 import type { AlertProps } from '../../../interfaces/AlertProps';
 import { calculateWeekends } from '../../../utils/date';
+import DateNavigation from './DateNavigation';
 
 export function matchedLocations(
   needle: RegExp | null,
@@ -30,30 +30,6 @@ export interface SummaryTableProps {
   matchedAreas: MatchedAreas;
   dailyForecastFilter: DailyForecastFilter;
   setDailyForecastFilter: any;
-}
-
-function prevDateWithinRange(
-  date: Date | null,
-  index: number,
-  dates: (Date | null)[],
-): string | null {
-  if (date === null) return null;
-  if (index === 0) return null;
-  const prevParsedDate = dates[index - 1];
-  if (!prevParsedDate) return null;
-  return format(prevParsedDate, 'YYYY-MM-DD');
-}
-
-function nextDateWithinRange(
-  date: Date | null,
-  index: number,
-  dates: (Date | null)[],
-): string | null {
-  if (date === null) return null;
-  if (index === dates.length - 1) return null;
-  const nextParsedDate = dates[index + 1];
-  if (!nextParsedDate) return null;
-  return format(nextParsedDate, 'YYYY-MM-DD');
 }
 
 function SummaryTable(props: SummaryTableProps) {
@@ -96,11 +72,27 @@ function SummaryTable(props: SummaryTableProps) {
     setDailyForecastFilter(dFF);
   };
 
+  const clearDate = () => {
+    const dFF = { ...dailyForecastFilter } as DailyForecastFilter;
+    dFF.date = '';
+    setDailyForecastFilter(dFF);
+  };
+
   // Determine if we're in detailed single-day mode
   const isDetailedMode = dateSelectedIsWithinForecastRange;
 
   return (
     <>
+      {/* Date Navigation Bar - shown in detailed mode */}
+      {isDetailedMode && (
+        <DateNavigation
+          selectedDate={dailyForecastFilter.date || null}
+          allDates={forecastResponse?.dates || []}
+          onDateChange={selectDate}
+          onClearDate={clearDate}
+        />
+      )}
+
       <table
         className={`table styled-table ${isDetailedMode ? 'detailed-mode' : ''}`}
         data-has-alerts={foundAlerts || undefined}
@@ -118,10 +110,10 @@ function SummaryTable(props: SummaryTableProps) {
             {/* DETAILED MODE: Show additional column headers */}
             {isDetailedMode && (
               <>
-                <td className='detail-header context-header'>Context</td>
-                <td className='detail-header icon-header'>Today</td>
+                <td className='detail-header day-header'>Yesterday</td>
+                <td className='detail-header day-header day-header--today'>Today</td>
+                <td className='detail-header day-header'>Tomorrow</td>
                 <td className='detail-header temp-header'>Hi/Lo</td>
-                <td className='detail-header sparkline-header'>Temp</td>
                 <td className='detail-header precip-header'>Precip</td>
                 <td className='detail-header wind-header'>Wind</td>
                 <td className='detail-header uv-header'>UV</td>
@@ -130,8 +122,8 @@ function SummaryTable(props: SummaryTableProps) {
               </>
             )}
             
-            {/* Date column(s) */}
-            {parsedDates.map((date, index) => {
+            {/* Date column(s) - Only shown in normal (non-detailed) mode */}
+            {!isDetailedMode && parsedDates.map((date, index) => {
               const isWeekendDate = weekends[index];
               const weekendClass = isWeekendDate ? 'weekend-header' : '';
               const txt = date === null ? '' : format(date, 'DD').toUpperCase();
@@ -139,55 +131,18 @@ function SummaryTable(props: SummaryTableProps) {
                 date === null ? '' : format(date, 'ddd').toUpperCase();
               const dateKey =
                 date === null ? '' : format(date, 'YYYY-MM-DD').toUpperCase();
-              const dateMatches = matchesSelecteDate(
-                date,
-                dailyForecastFilter.date,
-              );
-              const prevDateKey = prevDateWithinRange(date, index, parsedDates);
-              const nextDateKey = nextDateWithinRange(date, index, parsedDates);
-              
+
               return (
-                (!dateSelectedIsWithinForecastRange || dateMatches) && (
-                  <td key={txt} align='center' className={`${weekendClass} ${isDetailedMode ? 'date-nav-cell' : ''}`}>
-                    <div className='day-of-week'>{dayOfWeekText}</div>
-                    {dateSelectedIsWithinForecastRange && (
-                      <div className='date-nav-buttons'>
-                        <button
-                          className={`button-2 left-arrow${isWeekendDate ? ' weekend' : ''}`}
-                          type='button'
-                          onClick={() => selectDate(prevDateKey || '')}
-                          disabled={!prevDateKey}
-                        >
-                          ←
-                        </button>
-                        <button
-                          type='button'
-                          className={`button-2 forecast-date${isWeekendDate ? ' weekend' : ''}`}
-                          onClick={() => selectDate(dateKey)}
-                        >
-                          {txt}
-                        </button>
-                        <button
-                          className={`button-2 right-arrow${isWeekendDate ? ' weekend' : ''}`}
-                          type='button'
-                          onClick={() => selectDate(nextDateKey || '')}
-                          disabled={!nextDateKey}
-                        >
-                          →
-                        </button>
-                      </div>
-                    )}
-                    {!dateSelectedIsWithinForecastRange && (
-                      <button
-                        type='button'
-                        className={`button-2${isWeekendDate ? ' weekend' : ''}`}
-                        onClick={() => selectDate(dateKey)}
-                      >
-                        {txt}
-                      </button>
-                    )}
-                  </td>
-                )
+                <td key={txt} align='center' className={weekendClass}>
+                  <div className='day-of-week'>{dayOfWeekText}</div>
+                  <button
+                    type='button'
+                    className={`button-2${isWeekendDate ? ' weekend' : ''}`}
+                    onClick={() => selectDate(dateKey)}
+                  >
+                    {txt}
+                  </button>
+                </td>
               );
             })}
           </tr>

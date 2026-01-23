@@ -1,0 +1,169 @@
+/* DateNavigation.scss */
+
+.date-navigation {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 2px; // Minimal gap for maximum density
+  padding: 4px 2px; // Minimal horizontal padding
+  background: var(--color-bg-elevated, #2d323d);
+  border-radius: 4px; // Reduced from var(--radius-md, 8px)
+  margin-bottom: 6px; // Reduced from var(--spacing-lg, 16px)
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
+  border: 1px solid var(--color-border-medium, rgba(255, 255, 255, 0.08));
+
+  &.weekend {
+    background: rgba(255, 152, 0, 0.08);
+    border-color: rgba(255, 152, 0, 0.3);
+    box-shadow:
+      0 1px 4px rgba(255, 152, 0, 0.2),
+      inset 0 0 20px rgba(255, 152, 0, 0.1);
+  }
+}
+
+.date-nav-btn {
+  display: flex;
+  align-items: center;
+  gap: 1px; // Minimal gap
+  padding: 3px 2px; // Minimal horizontal padding
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid var(--color-border-subtle, rgba(255, 255, 255, 0.04));
+  border-radius: 3px; // Reduced from var(--radius-sm, 6px)
+  color: var(--color-text-secondary, #9fa5b8);
+  font-size: 11px; // Reduced from 14px
+  font-weight: 500;
+  cursor: pointer;
+  transition: all var(--transition-normal, 250ms);
+  white-space: nowrap;
+
+  .wi {
+    font-size: 14px; // Reduced from 18px
+  }
+
+  &:hover:not(:disabled) {
+    background: rgba(107, 155, 209, 0.15);
+    border-color: var(--color-accent-primary, #ff9800);
+    color: var(--color-accent-primary, #ff9800);
+    transform: translateY(-1px);
+    box-shadow: 0 2px 6px rgba(107, 155, 209, 0.2);
+  }
+
+  &:active:not(:disabled) {
+    transform: translateY(0);
+  }
+
+  &:disabled {
+    opacity: 0.3;
+    cursor: not-allowed;
+  }
+}
+
+.date-nav-label {
+  @media (max-width: 768px) {
+    display: none;
+  }
+}
+
+.date-nav-current {
+  flex: 1;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0; // Zero gap for maximum density
+}
+
+.date-nav-date {
+  font-size: 13px; // Reduced from 18px
+  font-weight: 600;
+  color: var(--color-text-primary, #d6d9e3);
+  letter-spacing: 0.2px; // Reduced from 0.3px
+
+  @media (max-width: 768px) {
+    font-size: 12px; // Reduced from 16px
+  }
+
+  @media (max-width: 390px) {
+    font-size: 11px; // Reduced from 14px
+  }
+}
+
+.date-nav-close {
+  display: inline-flex;
+  align-items: center;
+  gap: 1px; // Minimal gap
+  padding: 2px 2px; // Minimal horizontal padding
+  background: rgba(239, 68, 68, 0.1);
+  border: 1px solid rgba(239, 68, 68, 0.3);
+  border-radius: 3px; // Reduced from var(--radius-sm, 6px)
+  color: #ef4444;
+  font-size: 10px; // Reduced from 12px
+  font-weight: 500;
+  cursor: pointer;
+  transition: all var(--transition-fast, 150ms);
+
+  .wi {
+    font-size: 11px; // Reduced from 14px
+  }
+
+  &:hover {
+    background: rgba(239, 68, 68, 0.2);
+    border-color: rgba(239, 68, 68, 0.5);
+    transform: scale(1.05);
+  }
+
+  &:active {
+    transform: scale(0.98);
+  }
+}
+
+.date-nav-close-label {
+  @media (max-width: 768px) {
+    display: none;
+  }
+}
+
+// Light mode overrides
+[data-theme='light'] {
+  .date-navigation {
+    background: #f9d6a7;
+    border-color: rgba(0, 0, 0, 0.1);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+
+    &.weekend {
+      background: rgba(255, 200, 120, 0.25);
+      border-color: rgba(255, 111, 0, 0.3);
+      box-shadow:
+        0 2px 8px rgba(255, 152, 0, 0.15),
+        inset 0 0 30px rgba(255, 152, 0, 0.08);
+    }
+  }
+
+  .date-nav-btn {
+    background: rgba(0, 0, 0, 0.05);
+    border-color: rgba(0, 0, 0, 0.12);
+    color: #333333;
+
+    &:hover:not(:disabled) {
+      background: rgba(25, 118, 210, 0.12);
+      border-color: #1976d2;
+      color: #1976d2;
+      box-shadow: 0 4px 12px rgba(25, 118, 210, 0.15);
+    }
+  }
+
+  .date-nav-date {
+    color: #000000;
+  }
+
+  .date-nav-close {
+    background: rgba(211, 47, 47, 0.08);
+    border-color: rgba(211, 47, 47, 0.25);
+    color: #d32f2f;
+
+    &:hover {
+      background: rgba(211, 47, 47, 0.15);
+      border-color: rgba(211, 47, 47, 0.4);
+    }
+  }
+}

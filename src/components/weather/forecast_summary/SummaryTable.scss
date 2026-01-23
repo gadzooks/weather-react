@@ -38,15 +38,15 @@
   --color-alert-watch: #d4ba7a;
   --color-alert-warning: #d97869;
 
-  // Spacing (mobile-first) - compact values
-  --spacing-xs: 4px;
-  --spacing-sm: 8px;
-  --spacing-md: 12px;
-  --spacing-lg: 16px;
-  --spacing-xl: 24px;
+  // Spacing (mobile-first) - ULTRA COMPACT for maximum density
+  --spacing-xs: 2px;
+  --spacing-sm: 4px;
+  --spacing-md: 6px;
+  --spacing-lg: 8px;
+  --spacing-xl: 12px;
 
-  // Touch targets (iOS guidelines) - slightly reduced for compact UI
-  --touch-target-min: 36px;
+  // Touch targets (iOS guidelines) - minimized for dense view
+  --touch-target-min: 32px;
 
   // Transitions
   --transition-fast: 150ms ease-out;
@@ -160,7 +160,7 @@
 table.table {
   border-collapse: separate;
   border-spacing: 0;
-  font-size: 0.9em;
+  font-size: 0.8em; // Reduced from 0.9em for density
   min-width: 100%;
   background: var(--color-bg-primary);
   box-shadow: none;
@@ -196,11 +196,11 @@ table.table {
       box-shadow: 0 1px 0 var(--color-border-medium);
     }
 
-    // Date column headers - cleaner styling
+    // Date column headers - DENSE styling
     td:not(.alerts-header):not(.location-header):not(.detail-header) {
       font-weight: 500;
       color: var(--color-text-secondary);
-      padding: 14px 12px;
+      padding: 6px 0; // Zero horizontal padding for maximum density
     }
   }
 
@@ -213,14 +213,14 @@ table.table {
 
   th,
   td {
-    padding: 12px 8px;
+    padding: 6px 0; // Zero horizontal padding for maximum density
     text-align: center;
     color: var(--color-text-primary);
     border-bottom: 1px solid var(--color-border-subtle);
     transition: background-color var(--transition-fast);
   }
 
-  // Body location column - Sticky on horizontal scroll
+  // Body location column - Sticky on horizontal scroll - DENSE
   td.location-name,
   th:first-child {
     position: sticky;
@@ -229,34 +229,35 @@ table.table {
     text-align: left;
     z-index: calc(var(--z-sticky) + 3); // FIXED: Higher than alerts-cell to prevent overlap
     box-shadow: 4px 0 12px rgba(0, 0, 0, 0.15);
-    min-width: 160px;
-    width: 160px;
-    max-width: 180px;
-    padding-left: var(--spacing-lg);
-    padding-right: var(--spacing-md);
+    min-width: 110px; // Reduced from 160px
+    width: 110px; // Reduced from 160px
+    max-width: 130px; // Reduced from 180px
+    padding-left: 2px; // Minimal left padding
+    padding-right: 1px; // Minimal right padding
     font-weight: 500;
+    font-size: 0.85em; // Smaller font for density
     color: var(--color-text-primary);
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
   }
 
-  // Alerts column in header (only when alerts are present)
+  // Alerts column in header (only when alerts are present) - DENSE
   thead tr td.alerts-header {
     position: sticky;
     left: 0;
     background: #2d323d;
     z-index: calc(var(--z-sticky) + 7);
-    width: 35px;
-    min-width: 35px;
-    padding: 2px;
+    width: 28px; // Reduced from 35px
+    min-width: 28px; // Reduced from 35px
+    padding: 1px; // Reduced from 2px
     box-shadow: 4px 0 12px rgba(0, 0, 0, 0.15);
-    font-size: 1.5em;
+    font-size: 1.2em; // Reduced from 1.5em
     color: red;
     // color: var(--color-text-secondary);
   }
 
-  // Location header column - default position (no alerts)
+  // Location header column - default position (no alerts) - DENSE
   thead tr td.location-header {
     position: sticky;
     left: 0;
@@ -264,36 +265,37 @@ table.table {
     z-index: calc(var(--z-sticky) + 6);
     box-shadow: 4px 0 12px rgba(0, 0, 0, 0.15);
     text-align: left;
-    min-width: 160px;
-    width: 160px;
-    padding-left: var(--spacing-lg);
+    min-width: 110px; // Reduced from 160px
+    width: 110px; // Reduced from 160px
+    padding-left: 2px; // Minimal left padding
+    padding-right: 1px; // Minimal right padding
     font-weight: 600;
-    font-size: 0.85em;
+    font-size: 0.7em; // Reduced from 0.85em
     text-transform: uppercase;
-    letter-spacing: 0.5px;
+    letter-spacing: 0.3px; // Reduced from 0.5px
     color: var(--color-text-secondary);
   }
 
   // Location header offset when alerts column is present (sibling selector)
   thead tr td.alerts-header ~ td.location-header {
-    left: 35px; // Offset by alerts column width
+    left: 28px; // Offset by alerts column width (reduced from 35px)
   }
 
-  // Body alerts column - sticky when alerts are present
+  // Body alerts column - sticky when alerts are present - DENSE
   td.alerts-cell {
     position: sticky;
     left: 0;
     background: #242831;
     z-index: calc(var(--z-sticky) + 2);
-    width: 35px;
-    min-width: 35px;
-    padding: 2px;
+    width: 28px; // Reduced from 35px
+    min-width: 28px; // Reduced from 35px
+    padding: 1px; // Reduced from 2px
     box-shadow: 4px 0 12px rgba(0, 0, 0, 0.15);
   }
 
   // Body location column offset when alerts are present (via data attribute)
   &[data-has-alerts] td.location-name {
-    left: 35px; // Offset by alerts column width
+    left: 28px; // Offset by alerts column width (reduced from 35px)
   }
 
   // Override sticky column gradients for light mode
@@ -333,8 +335,8 @@ table.table {
   font-size: 13px;
   font-weight: 500;
   line-height: 1.3;
-  margin: 2px;
-  padding: 6px 10px;
+  margin: 1px;
+  padding: 6px 2px; // Minimal horizontal padding
   text-align: center;
   transition: all var(--transition-normal);
   vertical-align: middle;
@@ -501,11 +503,11 @@ table.table {
 }
 
 // ============================================
-// Weather Icons - Enhanced with Glow Effects
+// Weather Icons - Enhanced with Glow Effects - DENSE
 // ============================================
 
 .weather-icon {
-  font-size: 1.2em;
+  font-size: 1em; // Reduced from 1.2em for density
   line-height: 1;
   transition: all var(--transition-normal);
   display: inline-block;
@@ -513,7 +515,7 @@ table.table {
 
   // Glow effects for different weather
   &:hover {
-    transform: scale(1.1);
+    transform: scale(1.05); // Reduced from 1.1
   }
 }
 
@@ -543,17 +545,17 @@ table.table {
       }
     }
 
-    // Regional sections
+    // Regional sections - DENSE
     &.region-header {
       background: transparent;
       font-weight: 600;
       color: var(--color-accent-primary);
       text-transform: uppercase;
-      font-size: 0.7em;
-      letter-spacing: 0.8px;
+      font-size: 0.65em; // Reduced from 0.7em
+      letter-spacing: 0.5px; // Reduced from 0.8px
 
       td {
-        padding: var(--spacing-md) var(--spacing-sm);
+        padding: 4px 0; // Zero horizontal padding
         border-top: none;
         border-bottom: 1px solid var(--color-border-subtle);
       }
@@ -760,16 +762,16 @@ a.freepik {
 // Mobile Optimizations (iPhone Primary Target)
 // ============================================
 
-// Base mobile styles (default, mobile-first) - compact
+// Base mobile styles (default, mobile-first) - ULTRA DENSE
 @media (max-width: 768px) {
   :root {
-    --spacing-sm: 6px;
-    --spacing-md: 10px;
-    --spacing-lg: 14px;
+    --spacing-sm: 3px; // Reduced from 6px
+    --spacing-md: 5px; // Reduced from 10px
+    --spacing-lg: 7px; // Reduced from 14px
   }
 
   table.table {
-    font-size: 0.82rem;
+    font-size: 0.75rem; // Reduced from 0.82rem
     white-space: nowrap;
 
     // Improve scroll performance
@@ -779,16 +781,16 @@ a.freepik {
   .styled-table {
     th,
     td {
-      padding: 6px 4px;
+      padding: 4px 0; // Zero horizontal padding
     }
 
     td.location-name {
-      min-width: 130px;
-      width: 130px;
-      max-width: 140px;
-      font-size: 0.85em;
-      padding-left: var(--spacing-md);
-      padding-right: 2px;
+      min-width: 95px; // Reduced from 130px
+      width: 95px; // Reduced from 130px
+      max-width: 110px; // Reduced from 140px
+      font-size: 0.8em; // Reduced from 0.85em
+      padding-left: 2px; // Minimal left padding
+      padding-right: 1px; // Minimal right padding
       overflow: hidden;
       text-overflow: ellipsis;
       position: sticky;
@@ -799,11 +801,12 @@ a.freepik {
     }
 
     thead tr td.location-header {
-      min-width: 130px;
-      width: 130px;
-      max-width: 140px;
-      font-size: 0.75em;
-      padding-left: var(--spacing-md);
+      min-width: 95px; // Reduced from 130px
+      width: 95px; // Reduced from 130px
+      max-width: 110px; // Reduced from 140px
+      font-size: 0.65em; // Reduced from 0.75em
+      padding-left: 2px; // Minimal left padding
+      padding-right: 1px; // Minimal right padding
       overflow: hidden;
       text-overflow: ellipsis;
       position: sticky;
@@ -815,67 +818,79 @@ a.freepik {
 
     thead tr td.alerts-header,
     td.alerts-cell {
-      min-width: 32px;
-      width: 32px;
-      padding: 2px;
+      min-width: 26px; // Reduced from 32px
+      width: 26px; // Reduced from 32px
+      padding: 1px; // Reduced from 2px
       background: #242831;
     }
 
     thead tr td.alerts-header {
       background: #2d323d;
+      font-size: 1.1em; // Reduced icon size
     }
 
     // Adjust location offset for mobile alerts column width
     thead tr td.alerts-header ~ td.location-header,
     &[data-has-alerts] td.location-name {
-      left: 32px;
+      left: 26px; // Reduced from 32px
     }
   }
 
   .weather-icon {
-    font-size: 1.1em;
+    font-size: 0.95em; // Reduced from 1.1em
   }
 
   .button-2 {
-    padding: 6px 8px;
-    font-size: 12px;
-    min-height: 32px;
+    padding: 4px 1px; // Minimal horizontal padding
+    font-size: 11px; // Reduced from 12px
+    min-height: 28px; // Reduced from 32px
+    margin: 1px 0; // Remove horizontal margin
 
     &.left-arrow,
     &.right-arrow {
-      padding: 6px;
-      min-width: 32px;
+      padding: 4px 2px; // Minimal horizontal padding
+      min-width: 28px; // Reduced from 32px
     }
 
     &.forecast-date {
-      min-width: 40px;
+      min-width: 32px; // Reduced from 36px
     }
   }
 }
 
-// Extra small devices (iPhone SE, small phones)
+// Extra small devices (iPhone SE, small phones) - ULTRA DENSE
 @media (max-width: 390px) {
   table.table {
-    font-size: 0.78em;
+    font-size: 0.7em; // Reduced from 0.78em
   }
 
   .weather-icon {
-    font-size: 1em;
+    font-size: 0.9em; // Reduced from 1em
   }
 
   .styled-table {
     td.location-name {
-      min-width: 90px;
-      max-width: 110px;
-      font-size: 0.8em;
-      padding-right: 2px;
+      min-width: 75px; // Reduced from 90px
+      max-width: 90px; // Reduced from 110px
+      font-size: 0.75em; // Reduced from 0.8em
+      padding-left: 1px; // Minimal left padding
+      padding-right: 0; // Zero right padding
+    }
+
+    thead tr td.location-header {
+      min-width: 75px;
+      max-width: 90px;
+      font-size: 0.6em;
+      padding-left: 1px; // Minimal left padding
+      padding-right: 0; // Zero right padding
     }
   }
 
   .button-2 {
-    font-size: 11px;
-    padding: 5px 7px;
-    min-height: 28px;
+    font-size: 10px; // Reduced from 11px
+    padding: 3px 1px; // Minimal horizontal padding
+    min-height: 26px; // Reduced from 28px
+    margin: 1px 0; // Remove horizontal margin
   }
 }
 
@@ -888,7 +903,7 @@ a.freepik {
   .styled-table {
     th,
     td {
-      padding: 8px 10px;
+      padding: 8px 2px;
     }
 
     td.location-name {
@@ -907,16 +922,16 @@ a.freepik {
   }
 }
 
-// Desktop - Compact view with column borders
+// Desktop - Ultra compact view with column borders
 @media (min-width: 1024px) {
   table.table {
-    font-size: 0.8rem;
+    font-size: 0.75rem; // Reduced from 0.8rem
   }
 
   .styled-table {
     th,
     td {
-      padding: 6px 8px;
+      padding: 4px 0; // Zero horizontal padding
       // Vertical borders between columns
       border-left: 1px solid var(--color-border-subtle);
 
@@ -927,27 +942,27 @@ a.freepik {
 
     // Header row styling
     thead td {
-      padding: 8px;
-      font-size: 0.85em;
+      padding: 5px 0; // Zero horizontal padding
+      font-size: 0.8em; // Reduced from 0.85em
     }
 
-    // Location columns - compact
+    // Location columns - ultra compact
     td.location-name,
     thead tr td.location-header {
-      min-width: 130px;
-      width: 130px;
-      max-width: 150px;
-      padding: 6px 10px;
+      min-width: 100px; // Reduced from 130px
+      width: 100px; // Reduced from 130px
+      max-width: 120px; // Reduced from 150px
+      padding: 4px 2px; // Minimal horizontal padding
       border-left: none;
       border-right: 1px solid var(--color-border-medium);
     }
 
-    // Alerts columns - compact
+    // Alerts columns - ultra compact
     thead tr td.alerts-header,
     td.alerts-cell {
-      width: 35px;
-      min-width: 35px;
-      padding: 2px;
+      width: 28px; // Reduced from 35px
+      min-width: 28px; // Reduced from 35px
+      padding: 1px; // Reduced from 2px
       border-left: none;
       border-right: 1px solid var(--color-border-medium);
     }
@@ -955,24 +970,25 @@ a.freepik {
     // Adjust location offset for desktop alerts column width
     thead tr td.alerts-header ~ td.location-header,
     &[data-has-alerts] td.location-name {
-      left: 35px;
+      left: 28px; // Reduced from 35px
     }
   }
 
   .weather-icon {
-    font-size: 1.3em;
+    font-size: 1.1em; // Reduced from 1.3em
   }
 
   .button-2 {
-    padding: 4px 8px;
-    font-size: 12px;
-    min-height: 28px;
-    min-width: 28px;
+    padding: 3px 1px; // Minimal horizontal padding
+    font-size: 11px; // Reduced from 12px
+    min-height: 26px; // Reduced from 28px
+    min-width: 24px; // Reduced from 26px
+    margin: 1px 0; // Remove horizontal margin
 
     &.left-arrow,
     &.right-arrow {
-      padding: 4px;
-      min-width: 24px;
+      padding: 3px 1px; // Minimal horizontal padding
+      min-width: 20px; // Reduced from 22px
     }
   }
 }
@@ -1351,82 +1367,145 @@ a.freepik {
 
 .styled-table.detailed-mode {
   font-family: var(--font-mono);
-  
+
   thead {
     .detail-header {
-      font-size: 9px;
+      font-size: 8px; // Reduced from 10px
       font-weight: 600;
       text-transform: uppercase;
-      letter-spacing: 0.5px;
+      letter-spacing: 0.3px; // Reduced from 0.5px
       color: var(--color-text-secondary);
-      padding: 10px 6px;
+      padding: 4px 0; // Zero horizontal padding
       white-space: nowrap;
       vertical-align: bottom;
     }
-    
-    .date-nav-cell {
-      min-width: 110px;
-      
-      .date-nav-buttons {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        gap: 2px;
-      }
-    }
   }
-  
-  // Detail cells - consistent sizing
+
+  // Detail cells - ultra compact and dense
   .detail-cell {
-    padding: 6px 6px;
+    padding: 3px 0; // Zero horizontal padding for maximum density
     vertical-align: middle;
     white-space: nowrap;
   }
 }
 
 // ============================================
-// Day Context (Prev/Next Day Previews)
+// Day Columns (Yesterday/Today/Tomorrow)
 // ============================================
 
-.day-context {
+// Day column headers
+.day-header {
+  position: relative;
+
+  &--today {
+    font-size: 11px !important;
+    font-weight: 700 !important;
+    color: var(--color-accent-primary) !important;
+    background: rgba(107, 155, 209, 0.08);
+    border-left: 2px solid var(--color-accent-primary);
+    border-right: 2px solid var(--color-accent-primary);
+  }
+}
+
+// Day cells in rows - DENSE
+.day-cell {
+  text-align: center;
+  vertical-align: middle;
+  min-width: 36px; // Reduced from 42px
+  padding: 2px 0 !important; // Zero horizontal padding
+
+  &--prev,
+  &--next {
+    opacity: 0.7;
+    background: rgba(255, 255, 255, 0.02);
+  }
+
+  &--today {
+    background: rgba(107, 155, 209, 0.08);
+    border-left: 2px solid var(--color-accent-primary);
+    border-right: 2px solid var(--color-accent-primary);
+    font-weight: 600;
+    min-width: 40px; // Reduced from 48px
+  }
+}
+
+// Today's prominent display - DENSE
+.today-preview {
   display: flex;
+  flex-direction: column;
   align-items: center;
-  gap: 6px;
+  gap: 0px; // Reduced from 1px
+  padding: 0px; // Reduced from 1px 0
+
+  .weather-icon-large {
+    font-size: 14px; // Reduced from 16px
+    animation: subtleFloat 3s ease-in-out infinite;
+  }
+
+  .today-temp {
+    font-size: 12px; // Reduced from 14px
+    font-weight: 700;
+    color: var(--color-temp-high);
+    letter-spacing: 0.2px; // Reduced from 0.3px
+  }
+}
+
+@keyframes subtleFloat {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-2px);
+  }
 }
 
 .mini-day-preview {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 1px;
-  opacity: 0.5;
-  min-width: 32px;
+  gap: 0px; // Reduced from 1px
+  opacity: 0.7;
+  min-width: 32px; // Reduced from 40px
   transition: opacity var(--transition-fast);
-  
+  padding: 0px; // Reduced from 1px
+
   &:hover {
-    opacity: 0.8;
+    opacity: 1;
   }
-  
+
   &--empty {
-    min-width: 32px;
+    min-width: 32px; // Reduced from 40px
+    opacity: 0.3;
+
+    .no-data {
+      font-size: 12px; // Reduced from 14px
+      color: var(--color-text-dimmed);
+    }
   }
-  
+
   &__label {
-    font-size: 8px;
-    font-weight: 600;
+    font-size: 6px; // Reduced from 7px
+    font-weight: 700;
     color: var(--color-text-dimmed);
     text-transform: uppercase;
-    letter-spacing: 0.3px;
+    letter-spacing: 0.2px; // Reduced from 0.3px
+    margin-bottom: 0px; // Reduced from 1px
   }
-  
+
+  &__content {
+    display: flex;
+    align-items: center;
+    gap: 1px; // Reduced from 2px
+  }
+
   &__temp {
-    font-size: 9px;
-    color: var(--color-text-secondary);
-    font-weight: 500;
+    font-size: 10px; // Reduced from 11px
+    color: var(--color-text-primary);
+    font-weight: 700;
   }
-  
+
   .wi {
-    font-size: 12px;
+    font-size: 12px; // Reduced from 14px
     color: var(--color-text-secondary);
   }
 }
@@ -1436,109 +1515,97 @@ a.freepik {
 // ============================================
 
 .weather-icon-large {
-  font-size: 24px;
+  font-size: 32px;
   line-height: 1;
   filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
 }
 
 .icon-cell {
   text-align: center;
-  min-width: 45px;
+  min-width: 50px;
 }
 
 // ============================================
-// Temperature Range
+// Temperature Range - DENSE
 // ============================================
 
 .temp-range {
   display: flex;
   align-items: center;
-  gap: 2px;
-  font-size: 11px;
-  font-weight: 600;
-  
+  gap: 0px; // Reduced from 1px
+  font-size: 11px; // Reduced from 13px
+  font-weight: 700;
+
   &__high {
     color: var(--color-temp-high);
   }
-  
+
   &__separator {
     color: var(--color-text-dimmed);
     font-weight: 400;
+    margin: 0;
   }
-  
+
   &__low {
     color: var(--color-temp-low);
-    font-weight: 500;
+    font-weight: 600;
   }
 }
 
 .temp-cell {
-  min-width: 55px;
+  min-width: 32px; // Reduced from 38px
 }
 
 // ============================================
-// Sparkline
-// ============================================
-
-.sparkline-cell {
-  min-width: 75px;
-  
-  .sparkline {
-    display: block;
-  }
-  
-  .no-data {
-    color: var(--color-text-dimmed);
-    font-size: 10px;
-  }
-}
-
-// ============================================
-// Precipitation
+// Precipitation - DENSE
 // ============================================
 
 .precip-cell {
-  min-width: 90px;
+  min-width: 26px; // Reduced from 30px
 }
 
 .precip-content {
   display: flex;
   align-items: center;
-  gap: 5px;
+  gap: 1px; // Reduced from 2px
+  justify-content: flex-start;
 }
 
 .precip-value {
-  font-size: 10px;
-  font-weight: 600;
+  font-size: 10px; // Reduced from 12px
+  font-weight: 700;
   color: var(--color-precip);
-  min-width: 26px;
+  min-width: 22px; // Reduced from 26px
 }
 
 .precip-bars {
-  display: block;
+  display: inline-block;
+  vertical-align: middle;
 }
 
 // ============================================
-// Wind Indicator
+// Wind Indicator - DENSE
 // ============================================
 
 .wind-cell {
-  min-width: 48px;
+  min-width: 28px; // Reduced from 32px
 }
 
 .wind-indicator {
   display: flex;
   align-items: center;
-  gap: 3px;
-  
+  gap: 1px; // Reduced from 2px
+
   svg {
     transition: transform var(--transition-fast);
+    width: 10px; // Reduced from 12px
+    height: 10px; // Reduced from 12px
   }
-  
+
   .wind-speed {
-    font-size: 10px;
-    font-weight: 600;
-    
+    font-size: 10px; // Reduced from 12px
+    font-weight: 700;
+
     &.wind-low { color: var(--color-wind-low); }
     &.wind-med { color: var(--color-wind-med); }
     &.wind-high { color: var(--color-wind-high); }
@@ -1546,11 +1613,11 @@ a.freepik {
 }
 
 // ============================================
-// UV Badge
+// UV Badge - DENSE
 // ============================================
 
 .uv-cell {
-  min-width: 36px;
+  min-width: 22px; // Reduced from 26px
   text-align: center;
 }
 
@@ -1558,27 +1625,27 @@ a.freepik {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 22px;
-  height: 22px;
-  border-radius: 5px;
-  font-size: 10px;
+  width: 18px; // Reduced from 22px
+  height: 18px; // Reduced from 22px
+  border-radius: 3px; // Reduced from 4px
+  font-size: 9px; // Reduced from 11px
   font-weight: 700;
-  
+
   &--low {
     background: rgba(34, 197, 94, 0.15);
     color: var(--color-uv-low);
   }
-  
+
   &--moderate {
     background: rgba(234, 179, 8, 0.15);
     color: var(--color-uv-moderate);
   }
-  
+
   &--high {
     background: rgba(245, 158, 11, 0.15);
     color: var(--color-uv-high);
   }
-  
+
   &--extreme {
     background: rgba(239, 68, 68, 0.15);
     color: var(--color-uv-extreme);
@@ -1586,64 +1653,64 @@ a.freepik {
 }
 
 // ============================================
-// Visibility
+// Visibility - DENSE
 // ============================================
 
 .vis-cell {
-  min-width: 38px;
+  min-width: 24px; // Reduced from 28px
 }
 
 .visibility-display {
-  font-size: 10px;
-  color: var(--color-text-secondary);
-  font-weight: 500;
+  font-size: 9px; // Reduced from 11px
+  color: var(--color-text-primary);
+  font-weight: 700;
 }
 
 // ============================================
-// Hike Score
+// Hike Score - DENSE
 // ============================================
 
 .hike-cell {
-  min-width: 52px;
+  min-width: 36px; // Reduced from 42px
 }
 
 .hike-score {
   display: inline-flex;
   align-items: center;
-  gap: 4px;
-  padding: 2px 6px;
-  border-radius: 5px;
-  font-size: 9px;
+  gap: 2px; // Reduced from 3px
+  padding: 1px 3px; // Reduced from 2px 4px
+  border-radius: 3px; // Reduced from 4px
+  font-size: 8px; // Reduced from 9px
   font-weight: 700;
   text-transform: uppercase;
-  letter-spacing: 0.3px;
-  
+  letter-spacing: 0.2px; // Reduced from 0.3px
+
   &__dot {
-    width: 5px;
-    height: 5px;
+    width: 4px; // Reduced from 5px
+    height: 4px; // Reduced from 5px
     border-radius: 50%;
   }
-  
+
   &--great {
     background: rgba(34, 197, 94, 0.15);
     border: 1px solid rgba(34, 197, 94, 0.3);
-    
+
     .hike-score__dot { background: var(--color-hike-great); }
     .hike-score__label { color: var(--color-hike-great); }
   }
-  
+
   &--fair {
     background: rgba(234, 179, 8, 0.15);
     border: 1px solid rgba(234, 179, 8, 0.3);
-    
+
     .hike-score__dot { background: var(--color-hike-fair); }
     .hike-score__label { color: var(--color-hike-fair); }
   }
-  
+
   &--poor {
     background: rgba(239, 68, 68, 0.15);
     border: 1px solid rgba(239, 68, 68, 0.3);
-    
+
     .hike-score__dot { background: var(--color-hike-poor); }
     .hike-score__label { color: var(--color-hike-poor); }
   }
@@ -1654,6 +1721,32 @@ a.freepik {
 // ============================================
 
 [data-theme='light'] {
+  .day-header--today {
+    background: rgba(25, 118, 210, 0.12) !important;
+    border-left-color: #1976d2 !important;
+    border-right-color: #1976d2 !important;
+    color: #1976d2 !important;
+  }
+
+  .day-cell {
+    &--prev,
+    &--next {
+      background: rgba(0, 0, 0, 0.02);
+    }
+
+    &--today {
+      background: rgba(25, 118, 210, 0.08);
+      border-left-color: #1976d2;
+      border-right-color: #1976d2;
+    }
+  }
+
+  .today-preview {
+    .today-temp {
+      color: #d97706;
+    }
+  }
+
   .mini-day-preview {
     &__label { color: #888888; }
     &__temp { color: #666666; }
@@ -1697,130 +1790,177 @@ a.freepik {
 
 @media (max-width: 768px) {
   .styled-table.detailed-mode {
-    font-size: 0.75rem;
-    
+    font-size: 0.7rem; // Reduced from 0.75rem
+
     .detail-header {
-      font-size: 8px;
-      padding: 8px 4px;
+      font-size: 7px; // Reduced from 8px
+      padding: 4px 0; // Zero horizontal padding
     }
-    
+
     .detail-cell {
-      padding: 5px 4px;
-    }
-    
-    .date-nav-cell {
-      min-width: 95px;
+      padding: 3px 0; // Zero horizontal padding
     }
   }
-  
+
+  .day-cell {
+    min-width: 50px; // Reduced from 60px
+
+    &--today {
+      min-width: 55px; // Reduced from 70px
+    }
+  }
+
+  .today-preview {
+    .weather-icon-large {
+      font-size: 18px; // Reduced from 24px
+    }
+
+    .today-temp {
+      font-size: 11px; // Reduced from 14px
+    }
+  }
+
   .mini-day-preview {
-    min-width: 28px;
-    
-    &__label { font-size: 7px; }
-    &__temp { font-size: 8px; }
-    .wi { font-size: 10px; }
+    min-width: 32px; // Reduced from 40px
+    padding: 1px; // Reduced from 2px
+
+    &__label { font-size: 6px; } // Reduced from 7px
+    &__temp { font-size: 7px; } // Reduced from 8px
+    .wi { font-size: 9px; } // Reduced from 10px
+
+    &--empty {
+      min-width: 32px; // Reduced from 40px
+    }
   }
-  
+
   .weather-icon-large {
-    font-size: 20px;
+    font-size: 22px; // Reduced from 28px
   }
-  
+
   .temp-range {
-    font-size: 10px;
-    gap: 1px;
+    font-size: 10px; // Reduced from 13px
+    gap: 0px; // Reduced from 1px
   }
-  
-  .temp-cell { min-width: 48px; }
-  
+
+  .temp-cell { min-width: 42px; } // Reduced from 55px
+
   .sparkline-cell {
-    min-width: 60px;
-    
+    min-width: 35px; // Reduced from 45px
+
     .sparkline {
-      width: 50px !important;
+      width: 28px !important; // Reduced from 35px
     }
   }
-  
-  .precip-cell { min-width: 70px; }
-  .precip-content { gap: 3px; }
+
+  .precip-cell { min-width: 24px; } // Reduced from 30px
+  .precip-content { gap: 2px; } // Reduced from 4px
   .precip-value {
-    font-size: 9px;
-    min-width: 22px;
+    font-size: 9px; // Reduced from 11px
+    min-width: 22px; // Reduced from 28px
   }
-  
-  .wind-cell { min-width: 42px; }
+
+  .wind-cell { min-width: 36px; } // Reduced from 46px
   .wind-indicator {
-    gap: 2px;
-    
+    gap: 1px; // Reduced from 3px
+
     svg {
-      width: 12px;
-      height: 12px;
+      width: 11px; // Reduced from 14px
+      height: 11px; // Reduced from 14px
     }
-    
-    .wind-speed { font-size: 9px; }
+
+    .wind-speed { font-size: 9px; } // Reduced from 11px
   }
-  
-  .uv-cell { min-width: 32px; }
+
+  .uv-cell { min-width: 28px; } // Reduced from 36px
   .uv-badge {
-    width: 20px;
-    height: 20px;
-    font-size: 9px;
+    width: 18px; // Reduced from 24px
+    height: 18px; // Reduced from 24px
+    font-size: 9px; // Reduced from 11px
   }
-  
-  .vis-cell { min-width: 34px; }
-  .visibility-display { font-size: 9px; }
-  
-  .hike-cell { min-width: 46px; }
+
+  .vis-cell { min-width: 30px; } // Reduced from 38px
+  .visibility-display { font-size: 9px; } // Reduced from 11px
+
+  .hike-cell { min-width: 48px; } // Reduced from 60px
   .hike-score {
-    padding: 2px 4px;
-    font-size: 8px;
-    
+    padding: 2px 4px; // Reduced from 3px 6px
+    font-size: 8px; // Reduced from 10px
+    gap: 2px; // Reduced from 4px
+
     &__dot {
-      width: 4px;
-      height: 4px;
+      width: 4px; // Reduced from 5px
+      height: 4px; // Reduced from 5px
     }
   }
 }
 
-// Extra small devices
+// Extra small devices - ULTRA DENSE
 @media (max-width: 390px) {
   .styled-table.detailed-mode {
-    font-size: 0.7rem;
-    
+    font-size: 0.65rem; // Reduced from 0.7rem
+
     .detail-header {
-      font-size: 7px;
-      padding: 6px 3px;
+      font-size: 6px; // Reduced from 7px
+      padding: 3px 0; // Zero horizontal padding
     }
-    
+
     .detail-cell {
-      padding: 4px 3px;
+      padding: 2px 0; // Zero horizontal padding
     }
   }
-  
-  .day-context { gap: 3px; }
-  
+
+  .day-cell {
+    min-width: 42px; // Reduced from 50px
+
+    &--today {
+      min-width: 48px; // Reduced from 60px
+    }
+  }
+
   .mini-day-preview {
-    min-width: 24px;
-    .wi { font-size: 9px; }
+    min-width: 28px; // Reduced from 36px
+    padding: 1px; // Reduced from 2px
+
+    .wi { font-size: 8px; } // Reduced from 9px
+
+    &--empty {
+      min-width: 28px; // Reduced from 36px
+
+      .no-data {
+        font-size: 11px; // Reduced from 14px
+      }
+    }
   }
-  
-  .weather-icon-large { font-size: 16px; }
-  .temp-range { font-size: 9px; }
-  
+
+  .today-preview {
+    gap: 1px; // Reduced from 2px
+
+    .weather-icon-large {
+      font-size: 16px; // Reduced from 20px
+    }
+
+    .today-temp {
+      font-size: 10px; // Reduced from 12px
+    }
+  }
+
+  .temp-range { font-size: 8px; } // Reduced from 9px
+
   .sparkline-cell {
-    min-width: 50px;
-    .sparkline { width: 40px !important; }
+    min-width: 28px; // Reduced from 35px
+    .sparkline { width: 22px !important; } // Reduced from 28px
   }
-  
-  .precip-cell { min-width: 55px; }
-  
+
+  .precip-cell { min-width: 24px; } // Reduced from 30px
+
   // Hide label on very small screens, just show dot
   .hike-score {
-    padding: 2px 4px;
-    
+    padding: 1px 3px; // Reduced from 2px 4px
+
     &__label { display: none; }
     &__dot {
-      width: 7px;
-      height: 7px;
+      width: 6px; // Reduced from 7px
+      height: 6px; // Reduced from 7px
     }
   }
 }
@@ -1833,21 +1973,16 @@ a.freepik {
   .styled-table.detailed-mode {
     .detail-header {
       font-size: 10px;
-      padding: 10px 10px;
-    }
-    
-    .detail-cell {
-      padding: 8px 10px;
     }
   }
   
   .sparkline-cell {
-    min-width: 90px;
-    
-    .sparkline { width: 75px !important; }
+    min-width: 50px;
+
+    .sparkline { width: 40px !important; }
   }
-  
-  .precip-cell { min-width: 105px; }
+
+  .precip-cell { min-width: 30px; }
   
   // Hover effects on desktop
   .mini-day-preview:hover {

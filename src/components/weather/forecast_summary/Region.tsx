@@ -38,14 +38,14 @@ function Region(props: RegionProps) {
   } = props;
   
   // Calculate colspan for region header
-  // In detailed mode: 10 detail columns + 1 date nav column = 11 columns after location
+  // In detailed mode: 3 day columns (Yesterday/Today/Tomorrow) + 6 detail columns = 9 columns after location
   // In normal mode: number of date columns
   const numDateCols = dateSelectedIsWithinForecastRange
     ? 0
     : isWeekend.length - 1;
-  
+
   // In detailed mode, we need more colspan to cover all the detail columns
-  const regionNameColSpan = isDetailedMode ? 11 : 2;
+  const regionNameColSpan = isDetailedMode ? 10 : 2;
   
   return (
     <tbody>

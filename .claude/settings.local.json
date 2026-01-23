@@ -81,7 +81,8 @@
       "Bash(npx husky install)",
       "Bash(npx husky init)",
       "Bash(yarn test:e2e:*)",
-      "Skill(frontend-excellence:react)"
+      "Skill(frontend-excellence:react)",
+      "Skill(frontend-excellence:ui)"
     ]
   }
 }
