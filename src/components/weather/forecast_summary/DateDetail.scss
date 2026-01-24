@@ -273,7 +273,7 @@
 }
 
 .precip-value {
-  font-size: 0.625rem; // 10px at default
+  font-size: 0.6875rem; // 11px at default - matches temp range
   font-weight: 700;
   color: var(--color-precip);
   min-width: 22px;
@@ -304,7 +304,7 @@
   }
 
   .wind-speed {
-    font-size: 0.625rem; // 10px at default
+    font-size: 0.6875rem; // 11px at default - matches temp range
     font-weight: 700;
 
     &.wind-low { color: var(--color-wind-low); }
@@ -326,10 +326,10 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 18px;
-  height: 18px;
+  width: 20px;
+  height: 20px;
   border-radius: 3px;
-  font-size: 0.5625rem; // 9px at default
+  font-size: 0.6875rem; // 11px at default - matches temp range
   font-weight: 700;
 
   &--low {
@@ -362,7 +362,7 @@
 }
 
 .visibility-display {
-  font-size: 0.5625rem; // 9px at default
+  font-size: 0.6875rem; // 11px at default - matches temp range
   color: var(--color-text-primary);
   font-weight: 700;
 }
@@ -381,7 +381,7 @@
   gap: 2px;
   padding: 1px 3px;
   border-radius: 3px;
-  font-size: 0.5rem; // 8px at default
+  font-size: 0.6875rem; // 11px at default - matches temp range
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.2px;
@@ -504,7 +504,7 @@
 }
 
 .cloud-value {
-  font-size: 0.625rem; // 10px at default
+  font-size: 0.6875rem; // 11px at default - matches temp range
   font-weight: 700;
   color: var(--color-text-secondary);
 }
@@ -802,14 +802,14 @@
   }
 
   .precip-cloud-cell { min-width: 50px; }
-  .precip-value { font-size: 0.5625rem; } // 9px
-  .cloud-value { font-size: 0.5625rem; } // 9px
+  .precip-value { font-size: 0.6875rem; } // 11px - matches temp range
+  .cloud-value { font-size: 0.6875rem; } // 11px - matches temp range
 
   .precip-cell { min-width: 28px; }
   .wind-cell { min-width: 32px; }
-  .uv-cell { min-width: 24px; }
-  .vis-cell { min-width: 26px; }
-  .hike-cell { min-width: 40px; }
+  .uv-cell { min-width: 26px; }
+  .vis-cell { min-width: 28px; }
+  .hike-cell { min-width: 44px; }
 
   // Location column more compact
   .location-name {
@@ -828,29 +828,29 @@
   .hike-score {
     cursor: help;
     transition: transform var(--transition-fast);
-    font-size: 0.5625rem; // 9px - smaller
+    font-size: 0.6875rem; // 11px - matches temp range
 
     &:hover { transform: scale(1.05); }
   }
 
   .wind-indicator {
     .wind-speed {
-      font-size: 0.5625rem; // 9px - smaller
+      font-size: 0.6875rem; // 11px - matches temp range
     }
 
     svg {
-      width: 11px;
-      height: 11px;
+      width: 12px;
+      height: 12px;
     }
   }
 
   .uv-badge {
-    width: 20px;
-    height: 20px;
-    font-size: 0.5625rem; // 9px
+    width: 22px;
+    height: 22px;
+    font-size: 0.6875rem; // 11px - matches temp range
   }
 
   .visibility-display {
-    font-size: 0.5625rem; // 9px
+    font-size: 0.6875rem; // 11px - matches temp range
   }
 }

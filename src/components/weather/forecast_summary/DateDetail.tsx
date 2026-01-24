@@ -77,6 +77,37 @@ function DateDetail() {
     ? format(parsedDate, 'MMMM D, YYYY')
     : date;
 
+  // Get forecast data for the selected date (from first location for constant data)
+  // Try multiple locations to find one with forecast data
+  let selectedDayForecast = null;
+
+  for (const region of regions) {
+    if (!region.locations || region.locations.length === 0) continue;
+
+    for (const location of region.locations) {
+      const locationForecasts = forecastResponse.forecasts?.byId[location.name] || [];
+      const dayForecast = locationForecasts.find((f) => f.datetime === date);
+
+      if (dayForecast) {
+        selectedDayForecast = dayForecast;
+        console.log('DateDetail: Found forecast data from location:', location.name);
+        break;
+      }
+    }
+
+    if (selectedDayForecast) break;
+  }
+
+  // Debug logging
+  console.log('DateDetail Debug:', {
+    regionsCount: regions.length,
+    selectedDate: date,
+    selectedDayForecast,
+    hasSunrise: selectedDayForecast?.sunrise,
+    hasSunset: selectedDayForecast?.sunset,
+    moonphase: selectedDayForecast?.moonphase,
+  });
+
   return (
     <>
       <Breadcrumbs
@@ -91,6 +122,7 @@ function DateDetail() {
         allDates={allDates}
         onDateChange={handleDateChange}
         onClearDate={handleClearDate}
+        dayForecast={selectedDayForecast}
       />
 
       {/* Dense table layout for all viewports */}

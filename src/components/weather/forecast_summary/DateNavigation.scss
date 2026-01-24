@@ -76,7 +76,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 0; // Zero gap for maximum density
+  gap: 4px;
 }
 
 .date-nav-date {
@@ -92,6 +92,86 @@
   @media (max-width: 390px) {
     font-size: 0.8rem; // 12.8px at default
   }
+}
+
+.date-nav-details {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 0.75rem; // 12px at default
+  color: var(--color-text-secondary, #9fa5b8);
+
+  @media (max-width: 768px) {
+    gap: 8px;
+    font-size: 0.7rem;
+  }
+
+  @media (max-width: 390px) {
+    gap: 6px;
+    font-size: 0.65rem;
+  }
+}
+
+.date-nav-sun {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+
+  @media (max-width: 768px) {
+    gap: 6px;
+  }
+
+  @media (max-width: 390px) {
+    gap: 4px;
+  }
+}
+
+.sun-item {
+  display: flex;
+  align-items: center;
+  gap: 3px;
+
+  .wi {
+    font-size: 1rem;
+    color: var(--color-accent-primary, #ff9800);
+
+    @media (max-width: 768px) {
+      font-size: 0.9rem;
+    }
+
+    @media (max-width: 390px) {
+      font-size: 0.8rem;
+    }
+  }
+}
+
+.sun-time {
+  font-weight: 600;
+  color: var(--color-text-primary, #d6d9e3);
+}
+
+.date-nav-moon {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+
+  .wi {
+    font-size: 1rem;
+    color: var(--color-text-secondary, #9fa5b8);
+
+    @media (max-width: 768px) {
+      font-size: 0.9rem;
+    }
+
+    @media (max-width: 390px) {
+      font-size: 0.8rem;
+    }
+  }
+}
+
+.moon-phase {
+  font-weight: 500;
+  color: var(--color-text-secondary, #9fa5b8);
 }
 
 // Light mode overrides
@@ -131,5 +211,29 @@
 
   .date-nav-date {
     color: #000000;
+  }
+
+  .date-nav-details {
+    color: #666666;
+  }
+
+  .sun-item {
+    .wi {
+      color: #ff6f00;
+    }
+  }
+
+  .sun-time {
+    color: #333333;
+  }
+
+  .date-nav-moon {
+    .wi {
+      color: #666666;
+    }
+  }
+
+  .moon-phase {
+    color: #666666;
   }
 }
