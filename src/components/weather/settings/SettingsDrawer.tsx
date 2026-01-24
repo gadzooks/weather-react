@@ -5,6 +5,7 @@ import {
   FONT_SIZE_MIN,
   FONT_SIZE_MAX,
 } from '../Constants';
+import { getCacheAge } from '../../../utils/forecastCache';
 import './SettingsDrawer.scss';
 
 interface SettingsDrawerProps {
@@ -14,6 +15,9 @@ interface SettingsDrawerProps {
   onThemeChange: (theme: string) => void;
   fontSize: number;
   onFontSizeChange: (size: number) => void;
+  cacheTimestamp?: number;
+  onRefresh?: () => void;
+  isRefreshing?: boolean;
 }
 
 export const SettingsDrawer: React.FC<SettingsDrawerProps> = ({
@@ -23,6 +27,9 @@ export const SettingsDrawer: React.FC<SettingsDrawerProps> = ({
   onThemeChange,
   fontSize,
   onFontSizeChange,
+  cacheTimestamp,
+  onRefresh,
+  isRefreshing = false,
 }) => {
   const handleBackdropClick = (e: React.MouseEvent) => {
     if (e.target === e.currentTarget) {
@@ -66,6 +73,30 @@ export const SettingsDrawer: React.FC<SettingsDrawerProps> = ({
         </div>
 
         <div className='settings-content'>
+          {/* Forecast update info */}
+          <div className='setting-group'>
+            <span className='setting-label'>Forecast Data</span>
+            <div className='forecast-info'>
+              <div className='forecast-timestamp'>
+                <span className='timestamp-label'>Last updated:</span>
+                <span className='timestamp-value'>
+                  {cacheTimestamp ? getCacheAge(cacheTimestamp) : 'Never'}
+                </span>
+              </div>
+              {onRefresh && (
+                <button
+                  className='refresh-button'
+                  onClick={onRefresh}
+                  disabled={isRefreshing}
+                  type='button'
+                  aria-label='Refresh forecast data'
+                >
+                  {isRefreshing ? '🔄 Refreshing...' : '🔄 Refresh Now'}
+                </button>
+              )}
+            </div>
+          </div>
+
           <div className='setting-group'>
             <label className='setting-label' htmlFor='font-size-slider'>
               Font Size
