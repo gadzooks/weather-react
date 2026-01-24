@@ -40,10 +40,18 @@ export function SummaryTableLoader() {
   const dispatch = useAppDispatch();
   const [isRefreshErrorDismissed, setIsRefreshErrorDismissed] = useState(false);
   const [isStaleBannerDismissed, setIsStaleBannerDismissed] = useState(false);
+  const appState = useAppSelector((state) => state.forecast);
 
   useEffect(() => {
-    // Load cached data immediately for display
-    console.log('[SummaryTableLoader] Checking for cached forecast data...');
+    // Skip if Redux already has forecast data loaded
+    // This prevents unnecessary localStorage reads when navigating back to Home
+    if (appState.forecast && appState.isLoaded) {
+      console.log('[SummaryTableLoader] Redux already has forecast data, skipping localStorage read');
+      return;
+    }
+
+    // Load cached data from localStorage only if Redux is empty
+    console.log('[SummaryTableLoader] Redux empty, checking for cached forecast data...');
     const cached = loadForecastFromCache();
     if (cached) {
       console.log(
@@ -75,9 +83,7 @@ export function SummaryTableLoader() {
 
     // NOTE: Automatic refresh on mount has been disabled.
     // Users must manually refresh via the Refresh button if data is stale.
-  }, [dispatch]);
-
-  const appState = useAppSelector((state) => state.forecast);
+  }, [dispatch, appState.forecast, appState.isLoaded]);
 
   // Check if forecast data is stale (older than 3 hours)
   const isDataStale = appState.cacheTimestamp
