@@ -468,28 +468,106 @@
 }
 
 // ============================================
-// Mobile Responsive for Detailed View
+// Dense Table Layout (All Viewports)
+// ============================================
+
+// Table is shown on all viewports with horizontal scroll on mobile
+.date-detail-table {
+  display: table;
+  width: 100%;
+}
+
+// ============================================
+// Cloud Cover Cell
+// ============================================
+
+.cloud-cell {
+  min-width: 28px;
+}
+
+.cloud-value {
+  font-size: 10px;
+  font-weight: 700;
+  color: var(--color-text-secondary);
+}
+
+// ============================================
+// Mobile Optimization - Dense Table with Horizontal Scroll
 // ============================================
 
 @media (max-width: 768px) {
+  // Dense, compact sizing for mobile
   .styled-table.detailed-mode {
     font-size: 0.7rem;
 
+    // Reduce row height for denser vertical scrolling
+    .detailed-row {
+      height: 32px;
+    }
+
     .detail-header {
       font-size: 7px;
-      padding: 4px 0;
+      padding: 2px 4px;
     }
 
     .detail-cell {
-      padding: 3px 0;
+      padding: 1px 4px;
+    }
+
+    // Make location column sticky for context while scrolling
+    .location-name {
+      position: sticky;
+      left: 0;
+      background: var(--color-bg-surface);
+      z-index: 2;
+      box-shadow: 2px 0 4px rgba(0, 0, 0, 0.1);
+      min-width: 80px;
+      padding: 4px 8px;
+    }
+
+    .location-header {
+      position: sticky;
+      left: 0;
+      background: var(--color-bg-elevated);
+      z-index: 3;
+      box-shadow: 2px 0 4px rgba(0, 0, 0, 0.1);
+      min-width: 80px;
+    }
+
+    // Make alerts column sticky if present
+    &[data-has-alerts] {
+      .alerts-cell {
+        position: sticky;
+        left: 0;
+        background: var(--color-bg-surface);
+        z-index: 2;
+        min-width: 32px;
+      }
+
+      .alerts-header {
+        position: sticky;
+        left: 0;
+        background: var(--color-bg-elevated);
+        z-index: 3;
+        min-width: 32px;
+      }
+
+      .location-name {
+        left: 32px;
+      }
+
+      .location-header {
+        left: 32px;
+      }
     }
   }
 
+  // Smaller day cells on mobile
   .day-cell {
-    min-width: 50px;
+    min-width: 40px;
 
     &--today {
-      min-width: 55px;
+      min-width: 44px;
     }
   }
 

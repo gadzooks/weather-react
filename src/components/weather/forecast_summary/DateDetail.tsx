@@ -79,7 +79,8 @@ function DateDetail() {
         onClearDate={handleClearDate}
       />
 
-      <table className='table styled-table detailed-mode' data-has-alerts={foundAlerts || undefined}>
+      {/* Dense table layout for all viewports */}
+      <table className='table styled-table detailed-mode date-detail-table' data-has-alerts={foundAlerts || undefined}>
         <thead className='table-heading'>
           <tr>
             {foundAlerts && (
@@ -88,14 +89,15 @@ function DateDetail() {
               </td>
             )}
             <td className='location-header'>Location</td>
-            <td className='detail-header day-header'>Yesterday</td>
-            <td className='detail-header day-header day-header--today'>Today</td>
-            <td className='detail-header day-header'>Tomorrow</td>
             <td className='detail-header temp-header'>Hi/Lo</td>
             <td className='detail-header precip-header'>Precip</td>
+            <td className='detail-header cloud-header'>Cloud</td>
             <td className='detail-header wind-header'>Wind</td>
             <td className='detail-header uv-header'>UV</td>
             <td className='detail-header vis-header'>Vis</td>
+            <td className='detail-header day-header'>Yesterday</td>
+            <td className='detail-header day-header day-header--today'>Today</td>
+            <td className='detail-header day-header'>Tomorrow</td>
             <td className='detail-header hike-header'>Hike</td>
           </tr>
         </thead>
@@ -204,6 +206,47 @@ function DateDetailRow({
         </button>
       </td>
 
+      {/* High/Low temps */}
+      <td className='detail-cell temp-cell'>
+        <TempRange high={dayForecast.tempmax} low={dayForecast.tempmin} />
+      </td>
+
+      {/* Precipitation */}
+      <td className='detail-cell precip-cell'>
+        <span className='precip-value'>
+          {dayForecast.precipprob > 0
+            ? `${Math.round(dayForecast.precipprob)}%`
+            : '-'}
+        </span>
+      </td>
+
+      {/* Cloud Cover */}
+      <td className='detail-cell cloud-cell'>
+        <span className='cloud-value'>
+          {dayForecast.cloudcover !== undefined
+            ? `${Math.round(dayForecast.cloudcover)}%`
+            : '-'}
+        </span>
+      </td>
+
+      {/* Wind */}
+      <td className='detail-cell wind-cell'>
+        <WindIndicator
+          speed={Number(dayForecast.windspeed) || 0}
+          direction={Number(dayForecast.winddir) || 0}
+        />
+      </td>
+
+      {/* UV Index */}
+      <td className='detail-cell uv-cell'>
+        <UVBadge uv={Number(dayForecast.uvindex) || 0} />
+      </td>
+
+      {/* Visibility */}
+      <td className='detail-cell vis-cell'>
+        <VisibilityDisplay miles={Number(dayForecast.visibility) || 10} />
+      </td>
+
       {/* Yesterday */}
       <td className='detail-cell day-cell day-cell--prev'>
         {prevDayForecast ? (
@@ -241,38 +284,6 @@ function DateDetailRow({
             <span className='no-data'>-</span>
           </div>
         )}
-      </td>
-
-      {/* High/Low temps */}
-      <td className='detail-cell temp-cell'>
-        <TempRange high={dayForecast.tempmax} low={dayForecast.tempmin} />
-      </td>
-
-      {/* Precipitation */}
-      <td className='detail-cell precip-cell'>
-        <span className='precip-value'>
-          {dayForecast.precipprob > 0
-            ? `${Math.round(dayForecast.precipprob)}%`
-            : '-'}
-        </span>
-      </td>
-
-      {/* Wind */}
-      <td className='detail-cell wind-cell'>
-        <WindIndicator
-          speed={Number(dayForecast.windspeed) || 0}
-          direction={Number(dayForecast.winddir) || 0}
-        />
-      </td>
-
-      {/* UV Index */}
-      <td className='detail-cell uv-cell'>
-        <UVBadge uv={Number(dayForecast.uvindex) || 0} />
-      </td>
-
-      {/* Visibility */}
-      <td className='detail-cell vis-cell'>
-        <VisibilityDisplay miles={Number(dayForecast.visibility) || 10} />
       </td>
 
       {/* Hike Score */}
