@@ -6,14 +6,13 @@ interface DateNavigationProps {
   selectedDate: string | null;
   allDates: string[];
   onDateChange: (date: string) => void;
-  onClearDate: () => void;
+  onClearDate: () => void; // Kept for backward compatibility
 }
 
 function DateNavigation({
   selectedDate,
   allDates,
   onDateChange,
-  onClearDate,
 }: DateNavigationProps) {
   if (!selectedDate) return null;
 
@@ -53,15 +52,6 @@ function DateNavigation({
 
       <div className='date-nav-current'>
         <div className='date-nav-date'>{displayDate}</div>
-        <button
-          type='button'
-          className='date-nav-close'
-          onClick={onClearDate}
-          aria-label='Show all days'
-        >
-          <i className='wi wi-remove' />
-          <span className='date-nav-close-label'>Show All Days</span>
-        </button>
       </div>
 
       <button

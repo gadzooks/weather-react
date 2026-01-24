@@ -1,6 +1,7 @@
 // DateDetail.tsx
 
 import { useParams, useNavigate } from 'react-router-dom';
+import { format, parse } from 'fecha';
 import { useAppSelector } from '../../../app/hooks';
 import type { RegionInterface } from '../../../interfaces/RegionInterface';
 import type { LocationInterface } from '../../../interfaces/LocationInterface';
@@ -8,6 +9,7 @@ import type { AlertProps } from '../../../interfaces/AlertProps';
 import alertsFound from '../../../utils/count';
 import DateNavigation from './DateNavigation';
 import AlertDetail from '../alerts/AlertDetail';
+import Breadcrumbs from '../common/Breadcrumbs';
 import { toSlug } from '../../../utils/slug';
 import { getAlertIconFromAlerts } from '../../../model/alert';
 import {
@@ -70,8 +72,21 @@ function DateDetail() {
     navigate('/');
   };
 
+  // Format date for breadcrumb display
+  const parsedDate = parse(date, 'YYYY-MM-DD');
+  const formattedDate = parsedDate
+    ? format(parsedDate, 'MMMM D, YYYY')
+    : date;
+
   return (
     <>
+      <Breadcrumbs
+        items={[
+          { label: 'Home', to: '/' },
+          { label: formattedDate },
+        ]}
+      />
+
       <DateNavigation
         selectedDate={date}
         allDates={allDates}
@@ -95,9 +110,15 @@ function DateDetail() {
             <td className='detail-header wind-header'>Wind</td>
             <td className='detail-header uv-header'>UV</td>
             <td className='detail-header vis-header'>Vis</td>
-            <td className='detail-header day-header'>Yesterday</td>
-            <td className='detail-header day-header day-header--today'>Today</td>
-            <td className='detail-header day-header'>Tomorrow</td>
+            <td className='detail-header day-header'>
+              {selectedDateIndex > 0 ? formatDayLabel(allDates[selectedDateIndex - 1]) : '-'}
+            </td>
+            <td className='detail-header day-header day-header--today'>
+              {formatDayLabel(date)}
+            </td>
+            <td className='detail-header day-header'>
+              {selectedDateIndex < allDates.length - 1 ? formatDayLabel(allDates[selectedDateIndex + 1]) : '-'}
+            </td>
             <td className='detail-header hike-header'>Hike</td>
           </tr>
         </thead>
@@ -299,10 +320,10 @@ function DateDetailRow({
   );
 }
 
-// Helper to format day label for context previews
+// Helper to format day label for context previews (MM/DD format)
 function formatDayLabel(dateStr: string): string {
-  const d = new Date(dateStr + 'T12:00:00');
-  return d.toLocaleDateString('en-US', { weekday: 'short' }).toUpperCase();
+  const d = parse(dateStr, 'YYYY-MM-DD');
+  return d ? format(d, 'MM/DD') : dateStr;
 }
 
 export default DateDetail;

@@ -53,7 +53,7 @@
 
   thead {
     .detail-header {
-      font-size: 8px;
+      font-size: 0.5rem; // 8px at default (16px base)
       font-weight: 600;
       text-transform: uppercase;
       letter-spacing: 0.3px;
@@ -81,7 +81,7 @@
   position: relative;
 
   &--today {
-    font-size: 11px !important;
+    font-size: 0.6875rem !important; // 11px at default
     font-weight: 700 !important;
     color: var(--color-accent-primary) !important;
     background: rgba(107, 155, 209, 0.08);
@@ -121,12 +121,12 @@
   padding: 0px;
 
   .weather-icon-large {
-    font-size: 14px;
+    font-size: 0.875rem; // 14px at default
     animation: subtleFloat 3s ease-in-out infinite;
   }
 
   .today-temp {
-    font-size: 12px;
+    font-size: 0.75rem; // 12px at default
     font-weight: 700;
     color: var(--color-temp-high);
     letter-spacing: 0.2px;
@@ -161,13 +161,13 @@
     opacity: 0.3;
 
     .no-data {
-      font-size: 12px;
+      font-size: 0.75rem; // 12px at default
       color: var(--color-text-dimmed);
     }
   }
 
   &__label {
-    font-size: 6px;
+    font-size: 0.375rem; // 6px at default
     font-weight: 700;
     color: var(--color-text-dimmed);
     text-transform: uppercase;
@@ -182,13 +182,13 @@
   }
 
   &__temp {
-    font-size: 10px;
+    font-size: 0.625rem; // 10px at default
     color: var(--color-text-primary);
     font-weight: 700;
   }
 
   .wi {
-    font-size: 12px;
+    font-size: 0.75rem; // 12px at default
     color: var(--color-text-secondary);
   }
 }
@@ -198,7 +198,7 @@
 // ============================================
 
 .weather-icon-large {
-  font-size: 32px;
+  font-size: 2rem; // 32px at default
   line-height: 1;
   filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
 }
@@ -216,7 +216,7 @@
   display: flex;
   align-items: center;
   gap: 0px;
-  font-size: 11px;
+  font-size: 0.6875rem; // 11px at default
   font-weight: 700;
 
   &__high {
@@ -255,7 +255,7 @@
 }
 
 .precip-value {
-  font-size: 10px;
+  font-size: 0.625rem; // 10px at default
   font-weight: 700;
   color: var(--color-precip);
   min-width: 22px;
@@ -286,7 +286,7 @@
   }
 
   .wind-speed {
-    font-size: 10px;
+    font-size: 0.625rem; // 10px at default
     font-weight: 700;
 
     &.wind-low { color: var(--color-wind-low); }
@@ -311,7 +311,7 @@
   width: 18px;
   height: 18px;
   border-radius: 3px;
-  font-size: 9px;
+  font-size: 0.5625rem; // 9px at default
   font-weight: 700;
 
   &--low {
@@ -344,7 +344,7 @@
 }
 
 .visibility-display {
-  font-size: 9px;
+  font-size: 0.5625rem; // 9px at default
   color: var(--color-text-primary);
   font-weight: 700;
 }
@@ -363,7 +363,7 @@
   gap: 2px;
   padding: 1px 3px;
   border-radius: 3px;
-  font-size: 8px;
+  font-size: 0.5rem; // 8px at default
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.2px;
@@ -486,7 +486,7 @@
 }
 
 .cloud-value {
-  font-size: 10px;
+  font-size: 0.625rem; // 10px at default
   font-weight: 700;
   color: var(--color-text-secondary);
 }
@@ -506,7 +506,7 @@
     }
 
     .detail-header {
-      font-size: 7px;
+      font-size: 0.4375rem; // 7px at default
       padding: 2px 4px;
     }
 
@@ -573,11 +573,11 @@
 
   .today-preview {
     .weather-icon-large {
-      font-size: 18px;
+      font-size: 1.125rem; // 18px at default
     }
 
     .today-temp {
-      font-size: 11px;
+      font-size: 0.6875rem; // 11px at default
     }
   }
 
@@ -585,9 +585,9 @@
     min-width: 32px;
     padding: 1px;
 
-    &__label { font-size: 6px; }
-    &__temp { font-size: 7px; }
-    .wi { font-size: 9px; }
+    &__label { font-size: 0.375rem; } // 6px at default
+    &__temp { font-size: 0.4375rem; } // 7px at default
+    .wi { font-size: 0.5625rem; } // 9px at default
 
     &--empty {
       min-width: 32px;
@@ -595,11 +595,11 @@
   }
 
   .weather-icon-large {
-    font-size: 22px;
+    font-size: 1.375rem; // 22px at default
   }
 
   .temp-range {
-    font-size: 10px;
+    font-size: 0.625rem; // 10px at default
     gap: 0px;
   }
 
@@ -616,7 +616,7 @@
   .precip-cell { min-width: 24px; }
   .precip-content { gap: 2px; }
   .precip-value {
-    font-size: 9px;
+    font-size: 0.5625rem; // 9px at default
     min-width: 22px;
   }
 
@@ -629,23 +629,23 @@
       height: 11px;
     }
 
-    .wind-speed { font-size: 9px; }
+    .wind-speed { font-size: 0.5625rem; } // 9px at default
   }
 
   .uv-cell { min-width: 28px; }
   .uv-badge {
     width: 18px;
     height: 18px;
-    font-size: 9px;
+    font-size: 0.5625rem; // 9px at default
   }
 
   .vis-cell { min-width: 30px; }
-  .visibility-display { font-size: 9px; }
+  .visibility-display { font-size: 0.5625rem; } // 9px at default
 
   .hike-cell { min-width: 48px; }
   .hike-score {
     padding: 2px 4px;
-    font-size: 8px;
+    font-size: 0.5rem; // 8px at default
     gap: 2px;
 
     &__dot {
@@ -661,7 +661,7 @@
     font-size: 0.65rem;
 
     .detail-header {
-      font-size: 6px;
+      font-size: 0.375rem; // 6px at default
       padding: 3px 0;
     }
 
@@ -682,13 +682,13 @@
     min-width: 28px;
     padding: 1px;
 
-    .wi { font-size: 8px; }
+    .wi { font-size: 0.5rem; } // 8px at default
 
     &--empty {
       min-width: 28px;
 
       .no-data {
-        font-size: 11px;
+        font-size: 0.6875rem; // 11px at default
       }
     }
   }
@@ -697,15 +697,15 @@
     gap: 1px;
 
     .weather-icon-large {
-      font-size: 16px;
+      font-size: 1rem; // 16px at default
     }
 
     .today-temp {
-      font-size: 10px;
+      font-size: 0.625rem; // 10px at default
     }
   }
 
-  .temp-range { font-size: 8px; }
+  .temp-range { font-size: 0.5rem; } // 8px at default
 
   .sparkline-cell {
     min-width: 28px;
@@ -733,7 +733,7 @@
 @media (min-width: 1024px) {
   .styled-table.detailed-mode {
     .detail-header {
-      font-size: 10px;
+      font-size: 0.625rem; // 10px at default
     }
   }
 

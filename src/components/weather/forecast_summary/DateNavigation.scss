@@ -24,20 +24,22 @@
 .date-nav-btn {
   display: flex;
   align-items: center;
-  gap: 1px; // Minimal gap
-  padding: 3px 2px; // Minimal horizontal padding
+  gap: 6px;
+  padding: 8px 12px;
+  min-height: 44px;
+  min-width: 44px;
   background: rgba(255, 255, 255, 0.05);
   border: 1px solid var(--color-border-subtle, rgba(255, 255, 255, 0.04));
-  border-radius: 3px; // Reduced from var(--radius-sm, 6px)
+  border-radius: 6px;
   color: var(--color-text-secondary, #9fa5b8);
-  font-size: 11px; // Reduced from 14px
+  font-size: 0.875rem; // 14px at default, scales with font size setting
   font-weight: 500;
   cursor: pointer;
   transition: all var(--transition-normal, 250ms);
   white-space: nowrap;
 
   .wi {
-    font-size: 14px; // Reduced from 18px
+    font-size: 1.125rem; // 18px at default, scales with font size setting
   }
 
   &:hover:not(:disabled) {
@@ -74,52 +76,17 @@
 }
 
 .date-nav-date {
-  font-size: 13px; // Reduced from 18px
+  font-size: 1rem; // 16px at default, scales with font size setting
   font-weight: 600;
   color: var(--color-text-primary, #d6d9e3);
-  letter-spacing: 0.2px; // Reduced from 0.3px
+  letter-spacing: 0.3px;
 
   @media (max-width: 768px) {
-    font-size: 12px; // Reduced from 16px
+    font-size: 0.9rem; // 14.4px at default
   }
 
   @media (max-width: 390px) {
-    font-size: 11px; // Reduced from 14px
-  }
-}
-
-.date-nav-close {
-  display: inline-flex;
-  align-items: center;
-  gap: 1px; // Minimal gap
-  padding: 2px 2px; // Minimal horizontal padding
-  background: rgba(239, 68, 68, 0.1);
-  border: 1px solid rgba(239, 68, 68, 0.3);
-  border-radius: 3px; // Reduced from var(--radius-sm, 6px)
-  color: #ef4444;
-  font-size: 10px; // Reduced from 12px
-  font-weight: 500;
-  cursor: pointer;
-  transition: all var(--transition-fast, 150ms);
-
-  .wi {
-    font-size: 11px; // Reduced from 14px
-  }
-
-  &:hover {
-    background: rgba(239, 68, 68, 0.2);
-    border-color: rgba(239, 68, 68, 0.5);
-    transform: scale(1.05);
-  }
-
-  &:active {
-    transform: scale(0.98);
-  }
-}
-
-.date-nav-close-label {
-  @media (max-width: 768px) {
-    display: none;
+    font-size: 0.8rem; // 12.8px at default
   }
 }
 
@@ -154,16 +121,5 @@
 
   .date-nav-date {
     color: #000000;
-  }
-
-  .date-nav-close {
-    background: rgba(211, 47, 47, 0.08);
-    border-color: rgba(211, 47, 47, 0.25);
-    color: #d32f2f;
-
-    &:hover {
-      background: rgba(211, 47, 47, 0.15);
-      border-color: rgba(211, 47, 47, 0.4);
-    }
   }
 }
