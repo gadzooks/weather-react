@@ -23,6 +23,7 @@ import {
   saveForecastToCache,
 } from '../../../utils/forecastCache';
 import { RefreshErrorBanner } from './RefreshErrorBanner';
+import { StaleDataBanner } from './StaleDataBanner';
 import './SummaryTableLoader.scss';
 
 // Allow override via env var, otherwise use 'real' by default
@@ -31,14 +32,18 @@ const WEATHER_API = import.meta.env.VITE_WEATHER_API;
 const WEATHER_JWT_TOKEN = import.meta.env.VITE_WEATHER_JWT_TOKEN;
 const url = `${WEATHER_API}/forecasts/${dataSource}`;
 
+// 3 hours in milliseconds
+const STALE_THRESHOLD_MS = 3 * 60 * 60 * 1000;
+
 console.log(`[SummaryTableLoader] Data source: ${dataSource}`);
 
 export function SummaryTableLoader() {
   const dispatch = useAppDispatch();
   const [isRefreshErrorDismissed, setIsRefreshErrorDismissed] = useState(false);
+  const [isStaleBannerDismissed, setIsStaleBannerDismissed] = useState(false);
 
   useEffect(() => {
-    // STEP 1: Load cached data immediately for instant display
+    // Load cached data immediately for display
     console.log('[SummaryTableLoader] Checking for cached forecast data...');
     const cached = loadForecastFromCache();
     if (cached) {
@@ -56,103 +61,25 @@ export function SummaryTableLoader() {
       );
     } else {
       console.log('[SummaryTableLoader] No cached data found in localStorage');
+      // No cached data - show error state to display "no data" message
+      const errorAppState: ForecastResponseStatus = {
+        isLoaded: false,
+        error: new Error('No cached forecast data available. Please refresh to load data.'),
+        forecast: null,
+      };
+      dispatch(mergeForecast(errorAppState));
     }
 
-    // STEP 2: Attempt fresh data fetch
-    const fetchData = async () => {
-      // get the data from the api with JWT authentication
-      const response = await fetchWithRetries(`${url}`, {
-        headers: {
-          Authorization: `Bearer ${WEATHER_JWT_TOKEN}`,
-          'Content-Type': 'application/json',
-        },
-      });
-
-      console.log('[SummaryTableLoader] Response headers:', {
-        contentType: response.headers.get('content-type'),
-        contentLength: response.headers.get('content-length'),
-      });
-
-      // Check if response is ok
-      if (!response.ok) {
-        const text = await response.text();
-        console.error(
-          '[SummaryTableLoader] Error response body (first 500 chars):',
-          text.substring(0, 500),
-        );
-        throw new Error(
-          `HTTP ${response.status}: ${response.statusText}. Body: ${text.substring(0, 200)}`,
-        );
-      }
-
-      // Check content type
-      const contentType = response.headers.get('content-type');
-      if (!contentType || !contentType.includes('application/json')) {
-        const text = await response.text();
-        console.error(
-          `[SummaryTableLoader] Unexpected content-type: ${contentType}`,
-        );
-        console.error(
-          '[SummaryTableLoader] Response body (first 500 chars):',
-          text.substring(0, 500),
-        );
-        throw new Error(
-          `Expected JSON but got ${contentType}. Body: ${text.substring(0, 200)}`,
-        );
-      }
-
-      // convert the data to json
-      const json = await response.json();
-
-      // STEP 3: Save to cache on success and get the timestamp
-      const cacheTimestamp = Date.now();
-      const saveSuccess = saveForecastToCache(json.data, dataSource);
-      console.log('[SummaryTableLoader] Cache save result:', saveSuccess ? 'SUCCESS' : 'FAILED');
-
-      // STEP 4: Update state with fresh data (use same timestamp as cache)
-      const newAppState: ForecastResponseStatus = {
-        isLoaded: true,
-        forecast: json.data,
-        error: null,
-        isFromCache: false,
-        cacheTimestamp,
-        dataSource,
-      };
-      dispatch(mergeForecast(newAppState));
-    };
-
-    fetchData().catch((err) => {
-      console.error('[SummaryTableLoader] Caught error:', err);
-      console.error('[SummaryTableLoader] Error stack:', err.stack);
-
-      // STEP 5: On error, keep cached data if available
-      if (cached) {
-        console.log(
-          '[SummaryTableLoader] Fetch failed, keeping cached data with offline indicator',
-        );
-        const offlineState: ForecastResponseStatus = {
-          isLoaded: true,
-          forecast: cached.forecast,
-          error: err,
-          isFromCache: true,
-          cacheTimestamp: cached.timestamp,
-          dataSource: cached.dataSource,
-        };
-        dispatch(mergeForecast(offlineState));
-      } else {
-        // No cache - show error
-        console.log('[SummaryTableLoader] Fetch failed with no cached data');
-        const errorAppState: ForecastResponseStatus = {
-          isLoaded: false,
-          error: err,
-          forecast: null,
-        };
-        dispatch(mergeForecast(errorAppState));
-      }
-    });
+    // NOTE: Automatic refresh on mount has been disabled.
+    // Users must manually refresh via the Refresh button if data is stale.
   }, [dispatch]);
 
   const appState = useAppSelector((state) => state.forecast);
+
+  // Check if forecast data is stale (older than 3 hours)
+  const isDataStale = appState.cacheTimestamp
+    ? Date.now() - appState.cacheTimestamp > STALE_THRESHOLD_MS
+    : false;
 
   const handleManualRefresh = useCallback(async () => {
     console.log('[SummaryTableLoader] Manual refresh initiated');
@@ -222,8 +149,9 @@ export function SummaryTableLoader() {
       // Restore scroll position
       window.scrollTo(0, scrollY);
 
-      // Reset error dismissal state
+      // Reset error and stale banner dismissal states
       setIsRefreshErrorDismissed(false);
+      setIsStaleBannerDismissed(false);
 
       console.log('[SummaryTableLoader] Manual refresh successful');
 
@@ -242,7 +170,7 @@ export function SummaryTableLoader() {
       // Restore scroll position
       window.scrollTo(0, scrollY);
     }
-  }, [dispatch, appState.isRefreshing, setIsRefreshErrorDismissed]);
+  }, [dispatch, appState.isRefreshing]);
 
   // Listen for manual refresh events from App or other components
   useEffect(() => {
@@ -292,6 +220,14 @@ export function SummaryTableLoader() {
           onRetry={handleManualRefresh}
           onDismiss={() => {
             setIsRefreshErrorDismissed(true);
+          }}
+        />
+      )}
+      {!isStaleBannerDismissed && isDataStale && appState.isLoaded && (
+        <StaleDataBanner
+          onRefresh={handleManualRefresh}
+          onDismiss={() => {
+            setIsStaleBannerDismissed(true);
           }}
         />
       )}
