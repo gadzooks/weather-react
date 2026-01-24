@@ -24,30 +24,30 @@
 .date-nav-btn {
   display: flex;
   align-items: center;
-  gap: 6px;
-  padding: 8px 12px;
-  min-height: 44px;
-  min-width: 44px;
-  background: rgba(255, 255, 255, 0.05);
-  border: 1px solid var(--color-border-subtle, rgba(255, 255, 255, 0.04));
-  border-radius: 6px;
-  color: var(--color-text-secondary, #9fa5b8);
-  font-size: 0.875rem; // 14px at default, scales with font size setting
-  font-weight: 500;
+  gap: 8px;
+  padding: 12px 18px;
+  min-height: 48px;
+  min-width: 48px;
+  background: rgba(107, 155, 209, 0.12);
+  border: 2px solid var(--color-accent-primary, #ff9800);
+  border-radius: 8px;
+  color: var(--color-accent-primary, #ff9800);
+  font-size: 1rem; // 16px at default, scales with font size setting
+  font-weight: 600;
   cursor: pointer;
   transition: all var(--transition-normal, 250ms);
   white-space: nowrap;
 
   .wi {
-    font-size: 1.125rem; // 18px at default, scales with font size setting
+    font-size: 1.5rem; // 24px at default, scales with font size setting
   }
 
   &:hover:not(:disabled) {
-    background: rgba(107, 155, 209, 0.15);
+    background: rgba(107, 155, 209, 0.25);
     border-color: var(--color-accent-primary, #ff9800);
     color: var(--color-accent-primary, #ff9800);
-    transform: translateY(-1px);
-    box-shadow: 0 2px 6px rgba(107, 155, 209, 0.2);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(107, 155, 209, 0.4);
   }
 
   &:active:not(:disabled) {
@@ -57,12 +57,16 @@
   &:disabled {
     opacity: 0.3;
     cursor: not-allowed;
+    border-color: rgba(255, 255, 255, 0.2);
+    color: var(--color-text-secondary, #9fa5b8);
+    background: rgba(255, 255, 255, 0.05);
   }
 }
 
 .date-nav-label {
-  @media (max-width: 768px) {
-    display: none;
+  // Show on all screen sizes for better visibility
+  @media (max-width: 390px) {
+    font-size: 0.875rem; // Slightly smaller on very small screens
   }
 }
 
@@ -107,15 +111,21 @@
   }
 
   .date-nav-btn {
-    background: rgba(0, 0, 0, 0.05);
-    border-color: rgba(0, 0, 0, 0.12);
-    color: #333333;
+    background: rgba(25, 118, 210, 0.08);
+    border-color: #1976d2;
+    color: #1976d2;
 
     &:hover:not(:disabled) {
-      background: rgba(25, 118, 210, 0.12);
+      background: rgba(25, 118, 210, 0.2);
       border-color: #1976d2;
       color: #1976d2;
-      box-shadow: 0 4px 12px rgba(25, 118, 210, 0.15);
+      box-shadow: 0 6px 16px rgba(25, 118, 210, 0.25);
+    }
+
+    &:disabled {
+      border-color: rgba(0, 0, 0, 0.2);
+      color: rgba(0, 0, 0, 0.3);
+      background: rgba(0, 0, 0, 0.05);
     }
   }
 

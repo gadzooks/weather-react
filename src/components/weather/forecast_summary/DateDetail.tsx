@@ -15,7 +15,6 @@ import { getAlertIconFromAlerts } from '../../../model/alert';
 import {
   WindIndicator,
   HikeScore,
-  MiniDayPreview,
   TempRange,
   UVBadge,
   VisibilityDisplay,
@@ -104,21 +103,13 @@ function DateDetail() {
               </td>
             )}
             <td className='location-header'>Location</td>
-            <td className='detail-header temp-header'>Hi/Lo</td>
-            <td className='detail-header precip-header'>Precip</td>
-            <td className='detail-header cloud-header'>Cloud</td>
-            <td className='detail-header wind-header'>Wind</td>
-            <td className='detail-header uv-header'>UV</td>
-            <td className='detail-header vis-header'>Vis</td>
-            <td className='detail-header day-header'>
-              {selectedDateIndex > 0 ? formatDayLabel(allDates[selectedDateIndex - 1]) : '-'}
-            </td>
             <td className='detail-header day-header day-header--today'>
               {formatDayLabel(date)}
             </td>
-            <td className='detail-header day-header'>
-              {selectedDateIndex < allDates.length - 1 ? formatDayLabel(allDates[selectedDateIndex + 1]) : '-'}
-            </td>
+            <td className='detail-header precip-cloud-header'>Precip/Cloud</td>
+            <td className='detail-header wind-header'>Wind</td>
+            <td className='detail-header uv-header'>UV</td>
+            <td className='detail-header vis-header'>Vis</td>
             <td className='detail-header hike-header'>Hike</td>
           </tr>
         </thead>
@@ -130,7 +121,7 @@ function DateDetail() {
             <tbody key={region.name}>
               <tr className='region-details'>
                 {foundAlerts && <td className='region-alerts-cell' />}
-                <td className='region-name-cell' colSpan={10}>
+                <td className='region-name-cell' colSpan={7}>
                   {region.description}
                 </td>
               </tr>
@@ -140,8 +131,6 @@ function DateDetail() {
                   key={location.name}
                   location={location}
                   date={date}
-                  allDates={allDates}
-                  selectedDateIndex={selectedDateIndex}
                   forecastsById={forecastResponse.forecasts}
                   alertProps={alertProps}
                   navigate={navigate}
@@ -165,8 +154,6 @@ function DateDetail() {
 interface DateDetailRowProps {
   location: LocationInterface;
   date: string;
-  allDates: string[];
-  selectedDateIndex: number;
   forecastsById: { byId: Record<string, any[]> };
   alertProps: AlertProps;
   navigate: (path: string) => void;
@@ -175,8 +162,6 @@ interface DateDetailRowProps {
 function DateDetailRow({
   location,
   date,
-  allDates,
-  selectedDateIndex,
   forecastsById,
   alertProps,
   navigate,
@@ -191,16 +176,6 @@ function DateDetailRow({
   if (!dayForecast) {
     return null;
   }
-
-  // Get prev/next day forecasts for context
-  const prevDayForecast =
-    selectedDateIndex > 0
-      ? forecasts.find((d) => d.datetime === allDates[selectedDateIndex - 1])
-      : null;
-  const nextDayForecast =
-    selectedDateIndex < allDates.length - 1
-      ? forecasts.find((d) => d.datetime === allDates[selectedDateIndex + 1])
-      : null;
 
   return (
     <tr className='weather-cell detailed-row'>
@@ -227,27 +202,31 @@ function DateDetailRow({
         </button>
       </td>
 
-      {/* High/Low temps */}
-      <td className='detail-cell temp-cell'>
-        <TempRange high={dayForecast.tempmax} low={dayForecast.tempmin} />
+      {/* Today - Weather icon and temp range */}
+      <td className='detail-cell day-cell day-cell--today'>
+        <div className='today-preview'>
+          <i
+            className={`wi wi-${getWeatherIconClass(dayForecast.icon)} weather-icon-large`}
+          />
+          <TempRange high={dayForecast.tempmax} low={dayForecast.tempmin} />
+        </div>
       </td>
 
-      {/* Precipitation */}
-      <td className='detail-cell precip-cell'>
-        <span className='precip-value'>
-          {dayForecast.precipprob > 0
-            ? `${Math.round(dayForecast.precipprob)}%`
-            : '-'}
-        </span>
-      </td>
-
-      {/* Cloud Cover */}
-      <td className='detail-cell cloud-cell'>
-        <span className='cloud-value'>
-          {dayForecast.cloudcover !== undefined
-            ? `${Math.round(dayForecast.cloudcover)}%`
-            : '-'}
-        </span>
+      {/* Precipitation & Cloud Cover */}
+      <td className='detail-cell precip-cloud-cell'>
+        <div className='precip-cloud-container'>
+          <span className='precip-value'>
+            {dayForecast.precipprob > 0
+              ? `${Math.round(dayForecast.precipprob)}%`
+              : '-'}
+          </span>
+          <span className='precip-cloud-separator'>/</span>
+          <span className='cloud-value'>
+            {dayForecast.cloudcover !== undefined
+              ? `${Math.round(dayForecast.cloudcover)}%`
+              : '-'}
+          </span>
+        </div>
       </td>
 
       {/* Wind */}
@@ -266,45 +245,6 @@ function DateDetailRow({
       {/* Visibility */}
       <td className='detail-cell vis-cell'>
         <VisibilityDisplay miles={Number(dayForecast.visibility) || 10} />
-      </td>
-
-      {/* Yesterday */}
-      <td className='detail-cell day-cell day-cell--prev'>
-        {prevDayForecast ? (
-          <MiniDayPreview
-            icon={prevDayForecast.icon}
-            high={prevDayForecast.tempmax}
-            label={formatDayLabel(allDates[selectedDateIndex - 1])}
-          />
-        ) : (
-          <div className='mini-day-preview mini-day-preview--empty'>
-            <span className='no-data'>-</span>
-          </div>
-        )}
-      </td>
-
-      {/* Today - More prominent */}
-      <td className='detail-cell day-cell day-cell--today'>
-        <div className='today-preview'>
-          <i
-            className={`wi wi-${getWeatherIconClass(dayForecast.icon)} weather-icon-large`}
-          />
-        </div>
-      </td>
-
-      {/* Tomorrow */}
-      <td className='detail-cell day-cell day-cell--next'>
-        {nextDayForecast ? (
-          <MiniDayPreview
-            icon={nextDayForecast.icon}
-            high={nextDayForecast.tempmax}
-            label={formatDayLabel(allDates[selectedDateIndex + 1])}
-          />
-        ) : (
-          <div className='mini-day-preview mini-day-preview--empty'>
-            <span className='no-data'>-</span>
-          </div>
-        )}
       </td>
 
       {/* Hike Score */}

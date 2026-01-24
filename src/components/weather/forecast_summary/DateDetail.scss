@@ -1,4 +1,4 @@
-// DateDetail.scss - Detailed single-day view styles
+/* DateDetail.scss */
 
 // Import base table styles for shared variables and classes
 @import './SummaryTable.scss';
@@ -115,10 +115,11 @@
 // Today's prominent display - DENSE
 .today-preview {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   align-items: center;
-  gap: 0px;
+  gap: 4px;
   padding: 0px;
+  justify-content: center;
 
   .weather-icon-large {
     font-size: 0.875rem; // 14px at default
@@ -240,8 +241,25 @@
 }
 
 // ============================================
-// Precipitation - DENSE
+// Precipitation & Cloud Cover - DENSE
 // ============================================
+
+.precip-cloud-cell {
+  min-width: 48px;
+}
+
+.precip-cloud-container {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  justify-content: center;
+}
+
+.precip-cloud-separator {
+  font-size: 0.5rem;
+  color: var(--color-text-dimmed);
+  font-weight: 400;
+}
 
 .precip-cell {
   min-width: 26px;
@@ -572,6 +590,8 @@
   }
 
   .today-preview {
+    gap: 2px;
+
     .weather-icon-large {
       font-size: 1.125rem; // 18px at default
     }
@@ -613,11 +633,19 @@
     }
   }
 
+  .precip-cloud-cell { min-width: 44px; }
+  .precip-cloud-container { gap: 1px; }
+  .precip-cloud-separator { font-size: 0.4375rem; } // 7px at default
+
   .precip-cell { min-width: 24px; }
   .precip-content { gap: 2px; }
   .precip-value {
     font-size: 0.5625rem; // 9px at default
     min-width: 22px;
+  }
+
+  .cloud-value {
+    font-size: 0.5625rem; // 9px at default
   }
 
   .wind-cell { min-width: 36px; }
@@ -694,7 +722,7 @@
   }
 
   .today-preview {
-    gap: 1px;
+    gap: 2px;
 
     .weather-icon-large {
       font-size: 1rem; // 16px at default
@@ -712,6 +740,9 @@
     .sparkline { width: 22px !important; }
   }
 
+  .precip-cloud-cell { min-width: 40px; }
+  .precip-cloud-separator { font-size: 0.375rem; } // 6px at default
+
   .precip-cell { min-width: 24px; }
 
   // Hide label on very small screens, just show dot
@@ -727,13 +758,40 @@
 }
 
 // ============================================
-// Desktop Enhancements for Detailed View
+// Desktop Enhancements for Detailed View - COMPACT
 // ============================================
 
 @media (min-width: 1024px) {
   .styled-table.detailed-mode {
+    font-size: 0.85rem; // Reduce overall table font size
+    max-width: 90%; // Don't stretch full width
+    margin: 0 auto; // Center the table
+
     .detail-header {
-      font-size: 0.625rem; // 10px at default
+      font-size: 0.5625rem; // 9px at default - more compact
+      padding: 3px 2px; // Reduce padding
+    }
+
+    .detail-cell {
+      padding: 2px 2px; // Reduce cell padding
+    }
+  }
+
+  // Reduce today cell size
+  .day-cell--today {
+    min-width: 60px; // More compact
+  }
+
+  .today-preview {
+    gap: 3px;
+
+    .weather-icon-large {
+        padding-right: 8px;
+        font-size: 0.8rem;
+      }
+
+    .temp-range {
+      font-size: 0.6875rem; // 11px - smaller temp
     }
   }
 
@@ -743,7 +801,23 @@
     .sparkline { width: 40px !important; }
   }
 
-  .precip-cell { min-width: 30px; }
+  .precip-cloud-cell { min-width: 50px; }
+  .precip-value { font-size: 0.5625rem; } // 9px
+  .cloud-value { font-size: 0.5625rem; } // 9px
+
+  .precip-cell { min-width: 28px; }
+  .wind-cell { min-width: 32px; }
+  .uv-cell { min-width: 24px; }
+  .vis-cell { min-width: 26px; }
+  .hike-cell { min-width: 40px; }
+
+  // Location column more compact
+  .location-name {
+    .forecast-button {
+      font-size: 0.75rem; // 12px - smaller location names
+      padding: 4px 6px;
+    }
+  }
 
   // Hover effects on desktop
   .mini-day-preview:hover {
@@ -754,7 +828,29 @@
   .hike-score {
     cursor: help;
     transition: transform var(--transition-fast);
+    font-size: 0.5625rem; // 9px - smaller
 
     &:hover { transform: scale(1.05); }
+  }
+
+  .wind-indicator {
+    .wind-speed {
+      font-size: 0.5625rem; // 9px - smaller
+    }
+
+    svg {
+      width: 11px;
+      height: 11px;
+    }
+  }
+
+  .uv-badge {
+    width: 20px;
+    height: 20px;
+    font-size: 0.5625rem; // 9px
+  }
+
+  .visibility-display {
+    font-size: 0.5625rem; // 9px
   }
 }
