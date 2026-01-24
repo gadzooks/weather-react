@@ -12,7 +12,6 @@ import weatherLoading from '../../../images/weather-loading.gif';
 import { useAppDispatch, useAppSelector } from '../../../app/hooks';
 import {
   mergeForecast,
-  loadCachedForecast,
   setRefreshing,
   setRefreshError,
 } from '../../../features/forecast/forecastSlice';
@@ -52,13 +51,17 @@ export function SummaryTableLoader() {
         'timestamp:', cached.timestamp,
         'age:', new Date(cached.timestamp).toISOString(),
       );
-      dispatch(
-        loadCachedForecast({
-          forecast: cached.forecast,
-          cacheTimestamp: cached.timestamp,
-          dataSource: cached.dataSource,
-        }),
-      );
+      // Load cached data but mark as NOT from cache to avoid showing offline banner
+      // The stale banner will handle showing warnings for old data
+      const cachedState: ForecastResponseStatus = {
+        isLoaded: true,
+        forecast: cached.forecast,
+        error: null,
+        isFromCache: false, // Don't show offline banner for cached data
+        cacheTimestamp: cached.timestamp,
+        dataSource: cached.dataSource,
+      };
+      dispatch(mergeForecast(cachedState));
     } else {
       console.log('[SummaryTableLoader] No cached data found in localStorage');
       // No cached data - show error state to display "no data" message
@@ -80,6 +83,23 @@ export function SummaryTableLoader() {
   const isDataStale = appState.cacheTimestamp
     ? Date.now() - appState.cacheTimestamp > STALE_THRESHOLD_MS
     : false;
+
+  // Debug logging for staleness check
+  if (appState.cacheTimestamp) {
+    const ageMs = Date.now() - appState.cacheTimestamp;
+    const ageMinutes = Math.floor(ageMs / 1000 / 60);
+    const ageHours = (ageMs / 1000 / 60 / 60).toFixed(2);
+    console.log('[SummaryTableLoader] Staleness check:', {
+      cacheTimestamp: appState.cacheTimestamp,
+      currentTime: Date.now(),
+      ageMs,
+      ageMinutes: `${ageMinutes} mins`,
+      ageHours: `${ageHours} hours`,
+      thresholdMs: STALE_THRESHOLD_MS,
+      thresholdHours: STALE_THRESHOLD_MS / 1000 / 60 / 60,
+      isDataStale,
+    });
+  }
 
   const handleManualRefresh = useCallback(async () => {
     console.log('[SummaryTableLoader] Manual refresh initiated');
