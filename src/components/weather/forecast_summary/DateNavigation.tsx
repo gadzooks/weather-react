@@ -71,16 +71,6 @@ function DateNavigation({
 
   const moonPhase = getMoonPhase(dayForecast?.moonphase);
 
-  // Debug logging
-  console.log('DateNavigation Debug:', {
-    hasDayForecast: !!dayForecast,
-    dayForecast,
-    sunrise: dayForecast?.sunrise,
-    sunset: dayForecast?.sunset,
-    moonphase: dayForecast?.moonphase,
-    moonPhase,
-  });
-
   return (
     <div className={`date-navigation ${weekend ? 'weekend' : ''}`}>
       <button

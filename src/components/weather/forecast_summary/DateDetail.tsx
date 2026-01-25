@@ -6,6 +6,7 @@ import { useAppSelector } from '../../../app/hooks';
 import type { RegionInterface } from '../../../interfaces/RegionInterface';
 import type { LocationInterface } from '../../../interfaces/LocationInterface';
 import type { AlertProps } from '../../../interfaces/AlertProps';
+import type { DailyForecastInterface } from '../../../interfaces/DailyForecastInterface';
 import alertsFound from '../../../utils/count';
 import DateNavigation from './DateNavigation';
 import AlertDetail from '../alerts/AlertDetail';
@@ -79,7 +80,7 @@ function DateDetail() {
 
   // Get forecast data for the selected date (from first location for constant data)
   // Try multiple locations to find one with forecast data
-  let selectedDayForecast = null;
+  let selectedDayForecast: DailyForecastInterface | undefined = undefined;
 
   for (const region of regions) {
     if (!region.locations || region.locations.length === 0) continue;
@@ -90,23 +91,12 @@ function DateDetail() {
 
       if (dayForecast) {
         selectedDayForecast = dayForecast;
-        console.log('DateDetail: Found forecast data from location:', location.name);
         break;
       }
     }
 
     if (selectedDayForecast) break;
   }
-
-  // Debug logging
-  console.log('DateDetail Debug:', {
-    regionsCount: regions.length,
-    selectedDate: date,
-    selectedDayForecast,
-    hasSunrise: selectedDayForecast?.sunrise,
-    hasSunset: selectedDayForecast?.sunset,
-    moonphase: selectedDayForecast?.moonphase,
-  });
 
   return (
     <>
