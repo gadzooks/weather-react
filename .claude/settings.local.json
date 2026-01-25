@@ -80,7 +80,14 @@
       "Bash(yarn e2e:*)",
       "Bash(npx husky install)",
       "Bash(npx husky init)",
-      "Bash(yarn test:e2e:*)"
+      "Bash(yarn test:e2e:*)",
+      "Skill(frontend-excellence:react)",
+      "Skill(frontend-excellence:ui)",
+      "Bash(yarn preview:*)",
+      "Bash(timeout 5 yarn preview:*)",
+      "Bash(strings:*)",
+      "Bash(NODE_ENV=test vite build:*)",
+      "Bash(yarn build:e2e:*)"
     ]
   }
 }

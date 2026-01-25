@@ -15,6 +15,8 @@ export default defineConfig({
     trace: 'on-first-retry',
     screenshot: 'only-on-failure',
     video: 'retain-on-failure',
+    // Disable service workers to prevent interference with mocks
+    serviceWorkers: 'block',
   },
   projects: [
     {
@@ -27,7 +29,7 @@ export default defineConfig({
     },
   ],
   webServer: {
-    command: 'yarn preview',
+    command: 'yarn preview --outDir build --port 8080',
     url: 'http://localhost:8080',
     reuseExistingServer: !process.env.CI,
     timeout: 120000,

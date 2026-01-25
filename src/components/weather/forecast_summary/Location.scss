@@ -82,12 +82,10 @@
 // Alert icon styling - larger and more visible
 .alert-icon {
   margin-right: 4px;
-  // font-size: 1.1em;
   font-weight: 700;
   text-decoration: none;
   transition: transform var(--transition-fast, 150ms);
   display: inline-block;
-  // color: #ffc107; // Bright amber/gold - high contrast against dark background
   color: red;
   text-shadow: 0 0 8px rgba(255, 193, 7, 0.5);
 
@@ -99,6 +97,63 @@
 
   &:active {
     transform: scale(0.95);
+  }
+}
+
+// ============================================
+// DETAILED ROW STYLES
+// ============================================
+
+tr.detailed-row {
+  // Ensure row hover works across all cells
+  &:hover {
+    .detail-cell {
+      background: var(--color-bg-hover, #353b48);
+    }
+  }
+  
+  // Detailed cells inherit font from table
+  .detail-cell {
+    font-family: var(--font-mono, 'JetBrains Mono', monospace);
+    transition: background-color var(--transition-fast, 150ms);
+  }
+}
+
+// Large weather icon for detailed view
+.weather-icon-large {
+  font-size: 24px;
+  line-height: 1;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
+  
+  // Apply same color classes as regular icons
+  &.wi-day-sunny {
+    color: #ffd966;
+    filter: drop-shadow(0 0 9px rgba(255, 217, 102, 0.5));
+  }
+  
+  &.wi-rain {
+    color: #7db4f5;
+    filter: drop-shadow(0 0 8px rgba(125, 180, 245, 0.5));
+  }
+  
+  &.wi-snow {
+    color: #7db4f5;
+    filter: drop-shadow(0 0 7px rgba(125, 180, 245, 0.45));
+  }
+  
+  &.wi-cloudy {
+    color: #b0bcd6;
+    filter: drop-shadow(0 0 4px rgba(176, 188, 214, 0.3));
+  }
+  
+  &.wi-day-cloudy {
+    color: #f0d589;
+    filter: drop-shadow(0 0 6px rgba(240, 213, 137, 0.4));
+  }
+  
+  &.wi-fog {
+    color: #c8c6c8;
+    filter: drop-shadow(0 0 4px rgba(200, 198, 200, 0.3));
   }
 }
 
@@ -121,41 +176,109 @@
     color: rgb(152, 150, 152);
     filter: none;
   }
+
   .snow {
     color: rgb(25, 151, 245);
     filter: none;
   }
+
   .cloudy {
     color: blue;
     filter: none;
   }
+
   .rain {
     color: blue;
     filter: none;
   }
+
   .sunshine-10 {
     color: rgb(255, 187, 33);
     filter: none;
   }
+
   .sunshine-50 {
     color: rgb(123, 96, 96);
     filter: none;
   }
+
   .sunshine-100 {
     color: rgb(38, 163, 231);
     filter: none;
   }
+
   .day-sunny {
     color: #ffb412;
     filter: none;
     animation: none;
   }
+
   .high-temp-wi-hotter {
     color: #ff5f21;
     filter: none;
   }
+
   .high-temp-wi-hot {
     color: #ffbb21;
     filter: none;
+  }
+  
+  // Light mode detailed row
+  tr.detailed-row {
+    &:hover {
+      .detail-cell {
+        background: #f5f5f5;
+      }
+    }
+  }
+  
+  .weather-icon-large {
+    &.wi-day-sunny {
+      color: #ffb412;
+      filter: none;
+    }
+    
+    &.wi-rain,
+    &.wi-snow {
+      color: rgb(25, 151, 245);
+      filter: none;
+    }
+    
+    &.wi-cloudy {
+      color: blue;
+      filter: none;
+    }
+    
+    &.wi-day-cloudy {
+      color: rgb(255, 187, 33);
+      filter: none;
+    }
+    
+    &.wi-fog {
+      color: rgb(152, 150, 152);
+      filter: none;
+    }
+  }
+}
+
+// ============================================
+// Mobile Responsive for Detailed Row
+// ============================================
+
+@media (max-width: 768px) {
+  .weather-icon-large {
+    font-size: 20px;
+  }
+  
+  tr.detailed-row {
+    .detail-cell {
+      padding: 5px 4px;
+    }
+  }
+}
+
+@media (max-width: 390px) {
+  .weather-icon-large {
+    font-size: 16px;
   }
 }

@@ -1,5 +1,5 @@
+// Region.tsx
 import './Region.scss';
-import React from 'react';
 import type { RegionInterface } from '../../../interfaces/RegionInterface';
 import type { ForecastsById } from '../../../interfaces/ForecastResponseInterface';
 import Location from './Location';
@@ -23,10 +23,17 @@ function Region(props: RegionProps) {
   const { description } = region;
   const { search_key: searchKey } = region;
   const { locations } = props;
-  const { alertProps, isWeekend, dateSelectedIsWithinForecastRange } = props;
+  const {
+    alertProps,
+    isWeekend,
+    dateSelectedIsWithinForecastRange,
+  } = props;
+
+  // Calculate colspan for region header
   const numDateCols = dateSelectedIsWithinForecastRange
     ? 0
     : isWeekend.length - 1;
+
   return (
     <tbody>
       <tr className='region-details'>

@@ -1,16 +1,18 @@
+/* Region.scss */
+
 // ============================================
 // Region Details - Compact Dark Mode
 // ============================================
 
-// Base styles for all region cells
+// Base styles for all region cells - DENSE
 tr.region-details td {
   background: rgba(107, 155, 209, 0.06);
   color: var(--color-accent-primary, #6b9bd1);
   font-weight: 600;
   text-transform: uppercase;
-  font-size: 0.75em;
-  letter-spacing: 0.4px;
-  padding: var(--spacing-sm, 8px);
+  font-size: 0.65em; // Reduced from 0.75em
+  letter-spacing: 0.3px; // Reduced from 0.4px
+  padding: 3px 0; // Zero horizontal padding for maximum density
   border-top: 1px solid var(--color-border-strong, #353b48);
   border-bottom: 1px solid var(--color-border-medium, rgba(255, 255, 255, 0.08));
 }
@@ -24,13 +26,14 @@ tr.region-details td.region-alerts-cell {
   min-width: 50px;
 }
 
-// Sticky region name cell
+// Sticky region name cell - DENSE
 tr.region-details td.region-name-cell {
   position: sticky;
   left: 0;
   z-index: calc(var(--z-sticky, 10) + 1);
   text-align: left;
-  padding-left: var(--spacing-md, 12px);
+  padding-left: 2px; // Minimal left padding
+  padding-right: 0; // Zero right padding
 }
 
 // Offset region name when alerts are present
@@ -43,18 +46,18 @@ tr.region-details td.region-date-cell {
   // Inherits base styles, no special treatment
 }
 
-// Mobile optimizations
+// Mobile optimizations - DENSE
 @media (max-width: 768px) {
   tr.region-details td {
     text-align: left;
-    padding: 6px 6px 6px var(--spacing-sm, 8px);
-    font-size: 0.7em;
+    padding: 3px 0 3px 2px; // Minimal horizontal padding
+    font-size: 0.6em; // Reduced from 0.7em
   }
 }
 
 @media (max-width: 500px) {
   tr.region-details td {
-    padding: 5px 5px 5px 8px;
+    padding: 2px 0 2px 1px; // Minimal horizontal padding
   }
 }
 

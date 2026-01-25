@@ -26,6 +26,11 @@ export function App() {
   // Access Redux forecast state for cache status
   const appState = useAppSelector((state) => state.forecast);
 
+  // Handle refresh from settings drawer
+  const handleRefreshFromSettings = () => {
+    window.dispatchEvent(new CustomEvent('manual-refresh-requested'));
+  };
+
   return (
     <div className='theme font-loader'>
       <RefreshSpinner />
@@ -53,6 +58,9 @@ export function App() {
         onThemeChange={setTheme}
         fontSize={fontSize}
         onFontSizeChange={setFontSize}
+        cacheTimestamp={appState.cacheTimestamp}
+        onRefresh={handleRefreshFromSettings}
+        isRefreshing={appState.isRefreshing || false}
       />
     </div>
   );

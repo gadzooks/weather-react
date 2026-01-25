@@ -1,5 +1,4 @@
 // Location.tsx
-
 import { useNavigate } from 'react-router-dom';
 import './Location.scss';
 import type { LocationInterface } from '../../../interfaces/LocationInterface';
@@ -36,7 +35,6 @@ function maxAlertDays(
     locationAlerts === undefined
   )
     return -1;
-
   return Math.max.apply(
     null,
     locationAlerts.map((alertId) => {
@@ -59,10 +57,12 @@ function Location(props: LocationProps) {
     alertProps,
     alertIds,
   } = props;
+
   const navigate = useNavigate();
   const forecasts = forecastsById.byId[location.name] || [];
   const locationHasAlerts = alertIds && alertIds?.length > 0;
   const maxDaysWithAlerts = maxAlertDays(alertProps, alertIds);
+
   return (
     <tr className='weather-cell'>
       {alertProps.foundAlerts && (

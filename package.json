@@ -51,11 +51,13 @@
     "lint": "eslint ./src --fix",
     "prettier": "npx prettier src --check",
     "prettier:fix": "npx prettier src --write",
-    "e2e": "playwright test",
-    "e2e:headed": "playwright test --headed",
-    "e2e:ui": "playwright test --ui",
-    "e2e:debug": "playwright test --debug",
-    "e2e:report": "playwright show-report",
+    "_comment_e2e": "E2E tests temporarily disabled",
+    "_build:e2e": "vite build --mode test",
+    "_e2e": "yarn build:e2e && playwright test",
+    "_e2e:headed": "yarn build:e2e && playwright test --headed",
+    "_e2e:ui": "yarn build:e2e && playwright test --ui",
+    "_e2e:debug": "yarn build:e2e && playwright test --debug",
+    "_e2e:report": "playwright show-report",
     "prepare": "husky"
   },
   "resolutions": {

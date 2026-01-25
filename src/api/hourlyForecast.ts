@@ -6,35 +6,48 @@ import type {
   HourlyForecastResponse,
   HourlyForecastApiResponse,
 } from '../interfaces/HourlyForecastInterface';
-import {
-  saveHourlyToCache,
-  loadHourlyFromCache,
-} from '../utils/hourlyForecastCache';
+import { extractHourlyFromMainCache } from '../utils/extractHourlyFromCache';
 
 const WEATHER_API = import.meta.env.VITE_WEATHER_API;
 const WEATHER_JWT_TOKEN = import.meta.env.VITE_WEATHER_JWT_TOKEN;
 
 /**
  * Fetch hourly forecast data for a specific location and date
- * Uses cache for offline support - fetches from API first, falls back to cache on error
+ *
+ * IMPORTANT: Hourly data is already included in the main forecast cache.
+ * This function first checks the main cache, then only makes an API call if:
+ * 1. Data is not in cache (user hasn't refreshed main forecast yet)
+ * 2. User explicitly needs fresh data
+ *
+ * This eliminates the duplicate hourly cache that was causing quota exceeded errors.
+ *
+ * NOTE: If the requested date is not available (e.g., it's in the past and no longer
+ * in the forecast), this function will throw an error. The calling component should
+ * handle this by redirecting the user to the location page without a date.
+ *
  * @param locationName - The location name (e.g., "san juan islands")
  * @param date - The date in YYYY-MM-DD format to get hours for
  * @returns Promise with hourly forecast response
+ * @throws Error if date is not available in cache or from API
  */
 export const fetchHourlyForecast = async (
   locationName: string,
   date: string,
 ): Promise<HourlyForecastResponse> => {
-  // API endpoint: /forecasts/hourly/real?location=san+juan+islands
+  console.log('[fetchHourlyForecast] Requesting hourly data for:', { locationName, date });
+
+  // STEP 1: Check main forecast cache first (eliminates need for separate hourly cache)
+  const cachedData = extractHourlyFromMainCache(locationName, date);
+  if (cachedData && cachedData.hours.length > 0) {
+    console.log('[fetchHourlyForecast] Found hourly data in main cache, no API call needed');
+    return cachedData;
+  }
+
+  // STEP 2: Data not in cache - try API call as fallback
+  console.log('[fetchHourlyForecast] Hourly data not in main cache, attempting API call...');
+
   const params = new URLSearchParams({ location: locationName });
   const url = `${WEATHER_API}/forecasts/hourly/real?${params.toString()}`;
-
-  console.log('[fetchHourlyForecast] Fetching hourly data:', {
-    url,
-    locationName,
-    date,
-    WEATHER_API,
-  });
 
   try {
     const response = await fetchWithRetries(url, {
@@ -72,22 +85,19 @@ export const fetchHourlyForecast = async (
       hours: dayData?.hours || [],
     };
 
-    // Save to cache on success
-    saveHourlyToCache(locationName, date, result);
-    console.log('[fetchHourlyForecast] Successfully fetched and cached hourly data');
-
+    console.log('[fetchHourlyForecast] Successfully fetched hourly data from API');
     return result;
   } catch (error) {
-    console.error('[fetchHourlyForecast] Fetch failed:', error);
+    console.error('[fetchHourlyForecast] API fetch failed:', error);
 
-    // Try to load from cache
-    const cached = loadHourlyFromCache(locationName, date);
-    if (cached) {
-      console.log('[fetchHourlyForecast] Returning cached data for offline use');
-      return cached;
+    // Final fallback: check main cache again in case it was just populated
+    const fallbackData = extractHourlyFromMainCache(locationName, date);
+    if (fallbackData) {
+      console.log('[fetchHourlyForecast] Using main cache as fallback for offline use');
+      return fallbackData;
     }
 
-    // No cache available, re-throw the error
+    // No data available anywhere
     throw error;
   }
 };

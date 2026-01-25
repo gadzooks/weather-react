@@ -11,7 +11,7 @@ export const fetchWithTimeout = (
   url: string,
   options: any = {},
 ): Promise<Response> => {
-  const { timeout = 10000, ...remainingOptions } = options;
+  const { timeout = 50000, ...remainingOptions } = options;
   console.log(`[fetchWithTimeout] URL: ${url}, timeout: ${timeout}ms`);
   // if the timeout option is specified, race the
   // fetch call

@@ -1,0 +1,856 @@
+/* DateDetail.scss */
+
+// Import base table styles for shared variables and classes
+@import './SummaryTable.scss';
+
+// ============================================
+// Error State
+// ============================================
+
+.date-detail-error {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: var(--spacing-xl);
+  text-align: center;
+  color: var(--color-text-secondary);
+  min-height: 200px;
+
+  p {
+    margin-bottom: var(--spacing-md);
+  }
+
+  button {
+    background: var(--color-accent-primary);
+    color: white;
+    border: none;
+    padding: var(--spacing-md) var(--spacing-lg);
+    border-radius: var(--radius-md);
+    cursor: pointer;
+    font-weight: 500;
+    transition: all var(--transition-fast);
+
+    &:hover {
+      opacity: 0.9;
+      transform: translateY(-1px);
+    }
+  }
+}
+
+[data-theme='light'] .date-detail-error {
+  button {
+    background: #1976d2;
+  }
+}
+
+// ============================================
+// Detailed Mode Table Adjustments
+// ============================================
+
+.styled-table.detailed-mode {
+  font-family: var(--font-mono);
+
+  thead {
+    .detail-header {
+      font-size: 0.5rem; // 8px at default (16px base)
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.3px;
+      color: var(--color-text-secondary);
+      padding: 4px 0;
+      white-space: nowrap;
+      vertical-align: bottom;
+    }
+  }
+
+  // Detail cells - ultra compact and dense
+  .detail-cell {
+    padding: 3px 0;
+    vertical-align: middle;
+    white-space: nowrap;
+  }
+}
+
+// ============================================
+// Day Columns (Yesterday/Today/Tomorrow)
+// ============================================
+
+// Day column headers
+.day-header {
+  position: relative;
+
+  &--today {
+    font-size: 0.6875rem !important; // 11px at default
+    font-weight: 700 !important;
+    color: var(--color-accent-primary) !important;
+    background: rgba(107, 155, 209, 0.08);
+    border-left: 2px solid var(--color-accent-primary);
+    border-right: 2px solid var(--color-accent-primary);
+  }
+}
+
+// Day cells in rows - DENSE
+.day-cell {
+  text-align: center;
+  vertical-align: middle;
+  min-width: 36px;
+  padding: 2px 0 !important;
+
+  &--prev,
+  &--next {
+    opacity: 0.7;
+    background: rgba(255, 255, 255, 0.02);
+  }
+
+  &--today {
+    background: rgba(107, 155, 209, 0.08);
+    border-left: 2px solid var(--color-accent-primary);
+    border-right: 2px solid var(--color-accent-primary);
+    font-weight: 600;
+    min-width: 40px;
+  }
+}
+
+// Today's prominent display - DENSE
+.today-preview {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 4px;
+  padding: 0px;
+  justify-content: center;
+
+  .weather-icon-large {
+    font-size: 0.875rem; // 14px at default
+    animation: subtleFloat 3s ease-in-out infinite;
+  }
+
+  .today-temp {
+    font-size: 0.75rem; // 12px at default
+    font-weight: 700;
+    color: var(--color-temp-high);
+    letter-spacing: 0.2px;
+  }
+}
+
+@keyframes subtleFloat {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-2px);
+  }
+}
+
+.mini-day-preview {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0px;
+  opacity: 0.7;
+  min-width: 32px;
+  transition: opacity var(--transition-fast);
+  padding: 0px;
+
+  &:hover {
+    opacity: 1;
+  }
+
+  &--empty {
+    min-width: 32px;
+    opacity: 0.3;
+
+    .no-data {
+      font-size: 0.75rem; // 12px at default
+      color: var(--color-text-dimmed);
+    }
+  }
+
+  &__label {
+    font-size: 0.375rem; // 6px at default
+    font-weight: 700;
+    color: var(--color-text-dimmed);
+    text-transform: uppercase;
+    letter-spacing: 0.2px;
+    margin-bottom: 0px;
+  }
+
+  &__content {
+    display: flex;
+    align-items: center;
+    gap: 1px;
+  }
+
+  &__temp {
+    font-size: 0.625rem; // 10px at default
+    color: var(--color-text-primary);
+    font-weight: 700;
+  }
+
+  .wi {
+    font-size: 0.75rem; // 12px at default
+    color: var(--color-text-secondary);
+  }
+}
+
+// ============================================
+// Weather Icon (Large for single day)
+// ============================================
+
+.weather-icon-large {
+  font-size: 2rem; // 32px at default
+  line-height: 1;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
+}
+
+.icon-cell {
+  text-align: center;
+  min-width: 50px;
+}
+
+// ============================================
+// Temperature Range - DENSE
+// ============================================
+
+.temp-range {
+  display: flex;
+  align-items: center;
+  gap: 0px;
+  font-size: 0.6875rem; // 11px at default
+  font-weight: 700;
+
+  &__high {
+    color: var(--color-temp-high);
+  }
+
+  &__separator {
+    color: var(--color-text-dimmed);
+    font-weight: 400;
+    margin: 0;
+  }
+
+  &__low {
+    color: var(--color-temp-low);
+    font-weight: 600;
+  }
+}
+
+.temp-cell {
+  min-width: 32px;
+}
+
+// ============================================
+// Precipitation & Cloud Cover - DENSE
+// ============================================
+
+.precip-cloud-cell {
+  min-width: 48px;
+}
+
+.precip-cloud-container {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  justify-content: center;
+}
+
+.precip-cloud-separator {
+  font-size: 0.5rem;
+  color: var(--color-text-dimmed);
+  font-weight: 400;
+}
+
+.precip-cell {
+  min-width: 26px;
+}
+
+.precip-content {
+  display: flex;
+  align-items: center;
+  gap: 1px;
+  justify-content: flex-start;
+}
+
+.precip-value {
+  font-size: 0.6875rem; // 11px at default - matches temp range
+  font-weight: 700;
+  color: var(--color-precip);
+  min-width: 22px;
+}
+
+.precip-bars {
+  display: inline-block;
+  vertical-align: middle;
+}
+
+// ============================================
+// Wind Indicator - DENSE
+// ============================================
+
+.wind-cell {
+  min-width: 28px;
+}
+
+.wind-indicator {
+  display: flex;
+  align-items: center;
+  gap: 1px;
+
+  svg {
+    transition: transform var(--transition-fast);
+    width: 10px;
+    height: 10px;
+  }
+
+  .wind-speed {
+    font-size: 0.6875rem; // 11px at default - matches temp range
+    font-weight: 700;
+
+    &.wind-low { color: var(--color-wind-low); }
+    &.wind-med { color: var(--color-wind-med); }
+    &.wind-high { color: var(--color-wind-high); }
+  }
+}
+
+// ============================================
+// UV Badge - DENSE
+// ============================================
+
+.uv-cell {
+  min-width: 22px;
+  text-align: center;
+}
+
+.uv-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+  border-radius: 3px;
+  font-size: 0.6875rem; // 11px at default - matches temp range
+  font-weight: 700;
+
+  &--low {
+    background: rgba(34, 197, 94, 0.15);
+    color: var(--color-uv-low);
+  }
+
+  &--moderate {
+    background: rgba(234, 179, 8, 0.15);
+    color: var(--color-uv-moderate);
+  }
+
+  &--high {
+    background: rgba(245, 158, 11, 0.15);
+    color: var(--color-uv-high);
+  }
+
+  &--extreme {
+    background: rgba(239, 68, 68, 0.15);
+    color: var(--color-uv-extreme);
+  }
+}
+
+// ============================================
+// Visibility - DENSE
+// ============================================
+
+.vis-cell {
+  min-width: 24px;
+}
+
+.visibility-display {
+  font-size: 0.6875rem; // 11px at default - matches temp range
+  color: var(--color-text-primary);
+  font-weight: 700;
+}
+
+// ============================================
+// Hike Score - DENSE
+// ============================================
+
+.hike-cell {
+  min-width: 36px;
+}
+
+.hike-score {
+  display: inline-flex;
+  align-items: center;
+  gap: 2px;
+  padding: 1px 3px;
+  border-radius: 3px;
+  font-size: 0.6875rem; // 11px at default - matches temp range
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.2px;
+
+  &__dot {
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+  }
+
+  &--great {
+    background: rgba(34, 197, 94, 0.15);
+    border: 1px solid rgba(34, 197, 94, 0.3);
+
+    .hike-score__dot { background: var(--color-hike-great); }
+    .hike-score__label { color: var(--color-hike-great); }
+  }
+
+  &--fair {
+    background: rgba(234, 179, 8, 0.15);
+    border: 1px solid rgba(234, 179, 8, 0.3);
+
+    .hike-score__dot { background: var(--color-hike-fair); }
+    .hike-score__label { color: var(--color-hike-fair); }
+  }
+
+  &--poor {
+    background: rgba(239, 68, 68, 0.15);
+    border: 1px solid rgba(239, 68, 68, 0.3);
+
+    .hike-score__dot { background: var(--color-hike-poor); }
+    .hike-score__label { color: var(--color-hike-poor); }
+  }
+}
+
+// ============================================
+// Light Mode Overrides for Detailed View
+// ============================================
+
+[data-theme='light'] {
+  .day-header--today {
+    background: rgba(25, 118, 210, 0.12) !important;
+    border-left-color: #1976d2 !important;
+    border-right-color: #1976d2 !important;
+    color: #1976d2 !important;
+  }
+
+  .day-cell {
+    &--prev,
+    &--next {
+      background: rgba(0, 0, 0, 0.02);
+    }
+
+    &--today {
+      background: rgba(25, 118, 210, 0.08);
+      border-left-color: #1976d2;
+      border-right-color: #1976d2;
+    }
+  }
+
+  .today-preview {
+    .today-temp {
+      color: #d97706;
+    }
+  }
+
+  .mini-day-preview {
+    &__label { color: #888888; }
+    &__temp { color: #666666; }
+    .wi { color: #666666; }
+  }
+
+  .precip-value {
+    color: #2563eb;
+  }
+
+  .visibility-display {
+    color: #666666;
+  }
+
+  .uv-badge {
+    &--low { background: rgba(34, 197, 94, 0.12); }
+    &--moderate { background: rgba(234, 179, 8, 0.12); }
+    &--high { background: rgba(245, 158, 11, 0.12); }
+    &--extreme { background: rgba(239, 68, 68, 0.12); }
+  }
+
+  .hike-score {
+    &--great {
+      background: rgba(34, 197, 94, 0.1);
+      border-color: rgba(34, 197, 94, 0.25);
+    }
+    &--fair {
+      background: rgba(234, 179, 8, 0.1);
+      border-color: rgba(234, 179, 8, 0.25);
+    }
+    &--poor {
+      background: rgba(239, 68, 68, 0.1);
+      border-color: rgba(239, 68, 68, 0.25);
+    }
+  }
+}
+
+// ============================================
+// Dense Table Layout (All Viewports)
+// ============================================
+
+// Table is shown on all viewports with horizontal scroll on mobile
+.date-detail-table {
+  display: table;
+  width: 100%;
+}
+
+// ============================================
+// Cloud Cover Cell
+// ============================================
+
+.cloud-cell {
+  min-width: 28px;
+}
+
+.cloud-value {
+  font-size: 0.6875rem; // 11px at default - matches temp range
+  font-weight: 700;
+  color: var(--color-text-secondary);
+}
+
+// ============================================
+// Mobile Optimization - Dense Table with Horizontal Scroll
+// ============================================
+
+@media (max-width: 768px) {
+  // Dense, compact sizing for mobile
+  .styled-table.detailed-mode {
+    font-size: 0.7rem;
+
+    // Reduce row height for denser vertical scrolling
+    .detailed-row {
+      height: 32px;
+    }
+
+    .detail-header {
+      font-size: 0.4375rem; // 7px at default
+      padding: 2px 4px;
+    }
+
+    .detail-cell {
+      padding: 1px 4px;
+    }
+
+    // Make location column sticky for context while scrolling
+    .location-name {
+      position: sticky;
+      left: 0;
+      background: var(--color-bg-surface);
+      z-index: 2;
+      box-shadow: 2px 0 4px rgba(0, 0, 0, 0.1);
+      min-width: 80px;
+      padding: 4px 8px;
+    }
+
+    .location-header {
+      position: sticky;
+      left: 0;
+      background: var(--color-bg-elevated);
+      z-index: 3;
+      box-shadow: 2px 0 4px rgba(0, 0, 0, 0.1);
+      min-width: 80px;
+    }
+
+    // Make alerts column sticky if present
+    &[data-has-alerts] {
+      .alerts-cell {
+        position: sticky;
+        left: 0;
+        background: var(--color-bg-surface);
+        z-index: 2;
+        min-width: 32px;
+      }
+
+      .alerts-header {
+        position: sticky;
+        left: 0;
+        background: var(--color-bg-elevated);
+        z-index: 3;
+        min-width: 32px;
+      }
+
+      .location-name {
+        left: 32px;
+      }
+
+      .location-header {
+        left: 32px;
+      }
+    }
+  }
+
+  // Smaller day cells on mobile
+  .day-cell {
+    min-width: 40px;
+
+    &--today {
+      min-width: 44px;
+    }
+  }
+
+  .today-preview {
+    gap: 2px;
+
+    .weather-icon-large {
+      font-size: 1.125rem; // 18px at default
+    }
+
+    .today-temp {
+      font-size: 0.6875rem; // 11px at default
+    }
+  }
+
+  .mini-day-preview {
+    min-width: 32px;
+    padding: 1px;
+
+    &__label { font-size: 0.375rem; } // 6px at default
+    &__temp { font-size: 0.4375rem; } // 7px at default
+    .wi { font-size: 0.5625rem; } // 9px at default
+
+    &--empty {
+      min-width: 32px;
+    }
+  }
+
+  .weather-icon-large {
+    font-size: 1.375rem; // 22px at default
+  }
+
+  .temp-range {
+    font-size: 0.625rem; // 10px at default
+    gap: 0px;
+  }
+
+  .temp-cell { min-width: 42px; }
+
+  .sparkline-cell {
+    min-width: 35px;
+
+    .sparkline {
+      width: 28px !important;
+    }
+  }
+
+  .precip-cloud-cell { min-width: 44px; }
+  .precip-cloud-container { gap: 1px; }
+  .precip-cloud-separator { font-size: 0.4375rem; } // 7px at default
+
+  .precip-cell { min-width: 24px; }
+  .precip-content { gap: 2px; }
+  .precip-value {
+    font-size: 0.5625rem; // 9px at default
+    min-width: 22px;
+  }
+
+  .cloud-value {
+    font-size: 0.5625rem; // 9px at default
+  }
+
+  .wind-cell { min-width: 36px; }
+  .wind-indicator {
+    gap: 1px;
+
+    svg {
+      width: 11px;
+      height: 11px;
+    }
+
+    .wind-speed { font-size: 0.5625rem; } // 9px at default
+  }
+
+  .uv-cell { min-width: 28px; }
+  .uv-badge {
+    width: 18px;
+    height: 18px;
+    font-size: 0.5625rem; // 9px at default
+  }
+
+  .vis-cell { min-width: 30px; }
+  .visibility-display { font-size: 0.5625rem; } // 9px at default
+
+  .hike-cell { min-width: 48px; }
+  .hike-score {
+    padding: 2px 4px;
+    font-size: 0.5rem; // 8px at default
+    gap: 2px;
+
+    &__dot {
+      width: 4px;
+      height: 4px;
+    }
+  }
+}
+
+// Extra small devices - ULTRA DENSE
+@media (max-width: 390px) {
+  .styled-table.detailed-mode {
+    font-size: 0.65rem;
+
+    .detail-header {
+      font-size: 0.375rem; // 6px at default
+      padding: 3px 0;
+    }
+
+    .detail-cell {
+      padding: 2px 0;
+    }
+  }
+
+  .day-cell {
+    min-width: 42px;
+
+    &--today {
+      min-width: 48px;
+    }
+  }
+
+  .mini-day-preview {
+    min-width: 28px;
+    padding: 1px;
+
+    .wi { font-size: 0.5rem; } // 8px at default
+
+    &--empty {
+      min-width: 28px;
+
+      .no-data {
+        font-size: 0.6875rem; // 11px at default
+      }
+    }
+  }
+
+  .today-preview {
+    gap: 2px;
+
+    .weather-icon-large {
+      font-size: 1rem; // 16px at default
+    }
+
+    .today-temp {
+      font-size: 0.625rem; // 10px at default
+    }
+  }
+
+  .temp-range { font-size: 0.5rem; } // 8px at default
+
+  .sparkline-cell {
+    min-width: 28px;
+    .sparkline { width: 22px !important; }
+  }
+
+  .precip-cloud-cell { min-width: 40px; }
+  .precip-cloud-separator { font-size: 0.375rem; } // 6px at default
+
+  .precip-cell { min-width: 24px; }
+
+  // Hide label on very small screens, just show dot
+  .hike-score {
+    padding: 1px 3px;
+
+    &__label { display: none; }
+    &__dot {
+      width: 6px;
+      height: 6px;
+    }
+  }
+}
+
+// ============================================
+// Desktop Enhancements for Detailed View - COMPACT
+// ============================================
+
+@media (min-width: 1024px) {
+  .styled-table.detailed-mode {
+    font-size: 0.85rem; // Reduce overall table font size
+    max-width: 90%; // Don't stretch full width
+    margin: 0 auto; // Center the table
+
+    .detail-header {
+      font-size: 0.5625rem; // 9px at default - more compact
+      padding: 3px 2px; // Reduce padding
+    }
+
+    .detail-cell {
+      padding: 2px 2px; // Reduce cell padding
+    }
+  }
+
+  // Reduce today cell size
+  .day-cell--today {
+    min-width: 60px; // More compact
+  }
+
+  .today-preview {
+    gap: 3px;
+
+    .weather-icon-large {
+        padding-right: 8px;
+        font-size: 0.8rem;
+      }
+
+    .temp-range {
+      font-size: 0.6875rem; // 11px - smaller temp
+    }
+  }
+
+  .sparkline-cell {
+    min-width: 50px;
+
+    .sparkline { width: 40px !important; }
+  }
+
+  .precip-cloud-cell { min-width: 50px; }
+  .precip-value { font-size: 0.6875rem; } // 11px - matches temp range
+  .cloud-value { font-size: 0.6875rem; } // 11px - matches temp range
+
+  .precip-cell { min-width: 28px; }
+  .wind-cell { min-width: 32px; }
+  .uv-cell { min-width: 26px; }
+  .vis-cell { min-width: 28px; }
+  .hike-cell { min-width: 44px; }
+
+  // Location column more compact
+  .location-name {
+    .forecast-button {
+      font-size: 0.75rem; // 12px - smaller location names
+      padding: 4px 6px;
+    }
+  }
+
+  // Hover effects on desktop
+  .mini-day-preview:hover {
+    opacity: 1;
+    transform: scale(1.05);
+  }
+
+  .hike-score {
+    cursor: help;
+    transition: transform var(--transition-fast);
+    font-size: 0.6875rem; // 11px - matches temp range
+
+    &:hover { transform: scale(1.05); }
+  }
+
+  .wind-indicator {
+    .wind-speed {
+      font-size: 0.6875rem; // 11px - matches temp range
+    }
+
+    svg {
+      width: 12px;
+      height: 12px;
+    }
+  }
+
+  .uv-badge {
+    width: 22px;
+    height: 22px;
+    font-size: 0.6875rem; // 11px - matches temp range
+  }
+
+  .visibility-display {
+    font-size: 0.6875rem; // 11px - matches temp range
+  }
+}
