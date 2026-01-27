@@ -662,7 +662,7 @@ function HourlyForecastPage() {
             label: locationDescription || locationName || locationSlug || '',
             to: `/location/${locationSlug}`,
           },
-          { label: formattedDate },
+          { label: formattedDate, to: `/${date}` },
         ]}
       />
 
