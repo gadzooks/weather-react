@@ -1,3 +1,5 @@
+// DailyForecastInterface.ts
+
 import type { HourlyForecastInterface } from './HourlyForecastInterface';
 
 export interface DailyForecastInterface {
@@ -15,14 +17,15 @@ export interface DailyForecastInterface {
   moonphase: number;
   conditions: string;
   description: string;
+  pm2p5: number;
+  aqius: number;
   icon: string;
   hours?: HourlyForecastInterface[]; // Hourly forecast data from API
-  [key: string]: string | number | undefined | HourlyForecastInterface[];
 }
 
 export function forecastProperty(
   forecast: DailyForecastInterface,
-  prop: string,
-): string | number | undefined {
+  prop: keyof DailyForecastInterface,
+): string | number | undefined | HourlyForecastInterface[] {
   return forecast[prop];
 }

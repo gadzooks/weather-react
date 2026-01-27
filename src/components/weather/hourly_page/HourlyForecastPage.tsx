@@ -14,7 +14,6 @@ import {
   findBestWindow,
   findRainWindows,
 } from '../../../interfaces/HourlyForecastInterface';
-import { fetchHourlyForecast } from '../../../api/hourlyForecast';
 import iconClass from '../../../utils/icon';
 import HourlyMetricCharts from './HourlyMetricCharts';
 import { useAppSelector, useAppDispatch } from '../../../app/hooks';
@@ -23,6 +22,7 @@ import { mergeForecast } from '../../../features/forecast/forecastSlice';
 import fetchWithRetries from '../../../api/retry';
 import type { ForecastResponseStatus } from '../../../interfaces/ForecastResponseInterface';
 import { useSwipeNavigation } from '../../../utils/useSwipeNavigation';
+import { extractHourlyFromRedux } from '../../../utils/extractHourlyFromRedux';
 
 const WEATHER_API = import.meta.env.VITE_WEATHER_API;
 const WEATHER_JWT_TOKEN = import.meta.env.VITE_WEATHER_JWT_TOKEN;
@@ -447,15 +447,20 @@ function HourlyForecastPage() {
       setLoading(true);
       setError(null);
 
-      // Fetch hourly data - fetchHourlyForecast checks main cache first, then API
+      // Extract hourly data directly from Redux - no API calls needed
       try {
-        const response = await fetchHourlyForecast(location.name, date);
+        const response = extractHourlyFromRedux(appState.forecast, location.name, date);
+
+        if (!response) {
+          throw new Error('Hourly data not found in Redux. Please refresh the main forecast.');
+        }
+
         setHours(response.hours || []);
         setLocationName(response.location);
         setLocationDescription(response.locationDescription);
         setSunrise(response.sunrise || null);
         setSunset(response.sunset || null);
-        console.log('[HourlyForecastPage] Loaded hourly data');
+        console.log('[HourlyForecastPage] Loaded hourly data from Redux');
       } catch (err) {
         console.error('[HourlyForecastPage] Failed to load hourly data:', err);
 
@@ -476,7 +481,7 @@ function HourlyForecastPage() {
     };
 
     loadHourlyData();
-  }, [location, date, appState.forecast?.dates, locationSlug, navigate]);
+  }, [location, date, appState.forecast, locationSlug, navigate]);
 
   const handleRefresh = async () => {
     if (!location || !date) return;
@@ -496,7 +501,12 @@ function HourlyForecastPage() {
     setError(null);
 
     try {
-      const response = await fetchHourlyForecast(location.name, date);
+      const response = extractHourlyFromRedux(appState.forecast, location.name, date);
+
+      if (!response) {
+        throw new Error('Hourly data not found in Redux. Please refresh the main forecast.');
+      }
+
       setHours(response.hours || []);
       setLocationName(response.location);
       setLocationDescription(response.locationDescription);

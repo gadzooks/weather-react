@@ -12,8 +12,9 @@ import {
   findBestWindow,
   findRainWindows,
 } from '../../../interfaces/HourlyForecastInterface';
-import { fetchHourlyForecast } from '../../../api/hourlyForecast';
 import iconClass from '../../../utils/icon';
+import { useAppSelector } from '../../../app/hooks';
+import { extractHourlyFromRedux } from '../../../utils/extractHourlyFromRedux';
 
 interface HourlyStripProps {
   locationName: string;
@@ -34,19 +35,26 @@ function HourlyStrip({ locationName, date, onClose }: HourlyStripProps) {
   const [error, setError] = useState<string | null>(null);
   const [bestWindow, setBestWindow] = useState<ActivityWindow | null>(null);
   const [rainWindows, setRainWindows] = useState<RainWindow[]>([]);
+  const appState = useAppSelector((state) => state.forecast);
 
   useEffect(() => {
-    const loadHourlyData = async () => {
+    const loadHourlyData = () => {
       setLoading(true);
       setError(null);
       try {
-        const response = await fetchHourlyForecast(locationName, date);
+        // Extract hourly data directly from Redux - no API calls needed
+        const response = extractHourlyFromRedux(appState.forecast, locationName, date);
+
+        if (!response) {
+          throw new Error('Hourly data not found in Redux. Please refresh the main forecast.');
+        }
+
         const hourlyData = response.hours || [];
         setHours(hourlyData);
         setBestWindow(findBestWindow(hourlyData));
         setRainWindows(findRainWindows(hourlyData));
       } catch (err) {
-        console.error('[HourlyStrip] Failed to fetch hourly data:', err);
+        console.error('[HourlyStrip] Failed to load hourly data from Redux:', err);
         setError(
           err instanceof Error ? err.message : 'Failed to load hourly data',
         );
@@ -56,7 +64,7 @@ function HourlyStrip({ locationName, date, onClose }: HourlyStripProps) {
     };
 
     loadHourlyData();
-  }, [locationName, date]);
+  }, [locationName, date, appState.forecast]);
 
   if (loading) {
     return (
