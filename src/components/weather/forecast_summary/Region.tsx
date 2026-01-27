@@ -16,6 +16,7 @@ export interface RegionProps {
   dailyForecastFilter: DailyForecastFilter;
   dateSelectedIsWithinForecastRange: boolean;
   alertProps: AlertProps;
+  showAqi: boolean;
 }
 
 function Region(props: RegionProps) {

@@ -1,4 +1,10 @@
 // Hourly forecast API
+//
+// DEPRECATED: This file is deprecated and should NOT be used.
+// Use extractHourlyFromRedux() from utils/extractHourlyFromRedux.ts instead.
+//
+// All hourly data is included in the main forecast API response and stored in Redux.
+// There should be NO additional API calls for hourly data after the main forecast loads.
 
 import fetchWithRetries from './retry';
 import type {
@@ -12,6 +18,11 @@ const WEATHER_API = import.meta.env.VITE_WEATHER_API;
 const WEATHER_JWT_TOKEN = import.meta.env.VITE_WEATHER_JWT_TOKEN;
 
 /**
+ * @deprecated DO NOT USE - Use extractHourlyFromRedux() instead
+ *
+ * This function makes unnecessary API calls. All hourly data is already available
+ * in Redux after the main forecast loads.
+ *
  * Fetch hourly forecast data for a specific location and date
  *
  * IMPORTANT: Hourly data is already included in the main forecast cache.
@@ -34,6 +45,9 @@ export const fetchHourlyForecast = async (
   locationName: string,
   date: string,
 ): Promise<HourlyForecastResponse> => {
+  console.warn(
+    '[fetchHourlyForecast] DEPRECATED: This function should not be used. Use extractHourlyFromRedux() instead.',
+  );
   console.log('[fetchHourlyForecast] Requesting hourly data for:', { locationName, date });
 
   // STEP 1: Check main forecast cache first (eliminates need for separate hourly cache)

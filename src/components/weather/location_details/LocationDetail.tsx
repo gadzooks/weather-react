@@ -41,6 +41,7 @@ export interface LocationDetailProps {
   allAlertIds: string[] | undefined;
   onDayClick?: (date: string) => void;
   locationSlug?: string;
+  showAqi: boolean;
 }
 
 function maxAlertDays(
@@ -111,7 +112,7 @@ function maxAlertDays(
 // }
 
 function LocationDetail(props: LocationDetailProps) {
-  const { forecastDetailsForLocation, onDayClick } = props;
+  const { forecastDetailsForLocation, onDayClick, showAqi } = props;
   const [activeTab, setActiveTab] = useState<TabType>('forecast');
 
   if (!forecastDetailsForLocation) return null;
@@ -292,7 +293,7 @@ function LocationDetail(props: LocationDetailProps) {
                           <td
                             className={`details-cell border-right ${weekendClassName} ${alertClassName}`}
                           >
-                            <WeatherIcon {...row} key={row.datetime} />
+                            <WeatherIcon {...row} showAqi={showAqi} key={row.datetime} />
                             <span className='details-text'>
                               {convertToSentence(row.icon)
                                 .replace('day', '')

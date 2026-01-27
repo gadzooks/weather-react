@@ -1,6 +1,7 @@
 // SummaryTableLoader.tsx
 
 import { useEffect, useState, useCallback } from 'react';
+import { useOutletContext } from 'react-router-dom';
 import type { DailyForecastFilter } from '../../../interfaces/DailyForecastFilter';
 import type { MatchedAreas } from '../../../interfaces/MatchedAreas';
 import findMatchedAreas from '../../../utils/filterMatchedAreas';
@@ -38,9 +39,13 @@ console.log(`[SummaryTableLoader] Data source: ${dataSource}`);
 
 export function SummaryTableLoader() {
   const dispatch = useAppDispatch();
+  const { showAqi } = useOutletContext<{ showAqi: boolean }>();
   const [isRefreshErrorDismissed, setIsRefreshErrorDismissed] = useState(false);
   const [isStaleBannerDismissed, setIsStaleBannerDismissed] = useState(false);
   const appState = useAppSelector((state) => state.forecast);
+
+  // Track whether we need to auto-fetch data on mount
+  const [needsAutoFetch, setNeedsAutoFetch] = useState(false);
 
   useEffect(() => {
     // Skip if Redux already has forecast data loaded
@@ -71,18 +76,10 @@ export function SummaryTableLoader() {
       };
       dispatch(mergeForecast(cachedState));
     } else {
-      console.log('[SummaryTableLoader] No cached data found in localStorage');
-      // No cached data - show error state to display "no data" message
-      const errorAppState: ForecastResponseStatus = {
-        isLoaded: false,
-        error: new Error('No cached forecast data available. Please refresh to load data.'),
-        forecast: null,
-      };
-      dispatch(mergeForecast(errorAppState));
+      console.log('[SummaryTableLoader] No cached data found - will automatically fetch from API');
+      // No cached data - trigger auto-fetch
+      setNeedsAutoFetch(true);
     }
-
-    // NOTE: Automatic refresh on mount has been disabled.
-    // Users must manually refresh via the Refresh button if data is stale.
   }, [dispatch, appState.forecast, appState.isLoaded]);
 
   // Check if forecast data is stale (older than 3 hours)
@@ -198,6 +195,15 @@ export function SummaryTableLoader() {
     }
   }, [dispatch, appState.isRefreshing]);
 
+  // Auto-fetch data on mount if no cached data exists
+  useEffect(() => {
+    if (needsAutoFetch && !appState.isRefreshing) {
+      console.log('[SummaryTableLoader] Auto-fetching data on mount');
+      handleManualRefresh();
+      setNeedsAutoFetch(false);
+    }
+  }, [needsAutoFetch, appState.isRefreshing, handleManualRefresh]);
+
   // Listen for manual refresh events from App or other components
   useEffect(() => {
     const handleManualRefreshRequest = () => {
@@ -237,6 +243,7 @@ export function SummaryTableLoader() {
     dailyForecastFilter,
     setDailyForecastFilter,
     forecastResponse: appState.forecast,
+    showAqi,
   };
 
   return (

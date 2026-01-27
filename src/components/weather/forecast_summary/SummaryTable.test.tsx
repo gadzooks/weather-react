@@ -17,6 +17,7 @@ it('renders a snapshot', () => {
     matchedAreas,
     forecastResponse: forecast,
     setDailyForecastFilter: () => {},
+    showAqi: true,
   };
   const tree = renderer
     .create(

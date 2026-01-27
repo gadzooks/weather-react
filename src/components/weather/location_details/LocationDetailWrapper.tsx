@@ -2,7 +2,7 @@
 // Route-aware wrapper that reads URL params and renders LocationDetail
 
 import React, { useState, useEffect } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
+import { useParams, useNavigate, useOutletContext } from 'react-router-dom';
 import { parse } from 'fecha';
 import { useAppSelector, useAppDispatch } from '../../../app/hooks';
 import { fromSlugById, toSlug } from '../../../utils/slug';
@@ -24,6 +24,7 @@ function LocationDetailWrapper() {
   const { locationSlug } = useParams<{ locationSlug: string }>();
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
+  const { showAqi } = useOutletContext<{ showAqi: boolean }>();
 
   const appState = useAppSelector((state) => state.forecast);
 
@@ -191,6 +192,7 @@ function LocationDetailWrapper() {
         allAlertIds={appState.forecast.allAlertIds}
         onDayClick={handleDayClick}
         locationSlug={locationSlug}
+        showAqi={showAqi}
       />
     </>
   );

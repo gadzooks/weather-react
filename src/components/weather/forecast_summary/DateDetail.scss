@@ -354,6 +354,52 @@
 }
 
 // ============================================
+// AQI Badge - DENSE
+// ============================================
+
+.aqi-cell {
+  min-width: 30px;
+  text-align: center;
+}
+
+.aqi-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 28px;
+  height: 20px;
+  padding: 0 4px;
+  border-radius: 3px;
+  font-size: 0.6875rem; // 11px at default - matches temp range
+  font-weight: 700;
+
+  &--none {
+    background: rgba(156, 163, 175, 0.15);
+    color: var(--color-text-secondary);
+  }
+
+  &--good {
+    background: rgba(74, 222, 128, 0.2);
+    color: #000;
+  }
+
+  &--moderate {
+    background: rgba(250, 204, 21, 0.2);
+    color: #000;
+  }
+
+  &--sensitive {
+    background: rgba(251, 146, 60, 0.2);
+    color: #fff;
+  }
+
+  &--unhealthy {
+    background: rgba(239, 68, 68, 0.2);
+    color: #fff;
+  }
+}
+
+// ============================================
 // Visibility - DENSE
 // ============================================
 
@@ -667,6 +713,13 @@
     font-size: 0.5625rem; // 9px at default
   }
 
+  .aqi-cell { min-width: 26px; }
+  .aqi-badge {
+    min-width: 24px;
+    height: 18px;
+    font-size: 0.5625rem; // 9px at default
+  }
+
   .vis-cell { min-width: 30px; }
   .visibility-display { font-size: 0.5625rem; } // 9px at default
 
@@ -846,6 +899,12 @@
 
   .uv-badge {
     width: 22px;
+    height: 22px;
+    font-size: 0.6875rem; // 11px - matches temp range
+  }
+
+  .aqi-badge {
+    min-width: 30px;
     height: 22px;
     font-size: 0.6875rem; // 11px - matches temp range
   }

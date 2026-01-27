@@ -1,6 +1,6 @@
 // DateDetail.tsx
 
-import { useParams, useNavigate } from 'react-router-dom';
+import { useParams, useNavigate, useOutletContext } from 'react-router-dom';
 import { format, parse } from 'fecha';
 import { useAppSelector } from '../../../app/hooks';
 import type { RegionInterface } from '../../../interfaces/RegionInterface';
@@ -18,6 +18,7 @@ import {
   HikeScore,
   TempRange,
   UVBadge,
+  AQIBadge,
   VisibilityDisplay,
   getWeatherIconClass,
 } from './DetailedWeatherComponents';
@@ -26,6 +27,7 @@ import './DateDetail.scss';
 function DateDetail() {
   const { date } = useParams<{ date: string }>();
   const navigate = useNavigate();
+  const { showAqi } = useOutletContext<{ showAqi: boolean }>();
   const appState = useAppSelector((state) => state.forecast);
 
   const forecastResponse = appState.forecast;
@@ -131,6 +133,7 @@ function DateDetail() {
             <td className='detail-header precip-cloud-header'>Precip/Cloud</td>
             <td className='detail-header wind-header'>Wind</td>
             <td className='detail-header uv-header'>UV</td>
+            {showAqi && <td className='detail-header aqi-header'>AQI</td>}
             <td className='detail-header vis-header'>Vis</td>
             <td className='detail-header hike-header'>Hike</td>
           </tr>
@@ -143,7 +146,7 @@ function DateDetail() {
             <tbody key={region.name}>
               <tr className='region-details'>
                 {foundAlerts && <td className='region-alerts-cell' />}
-                <td className='region-name-cell' colSpan={7}>
+                <td className='region-name-cell' colSpan={showAqi ? 8 : 7}>
                   {region.description}
                 </td>
               </tr>
@@ -156,6 +159,7 @@ function DateDetail() {
                   forecastsById={forecastResponse.forecasts}
                   alertProps={alertProps}
                   navigate={navigate}
+                  showAqi={showAqi}
                 />
               ))}
             </tbody>
@@ -179,6 +183,7 @@ interface DateDetailRowProps {
   forecastsById: { byId: Record<string, any[]> };
   alertProps: AlertProps;
   navigate: (path: string) => void;
+  showAqi: boolean;
 }
 
 function DateDetailRow({
@@ -187,6 +192,7 @@ function DateDetailRow({
   forecastsById,
   alertProps,
   navigate,
+  showAqi,
 }: DateDetailRowProps) {
   const forecasts = forecastsById.byId[location.name] || [];
   const alertIds = location.alertIds;
@@ -263,6 +269,13 @@ function DateDetailRow({
       <td className='detail-cell uv-cell'>
         <UVBadge uv={Number(dayForecast.uvindex) || 0} />
       </td>
+
+      {/* AQI */}
+      {showAqi && (
+        <td className='detail-cell aqi-cell'>
+          <AQIBadge aqi={dayForecast.aqius} />
+        </td>
+      )}
 
       {/* Visibility */}
       <td className='detail-cell vis-cell'>
