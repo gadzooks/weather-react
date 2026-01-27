@@ -32,11 +32,6 @@ function WeatherIcon(props: WeatherIconProps) {
   const hasValidAqi = forecast.aqius && forecast.aqius > 0;
   const shouldShowAqi = hasValidAqi && showAqi;
 
-  // Debug logging (only log when AQI data exists)
-  if (hasValidAqi && forecast.datetime) {
-    console.log(`[WeatherIcon ${forecast.datetime}] showAqi=${showAqi}, aqius=${forecast.aqius}, shouldShowAqi=${shouldShowAqi}`);
-  }
-
   return (
     <div
       style={{

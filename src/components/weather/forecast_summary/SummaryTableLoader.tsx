@@ -44,7 +44,8 @@ export function SummaryTableLoader() {
   const [isStaleBannerDismissed, setIsStaleBannerDismissed] = useState(false);
   const appState = useAppSelector((state) => state.forecast);
 
-  console.log('[SummaryTableLoader] showAqi from context:', showAqi);
+  // Track whether we need to auto-fetch data on mount
+  const [needsAutoFetch, setNeedsAutoFetch] = useState(false);
 
   useEffect(() => {
     // Skip if Redux already has forecast data loaded
@@ -75,18 +76,10 @@ export function SummaryTableLoader() {
       };
       dispatch(mergeForecast(cachedState));
     } else {
-      console.log('[SummaryTableLoader] No cached data found in localStorage');
-      // No cached data - show error state to display "no data" message
-      const errorAppState: ForecastResponseStatus = {
-        isLoaded: false,
-        error: new Error('No cached forecast data available. Please refresh to load data.'),
-        forecast: null,
-      };
-      dispatch(mergeForecast(errorAppState));
+      console.log('[SummaryTableLoader] No cached data found - will automatically fetch from API');
+      // No cached data - trigger auto-fetch
+      setNeedsAutoFetch(true);
     }
-
-    // NOTE: Automatic refresh on mount has been disabled.
-    // Users must manually refresh via the Refresh button if data is stale.
   }, [dispatch, appState.forecast, appState.isLoaded]);
 
   // Check if forecast data is stale (older than 3 hours)
@@ -201,6 +194,15 @@ export function SummaryTableLoader() {
       window.scrollTo(0, scrollY);
     }
   }, [dispatch, appState.isRefreshing]);
+
+  // Auto-fetch data on mount if no cached data exists
+  useEffect(() => {
+    if (needsAutoFetch && !appState.isRefreshing) {
+      console.log('[SummaryTableLoader] Auto-fetching data on mount');
+      handleManualRefresh();
+      setNeedsAutoFetch(false);
+    }
+  }, [needsAutoFetch, appState.isRefreshing, handleManualRefresh]);
 
   // Listen for manual refresh events from App or other components
   useEffect(() => {

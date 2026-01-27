@@ -22,8 +22,6 @@ export function App() {
   const { showAqi, setShowAqi } = useShowAqi();
   const [isSettingsOpen, setIsSettingsOpen] = useState(false);
 
-  console.log('[App] showAqi value:', showAqi);
-
   // Global online/offline status
   const isOnline = useOfflineStatus();
 

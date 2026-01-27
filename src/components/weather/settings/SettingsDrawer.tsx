@@ -149,10 +149,7 @@ export const SettingsDrawer: React.FC<SettingsDrawerProps> = ({
                 id='show-aqi-checkbox'
                 type='checkbox'
                 checked={showAqi}
-                onChange={(e) => {
-                  console.log('[SettingsDrawer] AQI checkbox changed to:', e.target.checked);
-                  onShowAqiChange(e.target.checked);
-                }}
+                onChange={(e) => onShowAqiChange(e.target.checked)}
                 className='aqi-checkbox'
               />
               <span>Show Air Quality Index (AQI)</span>
