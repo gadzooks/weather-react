@@ -10,9 +10,14 @@ function aqiColor(aqi: number | undefined): string {
   return '#ef4444'; // Unhealthy - Red
 }
 
-function WeatherIcon(props: DailyForecastInterface) {
+interface WeatherIconProps extends DailyForecastInterface {
+  showAqi: boolean;
+}
+
+function WeatherIcon(props: WeatherIconProps) {
   let icon = 'wi';
   const forecast = props;
+  const { showAqi } = props;
 
   if (forecast.icon) {
     icon = iconClass(
@@ -23,23 +28,29 @@ function WeatherIcon(props: DailyForecastInterface) {
     );
   }
 
-  // Check if AQI data is valid (present and greater than 0)
+  // Check if AQI data is valid (present and greater than 0) and user wants to see it
   const hasValidAqi = forecast.aqius && forecast.aqius > 0;
+  const shouldShowAqi = hasValidAqi && showAqi;
+
+  // Debug logging (only log when AQI data exists)
+  if (hasValidAqi && forecast.datetime) {
+    console.log(`[WeatherIcon ${forecast.datetime}] showAqi=${showAqi}, aqius=${forecast.aqius}, shouldShowAqi=${shouldShowAqi}`);
+  }
 
   return (
-    <div style={{ display: 'inline-flex', alignItems: 'center', gap: '4px' }}>
-      <i className={icon} title={forecast.description} />
-      {hasValidAqi && (
-        <div
-          style={{
-            width: '8px',
-            height: '8px',
-            borderRadius: '50%',
-            backgroundColor: aqiColor(forecast.aqius),
-          }}
-          title={`AQI: ${forecast.aqius}`}
-        />
-      )}
+    <div
+      style={{
+        display: 'inline-flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        width: shouldShowAqi ? '32px' : 'auto',
+        height: shouldShowAqi ? '32px' : 'auto',
+        boxShadow: shouldShowAqi ? `0 0 0 1px ${aqiColor(forecast.aqius)}` : 'none',
+        borderRadius: '50%',
+      }}
+      title={hasValidAqi ? `${forecast.description} - AQI: ${forecast.aqius}` : forecast.description}
+    >
+      <i className={icon} />
     </div>
   );
 }

@@ -15,6 +15,8 @@ interface SettingsDrawerProps {
   onThemeChange: (theme: string) => void;
   fontSize: number;
   onFontSizeChange: (size: number) => void;
+  showAqi: boolean;
+  onShowAqiChange: (show: boolean) => void;
   cacheTimestamp?: number;
   onRefresh?: () => void;
   isRefreshing?: boolean;
@@ -27,6 +29,8 @@ export const SettingsDrawer: React.FC<SettingsDrawerProps> = ({
   onThemeChange,
   fontSize,
   onFontSizeChange,
+  showAqi,
+  onShowAqiChange,
   cacheTimestamp,
   onRefresh,
   isRefreshing = false,
@@ -137,6 +141,22 @@ export const SettingsDrawer: React.FC<SettingsDrawerProps> = ({
                 ☀️ Light
               </button>
             </div>
+          </div>
+
+          <div className='setting-group'>
+            <label className='setting-label checkbox-label' htmlFor='show-aqi-checkbox'>
+              <input
+                id='show-aqi-checkbox'
+                type='checkbox'
+                checked={showAqi}
+                onChange={(e) => {
+                  console.log('[SettingsDrawer] AQI checkbox changed to:', e.target.checked);
+                  onShowAqiChange(e.target.checked);
+                }}
+                className='aqi-checkbox'
+              />
+              <span>Show Air Quality Index (AQI)</span>
+            </label>
           </div>
         </div>
       </div>

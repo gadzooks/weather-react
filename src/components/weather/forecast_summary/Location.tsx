@@ -22,6 +22,7 @@ interface LocationProps {
   wtaRegionKey: string | undefined;
   alertProps: AlertProps;
   alertIds: string[] | undefined;
+  showAqi: boolean;
 }
 
 function maxAlertDays(
@@ -56,6 +57,7 @@ function Location(props: LocationProps) {
     atleastOneDateMatches,
     alertProps,
     alertIds,
+    showAqi,
   } = props;
 
   const navigate = useNavigate();
@@ -105,7 +107,7 @@ function Location(props: LocationProps) {
             }
             style={{ cursor: 'pointer' }}
           >
-            <WeatherIcon {...d} />
+            <WeatherIcon {...d} showAqi={showAqi} />
           </td>
         );
       })}

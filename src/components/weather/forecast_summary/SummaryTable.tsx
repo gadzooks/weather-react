@@ -27,6 +27,7 @@ export interface SummaryTableProps {
   matchedAreas: MatchedAreas;
   dailyForecastFilter: DailyForecastFilter;
   setDailyForecastFilter: any;
+  showAqi: boolean;
 }
 
 function SummaryTable(props: SummaryTableProps) {
@@ -34,6 +35,7 @@ function SummaryTable(props: SummaryTableProps) {
     matchedAreas,
     dailyForecastFilter,
     forecastResponse,
+    showAqi,
   } = props;
   const navigate = useNavigate();
   const parsedDates = (forecastResponse?.dates || []).map((d: string) =>
@@ -107,6 +109,7 @@ function SummaryTable(props: SummaryTableProps) {
                 dailyForecastFilter={dailyForecastFilter}
                 dateSelectedIsWithinForecastRange={false}
                 alertProps={alertProps}
+                showAqi={showAqi}
               />
             );
           }

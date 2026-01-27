@@ -15,3 +15,7 @@ export const LS_FONT_SIZE_KEY = 'fontSizePreference';
 export const FONT_SIZE_MIN = 15;
 export const FONT_SIZE_MAX = 28;
 export const FONT_SIZE_DEFAULT = 18;
+
+// AQI display constants
+export const LS_SHOW_AQI_KEY = 'showAqiPreference';
+export const SHOW_AQI_DEFAULT = true;

@@ -39,6 +39,7 @@ it('renders a snapshot', () => {
     alertsById: undefined,
     allAlertIds: undefined,
     locationSlug: 'cle-elum-area1',
+    showAqi: true,
   };
 
   const tree = renderer

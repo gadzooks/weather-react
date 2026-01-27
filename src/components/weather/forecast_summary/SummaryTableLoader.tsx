@@ -1,6 +1,7 @@
 // SummaryTableLoader.tsx
 
 import { useEffect, useState, useCallback } from 'react';
+import { useOutletContext } from 'react-router-dom';
 import type { DailyForecastFilter } from '../../../interfaces/DailyForecastFilter';
 import type { MatchedAreas } from '../../../interfaces/MatchedAreas';
 import findMatchedAreas from '../../../utils/filterMatchedAreas';
@@ -38,9 +39,12 @@ console.log(`[SummaryTableLoader] Data source: ${dataSource}`);
 
 export function SummaryTableLoader() {
   const dispatch = useAppDispatch();
+  const { showAqi } = useOutletContext<{ showAqi: boolean }>();
   const [isRefreshErrorDismissed, setIsRefreshErrorDismissed] = useState(false);
   const [isStaleBannerDismissed, setIsStaleBannerDismissed] = useState(false);
   const appState = useAppSelector((state) => state.forecast);
+
+  console.log('[SummaryTableLoader] showAqi from context:', showAqi);
 
   useEffect(() => {
     // Skip if Redux already has forecast data loaded
@@ -237,6 +241,7 @@ export function SummaryTableLoader() {
     dailyForecastFilter,
     setDailyForecastFilter,
     forecastResponse: appState.forecast,
+    showAqi,
   };
 
   return (

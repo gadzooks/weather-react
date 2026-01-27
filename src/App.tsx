@@ -6,6 +6,7 @@ import './reset.css';
 import './App.scss';
 import { useTheme } from './utils/useTheme';
 import { useFontSize } from './utils/useFontSize';
+import { useShowAqi } from './utils/useShowAqi';
 import { useOfflineStatus } from './utils/useOfflineStatus';
 import { useAppSelector } from './app/hooks';
 import { FloatingActionButton } from './components/weather/fab/FloatingActionButton';
@@ -18,7 +19,10 @@ import './components/weather/forecast_summary/SummaryTableLoader.scss';
 export function App() {
   const { theme, setTheme } = useTheme();
   const { fontSize, setFontSize } = useFontSize();
+  const { showAqi, setShowAqi } = useShowAqi();
   const [isSettingsOpen, setIsSettingsOpen] = useState(false);
+
+  console.log('[App] showAqi value:', showAqi);
 
   // Global online/offline status
   const isOnline = useOfflineStatus();
@@ -45,7 +49,7 @@ export function App() {
           />
         )}
 
-        <Outlet />
+        <Outlet context={{ showAqi }} />
       </div>
       <FloatingActionButton
         isOpen={isSettingsOpen}
@@ -58,6 +62,8 @@ export function App() {
         onThemeChange={setTheme}
         fontSize={fontSize}
         onFontSizeChange={setFontSize}
+        showAqi={showAqi}
+        onShowAqiChange={setShowAqi}
         cacheTimestamp={appState.cacheTimestamp}
         onRefresh={handleRefreshFromSettings}
         isRefreshing={appState.isRefreshing || false}
