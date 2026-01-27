@@ -155,6 +155,31 @@ export const SettingsDrawer: React.FC<SettingsDrawerProps> = ({
               <span>Show Air Quality Index (AQI)</span>
             </label>
           </div>
+
+          {/* AQI Legend */}
+          {showAqi && (
+            <div className='setting-group aqi-legend'>
+              <span className='setting-label'>AQI Color Scale</span>
+              <div className='aqi-legend-grid'>
+                <div className='aqi-legend-item'>
+                  <div className='aqi-legend-dot aqi-legend-dot--good' />
+                  <span className='aqi-legend-text'>Good (0-50)</span>
+                </div>
+                <div className='aqi-legend-item'>
+                  <div className='aqi-legend-dot aqi-legend-dot--moderate' />
+                  <span className='aqi-legend-text'>Moderate (51-100)</span>
+                </div>
+                <div className='aqi-legend-item'>
+                  <div className='aqi-legend-dot aqi-legend-dot--sensitive' />
+                  <span className='aqi-legend-text'>Unhealthy (101-150)</span>
+                </div>
+                <div className='aqi-legend-item'>
+                  <div className='aqi-legend-dot aqi-legend-dot--unhealthy' />
+                  <span className='aqi-legend-text'>Very Unhealthy (151+)</span>
+                </div>
+              </div>
+            </div>
+          )}
         </div>
       </div>
     </div>

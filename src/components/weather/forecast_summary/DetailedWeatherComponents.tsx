@@ -153,6 +153,27 @@ export function UVBadge({ uv }: { uv: number }) {
 }
 
 // ============================================
+// AQI Badge
+// ============================================
+
+export function AQIBadge({ aqi }: { aqi: number | undefined }) {
+  if (!aqi || aqi <= 0) return <span className='aqi-badge aqi-badge--none'>-</span>;
+
+  const level = aqi <= 50 ? 'good' : aqi <= 100 ? 'moderate' : aqi <= 150 ? 'sensitive' : 'unhealthy';
+  const color = aqi <= 50 ? '#4ade80' : aqi <= 100 ? '#facc15' : aqi <= 150 ? '#fb923c' : '#ef4444';
+
+  return (
+    <span
+      className={`aqi-badge aqi-badge--${level}`}
+      style={{ backgroundColor: color, color: aqi <= 50 ? '#000' : '#fff' }}
+      title={`Air Quality Index: ${aqi}`}
+    >
+      {aqi}
+    </span>
+  );
+}
+
+// ============================================
 // Visibility Display
 // ============================================
 

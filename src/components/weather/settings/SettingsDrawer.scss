@@ -91,7 +91,7 @@
 
 .setting-label {
   display: block;
-  font-size: 0.9rem;
+  font-size: 0.75rem;
   font-weight: 500;
   color: var(--color-text-secondary, #9fa5b8);
   margin-bottom: var(--spacing-sm, 8px);
@@ -114,12 +114,12 @@
   border-radius: var(--radius-md, 8px);
 
   .timestamp-label {
-    font-size: 0.8rem;
+    font-size: 0.7rem;
     color: var(--color-text-dimmed, #656b7e);
   }
 
   .timestamp-value {
-    font-size: 0.95rem;
+    font-size: 0.8rem;
     font-weight: 600;
     color: var(--color-text-primary, #d6d9e3);
   }
@@ -127,16 +127,16 @@
 
 .refresh-button {
   width: 100%;
-  padding: var(--spacing-md, 12px);
+  padding: var(--spacing-sm, 8px) var(--spacing-md, 12px);
   background: var(--color-accent-primary, #6b9bd1);
   border: none;
   border-radius: var(--radius-md, 8px);
   color: #ffffff;
-  font-size: 0.9rem;
+  font-size: 0.8rem;
   font-weight: 600;
   cursor: pointer;
   transition: all var(--transition-fast, 150ms ease-out);
-  min-height: 44px;
+  min-height: 40px;
 
   &:hover:not(:disabled) {
     background: var(--color-accent-hover, #5a8bc0);
@@ -194,9 +194,9 @@
 }
 
 .font-size-value {
-  min-width: 45px;
+  min-width: 40px;
   text-align: right;
-  font-size: 0.95rem;
+  font-size: 0.8rem;
   font-weight: 600;
   color: var(--color-accent-primary, #6b9bd1);
 }
@@ -205,7 +205,7 @@
   display: flex;
   justify-content: space-between;
   margin-top: var(--spacing-xs, 4px);
-  font-size: 0.75rem;
+  font-size: 0.65rem;
   color: var(--color-text-dimmed, #656b7e);
 }
 
@@ -216,15 +216,15 @@
 
 .theme-option {
   flex: 1;
-  padding: var(--spacing-sm, 8px) var(--spacing-md, 12px);
+  padding: var(--spacing-sm, 8px);
   background: var(--color-bg-elevated, #2d323d);
   border: 2px solid transparent;
   border-radius: var(--radius-md, 8px);
   color: var(--color-text-secondary, #9fa5b8);
-  font-size: 0.9rem;
+  font-size: 0.8rem;
   cursor: pointer;
   transition: all var(--transition-fast, 150ms ease-out);
-  min-height: 44px;
+  min-height: 40px;
 
   &:hover {
     background: var(--color-bg-hover, #353b48);
@@ -240,17 +240,17 @@
 .checkbox-label {
   display: flex;
   align-items: center;
-  gap: var(--spacing-md, 12px);
+  gap: var(--spacing-sm, 8px);
   cursor: pointer;
   padding: var(--spacing-sm, 8px) 0;
   text-transform: none;
   font-weight: normal;
-  font-size: 0.95rem;
+  font-size: 0.85rem;
   color: var(--color-text-primary, #d6d9e3);
 
   input[type='checkbox'] {
-    width: 20px;
-    height: 20px;
+    width: 18px;
+    height: 18px;
     cursor: pointer;
     accent-color: var(--color-accent-primary, #6b9bd1);
   }
@@ -258,6 +258,56 @@
   span {
     flex: 1;
   }
+}
+
+// ============================================
+// AQI Legend
+// ============================================
+
+.aqi-legend {
+  border-top: 1px solid var(--color-bg-elevated, #2d323d);
+  padding-top: var(--spacing-md, 12px);
+}
+
+.aqi-legend-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--spacing-sm, 8px);
+}
+
+.aqi-legend-item {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-xs, 4px);
+}
+
+.aqi-legend-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  flex-shrink: 0;
+
+  &--good {
+    background-color: #4ade80;
+  }
+
+  &--moderate {
+    background-color: #facc15;
+  }
+
+  &--sensitive {
+    background-color: #fb923c;
+  }
+
+  &--unhealthy {
+    background-color: #ef4444;
+  }
+}
+
+.aqi-legend-text {
+  font-size: 0.7rem;
+  color: var(--color-text-secondary, #9fa5b8);
+  line-height: 1.2;
 }
 
 // Light theme overrides
@@ -350,6 +400,14 @@
     input[type='checkbox'] {
       accent-color: #1976d2;
     }
+  }
+
+  .aqi-legend {
+    border-top-color: #e0e0e0;
+  }
+
+  .aqi-legend-text {
+    color: #666666;
   }
 }
 
