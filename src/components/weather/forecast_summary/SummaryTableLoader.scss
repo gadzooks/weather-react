@@ -31,6 +31,11 @@
   height: 100vh;
   background: var(--color-bg-primary);
 
+  // iOS-native scrolling behavior
+  overscroll-behavior: contain; // Prevent scroll chaining to parent
+  overscroll-behavior-x: contain;
+  scroll-snap-type: x proximity; // Subtle snap to columns
+
   // Desktop: rounded corners and subtle border
   @media (min-width: 1024px) {
     max-width: 100%;
@@ -40,6 +45,7 @@
     box-shadow: 0 4px 24px rgba(0, 0, 0, 0.12);
     max-height: calc(100vh - var(--spacing-md));
     height: auto;
+    scroll-snap-type: none; // Disable snap on desktop
   }
 }
 
