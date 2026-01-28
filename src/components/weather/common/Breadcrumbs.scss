@@ -38,10 +38,19 @@
     color: #6b9bd1;
     text-decoration: none;
     transition: color 0.15s ease;
+    padding: 0.5rem 0.25rem; // Larger touch target for iOS (44x44px minimum)
+    margin: -0.5rem -0.25rem; // Negative margin to maintain visual spacing
+    display: inline-block;
+    touch-action: manipulation; // Prevents iOS double-tap zoom
+    -webkit-tap-highlight-color: rgba(107, 155, 209, 0.2); // iOS touch feedback
 
     &:hover {
       color: #8bb8e8;
       text-decoration: underline;
+    }
+
+    &:active {
+      color: #a0d0ff; // Visual feedback on touch
     }
   }
 }
@@ -63,9 +72,14 @@
 
     a {
       color: #1976d2;
+      -webkit-tap-highlight-color: rgba(25, 118, 210, 0.2);
 
       &:hover {
         color: #1565c0;
+      }
+
+      &:active {
+        color: #0d47a1;
       }
     }
   }

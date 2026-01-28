@@ -15,8 +15,17 @@ interface BreadcrumbsProps {
 }
 
 function Breadcrumbs({ items }: BreadcrumbsProps) {
+  // Prevent swipe gestures from interfering with breadcrumb clicks on iOS
+  const handleTouchStart = (e: React.TouchEvent) => {
+    e.stopPropagation();
+  };
+
   return (
-    <nav className='breadcrumbs' aria-label='Breadcrumb'>
+    <nav
+      className='breadcrumbs'
+      aria-label='Breadcrumb'
+      onTouchStart={handleTouchStart}
+    >
       <ol>
         {items.map((item, index) => {
           const isLast = index === items.length - 1;
