@@ -40,7 +40,7 @@ function Region(props: RegionProps) {
   const isFiltered = currentRegionFilter === regionSlug;
 
   // Span region name across location + 2 date columns for better fit
-  const regionColSpan = 3;
+  const regionColSpan = 5;
   // Calculate remaining date columns after the region name span
   const numDateCols = dateSelectedIsWithinForecastRange
     ? 0
