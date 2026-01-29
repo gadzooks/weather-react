@@ -87,7 +87,8 @@
       "Bash(timeout 5 yarn preview:*)",
       "Bash(strings:*)",
       "Bash(NODE_ENV=test vite build:*)",
-      "Bash(yarn build:e2e:*)"
+      "Bash(yarn build:e2e:*)",
+      "WebFetch(domain:dev-weather-react.onrender.com)"
     ]
   }
 }

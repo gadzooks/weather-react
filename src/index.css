@@ -11,8 +11,8 @@ html {
   /* Better text rendering on OLED screens */
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  /* Smooth scrolling */
-  scroll-behavior: smooth;
+  /* Let iOS handle native momentum scrolling with spring physics */
+  scroll-behavior: auto;
 }
 
 body {

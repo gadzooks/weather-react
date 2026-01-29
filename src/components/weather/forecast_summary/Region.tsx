@@ -1,5 +1,6 @@
 // Region.tsx
 import './Region.scss';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 import type { RegionInterface } from '../../../interfaces/RegionInterface';
 import type { ForecastsById } from '../../../interfaces/ForecastResponseInterface';
 import Location from './Location';
@@ -30,18 +31,45 @@ function Region(props: RegionProps) {
     dateSelectedIsWithinForecastRange,
   } = props;
 
-  // Calculate colspan for region header
+  const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
+  const currentRegionFilter = searchParams.get('region');
+
+  // Create slug from region name for URL
+  const regionSlug = region.name.toLowerCase().replace(/\s+/g, '-');
+  const isFiltered = currentRegionFilter === regionSlug;
+
+  // Span region name across location + 2 date columns for better fit
+  const regionColSpan = 3;
+  // Calculate remaining date columns after the region name span
   const numDateCols = dateSelectedIsWithinForecastRange
     ? 0
-    : isWeekend.length - 1;
+    : Math.max(0, isWeekend.length - (regionColSpan - 1));
+
+  const handleRegionClick = () => {
+    if (isFiltered) {
+      // If already filtered by this region, clear the filter
+      navigate('/');
+    } else {
+      // Filter by this region
+      navigate(`/?region=${regionSlug}`);
+    }
+  };
 
   return (
     <tbody>
       <tr className='region-details'>
         {alertProps.foundAlerts && <td className='region-alerts-cell' />}
-        <td className='region-name-cell' colSpan={2}>
+        <td className='region-name-cell' colSpan={regionColSpan}>
           <WtaLink wtaRegion={searchKey} className='wta-link' />
-          {description}
+          <button
+            type='button'
+            className='region-name-button'
+            onClick={handleRegionClick}
+            title={isFiltered ? 'Show all regions' : `Show only ${description}`}
+          >
+            {description}
+          </button>
         </td>
         {Array.from({ length: numDateCols }).map((_, i) => (
           <td

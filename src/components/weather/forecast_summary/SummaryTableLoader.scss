@@ -31,6 +31,11 @@
   height: 100vh;
   background: var(--color-bg-primary);
 
+  // iOS-native scrolling behavior
+  overscroll-behavior: contain; // Prevent scroll chaining to parent
+  overscroll-behavior-x: contain;
+  scroll-snap-type: x proximity; // Subtle snap to columns
+
   // Desktop: rounded corners and subtle border
   @media (min-width: 1024px) {
     max-width: 100%;
@@ -40,6 +45,7 @@
     box-shadow: 0 4px 24px rgba(0, 0, 0, 0.12);
     max-height: calc(100vh - var(--spacing-md));
     height: auto;
+    scroll-snap-type: none; // Disable snap on desktop
   }
 }
 
@@ -60,5 +66,75 @@
   @media (min-width: 1024px) {
     box-shadow: 0 4px 24px rgba(0, 0, 0, 0.08);
     border: 1px solid rgba(0, 0, 0, 0.08);
+  }
+}
+
+// ============================================
+// Region Filter Banner
+// ============================================
+
+.region-filter-banner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 8px 12px;
+  margin: 0 0 4px 0;
+  background: rgba(107, 155, 209, 0.12);
+  border-left: 3px solid var(--color-accent-primary, #6b9bd1);
+  border-radius: 0 6px 6px 0;
+  font-size: 0.8rem;
+
+  .region-filter-text {
+    color: var(--color-text-secondary, #9fa5b8);
+
+    strong {
+      color: var(--color-accent-primary, #6b9bd1);
+      font-weight: 600;
+    }
+  }
+
+  .region-filter-clear {
+    background: var(--color-accent-primary, #6b9bd1);
+    color: white;
+    border: none;
+    padding: 6px 12px;
+    border-radius: 4px;
+    font-size: 0.75rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.15s ease, transform 0.1s ease;
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
+
+    &:hover {
+      background: var(--color-link-hover, #8bb8e8);
+    }
+
+    &:active {
+      transform: scale(0.98);
+    }
+  }
+}
+
+// Light mode
+[data-theme='light'] .region-filter-banner {
+  background: rgba(25, 118, 210, 0.08);
+  border-left-color: #1976d2;
+
+  .region-filter-text {
+    color: #4a4a4a;
+
+    strong {
+      color: #1976d2;
+    }
+  }
+
+  .region-filter-clear {
+    background: #1976d2;
+
+    &:hover {
+      background: #1565c0;
+    }
   }
 }
