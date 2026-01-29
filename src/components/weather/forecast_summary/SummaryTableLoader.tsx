@@ -49,10 +49,6 @@ export function SummaryTableLoader() {
   const [isStaleBannerDismissed, setIsStaleBannerDismissed] = useState(false);
   const appState = useAppSelector((state) => state.forecast);
 
-  const clearRegionFilter = () => {
-    navigate('/');
-  };
-
   // Track whether we need to auto-fetch data on mount
   const [needsAutoFetch, setNeedsAutoFetch] = useState(false);
 
