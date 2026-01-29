@@ -2,6 +2,12 @@
 
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
+## Documentation Index
+
+- **[Deployment Guide](DEPLOYMENT.md)** - CI/CD pipeline and deployment workflows
+- **[Dependabot](docs/DEPENDABOT.md)** - Automated dependency updates with auto-merge
+- **[Dependabot Setup](docs/DEPENDABOT-SETUP-CHECKLIST.md)** - Quick setup checklist
+
 ## Project Overview
 
 Weather forecast visualization app built with React 19.0 + TypeScript 5.x, using Vite as the build tool. Displays weather forecasts in a table format with detailed views and charts powered by Recharts. Mobile-first dark mode design optimized for iPhone.
@@ -36,12 +42,14 @@ yarn prettier:fix        # Auto-format code
 ## Environment Setup
 
 **Required environment variables** (create `.env` file):
+
 ```
 VITE_WEATHER_API=https://weather-expressjs-api.onrender.com
 VITE_WEATHER_JWT_TOKEN=<your-jwt-token>
 ```
 
 **Alternative API endpoints:**
+
 - AWS Lambda: `https://4gpn105y9k.execute-api.us-west-1.amazonaws.com/latest`
 - Local dev: `http://localhost:4000`
 
@@ -64,9 +72,11 @@ Components (SummaryTable → Region → Location)
 ### State Management
 
 **Redux Store** (`src/app/store.ts`):
+
 - `forecast`: ForecastResponseStatus (isLoaded, error, forecast data)
 
 **Custom hooks** (`src/app/hooks.ts`):
+
 - `useAppDispatch`: Typed dispatch hook
 - `useAppSelector`: Typed selector hook
 
@@ -103,6 +113,7 @@ App
 ### API Integration
 
 **Endpoint:** `{VITE_WEATHER_API}/forecasts/{dataSource}`
+
 - `dataSource`: 'mock' or 'real'
 - **Auth:** Bearer token from `VITE_WEATHER_JWT_TOKEN`
 - **Retry logic:** 6 retries with 10-second timeout per request
@@ -121,6 +132,7 @@ App
 ### Styling
 
 **Dark mode mobile-first design** (optimized for iPhone):
+
 - SCSS/SASS for component styles
 - CSS custom properties in `SummaryTable.scss` for theming
 - Styled-components and Emotion for some components
@@ -143,12 +155,13 @@ App
 ### Retry Logic Pattern
 
 API calls use custom retry wrapper with timeout:
+
 ```typescript
 fetchWithRetries(url, {
-  timeout: 10000,    // 10 seconds
+  timeout: 10000, // 10 seconds
   maxRetries: 6,
-  ...fetchOptions
-})
+  ...fetchOptions,
+});
 ```
 
 ### Normalized State Updates
@@ -166,6 +179,7 @@ Icon logic in `src/utils/icon.ts` and `src/model/alert.ts`. Weather condition cl
 ## Docker Support
 
 **Development:**
+
 ```bash
 docker build -t sample:react-app -f Dockerfile.dev .
 docker run --rm \
@@ -177,6 +191,7 @@ docker run --rm \
 ```
 
 **Production:**
+
 ```bash
 docker build -t react-app-production -f Dockerfile .
 docker run -it --rm \
@@ -188,6 +203,7 @@ docker run -it --rm \
 ## Code Quality
 
 **ESLint:** Airbnb config with TypeScript, React hooks, and accessibility plugins
+
 - Single quotes required
 - JSX prop spreading allowed
 - No extension required for imports
@@ -250,12 +266,12 @@ This app is a Progressive Web App (PWA) with full offline support using `vite-pl
 
 ### Key Files
 
-| File | Purpose |
-|------|---------|
-| `vite.config.ts` | VitePWA plugin configuration |
-| `src/utils/serviceWorkerRegistration.ts` | SW registration using `virtual:pwa-register` |
-| `src/utils/forecastCache.ts` | localStorage caching for forecast data |
-| `src/components/.../OfflineStatusBanner.tsx` | UI banner showing offline/cached status |
+| File                                         | Purpose                                      |
+| -------------------------------------------- | -------------------------------------------- |
+| `vite.config.ts`                             | VitePWA plugin configuration                 |
+| `src/utils/serviceWorkerRegistration.ts`     | SW registration using `virtual:pwa-register` |
+| `src/utils/forecastCache.ts`                 | localStorage caching for forecast data       |
+| `src/components/.../OfflineStatusBanner.tsx` | UI banner showing offline/cached status      |
 
 ### vite-plugin-pwa Configuration
 
@@ -275,12 +291,12 @@ VitePWA({
 
 ### Caching Strategies
 
-| Resource | Strategy | Reason |
-|----------|----------|--------|
-| Static assets (JS, CSS, HTML) | **Precache** | Cached at SW install time |
-| Images, fonts | **Precache** | Part of app shell |
-| Google Fonts | **CacheFirst** | Rarely changes, cache for 1 year |
-| API `/forecasts/*` | **NetworkOnly** | App handles via localStorage |
+| Resource                      | Strategy        | Reason                           |
+| ----------------------------- | --------------- | -------------------------------- |
+| Static assets (JS, CSS, HTML) | **Precache**    | Cached at SW install time        |
+| Images, fonts                 | **Precache**    | Part of app shell                |
+| Google Fonts                  | **CacheFirst**  | Rarely changes, cache for 1 year |
+| API `/forecasts/*`            | **NetworkOnly** | App handles via localStorage     |
 
 ### Workbox Strategies Explained
 
@@ -315,18 +331,19 @@ yarn preview
 ### Debugging Service Worker
 
 In Chrome DevTools:
+
 - **Application → Service Workers**: See SW status, force update, unregister
 - **Application → Cache Storage**: Inspect cached assets (`workbox-precache-*`)
 - **Console**: Look for `[SW]` prefixed logs
 
 ### Common Issues
 
-| Issue | Solution |
-|-------|----------|
-| SW not updating | Hard refresh (Cmd+Shift+R) or "Update on reload" in DevTools |
-| Assets not cached | Check `globPatterns` in vite.config.ts |
-| Blank page offline | Check Console for missing assets, verify precache list |
-| Old version stuck | Unregister SW in DevTools, clear cache, reload |
+| Issue              | Solution                                                     |
+| ------------------ | ------------------------------------------------------------ |
+| SW not updating    | Hard refresh (Cmd+Shift+R) or "Update on reload" in DevTools |
+| Assets not cached  | Check `globPatterns` in vite.config.ts                       |
+| Blank page offline | Check Console for missing assets, verify precache list       |
+| Old version stuck  | Unregister SW in DevTools, clear cache, reload               |
 
 ### References
 

@@ -12,6 +12,18 @@ The application uses a three-environment deployment pipeline:
 
 All deployments are managed through GitHub Actions and deploy to Render.com static sites.
 
+### Automated Dependency Updates
+
+**Dependabot** automatically handles dependency updates:
+
+- Creates PRs weekly (Mondays at 9 AM PT)
+- Groups minor/patch updates together
+- Auto-approves and auto-merges when tests pass
+- Triggers dev deployment → auto-merge to master → QA deployment
+- Major version updates require manual review
+
+See [docs/DEPENDABOT.md](docs/DEPENDABOT.md) for complete automation setup and configuration.
+
 ## Environment Variables
 
 The following environment variables must be set in the Render.com dashboard for each service:
@@ -25,14 +37,17 @@ The following environment variables must be set in the Render.com dashboard for 
 ### Per-Environment Values
 
 **Dev Environment:**
+
 - `VITE_DATA_SOURCE=mock`
 - `VITE_WEATHER_API=https://weather-expressjs-api.onrender.com`
 
 **QA Environment:**
+
 - `VITE_DATA_SOURCE=real`
 - `VITE_WEATHER_API=https://weather-expressjs-api.onrender.com`
 
 **Production:**
+
 - `VITE_DATA_SOURCE=real`
 - `VITE_WEATHER_API=https://weather-expressjs-api.onrender.com`
 
@@ -47,6 +62,7 @@ The following environment variables must be set in the Render.com dashboard for 
 **Trigger:** Automatic deployment when code is pushed to the `dev` branch
 
 **Process:**
+
 1. Push code to `dev` branch
 2. GitHub Actions runs CI workflow (lint, test, build)
 3. If CI passes, deploy workflow triggers
@@ -63,6 +79,7 @@ Can also trigger manual deploys in Render.com dashboard.
 **Trigger:** Automatic deployment when PR is merged to `qa` branch
 
 **Process:**
+
 1. Create PR from `dev` to `qa`
 2. Wait for CI checks to pass
 3. Merge PR to `qa` branch
@@ -73,6 +90,7 @@ Can also trigger manual deploys in Render.com dashboard.
 
 **Branch Protection:**
 The `qa` branch requires:
+
 - Pull request before merging
 - CI checks must pass (lint, test, build)
 - Branch must be up to date
@@ -84,6 +102,7 @@ The `qa` branch requires:
 **Trigger:** Manual workflow from GitHub Actions
 
 **Process:**
+
 1. Navigate to GitHub Actions tab
 2. Select "Deploy to Production" workflow
 3. Click "Run workflow"
@@ -95,6 +114,7 @@ The `qa` branch requires:
 
 **Branch Protection:**
 The `master` branch requires:
+
 - Pull request before merging
 - At least 1 approval
 - CI checks must pass (lint, test, build)
@@ -107,10 +127,12 @@ The `master` branch requires:
 **File:** `.github/workflows/ci.yml`
 
 **Triggers:**
+
 - Pull requests to `dev`, `qa`, `master`
 - Pushes to `dev`, `qa`, `master`
 
 **Jobs:**
+
 1. **Lint**: ESLint and Prettier checks
 2. **Unit Tests**: Vitest test suite
 3. **Build**: Vite production build
@@ -121,9 +143,11 @@ The `master` branch requires:
 **File:** `.github/workflows/deploy.yml`
 
 **Triggers:**
+
 - After successful CI workflow completion on `dev` or `qa` branches
 
 **Jobs:**
+
 - `deploy-dev`: Deploys to dev environment
 - `deploy-qa`: Deploys to QA environment
 
@@ -132,9 +156,11 @@ The `master` branch requires:
 **File:** `.github/workflows/deploy-production.yml`
 
 **Triggers:**
+
 - Manual workflow dispatch from master branch only
 
 **Jobs:**
+
 - `deploy-production`: Deploys to production with approval gate
 
 ## GitHub Configuration Required
@@ -145,11 +171,11 @@ Navigate to GitHub → Settings → Secrets and variables → Actions → Variab
 
 Add the following variables to control deployment behavior:
 
-| Variable | Values | Description |
-|----------|--------|-------------|
-| `ENABLE_DEV_DEPLOY` | `true` / `false` | Enable automatic deployment to dev environment on PRs to master |
-| `ENABLE_QA_DEPLOY` | `true` / `false` | Enable automatic deployment to QA environment on push to master |
-| `ENABLE_PROD_DEPLOY` | `true` / `false` | Enable production deployment after E2E tests pass |
+| Variable              | Values           | Description                                                          |
+| --------------------- | ---------------- | -------------------------------------------------------------------- |
+| `ENABLE_DEV_DEPLOY`   | `true` / `false` | Enable automatic deployment to dev environment on PRs to master      |
+| `ENABLE_QA_DEPLOY`    | `true` / `false` | Enable automatic deployment to QA environment on push to master      |
+| `ENABLE_PROD_DEPLOY`  | `true` / `false` | Enable production deployment after E2E tests pass                    |
 | `SKIP_E2E_FOR_DEPLOY` | `true` / `false` | **Emergency only:** Skip E2E tests and deploy directly to production |
 
 **Important:** `SKIP_E2E_FOR_DEPLOY` should only be set to `true` for emergency deployments. When enabled, production deploys will skip E2E test validation.
@@ -165,6 +191,7 @@ Add the following secrets:
 - `RENDER_DEPLOY_HOOK_PROD`: Deploy hook URL from Render production service
 
 **To get deploy hook URLs:**
+
 1. Go to Render.com dashboard
 2. Select the service
 3. Go to Settings → Deploy Hook
@@ -178,14 +205,17 @@ Navigate to GitHub → Settings → Environments
 Create these environments:
 
 **dev:**
+
 - No protection rules
 - Environment URL: https://weather-react-dev.onrender.com
 
 **qa:**
+
 - No protection rules (optional: add required reviewers)
 - Environment URL: https://weather-react-qa.onrender.com
 
 **production:**
+
 - Required reviewers: Add team members who can approve production deploys
 - Deployment branches: master only
 - Environment URL: Your custom domain
@@ -195,6 +225,7 @@ Create these environments:
 Navigate to GitHub → Settings → Branches → Branch protection rules
 
 **For `qa` branch:**
+
 - ✅ Require pull request before merging
 - ✅ Require status checks to pass before merging
   - Required checks: `Lint`, `Test`, `Build`
@@ -202,6 +233,7 @@ Navigate to GitHub → Settings → Branches → Branch protection rules
 - ✅ Require linear history (optional)
 
 **For `master` branch:**
+
 - ✅ Require pull request before merging
 - ✅ Require approvals: 1 minimum
 - ✅ Require status checks to pass before merging
@@ -216,6 +248,7 @@ Navigate to GitHub → Settings → Branches → Branch protection rules
 The `render.yaml` file defines infrastructure as code for all three environments.
 
 **To create a new service from blueprint:**
+
 1. Go to Render.com dashboard
 2. Click "New" → "Web Service"
 3. Select "Use Blueprint"
@@ -225,6 +258,7 @@ The `render.yaml` file defines infrastructure as code for all three environments
 7. Deploy
 
 **Services defined:**
+
 - `weather-react-dev` (branch: dev)
 - `weather-react-qa` (branch: qa)
 - `weather-react-prod` (branch: master)
@@ -255,6 +289,7 @@ If a dev or QA deployment fails:
 If a production deployment fails:
 
 **Immediate Rollback:**
+
 1. Go to Render.com dashboard
 2. Select production service
 3. View deployment history
@@ -263,6 +298,7 @@ If a production deployment fails:
 6. Investigate issue before next deployment
 
 **Git Rollback:**
+
 1. Identify the last working commit
 2. Create a revert commit: `git revert <bad-commit-sha>`
 3. Push to master
@@ -274,6 +310,7 @@ If a production deployment fails:
 ### Build Fails in CI
 
 **Check:**
+
 - GitHub Actions logs for specific error
 - Ensure tests pass locally: `npm test`
 - Ensure build works locally: `npm run build`
@@ -281,6 +318,7 @@ If a production deployment fails:
 - Ensure formatting is correct: `npm run prettier`
 
 **Common Issues:**
+
 - Missing dependencies: Run `npm install`
 - Failing tests: Update snapshots or fix tests
 - Lint errors: Run `npm run lint` to auto-fix
@@ -289,12 +327,14 @@ If a production deployment fails:
 ### Deployment Fails
 
 **Check:**
+
 - Render deployment logs in dashboard
 - Verify environment variables are set correctly
 - Verify deploy hook URL is correct in GitHub secrets
 - Check Render service status
 
 **Common Issues:**
+
 - Missing environment variables
 - Build command failure (check Render logs)
 - Deploy hook URL expired or incorrect
@@ -302,6 +342,7 @@ If a production deployment fails:
 ### Health Check Fails
 
 **Check:**
+
 - Service is actually running in Render
 - URL is correct in workflow file
 - Service has finished deploying (may need longer sleep time)
@@ -312,6 +353,7 @@ If a production deployment fails:
 **Issue:** Changed env vars in Render dashboard but site still shows old values
 
 **Solution:**
+
 1. Remember: Vite bakes env vars at build time
 2. Trigger a new deployment after changing env vars
 3. Verify new build completed successfully
@@ -322,11 +364,13 @@ If a production deployment fails:
 **Issue:** PR is blocked from merging
 
 **Check:**
+
 - All required status checks must pass
 - Branch must be up to date with target branch
 - Required approvals must be present (for master)
 
 **Solution:**
+
 1. Update branch: `git merge origin/qa` (or master)
 2. Fix any failing checks
 3. Request reviews if needed
@@ -363,10 +407,11 @@ The recommended workflow:
    - Monitor production
 
 **Emergency Deployment (Skip E2E):**
-   - Set `SKIP_E2E_FOR_DEPLOY=true` in GitHub repository variables
-   - Merge to master - production will deploy without waiting for E2E tests
-   - **Warning:** Only use for critical hotfixes
-   - Remember to set `SKIP_E2E_FOR_DEPLOY=false` after emergency is resolved
+
+- Set `SKIP_E2E_FOR_DEPLOY=true` in GitHub repository variables
+- Merge to master - production will deploy without waiting for E2E tests
+- **Warning:** Only use for critical hotfixes
+- Remember to set `SKIP_E2E_FOR_DEPLOY=false` after emergency is resolved
 
 ## Best Practices
 
@@ -391,6 +436,7 @@ The recommended workflow:
 ## Support
 
 For issues with:
+
 - **CI/CD pipeline**: Check GitHub Actions logs
 - **Render deployments**: Check Render dashboard logs
 - **Application errors**: Check browser console and network tab
