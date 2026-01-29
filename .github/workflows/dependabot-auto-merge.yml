@@ -75,7 +75,7 @@ jobs:
             message += '1. ✅ Lint must pass\n';
             message += '2. ✅ Unit tests must pass\n';
             message += '3. ✅ Build must succeed\n';
-            message += '4. 🔧 Dev deployment will trigger (if enabled)\n';
+            message += '4. ⏭️ Dev deployment skipped (Dependabot PRs)\n';
             message += '5. 🔀 PR will auto-merge to master\n';
             message += '6. 🧪 QA deployment will trigger automatically\n';
 
