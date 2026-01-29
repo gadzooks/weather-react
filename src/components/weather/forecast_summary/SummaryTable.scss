@@ -22,16 +22,20 @@
   --color-text-secondary: #9fa5b8;
   --color-text-dimmed: #656b7e;
 
-  // Accents - Warm orange for weekends
-  --color-accent-primary: #ff9800;
-  --color-accent-glow: rgba(255, 152, 0, 0.6);
+  // Accents - Soft blue for interactive elements (links, buttons)
+  --color-accent-primary: #6b9bd1;
+  --color-accent-glow: rgba(107, 155, 209, 0.3);
+
+  // Weekend-specific colors (keep orange for visual distinction)
+  --color-weekend-accent: #ff9800;
+  --color-weekend-glow: rgba(255, 152, 0, 0.6);
 
   // Weather-specific colors - Desaturated
   --color-rain-heavy: #6d9ed9;
   --color-rain-light: #9baed9;
   --color-clouds: #9ba4ba;
   --color-sun: #dac589;
-  --color-weekend: rgba(255, 152, 0, 0.55);
+  --color-weekend: rgba(255, 152, 0, 0.55);  // Weekend cell background
 
   // Alert colors - Muted but clear
   --color-alert-advisory: #7ba9d6;
@@ -244,11 +248,16 @@ table.table {
     padding-left: 4px; // iOS 4pt grid
     padding-right: 4px;
     font-weight: 500;
-    font-size: 0.85em;
+    font-size: var(--font-size-location, 0.8rem);
     color: var(--color-text-primary);
-    overflow: hidden;
-    text-overflow: ellipsis;
+    overflow: visible;
+    text-overflow: clip;
     white-space: nowrap;
+    min-width: 130px;
+    width: auto;
+    max-width: 180px;
+    padding-left: 6px;
+    padding-right: 8px;
   }
 
   // Alerts column in header (only when alerts are present)
@@ -277,10 +286,11 @@ table.table {
     z-index: calc(var(--z-sticky) + 6);
     box-shadow: 4px 0 12px rgba(0, 0, 0, 0.15);
     text-align: left;
-    min-width: 110px;
-    width: 110px;
-    padding-left: 4px; // iOS 4pt grid
-    padding-right: 4px;
+    min-width: 130px;
+    width: auto;
+    max-width: 180px;
+    padding-left: 6px;
+    padding-right: 8px;
     font-weight: 600;
     font-size: 0.7em;
     text-transform: uppercase;
@@ -388,16 +398,16 @@ table.table {
     transform: none;
   }
 
-  // Weekend buttons - orange theme
+  // Weekend buttons - orange theme for visual distinction
   &.weekend {
-    color: #ffa726;
+    color: var(--color-weekend-accent, #ff9800);
     border-color: rgba(255, 152, 0, 0.4);
 
     &:hover,
     &:focus {
       background: rgba(255, 152, 0, 0.12);
-      border-color: #ff9800;
-      color: #ffa726;
+      border-color: var(--color-weekend-accent, #ff9800);
+      color: var(--color-weekend-accent, #ff9800);
     }
   }
 
@@ -413,15 +423,15 @@ table.table {
       box-shadow: 0 0 12px var(--color-accent-glow);
     }
 
-    // Weekend selected dates - orange border and glow
+    // Weekend selected dates - orange border and glow for visual distinction
     &.weekend {
       background: rgba(255, 152, 0, 0.06);
-      border: 1px solid #ff9800;
-      box-shadow: 0 0 8px rgba(255, 152, 0, 0.6);
-      color: #ffa726;
+      border: 1px solid var(--color-weekend-accent, #ff9800);
+      box-shadow: 0 0 8px var(--color-weekend-glow, rgba(255, 152, 0, 0.6));
+      color: var(--color-weekend-accent, #ff9800);
 
       &:hover {
-        box-shadow: 0 0 12px rgba(255, 152, 0, 0.7);
+        box-shadow: 0 0 12px var(--color-weekend-glow, rgba(255, 152, 0, 0.7));
       }
     }
   }
@@ -438,15 +448,15 @@ table.table {
       background: rgba(107, 155, 209, 0.15);
     }
 
-    // Weekend arrow buttons - orange theme
+    // Weekend arrow buttons - orange theme for visual distinction
     &.weekend {
-      color: #ffa726;
+      color: var(--color-weekend-accent, #ff9800);
       border-color: rgba(255, 152, 0, 0.4);
 
       &:hover {
         background: rgba(255, 152, 0, 0.15);
-        border-color: #ff9800;
-        color: #ffa726;
+        border-color: var(--color-weekend-accent, #ff9800);
+        color: var(--color-weekend-accent, #ff9800);
       }
     }
   }
@@ -572,8 +582,8 @@ table.table {
       font-weight: 600;
       color: var(--color-accent-primary);
       text-transform: uppercase;
-      font-size: 0.65em; // Reduced from 0.7em
-      letter-spacing: 0.5px; // Reduced from 0.8px
+      font-size: var(--font-size-region, 0.75rem);
+      letter-spacing: 0.5px;
 
       td {
         padding: 4px 0; // Zero horizontal padding
@@ -653,18 +663,18 @@ td.weekend {
 
   // Add left border only to the first cell (location name column or alerts column if present)
   &:first-child {
-    border-left: 3px solid var(--color-accent-primary);
-    box-shadow: inset 3px 0 6px var(--color-accent-glow);
+    border-left: 3px solid var(--color-weekend-accent, #ff9800);
+    box-shadow: inset 3px 0 6px var(--color-weekend-glow, rgba(255, 152, 0, 0.6));
   }
 
   // Enhanced box-shadow on all weekend cells for extra differentiation
   box-shadow: inset 0 0 50px rgba(255, 152, 0, 0.45);
 }
 
-// Weekend header styling - orange text and underline
+// Weekend header styling - orange text and underline for visual distinction
 thead td.weekend-header {
-  color: #ffa726; // Lighter orange for better contrast (WCAG AA)
-  border-bottom: 2px solid #ff9800;
+  color: var(--color-weekend-accent, #ff9800);
+  border-bottom: 2px solid var(--color-weekend-accent, #ff9800);
 
   .day-of-week {
     font-size: 0.75em;

@@ -1,7 +1,7 @@
 // SummaryTableLoader.tsx
 
 import { useEffect, useState, useCallback } from 'react';
-import { useOutletContext } from 'react-router-dom';
+import { useOutletContext, useSearchParams, useNavigate } from 'react-router-dom';
 import type { DailyForecastFilter } from '../../../interfaces/DailyForecastFilter';
 import type { MatchedAreas } from '../../../interfaces/MatchedAreas';
 import findMatchedAreas from '../../../utils/filterMatchedAreas';
@@ -24,6 +24,8 @@ import {
 } from '../../../utils/forecastCache';
 import { RefreshErrorBanner } from './RefreshErrorBanner';
 import { StaleDataBanner } from './StaleDataBanner';
+import Breadcrumbs from '../common/Breadcrumbs';
+import RegionNavigation from './RegionNavigation';
 import './SummaryTableLoader.scss';
 
 // Allow override via env var, otherwise use 'real' by default
@@ -39,10 +41,17 @@ console.log(`[SummaryTableLoader] Data source: ${dataSource}`);
 
 export function SummaryTableLoader() {
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
   const { showAqi } = useOutletContext<{ showAqi: boolean }>();
+  const [searchParams] = useSearchParams();
+  const regionFilter = searchParams.get('region');
   const [isRefreshErrorDismissed, setIsRefreshErrorDismissed] = useState(false);
   const [isStaleBannerDismissed, setIsStaleBannerDismissed] = useState(false);
   const appState = useAppSelector((state) => state.forecast);
+
+  const clearRegionFilter = () => {
+    navigate('/');
+  };
 
   // Track whether we need to auto-fetch data on mount
   const [needsAutoFetch, setNeedsAutoFetch] = useState(false);
@@ -235,8 +244,29 @@ export function SummaryTableLoader() {
 
   let matchedAreas: MatchedAreas = { totalMatchedLocations: 0 };
   if (appState.isLoaded && appState.forecast) {
-    matchedAreas = findMatchedAreas(null, appState.forecast.regions);
+    matchedAreas = findMatchedAreas(null, appState.forecast.regions, {
+      regionFilter,
+    });
   }
+
+  // Build list of all regions for navigation
+  const allRegions = appState.forecast?.regions?.allIds.map((id) => {
+    const region = appState.forecast!.regions.byId[id];
+    return {
+      name: region.name,
+      slug: region.name.toLowerCase().replace(/\s+/g, '-'),
+      description: region.description,
+    };
+  }) || [];
+
+  // Get current region description for breadcrumbs
+  const currentRegionDescription = regionFilter
+    ? allRegions.find((r) => r.slug === regionFilter)?.description || regionFilter
+    : null;
+
+  const handleRegionChange = (regionSlug: string) => {
+    navigate(`/?region=${regionSlug}`);
+  };
 
   const summaryTableArgs: SummaryTableProps = {
     matchedAreas,
@@ -284,6 +314,21 @@ export function SummaryTableLoader() {
             Retry
           </button>
         </div>
+      )}
+      {regionFilter && matchedAreas.totalMatchedLocations > 0 && (
+        <>
+          <Breadcrumbs
+            items={[
+              { label: 'Home', to: '/' },
+              { label: currentRegionDescription || regionFilter },
+            ]}
+          />
+          <RegionNavigation
+            currentRegion={regionFilter}
+            allRegions={allRegions}
+            onRegionChange={handleRegionChange}
+          />
+        </>
       )}
       {matchedAreas.totalMatchedLocations > 0 && (
         <div className='table-wrapper'>

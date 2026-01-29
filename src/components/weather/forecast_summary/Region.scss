@@ -4,15 +4,15 @@
 // Region Details - Compact Dark Mode
 // ============================================
 
-// Base styles for all region cells - DENSE
+// Base styles for all region cells
 tr.region-details td {
   background: rgba(107, 155, 209, 0.06);
   color: var(--color-accent-primary, #6b9bd1);
   font-weight: 600;
   text-transform: uppercase;
-  font-size: 0.65em; // Reduced from 0.75em
-  letter-spacing: 0.3px; // Reduced from 0.4px
-  padding: 3px 0; // Zero horizontal padding for maximum density
+  font-size: var(--font-size-region, 0.7rem);
+  letter-spacing: 0.4px;
+  padding: 4px 0;
   border-top: 1px solid var(--color-border-strong, #353b48);
   border-bottom: 1px solid var(--color-border-medium, rgba(255, 255, 255, 0.08));
 }
@@ -26,14 +26,71 @@ tr.region-details td.region-alerts-cell {
   min-width: 50px;
 }
 
-// Sticky region name cell - DENSE
+// Sticky region name cell - spans multiple columns for better fit
 tr.region-details td.region-name-cell {
   position: sticky;
   left: 0;
   z-index: calc(var(--z-sticky, 10) + 1);
   text-align: left;
-  padding-left: 2px; // Minimal left padding
-  padding-right: 0; // Zero right padding
+  padding-left: 6px;
+  padding-right: 8px;
+  white-space: nowrap;
+
+  // Ensure WTA icon and region name are on the same line
+  .wta-link {
+    display: inline-block;
+    vertical-align: middle;
+    margin-right: 6px;
+  }
+
+  .region-name-button {
+    display: inline;
+    vertical-align: middle;
+  }
+}
+
+// Clickable region name button
+.region-name-button {
+  background: none;
+  border: none;
+  padding: 4px 0;
+  color: inherit;
+  font: inherit;
+  text-transform: inherit;
+  letter-spacing: inherit;
+  cursor: pointer;
+  transition: color 0.15s ease, text-decoration 0.15s ease;
+  text-decoration: underline;
+  text-decoration-color: var(--color-accent-primary, #6b9bd1);
+  text-decoration-thickness: 1px;
+  text-underline-offset: 2px;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: rgba(107, 155, 209, 0.2);
+
+  &:hover {
+    color: var(--color-link-hover, #8bb8e8);
+    text-decoration-thickness: 2px;
+  }
+
+  &:active {
+    color: var(--color-link-active, #a0d0ff);
+    transform: scale(0.98);
+  }
+}
+
+// Light mode overrides for region button
+[data-theme='light'] {
+  .region-name-button {
+    text-decoration-color: #1976d2;
+
+    &:hover {
+      color: #1565c0;
+    }
+
+    &:active {
+      color: #0d47a1;
+    }
+  }
 }
 
 // Offset region name when alerts are present
@@ -46,12 +103,12 @@ tr.region-details td.region-date-cell {
   // Inherits base styles, no special treatment
 }
 
-// Mobile optimizations - DENSE
+// Mobile optimizations
 @media (max-width: 768px) {
   tr.region-details td {
     text-align: left;
-    padding: 3px 0 3px 2px; // Minimal horizontal padding
-    font-size: 0.6em; // Reduced from 0.7em
+    padding: 4px 0 4px 2px;
+    font-size: 0.7rem; // Slightly smaller on mobile but still readable
   }
 }
 
