@@ -29,12 +29,8 @@ This document explains how Dependabot automatically handles dependency updates f
               │  - Build         │
               └────────┬─────────┘
                        │
-                       ▼
-              ┌──────────────────┐
-              │  Deploy to Dev   │ ← ci.yml (deploy-dev job)
-              │  - Render Deploy │
-              │  - Health Check  │
-              └────────┬─────────┘
+                       │ (Dev deployment skipped for Dependabot)
+                       │
                        │
                        │ (All checks passed)
                        │
