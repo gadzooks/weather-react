@@ -26,6 +26,8 @@ import { RefreshErrorBanner } from './RefreshErrorBanner';
 import { StaleDataBanner } from './StaleDataBanner';
 import Breadcrumbs from '../common/Breadcrumbs';
 import RegionNavigation from './RegionNavigation';
+import RegionTabs, { type RegionTabType } from './RegionTabs';
+import TripReports from '../location_details/TripReports';
 import './SummaryTableLoader.scss';
 
 // Allow override via env var, otherwise use 'real' by default
@@ -47,6 +49,7 @@ export function SummaryTableLoader() {
   const regionFilter = searchParams.get('region');
   const [isRefreshErrorDismissed, setIsRefreshErrorDismissed] = useState(false);
   const [isStaleBannerDismissed, setIsStaleBannerDismissed] = useState(false);
+  const [activeRegionTab, setActiveRegionTab] = useState<RegionTabType>('forecast');
   const appState = useAppSelector((state) => state.forecast);
 
   // Track whether we need to auto-fetch data on mount
@@ -260,6 +263,18 @@ export function SummaryTableLoader() {
     ? allRegions.find((r) => r.slug === regionFilter)?.description || regionFilter
     : null;
 
+  // Get current region's search_key for trip reports
+  const currentRegionData = regionFilter && appState.forecast
+    ? appState.forecast.regions.allIds
+        .map((id) => appState.forecast!.regions.byId[id])
+        .find((r) => r.name.toLowerCase().replace(/\s+/g, '-') === regionFilter)
+    : null;
+
+  // Reset tab to forecast when region filter changes
+  useEffect(() => {
+    setActiveRegionTab('forecast');
+  }, [regionFilter]);
+
   const handleRegionChange = (regionSlug: string) => {
     navigate(`/?region=${regionSlug}`);
   };
@@ -324,12 +339,25 @@ export function SummaryTableLoader() {
             allRegions={allRegions}
             onRegionChange={handleRegionChange}
           />
+          <RegionTabs
+            activeTab={activeRegionTab}
+            onTabChange={setActiveRegionTab}
+          />
         </>
       )}
-      {matchedAreas.totalMatchedLocations > 0 && (
+      {/* Forecast tab or non-filtered view */}
+      {((!regionFilter || activeRegionTab === 'forecast') &&
+        matchedAreas.totalMatchedLocations > 0) && (
         <div className='table-wrapper'>
           <SummaryTable {...summaryTableArgs} />
         </div>
+      )}
+      {/* Trip Reports tab (only when filtered) */}
+      {regionFilter && activeRegionTab === 'tripreports' && (
+        <TripReports
+          wtaRegion={currentRegionData?.search_key}
+          isActive={activeRegionTab === 'tripreports'}
+        />
       )}
     </>
   );
