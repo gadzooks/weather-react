@@ -18,4 +18,4 @@ export const FONT_SIZE_DEFAULT = 18;
 
 // AQI display constants
 export const LS_SHOW_AQI_KEY = 'showAqiPreference';
-export const SHOW_AQI_DEFAULT = true;
+export const SHOW_AQI_DEFAULT = false;
