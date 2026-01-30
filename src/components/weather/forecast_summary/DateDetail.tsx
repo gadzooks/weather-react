@@ -23,6 +23,7 @@ import {
   getWeatherIconClass,
 } from './DetailedWeatherComponents';
 import './DateDetail.scss';
+import './Region.scss'; // For region-name-button styles
 
 function DateDetail() {
   const { date } = useParams<{ date: string }>();
@@ -141,13 +142,21 @@ function DateDetail() {
 
         {regions.map((region: RegionInterface) => {
           const locations = region.locations || [];
+          const regionSlug = region.name.toLowerCase().replace(/\s+/g, '-');
 
           return (
             <tbody key={region.name}>
               <tr className='region-details'>
                 {foundAlerts && <td className='region-alerts-cell' />}
                 <td className='region-name-cell' colSpan={showAqi ? 8 : 7}>
-                  {region.description}
+                  <button
+                    type='button'
+                    className='region-name-button'
+                    onClick={() => navigate(`/?region=${regionSlug}`)}
+                    title={`Show only ${region.description}`}
+                  >
+                    {region.description}
+                  </button>
                 </td>
               </tr>
 

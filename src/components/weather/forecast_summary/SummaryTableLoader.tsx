@@ -1,7 +1,7 @@
 // SummaryTableLoader.tsx
 
 import { useEffect, useState, useCallback } from 'react';
-import { useOutletContext } from 'react-router-dom';
+import { useOutletContext, useSearchParams, useNavigate } from 'react-router-dom';
 import type { DailyForecastFilter } from '../../../interfaces/DailyForecastFilter';
 import type { MatchedAreas } from '../../../interfaces/MatchedAreas';
 import findMatchedAreas from '../../../utils/filterMatchedAreas';
@@ -24,6 +24,10 @@ import {
 } from '../../../utils/forecastCache';
 import { RefreshErrorBanner } from './RefreshErrorBanner';
 import { StaleDataBanner } from './StaleDataBanner';
+import Breadcrumbs from '../common/Breadcrumbs';
+import RegionNavigation from './RegionNavigation';
+import RegionTabs, { type RegionTabType } from './RegionTabs';
+import TripReports from '../location_details/TripReports';
 import './SummaryTableLoader.scss';
 
 // Allow override via env var, otherwise use 'real' by default
@@ -39,9 +43,13 @@ console.log(`[SummaryTableLoader] Data source: ${dataSource}`);
 
 export function SummaryTableLoader() {
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
   const { showAqi } = useOutletContext<{ showAqi: boolean }>();
+  const [searchParams] = useSearchParams();
+  const regionFilter = searchParams.get('region');
   const [isRefreshErrorDismissed, setIsRefreshErrorDismissed] = useState(false);
   const [isStaleBannerDismissed, setIsStaleBannerDismissed] = useState(false);
+  const [activeRegionTab, setActiveRegionTab] = useState<RegionTabType>('forecast');
   const appState = useAppSelector((state) => state.forecast);
 
   // Track whether we need to auto-fetch data on mount
@@ -235,8 +243,41 @@ export function SummaryTableLoader() {
 
   let matchedAreas: MatchedAreas = { totalMatchedLocations: 0 };
   if (appState.isLoaded && appState.forecast) {
-    matchedAreas = findMatchedAreas(null, appState.forecast.regions);
+    matchedAreas = findMatchedAreas(null, appState.forecast.regions, {
+      regionFilter,
+    });
   }
+
+  // Build list of all regions for navigation
+  const allRegions = appState.forecast?.regions?.allIds.map((id) => {
+    const region = appState.forecast!.regions.byId[id];
+    return {
+      name: region.name,
+      slug: region.name.toLowerCase().replace(/\s+/g, '-'),
+      description: region.description,
+    };
+  }) || [];
+
+  // Get current region description for breadcrumbs
+  const currentRegionDescription = regionFilter
+    ? allRegions.find((r) => r.slug === regionFilter)?.description || regionFilter
+    : null;
+
+  // Get current region's search_key for trip reports
+  const currentRegionData = regionFilter && appState.forecast
+    ? appState.forecast.regions.allIds
+        .map((id) => appState.forecast!.regions.byId[id])
+        .find((r) => r.name.toLowerCase().replace(/\s+/g, '-') === regionFilter)
+    : null;
+
+  // Reset tab to forecast when region filter changes
+  useEffect(() => {
+    setActiveRegionTab('forecast');
+  }, [regionFilter]);
+
+  const handleRegionChange = (regionSlug: string) => {
+    navigate(`/?region=${regionSlug}`);
+  };
 
   const summaryTableArgs: SummaryTableProps = {
     matchedAreas,
@@ -285,10 +326,38 @@ export function SummaryTableLoader() {
           </button>
         </div>
       )}
-      {matchedAreas.totalMatchedLocations > 0 && (
+      {regionFilter && matchedAreas.totalMatchedLocations > 0 && (
+        <>
+          <Breadcrumbs
+            items={[
+              { label: 'Home', to: '/' },
+              { label: currentRegionDescription || regionFilter },
+            ]}
+          />
+          <RegionNavigation
+            currentRegion={regionFilter}
+            allRegions={allRegions}
+            onRegionChange={handleRegionChange}
+          />
+          <RegionTabs
+            activeTab={activeRegionTab}
+            onTabChange={setActiveRegionTab}
+          />
+        </>
+      )}
+      {/* Forecast tab or non-filtered view */}
+      {((!regionFilter || activeRegionTab === 'forecast') &&
+        matchedAreas.totalMatchedLocations > 0) && (
         <div className='table-wrapper'>
           <SummaryTable {...summaryTableArgs} />
         </div>
+      )}
+      {/* Trip Reports tab (only when filtered) */}
+      {regionFilter && activeRegionTab === 'tripreports' && (
+        <TripReports
+          wtaRegion={currentRegionData?.search_key}
+          isActive={activeRegionTab === 'tripreports'}
+        />
       )}
     </>
   );

@@ -1,0 +1,117 @@
+/* RegionNavigation.scss */
+
+.region-navigation {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 2px;
+  padding: 4px 2px;
+  background: var(--color-bg-elevated, #2d323d);
+  border-radius: 4px;
+  margin-bottom: 6px;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
+  border: 1px solid var(--color-border-medium, rgba(255, 255, 255, 0.08));
+}
+
+.region-nav-btn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 18px;
+  min-height: 48px;
+  min-width: 48px;
+  background: rgba(107, 155, 209, 0.12);
+  border: 2px solid var(--color-accent-primary, #6b9bd1);
+  border-radius: 8px;
+  color: var(--color-accent-primary, #6b9bd1);
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all var(--transition-normal, 250ms);
+  white-space: nowrap;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: rgba(107, 155, 209, 0.2);
+
+  .wi {
+    font-size: 1.5rem;
+  }
+
+  &:hover {
+    background: rgba(107, 155, 209, 0.25);
+    border-color: var(--color-link-hover, #8bb8e8);
+    color: var(--color-link-hover, #8bb8e8);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(107, 155, 209, 0.4);
+  }
+
+  &:active {
+    transform: translateY(0) scale(0.98);
+  }
+}
+
+.region-nav-label {
+  @media (max-width: 390px) {
+    font-size: 0.875rem;
+  }
+}
+
+.region-nav-current {
+  flex: 1;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+}
+
+.region-nav-name {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--color-text-primary, #d6d9e3);
+  letter-spacing: 0.3px;
+  text-transform: uppercase;
+
+  @media (max-width: 768px) {
+    font-size: 0.9rem;
+  }
+
+  @media (max-width: 390px) {
+    font-size: 0.8rem;
+  }
+}
+
+.region-nav-count {
+  font-size: 0.7rem;
+  color: var(--color-text-secondary, #9fa5b8);
+  font-weight: 500;
+}
+
+// Light mode overrides
+[data-theme='light'] {
+  .region-navigation {
+    background: #f9d6a7;
+    border-color: rgba(0, 0, 0, 0.1);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  }
+
+  .region-nav-btn {
+    background: rgba(25, 118, 210, 0.08);
+    border-color: #1976d2;
+    color: #1976d2;
+
+    &:hover {
+      background: rgba(25, 118, 210, 0.2);
+      border-color: #1565c0;
+      color: #1565c0;
+      box-shadow: 0 6px 16px rgba(25, 118, 210, 0.25);
+    }
+  }
+
+  .region-nav-name {
+    color: #000000;
+  }
+
+  .region-nav-count {
+    color: #666666;
+  }
+}

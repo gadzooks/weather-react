@@ -15,6 +15,13 @@
   --color-primary-active: #4a7eb1;
   --color-primary-glow: rgba(107, 155, 209, 0.3);
 
+  // Interactive/Link Colors (unified across app)
+  --color-link: #6b9bd1;
+  --color-link-hover: #8bb8e8;
+  --color-link-active: #a0d0ff;
+  --color-accent-primary: #6b9bd1;  // Alias for backwards compatibility
+  --color-accent-glow: rgba(107, 155, 209, 0.3);
+
   // Backgrounds (Dark Mode)
   --color-bg-app: #16181f;
   --color-bg-primary: #1a1d26;
@@ -79,6 +86,10 @@
   --font-size-xl: 1.25rem;    // 20px - Titles
   --font-size-2xl: 1.5rem;    // 24px - Section headers
   --font-size-3xl: 1.875rem;  // 30px - Page titles
+
+  // Component-specific Typography
+  --font-size-region: 0.7rem;     // Region headers in table
+  --font-size-location: 0.8rem;   // Location names in table
 
   // Line Heights
   --line-height-tight: 1.25;
