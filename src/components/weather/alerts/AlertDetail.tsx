@@ -2,7 +2,7 @@
 
 import type { AlertsById } from '../../../interfaces/ForecastResponseInterface';
 import { getAlertIconFromAllAlerts } from '../../../model/alert';
-import { dateDifferenceInDays } from '../../../utils/date';
+import { formatAlertExpiry } from '../../../utils/date';
 import convertToSentence from '../../../utils/string';
 import {
   parseAlertDescription,
@@ -39,7 +39,7 @@ function AlertDetail(props: AlertDetailProps) {
         const parsedDescription = parseAlertDescription(alert.description || '');
         const lines = (alert.description || '').toLocaleLowerCase().split('\n');
         const sentences = lines.map((line) => convertToSentence(line));
-        const endsAt = dateDifferenceInDays(alert.endsEpoch);
+        const expiry = formatAlertExpiry(alert.endsEpoch);
         const alertIcon = getAlertIconFromAllAlerts(allAlertIds, alert.id);
         return (
           <div key={alert.id} className='alert' id={id}>
@@ -50,10 +50,7 @@ function AlertDetail(props: AlertDetailProps) {
               <a href={alert.link} target='_blank' rel='noreferrer'>
                 {alert.event}
               </a>
-              <span className='till'>
-                {endsAt != null && endsAt > 0 && ` ends in ${endsAt} days at ${alert.ends}`}
-                {endsAt != null && endsAt <= 0 && ` ending soon at ${alert.ends}`}
-              </span>
+              <span className='till'>{expiry && ` · ${expiry}`}</span>
             </div>
             {parsedDescription ? (
               <div className='alert-sections'>
