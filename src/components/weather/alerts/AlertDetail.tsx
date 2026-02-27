@@ -53,16 +53,18 @@ function AlertDetail(props: AlertDetailProps) {
               <span className='till'>{expiry && ` · ${expiry}`}</span>
             </div>
             {parsedDescription ? (
-              <div className='alert-sections'>
-                {parsedDescription.sections.map((section) => (
-                  <div key={section.label} className='alert-section'>
-                    <span className='section-label'>
-                      {toTitleCase(section.label)}
-                    </span>
-                    <span className='section-content'>{section.content}</span>
-                  </div>
-                ))}
-              </div>
+              <table className='alert-sections'>
+                <tbody>
+                  {parsedDescription.sections.map((section) => (
+                    <tr key={section.label}>
+                      <th className='section-label'>
+                        {toTitleCase(section.label)}
+                      </th>
+                      <td className='section-content'>{section.content}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
             ) : (
               <div className='details'>{sentences.join('.')}</div>
             )}

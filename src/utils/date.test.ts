@@ -126,8 +126,18 @@ describe('formatAlertExpiry', () => {
     expect(formatAlertExpiry(undefined as unknown as number)).toBeNull();
   });
 
-  it('returns "expired" for a past epoch', () => {
-    expect(formatAlertExpiry(now - 3600)).toBe('expired');
+  it('returns "expired" for an epoch just expired (< 1 hour ago)', () => {
+    expect(formatAlertExpiry(now - 1800)).toBe('expired'); // 30 min ago
+  });
+
+  it('returns "expired N hours ago" for 1-23 hours past', () => {
+    expect(formatAlertExpiry(now - 3_600 - B)).toBe('expired 1 hour ago');
+    expect(formatAlertExpiry(now - 5 * 3_600 - B)).toBe('expired 5 hours ago');
+  });
+
+  it('returns "expired N days ago" for 1+ days past', () => {
+    expect(formatAlertExpiry(now - 24 * 3_600 - B)).toBe('expired 1 day ago');
+    expect(formatAlertExpiry(now - 3 * 24 * 3_600 - B)).toBe('expired 3 days ago');
   });
 
   it('returns "ending soon" for less than 1 hour away', () => {
