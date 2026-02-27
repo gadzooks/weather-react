@@ -10,7 +10,12 @@ div.alert {
   margin-bottom: 16px;
 
   &:last-child {
-    margin-bottom: 0;
+    margin-bottom: 24px;
+  }
+
+  &.expired {
+    opacity: 0.45;
+    filter: saturate(0.3);
   }
 }
 
