@@ -40,9 +40,10 @@ function AlertDetail(props: AlertDetailProps) {
         const lines = (alert.description || '').toLocaleLowerCase().split('\n');
         const sentences = lines.map((line) => convertToSentence(line));
         const expiry = formatAlertExpiry(alert.endsEpoch);
+        const isExpired = alert.endsEpoch != null && alert.endsEpoch * 1_000 < Date.now();
         const alertIcon = getAlertIconFromAllAlerts(allAlertIds, alert.id);
         return (
-          <div key={alert.id} className='alert' id={id}>
+          <div key={alert.id} className={`alert${isExpired ? ' expired' : ''}`} id={id}>
             <div className='title'>
               <span className='alert-icon' key={alert.id}>
                 {alertIcon}
