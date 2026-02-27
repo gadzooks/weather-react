@@ -38,6 +38,30 @@ export function dateDifferenceInDays(epochSeconds: number) {
   return Math.floor(diff);
 }
 
+export function formatAlertExpiry(epochSeconds: number): string | null {
+  if (epochSeconds == null) return null;
+
+  const diffMs = epochSeconds * 1_000 - Date.now();
+
+  if (diffMs < 0) {
+    const agoMs = Math.abs(diffMs);
+    const agoHours = Math.floor(agoMs / (1_000 * 3_600));
+    if (agoHours < 1) return 'expired';
+    if (agoHours < 24) return `expired ${agoHours} hour${agoHours === 1 ? '' : 's'} ago`;
+    const agoDays = Math.floor(agoMs / (1_000 * 3_600 * 24));
+    return `expired ${agoDays} day${agoDays === 1 ? '' : 's'} ago`;
+  }
+
+  const diffHours = Math.floor(diffMs / (1_000 * 3_600));
+  if (diffHours < 1) return 'ending soon';
+  if (diffHours < 24) {
+    return `ending in ${diffHours} hour${diffHours === 1 ? '' : 's'}`;
+  }
+
+  const diffDays = Math.floor(diffMs / (1_000 * 3_600 * 24));
+  return `ending in ${diffDays} day${diffDays === 1 ? '' : 's'}`;
+}
+
 export function nth(d: number) {
   if (d > 3 && d < 21) return 'th';
   switch (d % 10) {

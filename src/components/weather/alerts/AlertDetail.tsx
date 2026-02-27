@@ -2,8 +2,12 @@
 
 import type { AlertsById } from '../../../interfaces/ForecastResponseInterface';
 import { getAlertIconFromAllAlerts } from '../../../model/alert';
-import { dateDifferenceInDays } from '../../../utils/date';
+import { formatAlertExpiry } from '../../../utils/date';
 import convertToSentence from '../../../utils/string';
+import {
+  parseAlertDescription,
+  toTitleCase,
+} from '../../../utils/parseAlertDescription';
 import './AlertDetail.scss';
 
 export interface AlertDetailProps {
@@ -32,12 +36,14 @@ function AlertDetail(props: AlertDetailProps) {
         if (!alert) {
           return null;
         }
+        const parsedDescription = parseAlertDescription(alert.description || '');
         const lines = (alert.description || '').toLocaleLowerCase().split('\n');
         const sentences = lines.map((line) => convertToSentence(line));
-        const endsAt = dateDifferenceInDays(alert.endsEpoch);
+        const expiry = formatAlertExpiry(alert.endsEpoch);
+        const isExpired = alert.endsEpoch != null && alert.endsEpoch * 1_000 < Date.now();
         const alertIcon = getAlertIconFromAllAlerts(allAlertIds, alert.id);
         return (
-          <div key={alert.id} className='alert' id={id}>
+          <div key={alert.id} className={`alert${isExpired ? ' expired' : ''}`} id={id}>
             <div className='title'>
               <span className='alert-icon' key={alert.id}>
                 {alertIcon}
@@ -45,11 +51,24 @@ function AlertDetail(props: AlertDetailProps) {
               <a href={alert.link} target='_blank' rel='noreferrer'>
                 {alert.event}
               </a>
-              <span className='till'>
-                {endsAt && ` ends in ${endsAt} days at ${alert.ends}`}
-              </span>
+              <span className='till'>{expiry && ` · ${expiry}`}</span>
             </div>
-            <div className='details'>{sentences.join('.')}</div>
+            {parsedDescription ? (
+              <table className='alert-sections'>
+                <tbody>
+                  {parsedDescription.sections.map((section) => (
+                    <tr key={section.label}>
+                      <th className='section-label'>
+                        {toTitleCase(section.label)}
+                      </th>
+                      <td className='section-content'>{section.content}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            ) : (
+              <div className='details'>{sentences.join('.')}</div>
+            )}
           </div>
         );
       })}

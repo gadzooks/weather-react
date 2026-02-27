@@ -1,4 +1,4 @@
-import { formatDate, calculateWeekends, dateDifferenceInDays, nth } from './date';
+import { formatDate, calculateWeekends, dateDifferenceInDays, formatAlertExpiry, nth } from './date';
 
 describe('formatDate', () => {
   it('should format ISO date string to locale date', () => {
@@ -111,6 +111,54 @@ describe('dateDifferenceInDays', () => {
     const result = dateDifferenceInDays(jan1_2024);
     // Result depends on current date, just verify it's a number
     expect(typeof result).toBe('number');
+  });
+});
+
+describe('formatAlertExpiry', () => {
+  // now is floored to seconds; add a small buffer at boundaries so
+  // the sub-second elapsed between capturing `now` and calling
+  // Date.now() inside the function doesn't push us below the threshold.
+  const now = Math.floor(Date.now() / 1000);
+  const B = 5; // 5-second buffer
+
+  it('returns null for null/undefined', () => {
+    expect(formatAlertExpiry(null as unknown as number)).toBeNull();
+    expect(formatAlertExpiry(undefined as unknown as number)).toBeNull();
+  });
+
+  it('returns "expired" for an epoch just expired (< 1 hour ago)', () => {
+    expect(formatAlertExpiry(now - 1800)).toBe('expired'); // 30 min ago
+  });
+
+  it('returns "expired N hours ago" for 1-23 hours past', () => {
+    expect(formatAlertExpiry(now - 3_600 - B)).toBe('expired 1 hour ago');
+    expect(formatAlertExpiry(now - 5 * 3_600 - B)).toBe('expired 5 hours ago');
+  });
+
+  it('returns "expired N days ago" for 1+ days past', () => {
+    expect(formatAlertExpiry(now - 24 * 3_600 - B)).toBe('expired 1 day ago');
+    expect(formatAlertExpiry(now - 3 * 24 * 3_600 - B)).toBe('expired 3 days ago');
+  });
+
+  it('returns "ending soon" for less than 1 hour away', () => {
+    expect(formatAlertExpiry(now + 1800)).toBe('ending soon'); // 30 min
+  });
+
+  it('returns singular "ending in 1 hour" for ~1 hour away', () => {
+    expect(formatAlertExpiry(now + 3_600 + B)).toBe('ending in 1 hour');
+  });
+
+  it('returns plural hours for 2-23 hours away', () => {
+    expect(formatAlertExpiry(now + 2 * 3_600 + B)).toBe('ending in 2 hours');
+    expect(formatAlertExpiry(now + 23 * 3_600 + B)).toBe('ending in 23 hours');
+  });
+
+  it('returns singular "ending in 1 day" for ~1 day away', () => {
+    expect(formatAlertExpiry(now + 24 * 3_600 + B)).toBe('ending in 1 day');
+  });
+
+  it('returns plural days for 2+ days away', () => {
+    expect(formatAlertExpiry(now + 3 * 24 * 3_600 + B)).toBe('ending in 3 days');
   });
 });
 
