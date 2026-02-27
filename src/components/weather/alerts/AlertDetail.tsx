@@ -4,6 +4,10 @@ import type { AlertsById } from '../../../interfaces/ForecastResponseInterface';
 import { getAlertIconFromAllAlerts } from '../../../model/alert';
 import { dateDifferenceInDays } from '../../../utils/date';
 import convertToSentence from '../../../utils/string';
+import {
+  parseAlertDescription,
+  toTitleCase,
+} from '../../../utils/parseAlertDescription';
 import './AlertDetail.scss';
 
 export interface AlertDetailProps {
@@ -32,6 +36,7 @@ function AlertDetail(props: AlertDetailProps) {
         if (!alert) {
           return null;
         }
+        const parsedDescription = parseAlertDescription(alert.description || '');
         const lines = (alert.description || '').toLocaleLowerCase().split('\n');
         const sentences = lines.map((line) => convertToSentence(line));
         const endsAt = dateDifferenceInDays(alert.endsEpoch);
@@ -46,10 +51,24 @@ function AlertDetail(props: AlertDetailProps) {
                 {alert.event}
               </a>
               <span className='till'>
-                {endsAt && ` ends in ${endsAt} days at ${alert.ends}`}
+                {endsAt != null && endsAt > 0 && ` ends in ${endsAt} days at ${alert.ends}`}
+                {endsAt != null && endsAt <= 0 && ` ending soon at ${alert.ends}`}
               </span>
             </div>
-            <div className='details'>{sentences.join('.')}</div>
+            {parsedDescription ? (
+              <div className='alert-sections'>
+                {parsedDescription.sections.map((section) => (
+                  <div key={section.label} className='alert-section'>
+                    <span className='section-label'>
+                      {toTitleCase(section.label)}
+                    </span>
+                    <span className='section-content'>{section.content}</span>
+                  </div>
+                ))}
+              </div>
+            ) : (
+              <div className='details'>{sentences.join('.')}</div>
+            )}
           </div>
         );
       })}
