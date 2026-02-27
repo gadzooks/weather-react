@@ -46,6 +46,36 @@ div.alert span.alert-icon {
   color: var(--color-text-secondary, #9fa5b8);
 }
 
+.alert-sections {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.alert-section {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+}
+
+.section-label {
+  flex-shrink: 0;
+  font-size: 0.7em;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--color-alert-warning, #d97869);
+  background: rgba(217, 120, 105, 0.18);
+  padding: 2px 6px;
+  border-radius: 4px;
+}
+
+.section-content {
+  font-size: 0.9em;
+  line-height: 1.5;
+  color: var(--color-text-secondary, #9fa5b8);
+}
+
 // ============================================
 // Light Theme Overrides
 // ============================================
@@ -79,6 +109,15 @@ div.alert span.alert-icon {
   }
 
   .details {
+    color: #333333;
+  }
+
+  .section-label {
+    color: #e65100;
+    background: rgba(230, 81, 0, 0.1);
+  }
+
+  .section-content {
     color: #333333;
   }
 }

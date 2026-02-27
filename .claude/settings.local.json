@@ -88,7 +88,9 @@
       "Bash(strings:*)",
       "Bash(NODE_ENV=test vite build:*)",
       "Bash(yarn build:e2e:*)",
-      "WebFetch(domain:dev-weather-react.onrender.com)"
+      "WebFetch(domain:dev-weather-react.onrender.com)",
+      "Bash(yarn:*)",
+      "Bash(node_modules/.bin/vitest run:*)"
     ]
   }
 }
