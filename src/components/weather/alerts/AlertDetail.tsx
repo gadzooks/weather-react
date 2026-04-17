@@ -59,7 +59,7 @@ function AlertDetail(props: AlertDetailProps) {
                   {parsedDescription.sections.map((section) => (
                     <tr key={section.label}>
                       <th className='section-label'>
-                        {toTitleCase(section.label) === 'ADDITIONAL DETAILS' ? 'DETAILS' : toTitleCase(section.label)}
+                        {toTitleCase(section.label) === 'Additional Details' ? 'Details' : toTitleCase(section.label)}
                       </th>
                       <td className='section-content'>{section.content}</td>
                     </tr>

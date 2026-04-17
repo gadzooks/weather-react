@@ -38,9 +38,16 @@ function SummaryTable(props: SummaryTableProps) {
     showAqi,
   } = props;
   const navigate = useNavigate();
-  const parsedDates = (forecastResponse?.dates || []).map((d: string) =>
+  const allParsedDates = (forecastResponse?.dates || []).map((d: string) =>
     parse(d, 'YYYY-MM-DD'),
   );
+  const today = new Date();
+  today.setHours(0, 0, 0, 0);
+  const forecastStartIndex = allParsedDates.findIndex(
+    (date) => date !== null && date >= today,
+  );
+  const startIndex = forecastStartIndex === -1 ? allParsedDates.length : forecastStartIndex;
+  const parsedDates = allParsedDates.slice(startIndex);
   const weekends = calculateWeekends(parsedDates);
   const regions = matchedAreas.regions || [];
   const locationsByRegion = matchedAreas.locationsByRegion || {};
@@ -110,6 +117,7 @@ function SummaryTable(props: SummaryTableProps) {
                 dateSelectedIsWithinForecastRange={false}
                 alertProps={alertProps}
                 showAqi={showAqi}
+                forecastStartIndex={startIndex}
               />
             );
           }

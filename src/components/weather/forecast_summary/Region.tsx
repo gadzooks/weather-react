@@ -18,6 +18,7 @@ export interface RegionProps {
   dateSelectedIsWithinForecastRange: boolean;
   alertProps: AlertProps;
   showAqi: boolean;
+  forecastStartIndex: number;
 }
 
 function Region(props: RegionProps) {

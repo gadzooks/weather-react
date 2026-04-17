@@ -23,6 +23,7 @@ interface LocationProps {
   alertProps: AlertProps;
   alertIds: string[] | undefined;
   showAqi: boolean;
+  forecastStartIndex: number;
 }
 
 function maxAlertDays(
@@ -58,10 +59,11 @@ function Location(props: LocationProps) {
     alertProps,
     alertIds,
     showAqi,
+    forecastStartIndex,
   } = props;
 
   const navigate = useNavigate();
-  const forecasts = forecastsById.byId[location.name] || [];
+  const forecasts = (forecastsById.byId[location.name] || []).slice(forecastStartIndex);
   const locationHasAlerts = alertIds && alertIds?.length > 0;
   const maxDaysWithAlerts = maxAlertDays(alertProps, alertIds);
 
