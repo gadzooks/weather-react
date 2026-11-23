@@ -656,14 +656,14 @@ __metadata:
   linkType: hard
 
 "@babel/plugin-transform-for-of@npm:^7.29.13":
-  version: 7.29.13
-  resolution: "@babel/plugin-transform-for-of@npm:7.29.13"
+  version: 7.29.15
+  resolution: "@babel/plugin-transform-for-of@npm:7.29.15"
   dependencies:
     "@babel/helper-plugin-utils": "npm:^7.29.7"
     "@babel/helper-skip-transparent-expression-wrappers": "npm:^7.29.13"
   peerDependencies:
     "@babel/core": ^7.0.0-0
-  checksum: 10c0/dd40a506add1d137b6a96fa7b39a1a75330a9c5c298c68d3d537e17f464c6bb12046554c4b461ea2520519050d4e0ae269c56c33b77fad5cd5d9e4e07a2738b1
+  checksum: 10c0/b3413596dd6acc8877e4c26225fed6dfaa37ade7ef8cafbc68c7d8b7955e17d7b2cd34cee2df4ee5d755e974e45922cab270ecc31f513233db0a52aaa8660904
   languageName: node
   linkType: hard
 
