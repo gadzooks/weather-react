@@ -563,14 +563,14 @@ __metadata:
   linkType: hard
 
 "@babel/plugin-transform-computed-properties@npm:^7.29.7":
-  version: 7.29.7
-  resolution: "@babel/plugin-transform-computed-properties@npm:7.29.7"
+  version: 7.29.15
+  resolution: "@babel/plugin-transform-computed-properties@npm:7.29.15"
   dependencies:
     "@babel/helper-plugin-utils": "npm:^7.29.7"
     "@babel/template": "npm:^7.29.7"
   peerDependencies:
     "@babel/core": ^7.0.0-0
-  checksum: 10c0/a8755338ffbfb374bafc2b3c22b00b025b8e5cf1cbac9c1ecdb3fb4c538508cb1b8f7a4e8c874b05df5166ff19ef105e65d54fefcf0546c628fa67214453b708
+  checksum: 10c0/a225014079a313d94e3ecb9a0a5c887adeecba7df169b3e730e24a9612c34293c04a476943da4d07a9b65e87b05e16e07f1e765db95d75a58d7058b4cbcef3b0
   languageName: node
   linkType: hard
 
