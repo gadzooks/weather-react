@@ -977,14 +977,14 @@ __metadata:
   linkType: hard
 
 "@babel/plugin-transform-spread@npm:^7.29.11":
-  version: 7.29.11
-  resolution: "@babel/plugin-transform-spread@npm:7.29.11"
+  version: 7.29.15
+  resolution: "@babel/plugin-transform-spread@npm:7.29.15"
   dependencies:
     "@babel/helper-plugin-utils": "npm:^7.29.7"
-    "@babel/helper-skip-transparent-expression-wrappers": "npm:^7.29.7"
+    "@babel/helper-skip-transparent-expression-wrappers": "npm:^7.29.13"
   peerDependencies:
     "@babel/core": ^7.0.0-0
-  checksum: 10c0/31be19b71373243582d478eb0f524b298e31c9881d56851937317398101566ecc02e226acba887751156a5aca5527934e7e4aab1ced5b2965034ad3a3e2bfefa
+  checksum: 10c0/14eb20e3dcc8f2812ee2f5d8a57aa89380d7e715896d59015a5481896bc97abe66cfae7ec7cb5718c8ecbba0bb585953c71d6e5c2e93b85393c912139b41aa18
   languageName: node
   linkType: hard
 
